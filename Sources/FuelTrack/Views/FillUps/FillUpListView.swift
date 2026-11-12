@@ -15,6 +15,18 @@ struct FillUpListView: View {
         activeVehicle?.sortedFillUps.reversed() ?? []
     }
 
+    private var monthStart: Date {
+        Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: .now)) ?? .now
+    }
+
+    private var monthSpend: Double {
+        fillUps.filter { $0.date >= monthStart }.reduce(0) { $0 + $1.totalCost }
+    }
+
+    private var monthLiters: Double {
+        fillUps.filter { $0.date >= monthStart }.reduce(0) { $0 + $1.liters }
+    }
+
     var body: some View {
         NavigationStack {
             Group {
@@ -30,20 +42,37 @@ struct FillUpListView: View {
                         systemImage: "fuelpump",
                         description: Text("Log your first fill-up for \(activeVehicle?.name ?? "this car").")
                     )
-                } else {
-                    List {
-                        ForEach(fillUps) { fillUp in
-                            NavigationLink {
-                                FillUpFormView(vehicle: activeVehicle!, fillUp: fillUp)
-                            } label: {
-                                FillUpRow(fillUp: fillUp, unit: activeVehicle?.odometerUnit ?? .miles)
+                } else if let vehicle = activeVehicle {
+                    ScrollView {
+                        VStack(spacing: 14) {
+                            summary(for: vehicle)
+
+                            LazyVStack(spacing: 12) {
+                                ForEach(fillUps) { fillUp in
+                                    NavigationLink {
+                                        FillUpFormView(vehicle: vehicle, fillUp: fillUp)
+                                    } label: {
+                                        FillUpCard(
+                                            fillUp: fillUp,
+                                            unit: vehicle.odometerUnit
+                                        )
+                                    }
+                                    .buttonStyle(.plain)
+                                    .contextMenu {
+                                        Button("Delete", role: .destructive) {
+                                            modelContext.delete(fillUp)
+                                            try? modelContext.save()
+                                        }
+                                    }
+                                }
                             }
                         }
-                        .onDelete(perform: delete)
+                        .padding()
                     }
                 }
             }
-            .navigationTitle("Fill-ups")
+            .navigationTitle("Fuel")
+            .fuelTrackScreen()
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     if !vehicles.isEmpty {
@@ -83,61 +112,120 @@ struct FillUpListView: View {
         }
     }
 
-    private func delete(at offsets: IndexSet) {
-        for index in offsets {
-            modelContext.delete(fillUps[index])
+    private func summary(for vehicle: Vehicle) -> some View {
+        VStack(spacing: 12) {
+            GlassCard {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(vehicle.name)
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                    HStack(alignment: .firstTextBaseline) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("This month")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            Text(Formatters.currency(monthSpend, code: vehicle.currencyCode))
+                                .font(.largeTitle.weight(.bold))
+                                .minimumScaleFactor(0.7)
+                                .lineLimit(1)
+                        }
+                        Spacer()
+                        VStack(alignment: .trailing, spacing: 4) {
+                            Text(Formatters.liters(monthLiters))
+                                .font(.title3.weight(.semibold))
+                            Text("\(fillUps.filter { $0.date >= monthStart }.count) fills")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                }
+            }
+
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                GlassStatChip(
+                    title: "Fill-ups",
+                    value: "\(fillUps.count)"
+                )
+                if let last = fillUps.first {
+                    GlassStatChip(
+                        title: "Last fill",
+                        value: Formatters.shortDate(last.date),
+                        tint: GlassTheme.accentWarm
+                    )
+                }
+            }
         }
-        try? modelContext.save()
     }
 }
 
-private struct FillUpRow: View {
+private struct FillUpCard: View {
     let fillUp: FillUp
     let unit: OdometerUnit
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            HStack {
-                Text(Formatters.shortDate(fillUp.date))
-                    .font(.headline)
-                Spacer()
-                Text(Formatters.currency(fillUp.totalCost, code: fillUp.currencyCode))
-                    .font(.headline)
-            }
-            HStack {
-                Text(Formatters.liters(fillUp.liters))
-                Text("·")
-                Text(Formatters.odometer(fillUp.odometer, unit: unit))
-                if let ppl = fillUp.pricePerLiter {
-                    Text("·")
-                    Text(Formatters.pricePerLiter(ppl, code: fillUp.currencyCode))
+        GlassCard {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack(alignment: .top) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(Formatters.shortDate(fillUp.date))
+                            .font(.headline)
+                            .foregroundStyle(.primary)
+                        if !fillUp.station.isEmpty {
+                            Text(fillUp.station)
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                                .lineLimit(2)
+                        } else {
+                            Text(fillUp.fuelType.displayName)
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    Spacer(minLength: 8)
+                    Text(Formatters.currency(fillUp.totalCost, code: fillUp.currencyCode))
+                        .font(.title3.weight(.bold))
+                        .foregroundStyle(.primary)
                 }
-            }
-            .font(.subheadline)
-            .foregroundStyle(.secondary)
 
-            HStack(spacing: 8) {
-                if fillUp.isFullTank {
-                    Label("Full", systemImage: "circle.fill")
-                        .font(.caption2)
-                        .foregroundStyle(.green)
-                } else {
-                    Label("Partial", systemImage: "circle")
-                        .font(.caption2)
-                        .foregroundStyle(.orange)
+                HStack(spacing: 16) {
+                    metric(Formatters.liters(fillUp.liters), label: "Volume")
+                    metric(Formatters.odometer(fillUp.odometer, unit: unit), label: "Odo")
+                    if let ppl = fillUp.pricePerLiter {
+                        metric(Formatters.pricePerLiter(ppl, code: fillUp.currencyCode), label: "Per litre")
+                    }
                 }
-                if fillUp.skipped {
-                    Label("Missed", systemImage: "exclamationmark.triangle")
-                        .font(.caption2)
-                        .foregroundStyle(.red)
-                }
-                if !fillUp.station.isEmpty {
-                    Text(fillUp.station)
+
+                HStack(spacing: 8) {
+                    Text(fillUp.fuelType.shortName)
+                        .font(.caption.weight(.semibold))
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
+                        .glassEffect(.regular.interactive(), in: .capsule)
+                    Text(fillUp.isFullTank ? "Full tank" : "Partial")
                         .font(.caption)
-                        .foregroundStyle(.tertiary)
+                        .foregroundStyle(fillUp.isFullTank ? Color.green : Color.orange)
+                    if fillUp.skipped {
+                        Text("Missed prior")
+                            .font(.caption)
+                            .foregroundStyle(.red)
+                    }
+                    Spacer()
                 }
             }
         }
-        .padding(.vertical, 2)
+    }
+
+    private func metric(_ value: String, label: String) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(label.uppercased())
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(.tertiary)
+            Text(value)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.primary)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

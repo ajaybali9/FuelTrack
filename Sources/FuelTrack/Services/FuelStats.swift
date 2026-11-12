@@ -47,6 +47,7 @@ struct VehicleFuelStats: Sendable, Equatable {
     var averageMPG: Double?
     var averageCostPerDistance: Double?
     var spendThisMonth: Double
+    var spendThisYear: Double
     var segments: [ConsumptionSegment]
 }
 
@@ -139,8 +140,12 @@ enum FuelStats {
         }()
 
         let monthStart = calendar.date(from: calendar.dateComponents([.year, .month], from: now)) ?? now
+        let yearStart = calendar.date(from: calendar.dateComponents([.year], from: now)) ?? now
         let spendThisMonth = ordered
             .filter { $0.date >= monthStart }
+            .reduce(0) { $0 + $1.totalCost }
+        let spendThisYear = ordered
+            .filter { $0.date >= yearStart }
             .reduce(0) { $0 + $1.totalCost }
 
         return VehicleFuelStats(
@@ -154,6 +159,7 @@ enum FuelStats {
             averageMPG: averageMPG,
             averageCostPerDistance: averageCostPerDistance,
             spendThisMonth: spendThisMonth,
+            spendThisYear: spendThisYear,
             segments: segments
         )
     }

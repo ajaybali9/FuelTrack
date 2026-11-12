@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>FuelTrack</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>FuelTrack uses your location to find nearby petrol stations and the best local fuel prices.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>FuelTrack uses your location to find nearby petrol stations and the best local fuel prices.</string>
+</dict>
+</plist>

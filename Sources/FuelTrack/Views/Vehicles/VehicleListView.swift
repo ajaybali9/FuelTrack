@@ -6,92 +6,121 @@ struct VehicleListView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(ActiveVehicleStore.self) private var activeVehicleStore
     @State private var showingAdd = false
+    @State private var vehiclePendingDelete: Vehicle?
+    @State private var showDeleteConfirm = false
 
     private var activeVehicle: Vehicle? {
         activeVehicleStore.resolve(from: vehicles)
     }
 
     var body: some View {
-        NavigationStack {
-            Group {
-                if vehicles.isEmpty {
-                    ContentUnavailableView(
-                        "No vehicles yet",
-                        systemImage: "car.side",
-                        description: Text("Add a car to start tracking fuel.")
-                    )
-                } else {
-                    List {
+        Group {
+            if vehicles.isEmpty {
+                ContentUnavailableView(
+                    "No vehicles yet",
+                    systemImage: "car.side",
+                    description: Text("Add a car to start tracking fuel.")
+                )
+            } else {
+                ScrollView {
+                    LazyVStack(spacing: 12) {
                         ForEach(vehicles) { vehicle in
-                            NavigationLink {
-                                VehicleFormView(vehicle: vehicle)
-                            } label: {
-                                HStack {
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        Text(vehicle.name)
-                                            .font(.headline)
-                                        Text(vehicle.displaySubtitle)
-                                            .font(.subheadline)
-                                            .foregroundStyle(.secondary)
-                                        Text("\(vehicle.currencyCode.rawValue) · \(vehicle.odometerUnit.displayName)")
-                                            .font(.caption)
-                                            .foregroundStyle(.tertiary)
-                                    }
-                                    Spacer()
-                                    if vehicle.id == activeVehicle?.id {
-                                        Image(systemName: "checkmark.circle.fill")
-                                            .foregroundStyle(.tint)
-                                    }
-                                }
-                                .contentShape(Rectangle())
-                                .onLongPressGesture {
-                                    activeVehicleStore.select(vehicle)
-                                }
-                            }
-                            .swipeActions(edge: .leading) {
-                                Button {
-                                    activeVehicleStore.select(vehicle)
+                            HStack(spacing: 10) {
+                                NavigationLink {
+                                    VehicleFormView(vehicle: vehicle)
                                 } label: {
-                                    Label("Active", systemImage: "checkmark.circle")
+                                    GlassCard {
+                                        HStack {
+                                            VStack(alignment: .leading, spacing: 4) {
+                                                Text(vehicle.name)
+                                                    .font(.headline)
+                                                    .foregroundStyle(.primary)
+                                                Text(vehicle.displaySubtitle)
+                                                    .font(.subheadline)
+                                                    .foregroundStyle(.secondary)
+                                                Text("\(vehicle.currencyCode.rawValue) · \(vehicle.odometerUnit.displayName)")
+                                                    .font(.caption)
+                                                    .foregroundStyle(.tertiary)
+                                            }
+                                            Spacer()
+                                            if vehicle.id == activeVehicle?.id {
+                                                Image(systemName: "checkmark.circle.fill")
+                                                    .foregroundStyle(GlassTheme.accent)
+                                            }
+                                            Image(systemName: "chevron.right")
+                                                .font(.caption.weight(.semibold))
+                                                .foregroundStyle(.tertiary)
+                                        }
+                                    }
                                 }
-                                .tint(.blue)
+                                .buttonStyle(.plain)
+
+                                Button {
+                                    vehiclePendingDelete = vehicle
+                                    showDeleteConfirm = true
+                                } label: {
+                                    Image(systemName: "trash")
+                                        .foregroundStyle(.red)
+                                        .frame(width: 44, height: 44)
+                                        .glassEffect(.regular.interactive(), in: .circle)
+                                }
+                                .buttonStyle(.plain)
+                                .accessibilityLabel("Delete \(vehicle.name)")
+                            }
+                            .contextMenu {
+                                Button("Set Active") { activeVehicleStore.select(vehicle) }
+                                Button("Delete", role: .destructive) {
+                                    vehiclePendingDelete = vehicle
+                                    showDeleteConfirm = true
+                                }
                             }
                         }
-                        .onDelete(perform: delete)
                     }
+                    .padding()
                 }
             }
-            .navigationTitle("Vehicles")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        showingAdd = true
-                    } label: {
-                        Image(systemName: "plus")
-                    }
+        }
+        .navigationTitle("Vehicles")
+        .fuelTrackScreen()
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showingAdd = true
+                } label: {
+                    Image(systemName: "plus")
                 }
             }
-            .sheet(isPresented: $showingAdd) {
-                NavigationStack {
-                    VehicleFormView(vehicle: nil)
+        }
+        .sheet(isPresented: $showingAdd) {
+            NavigationStack {
+                VehicleFormView(vehicle: nil)
+            }
+        }
+        .confirmationDialog(
+            "Delete this vehicle?",
+            isPresented: $showDeleteConfirm,
+            titleVisibility: .visible
+        ) {
+            Button("Delete Vehicle", role: .destructive) {
+                if let vehiclePendingDelete {
+                    delete(vehiclePendingDelete)
                 }
             }
+            Button("Cancel", role: .cancel) {
+                vehiclePendingDelete = nil
+            }
+        } message: {
+            Text("This removes the car and all linked fill-ups, costs, and reminders.")
         }
     }
 
-    private func delete(at offsets: IndexSet) {
-        let remaining = vehicles.enumerated()
-            .filter { !offsets.contains($0.offset) }
-            .map(\.element)
-
-        for index in offsets {
-            let vehicle = vehicles[index]
-            if activeVehicleStore.activeVehicleID == vehicle.id {
-                activeVehicleStore.activeVehicleID = nil
-            }
-            modelContext.delete(vehicle)
+    private func delete(_ vehicle: Vehicle) {
+        if activeVehicleStore.activeVehicleID == vehicle.id {
+            activeVehicleStore.activeVehicleID = nil
         }
+        modelContext.delete(vehicle)
         try? modelContext.save()
-        _ = activeVehicleStore.resolve(from: remaining)
+        vehiclePendingDelete = nil
+        _ = activeVehicleStore.resolve(from: vehicles.filter { $0.id != vehicle.id })
     }
 }

@@ -17,6 +17,11 @@ struct FillUpFormView: View {
     @State private var skipped = false
     @State private var station = ""
     @State private var note = ""
+    @State private var fuelType: FuelType = .petrolE10
+    @State private var showingStationPicker = false
+    @State private var selectedPricePence: Double?
+    @State private var showingSavedAlert = false
+    @State private var saveError: String?
 
     private var isEditing: Bool { fillUp != nil }
 
@@ -66,6 +71,11 @@ struct FillUpFormView: View {
                         Text(code.displayName).tag(code)
                     }
                 }
+                Picker("Fuel type", selection: $fuelType) {
+                    ForEach(FuelType.selectableCases) { type in
+                        Text(type.displayName).tag(type)
+                    }
+                }
             }
 
             Section("Tank") {
@@ -74,7 +84,26 @@ struct FillUpFormView: View {
             }
 
             Section("Details") {
-                TextField("Station", text: $station)
+                HStack {
+                    TextField("Station", text: $station)
+                    Button {
+                        showingStationPicker = true
+                    } label: {
+                        Image(systemName: "mappin.and.ellipse")
+                            .foregroundStyle(GlassTheme.accent)
+                    }
+                    .accessibilityLabel("Choose station from list")
+                }
+                if let selectedPricePence {
+                    Text(String(format: "Listed at %.1fp/L", selectedPricePence))
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    if let liters = parsedLiters, liters > 0, currencyCode == .gbp {
+                        Button("Fill total from station price") {
+                            totalCostText = String(format: "%.2f", (selectedPricePence / 100.0) * liters)
+                        }
+                    }
+                }
                 TextField("Note", text: $note, axis: .vertical)
                     .lineLimit(2...4)
             }
@@ -82,6 +111,12 @@ struct FillUpFormView: View {
             if let liters = parsedLiters, liters > 0, let cost = parsedCost {
                 Section("Preview") {
                     LabeledContent("Price / L", value: Formatters.pricePerLiter(cost / liters, code: currencyCode))
+                }
+            }
+
+            if let saveError {
+                Section {
+                    Text(saveError).foregroundStyle(.red)
                 }
             }
         }
@@ -98,7 +133,60 @@ struct FillUpFormView: View {
                     .disabled(!canSave)
             }
         }
+        .sheet(isPresented: $showingStationPicker) {
+            StationPickerView(
+                fuelType: fuelType,
+                onSelect: { picked in
+                    applyStation(picked)
+                },
+                onSelectName: { name in
+                    station = name
+                    selectedPricePence = nil
+                }
+            )
+        }
+        .alert("Fill-up saved", isPresented: $showingSavedAlert) {
+            Button("OK") {
+                if !isEditing { dismiss() }
+            }
+        } message: {
+            Text(
+                isEditing
+                    ? "Your changes are saved for \(vehicle.name)."
+                    : "Logged \(Formatters.liters(parsedLiters ?? 0)) for \(vehicle.name)."
+            )
+        }
         .onAppear(perform: load)
+    }
+
+    private func applyStation(_ picked: NearbyStation) {
+        // Synthetic used-station picks have a zero coordinate and "used-" id.
+        if picked.id.hasPrefix("used-") {
+            station = picked.name
+            selectedPricePence = nil
+            return
+        }
+
+        var parts: [String] = []
+        if !picked.brand.isEmpty, !picked.name.localizedCaseInsensitiveContains(picked.brand) {
+            parts.append(picked.brand)
+        }
+        parts.append(picked.name)
+        if !picked.city.isEmpty, !picked.name.localizedCaseInsensitiveContains(picked.city) {
+            parts.append(picked.city)
+        }
+        if !picked.postcode.isEmpty {
+            parts.append(picked.postcode)
+        }
+        station = parts.joined(separator: " · ")
+        selectedPricePence = picked.pricePence
+        if let pence = picked.pricePence,
+           let liters = parsedLiters,
+           liters > 0,
+           currencyCode == .gbp,
+           (parsedCost ?? 0) <= 0 {
+            totalCostText = String(format: "%.2f", (pence / 100.0) * liters)
+        }
     }
 
     private func load() {
@@ -112,8 +200,10 @@ struct FillUpFormView: View {
             skipped = fillUp.skipped
             station = fillUp.station
             note = fillUp.note
+            fuelType = fillUp.fuelType
         } else {
             currencyCode = vehicle.currencyCode
+            fuelType = vehicle.fuelType
             if let last = vehicle.latestOdometer {
                 odometerText = formatNumber(last)
             }
@@ -142,6 +232,7 @@ struct FillUpFormView: View {
             fillUp.skipped = skipped
             fillUp.station = station.trimmingCharacters(in: .whitespacesAndNewlines)
             fillUp.note = note.trimmingCharacters(in: .whitespacesAndNewlines)
+            fillUp.fuelType = fuelType
         } else {
             let created = FillUp(
                 date: date,
@@ -153,14 +244,20 @@ struct FillUpFormView: View {
                 skipped: skipped,
                 station: station.trimmingCharacters(in: .whitespacesAndNewlines),
                 note: note.trimmingCharacters(in: .whitespacesAndNewlines),
+                fuelType: fuelType,
                 vehicle: vehicle
             )
             modelContext.insert(created)
         }
 
-        try? modelContext.save()
-        if !isEditing {
-            dismiss()
+        do {
+            try modelContext.save()
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            saveError = nil
+            showingSavedAlert = true
+        } catch {
+            saveError = error.localizedDescription
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
         }
     }
 }

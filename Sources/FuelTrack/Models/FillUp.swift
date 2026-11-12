@@ -13,6 +13,7 @@ final class FillUp {
     var skipped: Bool
     var station: String
     var note: String
+    var fuelTypeRaw: String = ""
     var createdAt: Date
 
     var vehicle: Vehicle?
@@ -28,6 +29,7 @@ final class FillUp {
         skipped: Bool = false,
         station: String = "",
         note: String = "",
+        fuelType: FuelType? = nil,
         createdAt: Date = .now,
         vehicle: Vehicle? = nil
     ) {
@@ -41,6 +43,7 @@ final class FillUp {
         self.skipped = skipped
         self.station = station
         self.note = note
+        self.fuelTypeRaw = fuelType?.rawValue ?? ""
         self.createdAt = createdAt
         self.vehicle = vehicle
     }
@@ -48,6 +51,18 @@ final class FillUp {
     var currencyCode: CurrencyCode {
         get { CurrencyCode(rawValue: currencyCodeRaw) ?? .gbp }
         set { currencyCodeRaw = newValue.rawValue }
+    }
+
+    var fuelType: FuelType {
+        get {
+            if fuelTypeRaw.isEmpty {
+                return vehicle?.fuelType ?? .petrolE10
+            }
+            return FuelType.fromStored(fuelTypeRaw)
+        }
+        set {
+            fuelTypeRaw = newValue == .petrol ? FuelType.petrolE10.rawValue : newValue.rawValue
+        }
     }
 
     var pricePerLiter: Double? {

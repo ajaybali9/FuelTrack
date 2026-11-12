@@ -1,32 +1,47 @@
 import SwiftData
 import SwiftUI
 
+enum AppTab: Hashable {
+    case home, fuel, spend, stations, more
+}
+
 struct ContentView: View {
     @Query(sort: \Vehicle.createdAt) private var vehicles: [Vehicle]
     @Environment(ActiveVehicleStore.self) private var activeVehicleStore
+    @AppStorage("appearancePreference") private var appearancePreference = AppearancePreference.system.rawValue
+    @State private var selectedTab: AppTab = .home
+
+    private var preferredScheme: ColorScheme? {
+        AppearancePreference(rawValue: appearancePreference)?.colorScheme
+    }
 
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             DashboardView()
-                .tabItem {
-                    Label("Dashboard", systemImage: "gauge.with.dots.needle.33percent")
-                }
+                .tabItem { Label("Home", systemImage: "house.fill") }
+                .tag(AppTab.home)
 
             FillUpListView()
-                .tabItem {
-                    Label("Fill-ups", systemImage: "fuelpump")
-                }
+                .tabItem { Label("Fuel", systemImage: "fuelpump.fill") }
+                .tag(AppTab.fuel)
 
-            VehicleListView()
-                .tabItem {
-                    Label("Vehicles", systemImage: "car.side")
-                }
+            SpendRootView()
+                .tabItem { Label("Spend", systemImage: "creditcard.fill") }
+                .tag(AppTab.spend)
 
-            SettingsView()
-                .tabItem {
-                    Label("Settings", systemImage: "gearshape")
-                }
+            NearbyStationsView()
+                .tabItem { Label("Stations", systemImage: "mappin.and.ellipse") }
+                .tag(AppTab.stations)
+
+            MoreView()
+                .tabItem { Label("More", systemImage: "ellipsis.circle.fill") }
+                .tag(AppTab.more)
         }
+        .tint(GlassTheme.accent)
+        .preferredColorScheme(preferredScheme)
+        .animation(.smooth(duration: 0.32), value: selectedTab)
+        .animation(.smooth(duration: 0.4), value: appearancePreference)
+        .sensoryFeedback(.selection, trigger: selectedTab)
         .onAppear {
             _ = activeVehicleStore.resolve(from: vehicles)
         }

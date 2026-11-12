@@ -1,12 +1,12 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 6.2
 
 import PackageDescription
 
 let package = Package(
     name: "FuelTrack",
     platforms: [
-        .iOS(.v17),
-        .macOS(.v14),
+        .iOS(.v26),
+        .macOS(.v15),
     ],
     products: [
         .library(
