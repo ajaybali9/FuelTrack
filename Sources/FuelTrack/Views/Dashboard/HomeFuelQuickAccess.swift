@@ -5,9 +5,8 @@ struct HomeFuelQuickAccess: View {
 
     @Environment(LocationProvider.self) private var locationProvider
 
-    @State private var cheapest: NearbyStation?
+    @State private var topStations: [NearbyStation] = []
     @State private var nearest: NearbyStation?
-    @State private var fuelCode: String = "E10"
     @State private var isLoading = false
     @State private var errorMessage: String?
     @State private var didLoad = false
@@ -16,74 +15,85 @@ struct HomeFuelQuickAccess: View {
         vehicle.fuelType.supportsNearbyPrices ? vehicle.fuelType : .petrolE10
     }
 
+    private var cheapestID: String? { topStations.first?.id }
+
     var body: some View {
-        GlassCard {
-            VStack(alignment: .leading, spacing: 12) {
-                HStack {
+        GlassCard(padding: 14) {
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(spacing: 8) {
                     Label("Fuel nearby", systemImage: "fuelpump.fill")
                         .font(.headline)
-                    Spacer()
+                    Spacer(minLength: 0)
                     Text(resolvedFuel.shortName)
                         .font(.caption.weight(.bold))
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
                         .glassEffect(.regular.interactive(), in: .capsule)
-                }
-
-                if !resolvedFuel.supportsNearbyPrices {
-                    Text("This car’s fuel type doesn’t have UK pump-price data. Switch to E10 / E5 / Diesel for live prices.")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                } else if isLoading && cheapest == nil && nearest == nil {
-                    HStack(spacing: 10) {
-                        ProgressView()
-                        Text("Finding best prices…")
-                            .foregroundStyle(.secondary)
-                    }
-                    .font(.subheadline)
-                } else if let errorMessage, cheapest == nil {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text(errorMessage)
-                            .font(.footnote)
-                            .foregroundStyle(.orange)
-                        Button("Try again") {
-                            Task { await reload(forceLocation: true) }
-                        }
-                        .font(.subheadline.weight(.semibold))
-                    }
-                } else {
-                    if let cheapest {
-                        stationRow(
-                            badge: "Cheapest",
-                            badgeTint: GlassTheme.accentWarm,
-                            station: cheapest
-                        )
-                    }
-                    if let nearest, nearest.id != cheapest?.id {
-                        stationRow(
-                            badge: "Nearest",
-                            badgeTint: GlassTheme.accent,
-                            station: nearest
-                        )
-                    }
-                    if cheapest == nil && nearest == nil {
-                        Text("No stations found nearby. Open Stations to widen the search.")
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                    }
-                }
-
-                HStack {
-                    Text("UK pump prices · \(resolvedFuel.displayName)")
-                        .font(.caption2)
-                        .foregroundStyle(.tertiary)
-                    Spacer()
                     Button {
                         Task { await reload(forceLocation: true) }
                     } label: {
                         Image(systemName: "arrow.clockwise")
+                            .font(.caption.weight(.semibold))
                     }
                     .disabled(isLoading)
+                }
+
+                if !resolvedFuel.supportsNearbyPrices {
+                    Text("Switch fuel to E10 / E5 / Diesel for live UK pump prices.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                } else if isLoading && topStations.isEmpty {
+                    HStack(spacing: 8) {
+                        ProgressView()
+                        Text("Finding best prices…")
+                            .foregroundStyle(.secondary)
+                    }
+                    .font(.caption)
+                } else if let errorMessage, topStations.isEmpty {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(errorMessage)
+                            .font(.caption)
+                            .foregroundStyle(.orange)
+                        Button("Try again") {
+                            Task { await reload(forceLocation: true) }
+                        }
+                        .font(.caption.weight(.semibold))
+                    }
+                } else if topStations.isEmpty {
+                    Text("No stations nearby. Open Stations to widen the search.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                } else {
+                    if let nearest {
+                        HStack(spacing: 6) {
+                            Image(systemName: "location.fill")
+                                .font(.caption2)
+                                .foregroundStyle(GlassTheme.accent)
+                            Text("Nearest \(nearest.name)")
+                                .lineLimit(1)
+                            if let miles = nearest.distanceMiles {
+                                Text("· \(String(format: "%.1f mi", miles))")
+                            }
+                            if let price = nearest.pricePence {
+                                Text("· \(String(format: "%.0fp", price))")
+                            }
+                        }
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                    }
+
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 8) {
+                            ForEach(Array(topStations.enumerated()), id: \.element.id) { index, station in
+                                compactStationChip(
+                                    rank: index + 1,
+                                    station: station,
+                                    isBest: station.id == cheapestID
+                                )
+                            }
+                        }
+                        .padding(.vertical, 2)
+                    }
                 }
             }
         }
@@ -99,57 +109,74 @@ struct HomeFuelQuickAccess: View {
         }
     }
 
-    private func stationRow(badge: String, badgeTint: Color, station: NearbyStation) -> some View {
-        HStack(alignment: .top, spacing: 12) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(badge.uppercased())
-                    .font(.caption2.weight(.bold))
-                    .foregroundStyle(badgeTint)
-                Text(station.name)
-                    .font(.subheadline.weight(.semibold))
+    private func compactStationChip(rank: Int, station: NearbyStation, isBest: Bool) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 6) {
+                Text("#\(rank)")
+                    .font(.caption2.weight(.bold).monospacedDigit())
+                    .foregroundStyle(isBest ? GlassTheme.accentWarm : .secondary)
+                if isBest {
+                    Image(systemName: "flame.fill")
+                        .font(.caption2)
+                        .foregroundStyle(GlassTheme.accentWarm)
+                }
+                Spacer(minLength: 0)
+                if let url = station.mapsURL {
+                    Link(destination: url) {
+                        Image(systemName: "arrow.triangle.turn.up.right.diamond.fill")
+                            .font(.caption)
+                            .foregroundStyle(GlassTheme.accent)
+                    }
+                }
+            }
+
+            if let price = station.pricePence {
+                Text(String(format: "%.1fp", price))
+                    .font(.title3.weight(.bold))
                     .foregroundStyle(.primary)
-                    .lineLimit(2)
-                HStack(spacing: 6) {
-                    if let price = station.pricePence {
-                        Text(String(format: "%.1fp/L", price))
-                            .font(.title3.weight(.bold))
-                    }
-                    if let miles = station.distanceMiles {
-                        Text("· \(String(format: "%.1f mi", miles))")
-                            .foregroundStyle(.secondary)
-                    }
+                    .minimumScaleFactor(0.8)
+                    .lineLimit(1)
+            } else {
+                Text("—")
+                    .font(.title3.weight(.bold))
+                    .foregroundStyle(.tertiary)
+            }
+
+            Text(station.name)
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(.primary)
+                .lineLimit(2)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(minHeight: 28, alignment: .top)
+
+            HStack(spacing: 4) {
+                if let miles = station.distanceMiles {
+                    Label(String(format: "%.1f mi", miles), systemImage: "location")
                 }
-                if !station.postcode.isEmpty || !station.brand.isEmpty {
-                    Text([station.brand, station.postcode].filter { !$0.isEmpty }.joined(separator: " · "))
-                        .font(.caption)
-                        .foregroundStyle(.tertiary)
+                if !station.brand.isEmpty {
+                    Text("· \(station.brand)")
+                        .lineLimit(1)
                 }
             }
-            Spacer(minLength: 0)
-            if let url = station.mapsURL {
-                Link(destination: url) {
-                    Image(systemName: "arrow.triangle.turn.up.right.diamond.fill")
-                        .font(.title3)
-                        .foregroundStyle(GlassTheme.accent)
-                        .frame(width: 44, height: 44)
-                        .glassEffect(.regular.interactive(), in: .circle)
-                }
-            }
+            .font(.caption2)
+            .foregroundStyle(.tertiary)
         }
-        .padding(12)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .glassEffect(.regular.interactive(), in: .rect(cornerRadius: 18))
+        .padding(10)
+        .frame(width: 132, alignment: .leading)
+        .glassEffect(
+            isBest ? .regular.tint(GlassTheme.accentWarm.opacity(0.35)).interactive() : .regular.interactive(),
+            in: .rect(cornerRadius: 16)
+        )
     }
 
     @MainActor
     private func reload(forceLocation: Bool) async {
         guard let fuelCode = resolvedFuel.nearbyAPIFuelCode else {
-            cheapest = nil
+            topStations = []
             nearest = nil
             errorMessage = nil
             return
         }
-        self.fuelCode = fuelCode
 
         if forceLocation || locationProvider.coordinate == nil {
             locationProvider.requestAccessIfNeeded()
@@ -173,20 +200,20 @@ struct HomeFuelQuickAccess: View {
         defer { isLoading = false }
 
         do {
-            async let cheapestTask = NearbyStationsService.fetch(
+            let response = try await NearbyStationsService.fetch(
                 latitude: coordinate.latitude,
                 longitude: coordinate.longitude,
                 fuelCode: fuelCode,
                 radiusMiles: 10,
-                limit: 15
+                limit: 20
             )
-            // Reuse cheapest response: API already sorts by price; pick nearest from same set.
-            let response = try await cheapestTask
             let stations = response.stations
-            cheapest = stations.first
-            nearest = stations.min(by: { ($0.distanceMiles ?? .greatestFiniteMagnitude) < ($1.distanceMiles ?? .greatestFiniteMagnitude) })
+            topStations = Array(stations.prefix(5))
+            nearest = stations.min(by: {
+                ($0.distanceMiles ?? .greatestFiniteMagnitude) < ($1.distanceMiles ?? .greatestFiniteMagnitude)
+            })
         } catch {
-            cheapest = nil
+            topStations = []
             nearest = nil
             errorMessage = error.localizedDescription
         }

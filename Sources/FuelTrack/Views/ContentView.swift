@@ -44,9 +44,34 @@ struct ContentView: View {
         .sensoryFeedback(.selection, trigger: selectedTab)
         .onAppear {
             _ = activeVehicleStore.resolve(from: vehicles)
+            Task {
+                await ComplianceNotificationScheduler.reschedule(for: vehicles)
+            }
         }
         .onChange(of: vehicles.map(\.id)) { _, _ in
             _ = activeVehicleStore.resolve(from: vehicles)
+            Task {
+                await ComplianceNotificationScheduler.reschedule(for: vehicles)
+            }
         }
+        .onChange(of: complianceSignature) { _, _ in
+            Task {
+                await ComplianceNotificationScheduler.reschedule(for: vehicles)
+            }
+        }
+    }
+
+    /// Rebuild alerts when MOT / tax / insurance dates change.
+    private var complianceSignature: String {
+        vehicles
+            .map { vehicle in
+                [
+                    vehicle.id.uuidString,
+                    String(Int(vehicle.motExpiry?.timeIntervalSince1970 ?? 0)),
+                    String(Int(vehicle.taxDueDate?.timeIntervalSince1970 ?? 0)),
+                    String(Int(vehicle.insuranceExpiry?.timeIntervalSince1970 ?? 0)),
+                ].joined(separator: "|")
+            }
+            .joined(separator: ";")
     }
 }

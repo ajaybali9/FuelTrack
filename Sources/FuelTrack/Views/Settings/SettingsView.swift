@@ -6,9 +6,11 @@ struct SettingsView: View {
     @AppStorage("appearancePreference") private var appearancePreference = AppearancePreference.system.rawValue
     @AppStorage("dvlaAPIKey") private var dvlaAPIKey = ""
     @AppStorage("dvlaEnvironment") private var dvlaEnvironmentRaw = DVLAEnvironment.test.rawValue
+    @AppStorage("complianceNotificationsEnabled") private var complianceNotificationsEnabled = true
 
     @State private var isTestingDVLA = false
     @State private var dvlaTestMessage: String?
+    @State private var notificationStatusMessage: String?
 
     private var currencyBinding: Binding<CurrencyCode> {
         Binding(
@@ -67,6 +69,34 @@ struct SettingsView: View {
                 Picker("Odometer unit", selection: unitBinding) {
                     ForEach(OdometerUnit.allCases) { unit in
                         Text(unit.displayName).tag(unit)
+                    }
+                }
+            }
+
+            Section {
+                Toggle("Expiry alerts", isOn: $complianceNotificationsEnabled)
+                Text("Local notifications 4 days and 3 days before MOT, road tax, or insurance expiry (9:00 am).")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                if let notificationStatusMessage {
+                    Text(notificationStatusMessage)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+            } header: {
+                Text("Reminders")
+            }
+            .onChange(of: complianceNotificationsEnabled) { _, enabled in
+                ComplianceNotificationScheduler.isEnabled = enabled
+                Task {
+                    if enabled {
+                        let ok = await ComplianceNotificationScheduler.requestAuthorizationIfNeeded()
+                        notificationStatusMessage = ok
+                            ? "Notifications allowed. Alerts will refresh from your vehicle dates."
+                            : "Notifications are off in iOS Settings for FuelTrack."
+                    } else {
+                        await ComplianceNotificationScheduler.cancelAllComplianceNotifications()
+                        notificationStatusMessage = "Expiry alerts turned off."
                     }
                 }
             }

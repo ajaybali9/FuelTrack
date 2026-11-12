@@ -143,6 +143,9 @@ enum VehicleComplianceSync {
         upsert(vehicle: vehicle, title: "Road tax due", dueDate: vehicle.taxDueDate, note: "Tax · \(vehicle.taxStatus.isEmpty ? "due" : vehicle.taxStatus)", in: context)
         upsert(vehicle: vehicle, title: "Insurance renewal", dueDate: vehicle.insuranceExpiry, note: vehicle.insuranceProvider.isEmpty ? "Insurance renewal" : vehicle.insuranceProvider, in: context)
         try? context.save()
+        Task {
+            await ComplianceNotificationScheduler.reschedule(for: vehicle)
+        }
     }
 
     @MainActor
