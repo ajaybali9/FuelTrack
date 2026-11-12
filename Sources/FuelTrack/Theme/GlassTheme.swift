@@ -116,16 +116,15 @@ struct SmoothPageAppear: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .opacity(appeared ? 1 : 0)
-            .offset(y: appeared ? 0 : 12)
-            .scaleEffect(appeared ? 1 : 0.985, anchor: .top)
+            .opacity(appeared ? 1 : 0.001)
+            .offset(y: appeared ? 0 : 8)
             .onAppear {
-                withAnimation(.smooth(duration: 0.38)) {
+                // Do not reset on disappear — NavigationStack keeps parents around when
+                // pushing Settings/etc, and zeroing opacity caused a black screen on back.
+                guard !appeared else { return }
+                withAnimation(.smooth(duration: 0.32)) {
                     appeared = true
                 }
-            }
-            .onDisappear {
-                appeared = false
             }
     }
 }

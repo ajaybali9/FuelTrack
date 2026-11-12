@@ -93,6 +93,7 @@ struct VehicleComplianceEditor: View {
     @Bindable var vehicle: Vehicle
     @Environment(\.modelContext) private var modelContext
     @AppStorage("dvlaAPIKey") private var dvlaAPIKey = ""
+    @AppStorage("dvlaEnvironment") private var dvlaEnvironmentRaw = DVLAEnvironment.test.rawValue
 
     @State private var isRefreshing = false
     @State private var message: String?
@@ -194,9 +195,11 @@ struct VehicleComplianceEditor: View {
         message = nil
         defer { isRefreshing = false }
         do {
+            let environment = DVLAEnvironment(rawValue: dvlaEnvironmentRaw) ?? .test
             let details = try await DVLAVehicleService.fetch(
                 registration: vehicle.registrationPlate,
-                apiKey: dvlaAPIKey
+                apiKey: dvlaAPIKey,
+                environment: environment
             )
             vehicle.applyDVLA(details)
             useMOTDate = vehicle.motExpiry != nil

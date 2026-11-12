@@ -152,7 +152,8 @@ struct StationPickerView: View {
                 HStack(spacing: 6) {
                     Text("\(used.visitCount)×")
                     Text("· last \(Formatters.shortDate(used.lastVisit))")
-                    if let nearby = matchNearby(for: used), let price = nearby.pricePence {
+                    if let nearby = UsedStations.bestMatch(for: used, in: stations),
+                       let price = nearby.pricePence {
                         Text("·")
                         Text(String(format: "%.1fp now", price))
                             .foregroundStyle(GlassTheme.accent)
@@ -194,12 +195,8 @@ struct StationPickerView: View {
         }
     }
 
-    private func matchNearby(for used: UsedStationSummary) -> NearbyStation? {
-        stations.first { UsedStations.matches(used, nearby: $0) }
-    }
-
     private func selectUsed(_ used: UsedStationSummary) {
-        if let nearby = matchNearby(for: used) {
+        if let nearby = UsedStations.bestMatch(for: used, in: stations) {
             onSelectNearby(nearby)
         } else if let onSelectName {
             onSelectName(used.displayName)

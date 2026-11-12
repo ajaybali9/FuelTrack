@@ -5,6 +5,10 @@ struct SettingsView: View {
     @AppStorage("defaultOdometerUnit") private var defaultOdometerUnit = OdometerUnit.miles.rawValue
     @AppStorage("appearancePreference") private var appearancePreference = AppearancePreference.system.rawValue
     @AppStorage("dvlaAPIKey") private var dvlaAPIKey = ""
+    @AppStorage("dvlaEnvironment") private var dvlaEnvironmentRaw = DVLAEnvironment.test.rawValue
+
+    @State private var isTestingDVLA = false
+    @State private var dvlaTestMessage: String?
 
     private var currencyBinding: Binding<CurrencyCode> {
         Binding(
@@ -25,6 +29,17 @@ struct SettingsView: View {
             get: { AppearancePreference(rawValue: appearancePreference) ?? .system },
             set: { appearancePreference = $0.rawValue }
         )
+    }
+
+    private var dvlaEnvironmentBinding: Binding<DVLAEnvironment> {
+        Binding(
+            get: { DVLAEnvironment(rawValue: dvlaEnvironmentRaw) ?? .test },
+            set: { dvlaEnvironmentRaw = $0.rawValue }
+        )
+    }
+
+    private var dvlaEnvironment: DVLAEnvironment {
+        DVLAEnvironment(rawValue: dvlaEnvironmentRaw) ?? .test
     }
 
     var body: some View {
@@ -57,19 +72,47 @@ struct SettingsView: View {
             }
 
             Section {
+                Picker("Environment", selection: dvlaEnvironmentBinding) {
+                    ForEach(DVLAEnvironment.allCases) { env in
+                        Text(env.displayName).tag(env)
+                    }
+                }
+                .pickerStyle(.segmented)
+
                 SecureField("DVLA API key", text: $dvlaAPIKey)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
-                Text("Used for MOT & road-tax status via the official DVLA Vehicle Enquiry API. Insurance is not published by DVLA — enter renewal dates on each vehicle.")
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
+
+                if dvlaEnvironment == .test {
+                    Text("Test mode uses DVLA UAT with mock plates only (e.g. AA19MOT, AA19AAA). Real registrations will not work until you switch to Production with a live key.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                } else {
+                    Text("Production looks up real UK registrations for MOT & road tax. Insurance is not published by DVLA.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+
+                Button {
+                    Task { await testDVLAConnection() }
+                } label: {
+                    if isTestingDVLA {
+                        ProgressView()
+                    } else {
+                        Text(dvlaEnvironment == .test ? "Test connection (AA19MOT)" : "Test connection")
+                    }
+                }
+                .disabled(dvlaAPIKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isTestingDVLA)
+
+                if let dvlaTestMessage {
+                    Text(dvlaTestMessage)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+
                 Link(
-                    "Register for DVLA Vehicle Enquiry API",
+                    "DVLA Vehicle Enquiry API portal",
                     destination: URL(string: "https://developer-portal.driver-vehicle-licensing.api.gov.uk/")!
-                )
-                Link(
-                    "Optional: DVSA MOT History API",
-                    destination: URL(string: "https://documentation.history.mot.api.gov.uk/mot-history-api/register")!
                 )
             } header: {
                 Text("UK vehicle data")
@@ -77,14 +120,38 @@ struct SettingsView: View {
 
             Section("About") {
                 LabeledContent("App", value: "FuelTrack")
-                LabeledContent("Version", value: "2.1")
+                LabeledContent("Version", value: "2.2")
                 Text("Fuel + car & personal expenses + stations + MOT/tax (DVLA) + insurance reminders. Glass UI. Data stays on device.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             }
         }
         .navigationTitle("Settings")
+        .navigationBarTitleDisplayMode(.inline)
         .scrollContentBackground(.hidden)
         .background(AppBackdrop())
+        .toolbarBackground(.hidden, for: .navigationBar)
+    }
+
+    @MainActor
+    private func testDVLAConnection() async {
+        isTestingDVLA = true
+        dvlaTestMessage = nil
+        defer { isTestingDVLA = false }
+
+        let plate = dvlaEnvironment == .test ? DVLAEnvironment.testSuccessRegistration : "AA19AAA"
+        do {
+            let details = try await DVLAVehicleService.fetch(
+                registration: plate,
+                apiKey: dvlaAPIKey,
+                environment: dvlaEnvironment
+            )
+            let mot = details.motStatus ?? "—"
+            let tax = details.taxStatus ?? "—"
+            let make = details.make ?? "—"
+            dvlaTestMessage = "OK · \(details.registrationNumber) · \(make) · MOT \(mot) · Tax \(tax)"
+        } catch {
+            dvlaTestMessage = error.localizedDescription
+        }
     }
 }

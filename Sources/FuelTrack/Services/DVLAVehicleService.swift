@@ -43,20 +43,48 @@ enum DVLAVehicleError: LocalizedError {
     }
 }
 
-enum DVLAVehicleService {
-    private static let endpoint = URL(string: "https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles")!
+enum DVLAEnvironment: String, CaseIterable, Identifiable, Sendable {
+    case test
+    case production
 
+    var id: String { rawValue }
+
+    var displayName: String {
+        switch self {
+        case .test: "Test (UAT)"
+        case .production: "Production"
+        }
+    }
+
+    var endpoint: URL {
+        switch self {
+        case .test:
+            URL(string: "https://uat.driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles")!
+        case .production:
+            URL(string: "https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles")!
+        }
+    }
+
+    /// Official DVLA mock VRNs for the test environment.
+    static let testSuccessRegistration = "AA19MOT"
+}
+
+enum DVLAVehicleService {
     static func cleanedRegistration(_ raw: String) -> String {
         raw.uppercased().filter { $0.isLetter || $0.isNumber }
     }
 
-    static func fetch(registration: String, apiKey: String) async throws -> DVLAVehicleDetails {
+    static func fetch(
+        registration: String,
+        apiKey: String,
+        environment: DVLAEnvironment = .production
+    ) async throws -> DVLAVehicleDetails {
         let cleaned = cleanedRegistration(registration)
         guard cleaned.count >= 2 else { throw DVLAVehicleError.invalidRegistration }
         let key = apiKey.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !key.isEmpty else { throw DVLAVehicleError.missingAPIKey }
 
-        var request = URLRequest(url: endpoint)
+        var request = URLRequest(url: environment.endpoint)
         request.httpMethod = "POST"
         request.timeoutInterval = 25
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

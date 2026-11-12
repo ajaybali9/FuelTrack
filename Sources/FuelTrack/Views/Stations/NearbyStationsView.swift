@@ -65,7 +65,8 @@ struct NearbyStationsView: View {
     private var mapStations: [NearbyStation] {
         var result = filteredNearby
         for used in filteredUsedStations {
-            if let match = matchNearby(for: used), !result.contains(where: { $0.id == match.id }) {
+            if let match = UsedStations.bestMatch(for: used, in: stations),
+               !result.contains(where: { $0.id == match.id }) {
                 result.append(match)
             }
         }
@@ -126,14 +127,14 @@ struct NearbyStationsView: View {
                 NavigationStack {
                     StationDetailSheet(
                         station: station,
-                        usedSummary: usedStations.first { UsedStations.matches($0, nearby: station) }
+                        usedSummary: bestUsed(for: station)
                     )
                 }
                 .presentationDetents([.medium, .large])
             }
             .sheet(item: $selectedUsed) { used in
                 NavigationStack {
-                    UsedStationDetailSheet(summary: used, nearby: matchNearby(for: used))
+                    UsedStationDetailSheet(summary: used, nearby: UsedStations.bestMatch(for: used, in: stations))
                 }
                 .presentationDetents([.medium, .large])
             }
@@ -198,9 +199,9 @@ struct NearbyStationsView: View {
                     ForEach(filteredUsedStations) { used in
                         UsedStationRow(
                             summary: used,
-                            nearby: matchNearby(for: used)
+                            nearby: UsedStations.bestMatch(for: used, in: stations)
                         ) {
-                            if let nearby = matchNearby(for: used) {
+                            if let nearby = UsedStations.bestMatch(for: used, in: stations) {
                                 selectedStation = nearby
                             } else {
                                 selectedUsed = used
@@ -346,11 +347,15 @@ struct NearbyStationsView: View {
     }
 
     private func isUsed(_ station: NearbyStation) -> Bool {
-        usedStations.contains { UsedStations.matches($0, nearby: station) }
+        bestUsed(for: station) != nil
     }
 
-    private func matchNearby(for used: UsedStationSummary) -> NearbyStation? {
-        stations.first { UsedStations.matches(used, nearby: $0) }
+    private func bestUsed(for station: NearbyStation) -> UsedStationSummary? {
+        usedStations
+            .map { ($0, UsedStations.matchScore($0, nearby: station)) }
+            .filter { $0.1 > 0 }
+            .max { $0.1 < $1.1 }?
+            .0
     }
 
     private func filterNearby(_ input: [NearbyStation]) -> [NearbyStation] {
