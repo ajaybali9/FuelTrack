@@ -18,7 +18,7 @@ struct FuelioImportView: View {
     var body: some View {
         Form {
             Section {
-                Text("In Fuelio, open Settings → Export CSV (or Backup → Export CSV) for a vehicle, then pick that file here. FuelTrack imports the vehicle and fill-up log.")
+                Text("In Fuelio, open Settings → Export CSV (or Backup → Export CSV) for a vehicle, then pick that file here. FuelTrack imports the vehicle, fill-ups (with station and map location), costs, and favourite stations.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             }
@@ -105,6 +105,9 @@ struct FuelioImportView: View {
                 notes: parsed.notes,
                 registrationPlate: parsed.registrationPlate
             )
+            if parsed.year > 0 {
+                vehicle.yearOfManufacture = parsed.year
+            }
             modelContext.insert(vehicle)
 
             for fill in parsed.fillUps {
@@ -118,9 +121,41 @@ struct FuelioImportView: View {
                     skipped: fill.skipped,
                     station: fill.station,
                     note: fill.note,
+                    fuelType: fill.fuelType,
+                    latitude: fill.latitude,
+                    longitude: fill.longitude,
+                    stationExternalId: fill.stationExternalId,
                     vehicle: vehicle
                 )
                 modelContext.insert(created)
+            }
+
+            for cost in parsed.costs {
+                modelContext.insert(
+                    CarCost(
+                        title: cost.title,
+                        date: cost.date,
+                        odometer: cost.odometer,
+                        amount: cost.amount,
+                        currencyCode: currencyCode,
+                        category: cost.category,
+                        note: cost.note,
+                        vehicle: vehicle
+                    )
+                )
+            }
+
+            for place in parsed.savedStations {
+                modelContext.insert(
+                    SavedStation(
+                        name: place.name,
+                        externalId: place.externalId,
+                        latitude: place.latitude,
+                        longitude: place.longitude,
+                        note: place.note,
+                        vehicle: vehicle
+                    )
+                )
             }
 
             try modelContext.save()
@@ -132,6 +167,16 @@ struct FuelioImportView: View {
             var message = "Imported “\(parsed.vehicleName)” with \(parsed.fillUps.count) fill-up"
             if parsed.fillUps.count != 1 { message += "s" }
             message += "."
+            if parsed.costs.count > 0 {
+                message += " \(parsed.costs.count) cost"
+                if parsed.costs.count != 1 { message += "s" }
+                message += "."
+            }
+            if parsed.savedStations.count > 0 {
+                message += " \(parsed.savedStations.count) favourite station"
+                if parsed.savedStations.count != 1 { message += "s" }
+                message += "."
+            }
             if parsed.skippedRows > 0 {
                 message += " Skipped \(parsed.skippedRows) invalid row"
                 if parsed.skippedRows != 1 { message += "s" }

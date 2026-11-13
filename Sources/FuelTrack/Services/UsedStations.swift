@@ -22,14 +22,15 @@ enum UsedStations {
 
         for fill in fillUps {
             let raw = fill.station.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !raw.isEmpty else { continue }
-            let key = normalize(raw)
+            let external = fill.stationExternalId.trimmingCharacters(in: .whitespacesAndNewlines)
+            if raw.isEmpty { continue }
+            let key = external.isEmpty ? normalize(raw) : "station:\(external)"
             if var existing = buckets[key] {
                 existing.count += 1
                 existing.spend += fill.totalCost
+                existing.display = richerName(existing.display, raw)
                 if fill.date > existing.last.date {
                     existing.last = fill
-                    existing.display = raw
                 }
                 buckets[key] = existing
             } else {
@@ -84,68 +85,79 @@ enum UsedStations {
             .0
     }
 
-    /// Score a candidate. Brand alone is never enough — need postcode, town, or distinctive name.
+    /// Score a candidate using whole words and a full postcode.
+    /// A town name or a brand on its own is not a match.
     static func matchScore(_ used: UsedStationSummary, nearby: NearbyStation) -> Int {
-        let usedKey = used.id
-        let usedCompact = compactPostcode(used.displayName)
-        let name = normalize(nearby.name)
-        let brand = normalize(nearby.brand)
-        let city = normalize(nearby.city)
-        let post = normalize(nearby.postcode)
-        let postCompact = compactPostcode(nearby.postcode)
+        let usedTokens = tokens(used.displayName)
+        let nameTokens = tokens(nearby.name)
+        let brandTokens = tokens(nearby.brand)
+        let cityTokens = tokens(nearby.city)
 
         var score = 0
-        var hasLocationSignal = false
+        var postcodeHit = false
+        var cityHit = false
+        var distinctiveHit = false
 
-        if !postCompact.isEmpty, usedCompact.contains(postCompact) {
+        if let usedPost = ukPostcode(in: used.displayName),
+           let nearbyPost = ukPostcode(in: nearby.postcode),
+           usedPost == nearbyPost {
             score += 100
-            hasLocationSignal = true
-        } else if !post.isEmpty, usedKey.contains(post) {
-            score += 90
-            hasLocationSignal = true
+            postcodeHit = true
         }
 
-        if !city.isEmpty, usedKey.contains(city) {
-            score += 60
-            hasLocationSignal = true
+        if !cityTokens.isEmpty, !cityTokens.isDisjoint(with: usedTokens) {
+            score += 25
+            cityHit = true
         }
 
-        let brandTokens = tokens(brand)
-        let nameTokens = tokens(name).subtracting(brandTokens)
-        let usedTokens = tokens(usedKey)
-        let distinctive = nameTokens.intersection(usedTokens)
-
-        if !name.isEmpty {
-            if usedKey == name || usedKey.contains(name) || name.contains(usedKey) {
-                // Full name overlap still needs a place clue unless the used string already embeds locality.
-                score += 35
-            }
-            if !distinctive.isEmpty {
-                score += min(40, distinctive.count * 15)
-                // Tokens like "basingstoke", street names, store numbers count as location-ish.
-                if distinctive.contains(where: { $0.count >= 5 }) {
-                    hasLocationSignal = true
-                }
-            }
+        let distinctiveName = nameTokens.subtracting(brandTokens).subtracting(cityTokens).subtracting(genericTokens)
+        let distinctiveUsed = usedTokens.subtracting(brandTokens).subtracting(cityTokens).subtracting(genericTokens)
+        let shared = distinctiveName.intersection(distinctiveUsed)
+        if !shared.isEmpty {
+            score += min(60, shared.count * 30)
+            distinctiveHit = true
         }
 
-        if !brand.isEmpty, usedKey.contains(brand) || brandTokens.isSubset(of: usedTokens) {
-            // Brand is only a bonus once place/name already matches.
-            if hasLocationSignal || score >= 35 {
-                score += 10
-            }
+        let brandHit = !brandTokens.isEmpty && brandTokens.isSubset(of: usedTokens)
+        if brandHit, postcodeHit || cityHit || distinctiveHit {
+            score += 20
         }
 
-        // Reject weak brand-only matches (e.g. any Morrisons).
-        guard hasLocationSignal, score >= 50 else { return 0 }
+        let longDistinctive = shared.contains { $0.count >= 5 }
+        let strong = postcodeHit
+            || (distinctiveHit && (brandHit || cityHit || longDistinctive))
+            || (brandHit && cityHit)
+        guard strong, score >= 50 else { return 0 }
         return score
     }
 
-    private static func tokens(_ text: String) -> Set<String> {
+    static func tokens(_ text: String) -> Set<String> {
         let parts = normalize(text)
             .split { !$0.isLetter && !$0.isNumber }
             .map(String.init)
             .filter { $0.count >= 2 }
         return Set(parts)
+    }
+
+    /// First full UK postcode in `text`, compacted, so "RG21 7QW" and "rg217qw" compare equal.
+    static func ukPostcode(in text: String) -> String? {
+        guard let range = text.range(of: postcodePattern, options: .regularExpression) else { return nil }
+        let compact = compactPostcode(String(text[range]))
+        return compact.isEmpty ? nil : compact
+    }
+
+    private static let postcodePattern = #"[A-Za-z]{1,2}[0-9][0-9A-Za-z]?[[:space:]]*[0-9][A-Za-z]{2}"#
+
+    private static let genericTokens: Set<String> = [
+        "road", "street", "lane", "way", "close", "drive", "avenue",
+        "service", "services", "station", "garage", "filling", "petrol", "fuel",
+        "the", "and",
+    ]
+
+    private static func richerName(_ current: String, _ candidate: String) -> String {
+        let currentCount = tokens(current).count
+        let candidateCount = tokens(candidate).count
+        if candidateCount != currentCount { return candidateCount > currentCount ? candidate : current }
+        return candidate.count > current.count ? candidate : current
     }
 }

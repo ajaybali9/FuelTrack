@@ -15,6 +15,7 @@ struct FuelTrackApp: App {
             PersonalExpense.self,
             PersonalBudget.self,
             CustomExpenseCategory.self,
+            SavedStation.self,
         ])
         let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
         do {

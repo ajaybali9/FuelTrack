@@ -36,6 +36,9 @@ final class Vehicle {
     @Relationship(deleteRule: .cascade, inverse: \ReminderItem.vehicle)
     var reminders: [ReminderItem]
 
+    @Relationship(deleteRule: .cascade, inverse: \SavedStation.vehicle)
+    var savedStations: [SavedStation]
+
     init(
         id: UUID = UUID(),
         name: String,
@@ -49,7 +52,8 @@ final class Vehicle {
         createdAt: Date = .now,
         fillUps: [FillUp] = [],
         costs: [CarCost] = [],
-        reminders: [ReminderItem] = []
+        reminders: [ReminderItem] = [],
+        savedStations: [SavedStation] = []
     ) {
         self.id = id
         self.name = name
@@ -64,6 +68,7 @@ final class Vehicle {
         self.fillUps = fillUps
         self.costs = costs
         self.reminders = reminders
+        self.savedStations = savedStations
     }
 
     var fuelType: FuelType {

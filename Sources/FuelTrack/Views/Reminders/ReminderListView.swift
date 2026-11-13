@@ -128,6 +128,7 @@ struct ReminderListView: View {
             )
         )
         try? modelContext.save()
+        Task { await ComplianceNotificationScheduler.reschedule(for: vehicle) }
         title = ""
         note = ""
         dueOdoText = ""

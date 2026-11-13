@@ -14,6 +14,9 @@ final class FillUp {
     var station: String
     var note: String
     var fuelTypeRaw: String = ""
+    var latitude: Double? = nil
+    var longitude: Double? = nil
+    var stationExternalId: String = ""
     var createdAt: Date
 
     var vehicle: Vehicle?
@@ -30,6 +33,9 @@ final class FillUp {
         station: String = "",
         note: String = "",
         fuelType: FuelType? = nil,
+        latitude: Double? = nil,
+        longitude: Double? = nil,
+        stationExternalId: String = "",
         createdAt: Date = .now,
         vehicle: Vehicle? = nil
     ) {
@@ -44,6 +50,9 @@ final class FillUp {
         self.station = station
         self.note = note
         self.fuelTypeRaw = fuelType?.rawValue ?? ""
+        self.latitude = latitude
+        self.longitude = longitude
+        self.stationExternalId = stationExternalId
         self.createdAt = createdAt
         self.vehicle = vehicle
     }

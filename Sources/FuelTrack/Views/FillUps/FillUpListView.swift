@@ -93,7 +93,15 @@ struct FillUpListView: View {
                         }
                     }
                 }
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    if let vehicle = activeVehicle {
+                        NavigationLink {
+                            FillUpMapView(vehicle: vehicle)
+                        } label: {
+                            Image(systemName: "map")
+                        }
+                        .accessibilityLabel("Fill-up map")
+                    }
                     Button {
                         showingAdd = true
                     } label: {

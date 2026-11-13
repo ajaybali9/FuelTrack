@@ -16,6 +16,9 @@ struct FillUpFormView: View {
     @State private var isFullTank = true
     @State private var skipped = false
     @State private var station = ""
+    @State private var stationExternalId = ""
+    @State private var latitude: Double?
+    @State private var longitude: Double?
     @State private var note = ""
     @State private var fuelType: FuelType = .petrolE10
     @State private var showingStationPicker = false
@@ -141,6 +144,9 @@ struct FillUpFormView: View {
                 },
                 onSelectName: { name in
                     station = name
+                    stationExternalId = ""
+                    latitude = nil
+                    longitude = nil
                     selectedPricePence = nil
                 }
             )
@@ -163,6 +169,9 @@ struct FillUpFormView: View {
         // Synthetic used-station picks have a zero coordinate and "used-" id.
         if picked.id.hasPrefix("used-") {
             station = picked.name
+            stationExternalId = ""
+            latitude = nil
+            longitude = nil
             selectedPricePence = nil
             return
         }
@@ -179,6 +188,9 @@ struct FillUpFormView: View {
             parts.append(picked.postcode)
         }
         station = parts.joined(separator: " · ")
+        stationExternalId = picked.id
+        latitude = picked.coordinate.latitude
+        longitude = picked.coordinate.longitude
         selectedPricePence = picked.pricePence
         if let pence = picked.pricePence,
            let liters = parsedLiters,
@@ -199,6 +211,9 @@ struct FillUpFormView: View {
             isFullTank = fillUp.isFullTank
             skipped = fillUp.skipped
             station = fillUp.station
+            stationExternalId = fillUp.stationExternalId
+            latitude = fillUp.latitude
+            longitude = fillUp.longitude
             note = fillUp.note
             fuelType = fillUp.fuelType
         } else {
@@ -231,6 +246,9 @@ struct FillUpFormView: View {
             fillUp.isFullTank = isFullTank
             fillUp.skipped = skipped
             fillUp.station = station.trimmingCharacters(in: .whitespacesAndNewlines)
+            fillUp.stationExternalId = stationExternalId
+            fillUp.latitude = latitude
+            fillUp.longitude = longitude
             fillUp.note = note.trimmingCharacters(in: .whitespacesAndNewlines)
             fillUp.fuelType = fuelType
         } else {
@@ -245,6 +263,9 @@ struct FillUpFormView: View {
                 station: station.trimmingCharacters(in: .whitespacesAndNewlines),
                 note: note.trimmingCharacters(in: .whitespacesAndNewlines),
                 fuelType: fuelType,
+                latitude: latitude,
+                longitude: longitude,
+                stationExternalId: stationExternalId,
                 vehicle: vehicle
             )
             modelContext.insert(created)
