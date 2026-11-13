@@ -5,7 +5,7 @@ struct SettingsView: View {
     @AppStorage("defaultOdometerUnit") private var defaultOdometerUnit = OdometerUnit.miles.rawValue
     @AppStorage("appearancePreference") private var appearancePreference = AppearancePreference.system.rawValue
     @AppStorage("dvlaAPIKey") private var dvlaAPIKey = ""
-    @AppStorage("dvlaEnvironment") private var dvlaEnvironmentRaw = DVLAEnvironment.test.rawValue
+    @AppStorage("dvlaEnvironment") private var dvlaEnvironmentRaw = DVLAEnvironment.production.rawValue
     @AppStorage("complianceNotificationsEnabled") private var complianceNotificationsEnabled = true
 
     @State private var isTestingDVLA = false
@@ -35,13 +35,13 @@ struct SettingsView: View {
 
     private var dvlaEnvironmentBinding: Binding<DVLAEnvironment> {
         Binding(
-            get: { DVLAEnvironment(rawValue: dvlaEnvironmentRaw) ?? .test },
+            get: { DVLAEnvironment(rawValue: dvlaEnvironmentRaw) ?? .production },
             set: { dvlaEnvironmentRaw = $0.rawValue }
         )
     }
 
     private var dvlaEnvironment: DVLAEnvironment {
-        DVLAEnvironment(rawValue: dvlaEnvironmentRaw) ?? .test
+        DVLAEnvironment(rawValue: dvlaEnvironmentRaw) ?? .production
     }
 
     var body: some View {
@@ -75,7 +75,7 @@ struct SettingsView: View {
 
             Section {
                 Toggle("Expiry alerts", isOn: $complianceNotificationsEnabled)
-                Text("Local notifications 4 days and 3 days before MOT, road tax, or insurance expiry (9:00 am).")
+                Text("Local notifications at 9:00 am: 4 days, 3 days, and 1 day before, plus the morning MOT, road tax, or insurance is due. Opening the app later on the due day still sets a reminder for later that morning.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                 if let notificationStatusMessage {
@@ -158,9 +158,18 @@ struct SettingsView: View {
         }
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear(perform: preferProductionDVLA)
         .scrollContentBackground(.hidden)
         .background(AppBackdrop())
         .toolbarBackground(.hidden, for: .navigationBar)
+    }
+
+    /// Yesterday's build stored Test as the default. Switch once so a real registration is not sent to UAT.
+    private func preferProductionDVLA() {
+        let reviewedKey = "dvlaEnvironmentReviewed"
+        guard !UserDefaults.standard.bool(forKey: reviewedKey) else { return }
+        dvlaEnvironmentRaw = DVLAEnvironment.production.rawValue
+        UserDefaults.standard.set(true, forKey: reviewedKey)
     }
 
     @MainActor

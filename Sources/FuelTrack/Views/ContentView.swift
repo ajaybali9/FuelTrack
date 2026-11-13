@@ -70,6 +70,9 @@ struct ContentView: View {
                     String(Int(vehicle.motExpiry?.timeIntervalSince1970 ?? 0)),
                     String(Int(vehicle.taxDueDate?.timeIntervalSince1970 ?? 0)),
                     String(Int(vehicle.insuranceExpiry?.timeIntervalSince1970 ?? 0)),
+                    vehicle.reminders.map {
+                        "\($0.id.uuidString):\($0.isCompleted):\($0.dueDate?.timeIntervalSince1970 ?? 0):\($0.dueOdometer ?? 0)"
+                    }.joined(separator: ","),
                 ].joined(separator: "|")
             }
             .joined(separator: ";")

@@ -5,10 +5,13 @@ struct FuelioImportResult: Sendable {
     var make: String
     var model: String
     var registrationPlate: String
+    var year: Int
     var notes: String
     var odometerUnit: OdometerUnit
     var fuelType: FuelType
     var fillUps: [ImportedFillUp]
+    var costs: [ImportedCost]
+    var savedStations: [ImportedStation]
     var skippedRows: Int
 }
 
@@ -20,6 +23,27 @@ struct ImportedFillUp: Sendable {
     var isFullTank: Bool
     var skipped: Bool
     var station: String
+    var note: String
+    var fuelType: FuelType?
+    var latitude: Double?
+    var longitude: Double?
+    var stationExternalId: String
+}
+
+struct ImportedCost: Sendable {
+    var title: String
+    var date: Date
+    var odometer: Double?
+    var amount: Double
+    var category: CostCategory
+    var note: String
+}
+
+struct ImportedStation: Sendable {
+    var name: String
+    var externalId: String
+    var latitude: Double
+    var longitude: Double
     var note: String
 }
 
@@ -73,6 +97,7 @@ enum FuelioCSVImporter {
         let model = vehicle["Model"] ?? ""
         let description = vehicle["Description"] ?? ""
         let plate = DVLAVehicleService.cleanedRegistration(vehicle["Plate"] ?? "")
+        let year = Int(vehicle["Year"] ?? "") ?? 0
         var notesParts: [String] = []
         let trimmedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines)
         if !trimmedDescription.isEmpty { notesParts.append(trimmedDescription) }
@@ -85,10 +110,13 @@ enum FuelioCSVImporter {
                 make: make,
                 model: model,
                 registrationPlate: plate,
+                year: year,
                 notes: notesParts.joined(separator: "\n"),
                 odometerUnit: odometerUnit,
                 fuelType: fuelType,
                 fillUps: [],
+                costs: parseCosts(in: trimmed, dateFormat: dateFormat),
+                savedStations: parseSavedStations(in: trimmed),
                 skippedRows: 0
             )
         }
@@ -122,10 +150,13 @@ enum FuelioCSVImporter {
             make: make,
             model: model,
             registrationPlate: plate,
+            year: year,
             notes: notesParts.joined(separator: "\n"),
             odometerUnit: odometerUnit,
             fuelType: fuelType,
             fillUps: fillUps,
+            costs: parseCosts(in: trimmed, dateFormat: dateFormat),
+            savedStations: parseSavedStations(in: trimmed),
             skippedRows: skipped
         )
     }
@@ -285,6 +316,10 @@ enum FuelioCSVImporter {
         let missedRaw = value(row, matching: ["Missed"], allowEmpty: true) ?? "0"
         let station = value(row, matching: ["City"], allowEmpty: true) ?? ""
         let note = value(row, matching: ["Notes"], allowEmpty: true) ?? ""
+        let latitude = doubleValue(row, matching: ["latitude", "Latitude"])
+        let longitude = doubleValue(row, matching: ["longitude", "Longitude"])
+        let stationId = value(row, matching: ["StationID"], allowEmpty: true) ?? ""
+        let rowFuel = value(row, matching: ["FuelType"], allowEmpty: true).flatMap(Int.init).map(mapFuelType)
 
         return ImportedFillUp(
             date: date,
@@ -294,8 +329,17 @@ enum FuelioCSVImporter {
             isFullTank: fullRaw == "1" || fullRaw.lowercased() == "true",
             skipped: missedRaw == "1" || missedRaw.lowercased() == "true",
             station: station,
-            note: note
+            note: note,
+            fuelType: rowFuel,
+            latitude: latitude,
+            longitude: longitude,
+            stationExternalId: stationId == "0" ? "" : stationId
         )
+    }
+
+    private static func doubleValue(_ row: [String: String], matching prefixes: [String]) -> Double? {
+        guard let raw = value(row, matching: prefixes, allowEmpty: true) else { return nil }
+        return Double(raw.replacingOccurrences(of: ",", with: "."))
     }
 
     /// Fuelio FuelUnit: 0/2 = litre, 1 = US gallon, 3 = Imperial gallon.
@@ -330,8 +374,10 @@ enum FuelioCSVImporter {
         return nil
     }
 
-    private static func mapFuelType(_ tankType: Int) -> FuelType {
+    static func mapFuelType(_ tankType: Int) -> FuelType {
         switch tankType {
+        case 800: .other
+        case 700: .hybrid
         case 112, 113, 114: .petrolE5
         case 100..<200: .petrolE10
         case 202, 209, 211, 218, 219: .dieselPremium
@@ -340,5 +386,81 @@ enum FuelioCSVImporter {
         case 600..<700: .electric
         default: .petrolE10
         }
+    }
+
+    private static func optionalSectionLines(named name: String, in text: String) -> [String] {
+        (try? sectionLines(named: name, in: text)) ?? []
+    }
+
+    private static func parseCosts(in text: String, dateFormat: String) -> [ImportedCost] {
+        let namesByID = categoryNames(in: text)
+        let lines = optionalSectionLines(named: "Costs", in: text)
+        guard lines.count >= 2 else { return [] }
+        let header = parseCSVRow(lines[0])
+        var costs: [ImportedCost] = []
+        for line in lines.dropFirst() {
+            let row = dictionary(header: header, row: parseCSVRow(line))
+            guard let title = value(row, matching: ["CostTitle"]),
+                  let dateRaw = value(row, matching: ["Date"]),
+                  let date = parseDate(dateRaw, format: dateFormat),
+                  let amountRaw = value(row, matching: ["Cost"]),
+                  let amount = Double(amountRaw.replacingOccurrences(of: ",", with: "."))
+            else { continue }
+            let odoRaw = value(row, matching: ["Odo"], allowEmpty: true) ?? ""
+            let odometer = Double(odoRaw.replacingOccurrences(of: ",", with: "."))
+            let typeID = value(row, matching: ["CostTypeID"], allowEmpty: true) ?? ""
+            let categoryName = namesByID[typeID] ?? typeID
+            let note = value(row, matching: ["Notes"], allowEmpty: true) ?? ""
+            costs.append(
+                ImportedCost(
+                    title: title,
+                    date: date,
+                    odometer: odometer,
+                    amount: amount,
+                    category: CostCategory.fromFuelioName(categoryName),
+                    note: note
+                )
+            )
+        }
+        return costs
+    }
+
+    private static func categoryNames(in text: String) -> [String: String] {
+        let lines = optionalSectionLines(named: "CostCategories", in: text)
+        guard lines.count >= 2 else { return [:] }
+        let header = parseCSVRow(lines[0])
+        var names: [String: String] = [:]
+        for line in lines.dropFirst() {
+            let row = dictionary(header: header, row: parseCSVRow(line))
+            guard let id = row["CostTypeID"], let name = row["Name"], !name.isEmpty else { continue }
+            names[id] = name
+        }
+        return names
+    }
+
+    private static func parseSavedStations(in text: String) -> [ImportedStation] {
+        let lines = optionalSectionLines(named: "FavStations", in: text)
+        guard lines.count >= 2 else { return [] }
+        let header = parseCSVRow(lines[0])
+        var stations: [ImportedStation] = []
+        for line in lines.dropFirst() {
+            let row = dictionary(header: header, row: parseCSVRow(line))
+            guard let name = value(row, matching: ["Name"]),
+                  let latitude = doubleValue(row, matching: ["Latitude"]),
+                  let longitude = doubleValue(row, matching: ["Longitude"])
+            else { continue }
+            let external = value(row, matching: ["StationId", "StationID"], allowEmpty: true) ?? ""
+            let note = value(row, matching: ["Description"], allowEmpty: true) ?? ""
+            stations.append(
+                ImportedStation(
+                    name: name,
+                    externalId: external,
+                    latitude: latitude,
+                    longitude: longitude,
+                    note: note
+                )
+            )
+        }
+        return stations
     }
 }

@@ -11,9 +11,7 @@ struct HomeFuelQuickAccess: View {
     @State private var errorMessage: String?
     @State private var didLoad = false
 
-    private var resolvedFuel: FuelType {
-        vehicle.fuelType.supportsNearbyPrices ? vehicle.fuelType : .petrolE10
-    }
+    private var showsLivePrices: Bool { vehicle.fuelType.supportsNearbyPrices }
 
     private var cheapestID: String? { topStations.first?.id }
 
@@ -24,7 +22,7 @@ struct HomeFuelQuickAccess: View {
                     Label("Fuel nearby", systemImage: "fuelpump.fill")
                         .font(.headline)
                     Spacer(minLength: 0)
-                    Text(resolvedFuel.shortName)
+                    Text(vehicle.fuelType.shortName)
                         .font(.caption.weight(.bold))
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
@@ -38,7 +36,7 @@ struct HomeFuelQuickAccess: View {
                     .disabled(isLoading)
                 }
 
-                if !resolvedFuel.supportsNearbyPrices {
+                if !showsLivePrices {
                     Text("Switch fuel to E10 / E5 / Diesel for live UK pump prices.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
@@ -171,7 +169,7 @@ struct HomeFuelQuickAccess: View {
 
     @MainActor
     private func reload(forceLocation: Bool) async {
-        guard let fuelCode = resolvedFuel.nearbyAPIFuelCode else {
+        guard let fuelCode = vehicle.fuelType.nearbyAPIFuelCode else {
             topStations = []
             nearest = nil
             errorMessage = nil
