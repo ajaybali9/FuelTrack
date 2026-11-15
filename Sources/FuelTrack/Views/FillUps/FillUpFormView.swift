@@ -23,7 +23,6 @@ struct FillUpFormView: View {
     @State private var fuelType: FuelType = .petrolE10
     @State private var showingStationPicker = false
     @State private var selectedPricePence: Double?
-    @State private var showingSavedAlert = false
     @State private var saveError: String?
 
     private var isEditing: Bool { fillUp != nil }
@@ -151,17 +150,6 @@ struct FillUpFormView: View {
                 }
             )
         }
-        .alert("Fill-up saved", isPresented: $showingSavedAlert) {
-            Button("OK") {
-                if !isEditing { dismiss() }
-            }
-        } message: {
-            Text(
-                isEditing
-                    ? "Your changes are saved for \(vehicle.name)."
-                    : "Logged \(Formatters.liters(parsedLiters ?? 0)) for \(vehicle.name)."
-            )
-        }
         .onAppear(perform: load)
     }
 
@@ -275,7 +263,7 @@ struct FillUpFormView: View {
             try modelContext.save()
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             saveError = nil
-            showingSavedAlert = true
+            dismiss()
         } catch {
             saveError = error.localizedDescription
             UINotificationFeedbackGenerator().notificationOccurred(.error)
