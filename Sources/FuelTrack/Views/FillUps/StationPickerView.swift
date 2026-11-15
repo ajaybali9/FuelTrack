@@ -28,7 +28,7 @@ struct StationPickerView: View {
     }
 
     private var usedStations: [UsedStationSummary] {
-        UsedStations.summarize(from: fillUps)
+        UsedStations.favourites(from: fillUps)
     }
 
     private var filteredUsed: [UsedStationSummary] {
@@ -71,7 +71,7 @@ struct StationPickerView: View {
                 } else {
                     List {
                         if !filteredUsed.isEmpty {
-                            Section("From your fuel logs") {
+                            Section("Favourites (>\(UsedStations.minimumFavouriteVisits) fill-ups)") {
                                 ForEach(filteredUsed) { used in
                                     Button {
                                         selectUsed(used)

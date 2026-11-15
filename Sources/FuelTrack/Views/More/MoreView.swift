@@ -3,13 +3,22 @@ import SwiftUI
 
 struct MoreView: View {
     @Query(sort: \Vehicle.createdAt) private var vehicles: [Vehicle]
+    @Query(sort: \PersonalExpense.date, order: .reverse) private var personalExpenses: [PersonalExpense]
+    @Query(sort: \PersonalBudget.createdAt) private var personalBudgets: [PersonalBudget]
+    @Query(sort: \CustomExpenseCategory.name) private var customCategories: [CustomExpenseCategory]
     @Environment(ActiveVehicleStore.self) private var activeVehicleStore
-    @State private var exportURL: URL?
-    @State private var showingExporter = false
+
+    @State private var shareItem: ShareableFile?
     @State private var exportError: String?
 
     private var activeVehicle: Vehicle? {
         activeVehicleStore.resolve(from: vehicles)
+    }
+
+    private var backupSubtitle: String {
+        let fillCount = vehicles.reduce(0) { $0 + $1.fillUps.count }
+        let carSpend = vehicles.reduce(0) { $0 + $1.costs.count }
+        return "\(vehicles.count) cars · \(fillCount) fill-ups · \(carSpend + personalExpenses.count) spend"
     }
 
     var body: some View {
@@ -32,14 +41,32 @@ struct MoreView: View {
                         moreRow("Personal expenses", subtitle: "Food, bills, budgets", icon: "creditcard")
                     }
                     NavigationLink {
+                        BackupImportView()
+                    } label: {
+                        moreRow("Import backup", subtitle: "Restore full FuelTrack JSON", icon: "externaldrive.badge.checkmark")
+                    }
+                    NavigationLink {
                         FuelioImportView()
                     } label: {
                         moreRow("Import Fuelio CSV", subtitle: "Bring your history across", icon: "square.and.arrow.down")
                     }
                     Button {
-                        exportActiveVehicle()
+                        exportFullBackup()
                     } label: {
-                        moreRow("Export CSV", subtitle: activeVehicle?.name ?? "Select a vehicle", icon: "square.and.arrow.up")
+                        moreRow(
+                            "Export backup",
+                            subtitle: backupSubtitle,
+                            icon: "externaldrive.badge.timemachine"
+                        )
+                    }
+                    Button {
+                        exportFuelioCSV()
+                    } label: {
+                        moreRow(
+                            "Export Fuelio CSV",
+                            subtitle: activeVehicle?.name ?? "Needs an active vehicle",
+                            icon: "square.and.arrow.up"
+                        )
                     }
                     .disabled(activeVehicle == nil)
                     NavigationLink {
@@ -52,16 +79,15 @@ struct MoreView: View {
                         Text(exportError)
                             .font(.footnote)
                             .foregroundStyle(.red)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
                 .padding()
             }
             .navigationTitle("More")
             .fuelTrackScreen()
-            .sheet(isPresented: $showingExporter) {
-                if let exportURL {
-                    ShareSheet(url: exportURL)
-                }
+            .sheet(item: $shareItem) { item in
+                ShareSheet(url: item.url)
             }
         }
     }
@@ -90,15 +116,32 @@ struct MoreView: View {
         }
     }
 
-    private func exportActiveVehicle() {
+    private func exportFullBackup() {
+        do {
+            let url = try FuelTrackBackupExporter.writeBackupFile(
+                vehicles: vehicles,
+                personalExpenses: personalExpenses,
+                personalBudgets: personalBudgets,
+                customCategories: customCategories
+            )
+            shareItem = ShareableFile(url: url)
+            exportError = nil
+        } catch {
+            exportError = error.localizedDescription
+        }
+    }
+
+    private func exportFuelioCSV() {
         guard let vehicle = activeVehicle else { return }
         do {
             let csv = FuelioCSVExporter.export(vehicle: vehicle)
-            let safeName = vehicle.name.replacingOccurrences(of: "/", with: "-")
-            let url = FileManager.default.temporaryDirectory.appendingPathComponent("FuelTrack-\(safeName).csv")
-            try csv.data(using: .utf8)?.write(to: url)
-            exportURL = url
-            showingExporter = true
+            let safeName = vehicle.name
+                .replacingOccurrences(of: "/", with: "-")
+                .replacingOccurrences(of: ":", with: "-")
+            let url = FileManager.default.temporaryDirectory
+                .appendingPathComponent("FuelTrack-\(safeName).csv")
+            try csv.write(to: url, atomically: true, encoding: .utf8)
+            shareItem = ShareableFile(url: url)
             exportError = nil
         } catch {
             exportError = error.localizedDescription
@@ -106,11 +149,21 @@ struct MoreView: View {
     }
 }
 
+private struct ShareableFile: Identifiable {
+    let id = UUID()
+    let url: URL
+}
+
 private struct ShareSheet: UIViewControllerRepresentable {
     let url: URL
 
     func makeUIViewController(context: Context) -> UIActivityViewController {
-        UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        let controller = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        controller.excludedActivityTypes = [
+            .assignToContact,
+            .addToReadingList,
+        ]
+        return controller
     }
 
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}

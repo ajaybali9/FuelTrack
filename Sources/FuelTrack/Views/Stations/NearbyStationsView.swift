@@ -51,7 +51,7 @@ struct NearbyStationsView: View {
     }
 
     private var filteredUsedStations: [UsedStationSummary] {
-        filterUsed(usedStations)
+        filterUsed(UsedStations.favourites(from: fillUps))
     }
 
     private var filteredNearby: [NearbyStation] {
@@ -209,9 +209,9 @@ struct NearbyStationsView: View {
                         }
                     }
                 } header: {
-                    Text("From your fuel logs · \(filteredUsedStations.count)")
+                    Text("Favourites · \(filteredUsedStations.count)")
                 } footer: {
-                    Text("Stations you’ve logged before. Matched nearby pumps show today’s price when available.")
+                    Text("Stations with more than \(UsedStations.minimumFavouriteVisits) fill-ups. Matched nearby pumps show today’s price when available.")
                 }
             }
 

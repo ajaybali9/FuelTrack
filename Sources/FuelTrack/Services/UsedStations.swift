@@ -17,6 +17,9 @@ struct UsedStationSummary: Identifiable, Hashable, Sendable {
 }
 
 enum UsedStations {
+    /// Favourites appear only after more than this many fill-ups at the station.
+    static let minimumFavouriteVisits = 5
+
     static func summarize(from fillUps: [FillUp]) -> [UsedStationSummary] {
         var buckets: [String: (display: String, count: Int, last: FillUp, spend: Double)] = [:]
 
@@ -56,6 +59,11 @@ enum UsedStations {
         }
     }
 
+    /// Stations with more than ``minimumFavouriteVisits`` fill-ups.
+    static func favourites(from fillUps: [FillUp]) -> [UsedStationSummary] {
+        summarize(from: fillUps).filter { $0.visitCount > minimumFavouriteVisits }
+    }
+
     static func normalize(_ text: String) -> String {
         text
             .folding(options: [.diacriticInsensitive, .caseInsensitive], locale: .current)
@@ -86,11 +94,12 @@ enum UsedStations {
     }
 
     /// Score a candidate using whole words and a full postcode.
-    /// A town name or a brand on its own is not a match.
+    /// A town name or a brand on its own is not a match — two MFG Morrisons
+    /// sites in different towns must not share a USED tag.
     static func matchScore(_ used: UsedStationSummary, nearby: NearbyStation) -> Int {
         let usedTokens = tokens(used.displayName)
         let nameTokens = tokens(nearby.name)
-        let brandTokens = tokens(nearby.brand)
+        let apiBrandTokens = tokens(nearby.brand)
         let cityTokens = tokens(nearby.city)
 
         var score = 0
@@ -106,27 +115,36 @@ enum UsedStations {
         }
 
         if !cityTokens.isEmpty, !cityTokens.isDisjoint(with: usedTokens) {
-            score += 25
+            score += 30
             cityHit = true
         }
 
-        let distinctiveName = nameTokens.subtracting(brandTokens).subtracting(cityTokens).subtracting(genericTokens)
-        let distinctiveUsed = usedTokens.subtracting(brandTokens).subtracting(cityTokens).subtracting(genericTokens)
+        // Strip API brand + known chains so "mfg"/"morrisons" never count as place names.
+        let nonPlace = apiBrandTokens.union(knownBrandTokens).union(cityTokens).union(genericTokens)
+        let distinctiveName = nameTokens.subtracting(nonPlace)
+        let distinctiveUsed = usedTokens.subtracting(nonPlace)
         let shared = distinctiveName.intersection(distinctiveUsed)
         if !shared.isEmpty {
             score += min(60, shared.count * 30)
             distinctiveHit = true
         }
 
-        let brandHit = !brandTokens.isEmpty && brandTokens.isSubset(of: usedTokens)
+        let brandHit: Bool = {
+            if !apiBrandTokens.isEmpty {
+                return apiBrandTokens.isSubset(of: usedTokens)
+            }
+            return !knownBrandTokens.intersection(nameTokens).intersection(usedTokens).isEmpty
+        }()
         if brandHit, postcodeHit || cityHit || distinctiveHit {
             score += 20
         }
 
         let longDistinctive = shared.contains { $0.count >= 5 }
+        // Require location evidence: postcode, matching town, or a shared place-like token.
+        // Brand + shared chain name alone must not match (Fleet ≠ Basingstoke).
         let strong = postcodeHit
-            || (distinctiveHit && (brandHit || cityHit || longDistinctive))
             || (brandHit && cityHit)
+            || (distinctiveHit && (cityHit || longDistinctive))
         guard strong, score >= 50 else { return 0 }
         return score
     }
@@ -152,6 +170,15 @@ enum UsedStations {
         "road", "street", "lane", "way", "close", "drive", "avenue",
         "service", "services", "station", "garage", "filling", "petrol", "fuel",
         "the", "and",
+    ]
+
+    /// UK fuel brands / operators — never treat these as distinctive place names.
+    private static let knownBrandTokens: Set<String> = [
+        "mfg", "morrisons", "morrison", "tesco", "sainsbury", "sainsburys",
+        "asda", "aldi", "lidl", "coop", "co", "op",
+        "shell", "bp", "esso", "texaco", "jet", "gulf", "murco",
+        "applegreen", "certas", "harvest", "energy", "moto", "roadchef",
+        "welcome", "break", "extra", "express", "supermarket",
     ]
 
     private static func richerName(_ current: String, _ candidate: String) -> String {
