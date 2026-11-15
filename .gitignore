@@ -10,3 +10,5 @@ DerivedData/
 /xtool
 .bsp/
 .build/
+rea-target/fuelio-extracted/
+rea-target/fuelio-apkm/
