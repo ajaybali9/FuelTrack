@@ -36,6 +36,19 @@ struct MoreView: View {
                         moreRow("Reminders", subtitle: "MOT, service, insurance", icon: "bell")
                     }
                     NavigationLink {
+                        if let activeVehicle {
+                            TripListView(vehicle: activeVehicle)
+                        } else {
+                            ContentUnavailableView(
+                                "Select a vehicle",
+                                systemImage: "car.side",
+                                description: Text("Pick an active vehicle to see trip history.")
+                            )
+                        }
+                    } label: {
+                        moreRow("Trip Logger", subtitle: "GPS trips & routes", icon: "point.topleft.down.to.point.bottomright.curvepath")
+                    }
+                    NavigationLink {
                         PersonalExpenseListView()
                     } label: {
                         moreRow("Personal expenses", subtitle: "Food, bills, budgets", icon: "creditcard")
