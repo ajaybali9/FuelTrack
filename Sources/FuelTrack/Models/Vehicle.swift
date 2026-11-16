@@ -39,6 +39,9 @@ final class Vehicle {
     @Relationship(deleteRule: .cascade, inverse: \SavedStation.vehicle)
     var savedStations: [SavedStation]
 
+    @Relationship(deleteRule: .cascade, inverse: \Trip.vehicle)
+    var trips: [Trip]
+
     init(
         id: UUID = UUID(),
         name: String,
@@ -53,7 +56,8 @@ final class Vehicle {
         fillUps: [FillUp] = [],
         costs: [CarCost] = [],
         reminders: [ReminderItem] = [],
-        savedStations: [SavedStation] = []
+        savedStations: [SavedStation] = [],
+        trips: [Trip] = []
     ) {
         self.id = id
         self.name = name
@@ -69,6 +73,17 @@ final class Vehicle {
         self.costs = costs
         self.reminders = reminders
         self.savedStations = savedStations
+        self.trips = trips
+    }
+
+    var sortedTrips: [Trip] {
+        trips
+            .filter { $0.status == .completed }
+            .sorted { $0.startedAt > $1.startedAt }
+    }
+
+    var activeTrip: Trip? {
+        trips.first { $0.status == .active }
     }
 
     var fuelType: FuelType {
