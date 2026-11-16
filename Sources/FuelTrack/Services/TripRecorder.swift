@@ -103,6 +103,10 @@ final class TripRecorder: NSObject, CLLocationManagerDelegate {
         averageMPG: Double?,
         averageLitersPer100km: Double?
     ) -> Bool {
+        if let ongoing = activeTrip, ongoing.vehicle?.id != vehicle.id {
+            lastError = "End the active trip on your other vehicle before starting a new one."
+            return false
+        }
         guard vehicle.activeTrip == nil else {
             restoreActiveTripIfNeeded(for: vehicle)
             return activeTrip != nil

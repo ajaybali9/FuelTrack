@@ -59,6 +59,10 @@ struct HomeTripCard: View {
             tripRecorder.attach(modelContext: modelContext)
             tripRecorder.restoreActiveTripIfNeeded(for: vehicle)
         }
+        .onChange(of: vehicle.id) { _, _ in
+            tripRecorder.attach(modelContext: modelContext)
+            tripRecorder.restoreActiveTripIfNeeded(for: vehicle)
+        }
         .sheet(isPresented: $showActive) {
             NavigationStack {
                 ActiveTripView(vehicle: vehicle)
