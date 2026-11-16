@@ -71,6 +71,16 @@ final class TripRecorder: NSObject, CLLocationManagerDelegate {
 
     func restoreActiveTripIfNeeded(for vehicle: Vehicle) {
         guard let trip = vehicle.activeTrip else { return }
+        if let current = activeTrip {
+            if current.id == trip.id {
+                refreshLiveSessionFromTrip(trip, vehicle: vehicle)
+                return
+            }
+            if current.vehicle?.id != vehicle.id {
+                lastError = "End the active trip on your other vehicle before starting a new one."
+                return
+            }
+        }
         activeTrip = trip
         unit = vehicle.odometerUnit
         economyMPG = trip.estimatedMPG
@@ -91,6 +101,8 @@ final class TripRecorder: NSObject, CLLocationManagerDelegate {
                 speed: last.speedMps ?? -1,
                 timestamp: last.recordedAt
             )
+        } else {
+            lastAcceptedLocation = nil
         }
         if isAuthorizedWhenInUseOrBetter {
             beginUpdates()
@@ -107,9 +119,17 @@ final class TripRecorder: NSObject, CLLocationManagerDelegate {
             lastError = "End the active trip on your other vehicle before starting a new one."
             return false
         }
-        guard vehicle.activeTrip == nil else {
-            restoreActiveTripIfNeeded(for: vehicle)
-            return activeTrip != nil
+        if let persisted = findPersistedActiveTrip() {
+            if persisted.vehicle?.id == vehicle.id {
+                restoreActiveTripIfNeeded(for: vehicle)
+                return true
+            }
+            if let other = persisted.vehicle {
+                lastError = "End the active trip on \(other.name) first."
+            } else {
+                lastError = "End the active trip on your other vehicle before starting a new one."
+            }
+            return false
         }
         guard let modelContext else {
             lastError = "Trip storage isn’t ready."
@@ -178,6 +198,30 @@ final class TripRecorder: NSObject, CLLocationManagerDelegate {
         modelContext.delete(trip)
         try? modelContext.save()
         clearSession()
+    }
+
+    private func findPersistedActiveTrip() -> Trip? {
+        guard let modelContext else { return nil }
+        let activeStatus = TripStatus.active.rawValue
+        var descriptor = FetchDescriptor<Trip>(
+            predicate: #Predicate { $0.statusRaw == activeStatus }
+        )
+        descriptor.fetchLimit = 1
+        return try? modelContext.fetch(descriptor).first
+    }
+
+    private func refreshLiveSessionFromTrip(_ trip: Trip, vehicle: Vehicle) {
+        unit = vehicle.odometerUnit
+        economyMPG = trip.estimatedMPG
+        economyL100 = trip.estimatedLitersPer100km
+        liveDistance = trip.distance
+        liveMaxSpeed = trip.maxSpeed
+        liveEstimatedMPG = trip.estimatedMPG
+        liveEstimatedL100 = trip.estimatedLitersPer100km
+        refreshLiveDuration()
+        if isAuthorizedWhenInUseOrBetter, !isRecording {
+            beginUpdates()
+        }
     }
 
     private func beginUpdates() {
