@@ -28,6 +28,8 @@ struct FuelTrackBackupImportResult: Sendable {
     var personalExpenses: Int
     var personalBudgets: Int
     var customCategories: Int
+    var trips: Int
+    var tripPoints: Int
 
     var summary: String {
         var parts: [String] = []
@@ -60,6 +62,12 @@ struct FuelTrackBackupImportResult: Sendable {
         }
         if customCategories > 0 {
             parts.append("\(customCategories) custom categor\(customCategories == 1 ? "y" : "ies")")
+        }
+        if trips > 0 {
+            parts.append("\(trips) trip\(trips == 1 ? "" : "s")")
+        }
+        if tripPoints > 0 {
+            parts.append("\(tripPoints) trip point\(tripPoints == 1 ? "" : "s")")
         }
         if parts.isEmpty { return "Backup contained no records." }
         return "Restored " + parts.joined(separator: ", ") + "."
@@ -100,7 +108,9 @@ enum FuelTrackBackupImporter {
             savedStations: 0,
             personalExpenses: 0,
             personalBudgets: 0,
-            customCategories: 0
+            customCategories: 0,
+            trips: 0,
+            tripPoints: 0
         )
 
         for categoryBackup in snapshot.customCategories {
@@ -120,6 +130,9 @@ enum FuelTrackBackupImporter {
             }
             for station in vehicleBackup.savedStations {
                 upsertSavedStation(station, vehicle: vehicle, into: modelContext, result: &result)
+            }
+            for trip in vehicleBackup.trips {
+                upsertTrip(trip, vehicle: vehicle, into: modelContext, result: &result)
             }
         }
 
@@ -438,6 +451,85 @@ enum FuelTrackBackupImporter {
         budget.monthlyLimit = backup.monthlyLimit
         budget.currencyCode = CurrencyCode(rawValue: backup.currencyCode) ?? .gbp
         result.personalBudgets += 1
+    }
+
+    @MainActor
+    private static func upsertTrip(
+        _ backup: FuelTrackBackupExporter.TripBackup,
+        vehicle: Vehicle,
+        into modelContext: ModelContext,
+        result: inout FuelTrackBackupImportResult
+    ) {
+        let id = backup.id
+        let existing = try? modelContext.fetch(
+            FetchDescriptor<Trip>(predicate: #Predicate { $0.id == id })
+        ).first
+
+        let trip: Trip
+        if let existing {
+            trip = existing
+            for point in trip.points {
+                modelContext.delete(point)
+            }
+            trip.points = []
+        } else {
+            trip = Trip(
+                id: backup.id,
+                startedAt: backup.startedAt,
+                endedAt: backup.endedAt,
+                status: TripStatus(rawValue: backup.status) ?? .completed,
+                distance: backup.distance,
+                durationSeconds: backup.durationSeconds,
+                averageSpeed: backup.averageSpeed,
+                maxSpeed: backup.maxSpeed,
+                estimatedMPG: backup.estimatedMPG,
+                estimatedLitersPer100km: backup.estimatedLitersPer100km,
+                startLatitude: backup.startLatitude,
+                startLongitude: backup.startLongitude,
+                endLatitude: backup.endLatitude,
+                endLongitude: backup.endLongitude,
+                note: backup.note,
+                createdAt: backup.createdAt,
+                vehicle: vehicle,
+                points: []
+            )
+            modelContext.insert(trip)
+        }
+
+        trip.startedAt = backup.startedAt
+        trip.endedAt = backup.endedAt
+        trip.status = TripStatus(rawValue: backup.status) ?? .completed
+        trip.distance = backup.distance
+        trip.durationSeconds = backup.durationSeconds
+        trip.averageSpeed = backup.averageSpeed
+        trip.maxSpeed = backup.maxSpeed
+        trip.estimatedMPG = backup.estimatedMPG
+        trip.estimatedLitersPer100km = backup.estimatedLitersPer100km
+        trip.startLatitude = backup.startLatitude
+        trip.startLongitude = backup.startLongitude
+        trip.endLatitude = backup.endLatitude
+        trip.endLongitude = backup.endLongitude
+        trip.note = backup.note
+        trip.createdAt = backup.createdAt
+        trip.vehicle = vehicle
+
+        for pointBackup in backup.points {
+            let point = TripPoint(
+                id: pointBackup.id,
+                recordedAt: pointBackup.recordedAt,
+                latitude: pointBackup.latitude,
+                longitude: pointBackup.longitude,
+                speedMps: pointBackup.speedMps,
+                horizontalAccuracy: pointBackup.horizontalAccuracy,
+                sequence: pointBackup.sequence,
+                trip: trip
+            )
+            modelContext.insert(point)
+            trip.points.append(point)
+            result.tripPoints += 1
+        }
+
+        result.trips += 1
     }
 
     @MainActor

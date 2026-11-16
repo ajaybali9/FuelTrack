@@ -3,7 +3,7 @@ import Foundation
 /// Full on-device backup of FuelTrack data (vehicles, fuel, car + personal spend, budgets, reminders).
 enum FuelTrackBackupExporter {
     static let formatName = "FuelTrackBackup"
-    static let formatVersion = 1
+    static let formatVersion = 2
 
     struct Snapshot: Codable, Sendable {
         var format: String
@@ -41,6 +41,130 @@ enum FuelTrackBackupExporter {
         var costs: [CarCostBackup]
         var reminders: [ReminderBackup]
         var savedStations: [SavedStationBackup]
+        var trips: [TripBackup]
+
+        enum CodingKeys: String, CodingKey {
+            case id, name, make, model, fuelType, odometerUnit, currencyCode, notes, createdAt
+            case registrationPlate, colour, yearOfManufacture, engineCapacityCC, co2Emissions
+            case motStatus, motExpiry, taxStatus, taxDueDate, insuranceProvider, insuranceExpiry
+            case lastComplianceRefresh, fillUps, costs, reminders, savedStations, trips
+        }
+
+        init(
+            id: UUID,
+            name: String,
+            make: String,
+            model: String,
+            fuelType: String,
+            odometerUnit: String,
+            currencyCode: String,
+            notes: String,
+            createdAt: Date,
+            registrationPlate: String,
+            colour: String,
+            yearOfManufacture: Int,
+            engineCapacityCC: Int,
+            co2Emissions: Int,
+            motStatus: String,
+            motExpiry: Date?,
+            taxStatus: String,
+            taxDueDate: Date?,
+            insuranceProvider: String,
+            insuranceExpiry: Date?,
+            lastComplianceRefresh: Date?,
+            fillUps: [FillUpBackup],
+            costs: [CarCostBackup],
+            reminders: [ReminderBackup],
+            savedStations: [SavedStationBackup],
+            trips: [TripBackup]
+        ) {
+            self.id = id
+            self.name = name
+            self.make = make
+            self.model = model
+            self.fuelType = fuelType
+            self.odometerUnit = odometerUnit
+            self.currencyCode = currencyCode
+            self.notes = notes
+            self.createdAt = createdAt
+            self.registrationPlate = registrationPlate
+            self.colour = colour
+            self.yearOfManufacture = yearOfManufacture
+            self.engineCapacityCC = engineCapacityCC
+            self.co2Emissions = co2Emissions
+            self.motStatus = motStatus
+            self.motExpiry = motExpiry
+            self.taxStatus = taxStatus
+            self.taxDueDate = taxDueDate
+            self.insuranceProvider = insuranceProvider
+            self.insuranceExpiry = insuranceExpiry
+            self.lastComplianceRefresh = lastComplianceRefresh
+            self.fillUps = fillUps
+            self.costs = costs
+            self.reminders = reminders
+            self.savedStations = savedStations
+            self.trips = trips
+        }
+
+        init(from decoder: Decoder) throws {
+            let c = try decoder.container(keyedBy: CodingKeys.self)
+            id = try c.decode(UUID.self, forKey: .id)
+            name = try c.decode(String.self, forKey: .name)
+            make = try c.decode(String.self, forKey: .make)
+            model = try c.decode(String.self, forKey: .model)
+            fuelType = try c.decode(String.self, forKey: .fuelType)
+            odometerUnit = try c.decode(String.self, forKey: .odometerUnit)
+            currencyCode = try c.decode(String.self, forKey: .currencyCode)
+            notes = try c.decode(String.self, forKey: .notes)
+            createdAt = try c.decode(Date.self, forKey: .createdAt)
+            registrationPlate = try c.decode(String.self, forKey: .registrationPlate)
+            colour = try c.decode(String.self, forKey: .colour)
+            yearOfManufacture = try c.decode(Int.self, forKey: .yearOfManufacture)
+            engineCapacityCC = try c.decode(Int.self, forKey: .engineCapacityCC)
+            co2Emissions = try c.decode(Int.self, forKey: .co2Emissions)
+            motStatus = try c.decode(String.self, forKey: .motStatus)
+            motExpiry = try c.decodeIfPresent(Date.self, forKey: .motExpiry)
+            taxStatus = try c.decode(String.self, forKey: .taxStatus)
+            taxDueDate = try c.decodeIfPresent(Date.self, forKey: .taxDueDate)
+            insuranceProvider = try c.decode(String.self, forKey: .insuranceProvider)
+            insuranceExpiry = try c.decodeIfPresent(Date.self, forKey: .insuranceExpiry)
+            lastComplianceRefresh = try c.decodeIfPresent(Date.self, forKey: .lastComplianceRefresh)
+            fillUps = try c.decode([FillUpBackup].self, forKey: .fillUps)
+            costs = try c.decode([CarCostBackup].self, forKey: .costs)
+            reminders = try c.decode([ReminderBackup].self, forKey: .reminders)
+            savedStations = try c.decode([SavedStationBackup].self, forKey: .savedStations)
+            trips = try c.decodeIfPresent([TripBackup].self, forKey: .trips) ?? []
+        }
+    }
+
+    struct TripBackup: Codable, Sendable {
+        var id: UUID
+        var startedAt: Date
+        var endedAt: Date?
+        var status: String
+        var distance: Double
+        var durationSeconds: Double
+        var averageSpeed: Double
+        var maxSpeed: Double
+        var estimatedMPG: Double?
+        var estimatedLitersPer100km: Double?
+        var startLatitude: Double?
+        var startLongitude: Double?
+        var endLatitude: Double?
+        var endLongitude: Double?
+        var note: String
+        var createdAt: Date
+        var points: [TripPointBackup]
+    }
+
+    struct TripPointBackup: Codable, Sendable {
+        var id: UUID
+        var recordedAt: Date
+        var latitude: Double
+        var longitude: Double
+        var speedMps: Double?
+        var horizontalAccuracy: Double?
+        var sequence: Int
     }
 
     struct FillUpBackup: Codable, Sendable {
@@ -221,7 +345,44 @@ enum FuelTrackBackupExporter {
                 .map(reminderBackup),
             savedStations: vehicle.savedStations
                 .sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
-                .map(savedStationBackup)
+                .map(savedStationBackup),
+            trips: vehicle.trips
+                .sorted { $0.startedAt < $1.startedAt }
+                .map(tripBackup)
+        )
+    }
+
+    private static func tripBackup(_ trip: Trip) -> TripBackup {
+        TripBackup(
+            id: trip.id,
+            startedAt: trip.startedAt,
+            endedAt: trip.endedAt,
+            status: trip.statusRaw,
+            distance: trip.distance,
+            durationSeconds: trip.durationSeconds,
+            averageSpeed: trip.averageSpeed,
+            maxSpeed: trip.maxSpeed,
+            estimatedMPG: trip.estimatedMPG,
+            estimatedLitersPer100km: trip.estimatedLitersPer100km,
+            startLatitude: trip.startLatitude,
+            startLongitude: trip.startLongitude,
+            endLatitude: trip.endLatitude,
+            endLongitude: trip.endLongitude,
+            note: trip.note,
+            createdAt: trip.createdAt,
+            points: trip.sortedPoints.map(tripPointBackup)
+        )
+    }
+
+    private static func tripPointBackup(_ point: TripPoint) -> TripPointBackup {
+        TripPointBackup(
+            id: point.id,
+            recordedAt: point.recordedAt,
+            latitude: point.latitude,
+            longitude: point.longitude,
+            speedMps: point.speedMps,
+            horizontalAccuracy: point.horizontalAccuracy,
+            sequence: point.sequence
         )
     }
 

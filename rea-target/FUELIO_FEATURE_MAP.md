@@ -12,9 +12,9 @@ Source: `com.kajda.fuelio` APKM unpacked to `fuelio-apkm/base.apk` (static strin
 - Fuel grades (E10/E5/diesel/…)
 - CSV import + export (Fuelio-compatible sections)
 - Settings (currency GBP/INR, units)
+- GPS Trip log
 
 ## Not mirrored yet
-- GPS Trip log
 - Android Auto / CarPlay
 - Receipt scan
 - Widgets
