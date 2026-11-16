@@ -5,6 +5,7 @@ import SwiftUI
 struct FuelTrackApp: App {
     private let activeVehicleStore = ActiveVehicleStore()
     private let locationProvider = LocationProvider()
+    private let tripRecorder = TripRecorder()
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -38,6 +39,7 @@ struct FuelTrackApp: App {
             ContentView()
                 .environment(activeVehicleStore)
                 .environment(locationProvider)
+                .environment(tripRecorder)
         }
         .modelContainer(sharedModelContainer)
     }

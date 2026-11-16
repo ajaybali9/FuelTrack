@@ -5,8 +5,14 @@
 	<key>CFBundleDisplayName</key>
 	<string>FuelTrack</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>FuelTrack uses your location to find nearby petrol stations and the best local fuel prices.</string>
+	<string>FuelTrack uses your location to find nearby petrol stations and to record GPS trip logs.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>FuelTrack needs background location while a trip is active so distance and speed keep updating when the phone is locked.</string>
 	<key>NSLocationUsageDescription</key>
-	<string>FuelTrack uses your location to find nearby petrol stations and the best local fuel prices.</string>
+	<string>FuelTrack uses your location to find nearby petrol stations and to record GPS trip logs.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
 </dict>
 </plist>
