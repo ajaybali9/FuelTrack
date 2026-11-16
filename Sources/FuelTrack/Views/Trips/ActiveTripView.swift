@@ -37,7 +37,7 @@ struct ActiveTripView: View {
         }
         .confirmationDialog("End trip?", isPresented: $confirmEnd, titleVisibility: .visible) {
             Button("End trip", role: .destructive) {
-                tripRecorder.end(keepEmptyTrip: false)
+                tripRecorder.end(keepEmptyTrip: true)
                 dismiss()
             }
             Button("Discard trip", role: .destructive) {

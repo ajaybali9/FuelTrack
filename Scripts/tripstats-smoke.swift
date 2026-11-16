@@ -61,6 +61,15 @@ func estimatedEconomy(averageMPG: Double?, averageL100: Double?) -> (mpg: Double
     (averageMPG, averageL100)
 }
 
+let minimumHorizontalAccuracyMeters = 50.0
+let maximumJumpMeters = 200.0
+
+/// Mirrors TripRecorder jump handling: good accuracy + jump over max → re-anchor, no segment distance.
+func shouldReAnchorWithoutDistance(jumpMeters: Double, horizontalAccuracy: Double) -> Bool {
+    guard horizontalAccuracy >= 0, horizontalAccuracy <= minimumHorizontalAccuracyMeters else { return false }
+    return jumpMeters > maximumJumpMeters
+}
+
 let t0 = Date(timeIntervalSince1970: 1_700_000_000)
 let samples = [
     Sample(latitude: 51.5074, longitude: -0.1278, recordedAt: t0, speedMps: 10),
@@ -78,4 +87,7 @@ let maxS = samples.compactMap(\.speedMps).map { speedInUnit(mps: $0, unit: unit)
 assert(abs(maxS - speedInUnit(mps: 20, unit: .miles)) < 0.001)
 let eco = estimatedEconomy(averageMPG: 40, averageL100: 7.0)
 assert(eco.mpg == 40 && eco.l100 == 7.0)
+assert(shouldReAnchorWithoutDistance(jumpMeters: 500, horizontalAccuracy: 10))
+assert(!shouldReAnchorWithoutDistance(jumpMeters: 50, horizontalAccuracy: 10))
+assert(!shouldReAnchorWithoutDistance(jumpMeters: 500, horizontalAccuracy: 80))
 print("tripstats-smoke: PASS (metres=\(Int(metres)), avgMph=\(String(format: "%.1f", avg)))")

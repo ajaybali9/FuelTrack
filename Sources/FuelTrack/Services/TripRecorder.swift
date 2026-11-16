@@ -179,6 +179,7 @@ final class TripRecorder: NSObject, CLLocationManagerDelegate {
     private func beginUpdates() {
         backgroundLimited = !hasAlwaysAuthorization
         manager.allowsBackgroundLocationUpdates = hasAlwaysAuthorization
+        manager.pausesLocationUpdatesAutomatically = false
         manager.startUpdatingLocation()
         isRecording = true
         if authorizationStatus == .authorizedWhenInUse {
@@ -189,6 +190,7 @@ final class TripRecorder: NSObject, CLLocationManagerDelegate {
     private func stopUpdates() {
         manager.stopUpdatingLocation()
         manager.allowsBackgroundLocationUpdates = false
+        manager.pausesLocationUpdatesAutomatically = true
         isRecording = false
     }
 
@@ -228,11 +230,15 @@ final class TripRecorder: NSObject, CLLocationManagerDelegate {
 
     private func accept(_ location: CLLocation) {
         guard let trip = activeTrip, let modelContext else { return }
-        guard TripStats.shouldAccept(location: location, previous: lastAcceptedLocation) else { return }
+        guard TripStats.hasAcceptableAccuracy(location) else { return }
 
         if let previous = lastAcceptedLocation {
-            let delta = location.distance(from: previous)
-            liveDistance += TripStats.distanceInUnit(metres: delta, unit: unit)
+            let jump = location.distance(from: previous)
+            if jump > TripStats.maximumJumpMeters {
+                lastAcceptedLocation = location
+                return
+            }
+            liveDistance += TripStats.distanceInUnit(metres: jump, unit: unit)
         } else {
             trip.startLatitude = location.coordinate.latitude
             trip.startLongitude = location.coordinate.longitude
@@ -278,9 +284,10 @@ final class TripRecorder: NSObject, CLLocationManagerDelegate {
     }
 
     nonisolated func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
         Task { @MainActor in
-            self.accept(location)
+            for location in locations {
+                self.accept(location)
+            }
         }
     }
 

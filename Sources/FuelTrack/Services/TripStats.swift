@@ -20,13 +20,16 @@ enum TripStats {
         return 2 * r * atan2(sqrt(h), sqrt(1 - h))
     }
 
+    static func hasAcceptableAccuracy(_ location: CLLocation) -> Bool {
+        location.horizontalAccuracy >= 0
+            && location.horizontalAccuracy <= minimumHorizontalAccuracyMeters
+    }
+
     static func shouldAccept(
         location: CLLocation,
         previous: CLLocation?
     ) -> Bool {
-        guard location.horizontalAccuracy >= 0,
-              location.horizontalAccuracy <= minimumHorizontalAccuracyMeters
-        else { return false }
+        guard hasAcceptableAccuracy(location) else { return false }
         guard let previous else { return true }
         let jump = location.distance(from: previous)
         return jump <= maximumJumpMeters

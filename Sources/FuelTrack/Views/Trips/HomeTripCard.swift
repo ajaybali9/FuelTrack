@@ -66,7 +66,7 @@ struct HomeTripCard: View {
         }
         .confirmationDialog("End trip?", isPresented: $confirmEnd, titleVisibility: .visible) {
             Button("End trip", role: .destructive) {
-                tripRecorder.end(keepEmptyTrip: false)
+                tripRecorder.end(keepEmptyTrip: true)
             }
             Button("Discard trip", role: .destructive) {
                 tripRecorder.discard()
