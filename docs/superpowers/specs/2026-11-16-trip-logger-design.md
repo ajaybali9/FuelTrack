@@ -181,8 +181,9 @@ Trip Logger
 
 ## Backup
 
-- Prefer including `Trip` / `TripPoint` in FuelTrack JSON backup in the same feature work (bump backup format version).
-- If backup expansion slips, trips remain on-device in SwiftData and are documented as “not in backup yet” until the version bump ships — do not silently drop trips on restore.
+- Include `Trip` / `TripPoint` in FuelTrack JSON backup/import in this feature (bump `FuelTrackBackupExporter.formatVersion`).
+- Restore must recreate trips and points for the matching vehicle; never silently drop trip data when reading the new format version.
+- Older backups without trips remain valid (empty trips on import).
 
 ## Testing
 
