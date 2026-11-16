@@ -76,6 +76,8 @@ struct DashboardView: View {
                     }
                 }
 
+                HomeTripCard(vehicle: vehicle)
+
                 if !vehicle.registrationPlate.isEmpty || vehicle.motExpiry != nil || vehicle.taxDueDate != nil || vehicle.insuranceExpiry != nil {
                     VehicleComplianceCard(vehicle: vehicle)
                 }
