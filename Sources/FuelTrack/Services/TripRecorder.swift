@@ -81,6 +81,17 @@ final class TripRecorder: NSObject, CLLocationManagerDelegate {
         liveEstimatedMPG = trip.estimatedMPG
         liveEstimatedL100 = trip.estimatedLitersPer100km
         refreshLiveDuration()
+        if let last = trip.sortedPoints.last {
+            lastAcceptedLocation = CLLocation(
+                coordinate: CLLocationCoordinate2D(latitude: last.latitude, longitude: last.longitude),
+                altitude: 0,
+                horizontalAccuracy: last.horizontalAccuracy ?? 0,
+                verticalAccuracy: -1,
+                course: -1,
+                speed: last.speedMps ?? -1,
+                timestamp: last.recordedAt
+            )
+        }
         if isAuthorizedWhenInUseOrBetter {
             beginUpdates()
         }
