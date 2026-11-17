@@ -30,7 +30,7 @@ struct TripListView: View {
                 }
             }
         }
-        .navigationTitle("Trip Logger")
+        .navigationTitle("Trips")
         .fuelTrackScreen()
     }
 }

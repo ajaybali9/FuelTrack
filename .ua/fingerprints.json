@@ -1,0 +1,7653 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "4bd88d19bce514c73c17e278b7e03a0b2e52ea2d",
+  "generatedAt": "2026-11-17T07:45:41.341Z",
+  "files": {
+    ".gitattributes": {
+      "filePath": ".gitattributes",
+      "contentHash": "1a1dbe176bc233b499d35a57db7513f2941c99ab9759f177830c9149be99005b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": false
+    },
+    ".ua/config.json": {
+      "filePath": ".ua/config.json",
+      "contentHash": "08d37f20ea0af2233ae24f094723759f952381ecb6dd7f2aaa05ef96e95eae6b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 4,
+      "hasStructuralAnalysis": false
+    },
+    "Package.swift": {
+      "filePath": "Package.swift",
+      "contentHash": "9478422b103c3c39fc3c8a0c063dbd2deb6b5251f1c9df5a3d741337b1abed43",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "PackageDescription",
+          "specifiers": [
+            "PackageDescription"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": true
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "23883edb605178bc98d2c1ba83f06f71ba181d75c0455d2c894b880d12157009",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 73,
+      "hasStructuralAnalysis": false
+    },
+    "Scripts/Fuelio_2026-11-12.csv": {
+      "filePath": "Scripts/Fuelio_2026-11-12.csv",
+      "contentHash": "601596e840ae6ddcd1833797a3346660cdad60d82d97cbc714120d441ff5cfaf",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 124,
+      "hasStructuralAnalysis": false
+    },
+    "Scripts/backup-roundtrip-smoke.swift": {
+      "filePath": "Scripts/backup-roundtrip-smoke.swift",
+      "contentHash": "228d2d07ebd423f6b131a5f5c9cd018647953781fbd42ad57e006974e51c6ccd",
+      "functions": [
+        {
+          "name": "VehicleBackupV2Compat.init",
+          "params": [
+            "decoder"
+          ],
+          "exported": true,
+          "lineCount": 29
+        },
+        {
+          "name": "fail",
+          "params": [
+            "message"
+          ],
+          "returnType": "Never",
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [
+        {
+          "name": "Snapshot",
+          "methods": [],
+          "properties": [
+            "format",
+            "version",
+            "exportedAt",
+            "vehicles",
+            "personalExpenses",
+            "personalBudgets",
+            "customCategories"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "VehicleBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "make",
+            "model",
+            "fuelType",
+            "odometerUnit",
+            "currencyCode",
+            "notes",
+            "createdAt",
+            "registrationPlate",
+            "colour",
+            "yearOfManufacture",
+            "engineCapacityCC",
+            "co2Emissions",
+            "motStatus",
+            "motExpiry",
+            "taxStatus",
+            "taxDueDate",
+            "insuranceProvider",
+            "insuranceExpiry",
+            "lastComplianceRefresh",
+            "fillUps",
+            "costs",
+            "reminders",
+            "savedStations",
+            "trips"
+          ],
+          "exported": true,
+          "lineCount": 28
+        },
+        {
+          "name": "TripBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "startedAt",
+            "endedAt",
+            "status",
+            "distance",
+            "durationSeconds",
+            "averageSpeed",
+            "maxSpeed",
+            "estimatedMPG",
+            "estimatedLitersPer100km",
+            "startLatitude",
+            "startLongitude",
+            "endLatitude",
+            "endLongitude",
+            "note",
+            "createdAt",
+            "points"
+          ],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "TripPointBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "recordedAt",
+            "latitude",
+            "longitude",
+            "speedMps",
+            "horizontalAccuracy",
+            "sequence"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "FillUpBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "date",
+            "odometer",
+            "liters",
+            "totalCost",
+            "currencyCode",
+            "isFullTank",
+            "skipped",
+            "station",
+            "stationExternalId",
+            "latitude",
+            "longitude",
+            "note",
+            "fuelType",
+            "createdAt"
+          ],
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "CarCostBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "title",
+            "date",
+            "odometer",
+            "amount",
+            "currencyCode",
+            "category",
+            "note",
+            "createdAt"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "ReminderBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "title",
+            "dueDate",
+            "dueOdometer",
+            "note",
+            "isCompleted",
+            "createdAt"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "SavedStationBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "latitude",
+            "longitude",
+            "externalId",
+            "note",
+            "createdAt"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "PersonalExpenseBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "title",
+            "date",
+            "amount",
+            "currencyCode",
+            "category",
+            "note",
+            "paymentMethod",
+            "createdAt"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "PersonalBudgetBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "category",
+            "monthlyLimit",
+            "currencyCode",
+            "createdAt"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "CustomCategoryBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "systemImage",
+            "scope",
+            "createdAt"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "VehicleBackupV1",
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "make",
+            "model",
+            "fuelType",
+            "odometerUnit",
+            "currencyCode",
+            "notes",
+            "createdAt",
+            "registrationPlate",
+            "colour",
+            "yearOfManufacture",
+            "engineCapacityCC",
+            "co2Emissions",
+            "motStatus",
+            "motExpiry",
+            "taxStatus",
+            "taxDueDate",
+            "insuranceProvider",
+            "insuranceExpiry",
+            "lastComplianceRefresh",
+            "fillUps",
+            "costs",
+            "reminders",
+            "savedStations"
+          ],
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "VehicleBackupV2Compat",
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "name",
+            "make",
+            "model",
+            "fuelType",
+            "odometerUnit",
+            "currencyCode",
+            "notes",
+            "createdAt",
+            "registrationPlate",
+            "colour",
+            "yearOfManufacture",
+            "engineCapacityCC",
+            "co2Emissions",
+            "motStatus",
+            "motExpiry",
+            "taxStatus",
+            "taxDueDate",
+            "insuranceProvider",
+            "insuranceExpiry",
+            "lastComplianceRefresh",
+            "fillUps",
+            "costs",
+            "reminders",
+            "savedStations",
+            "trips"
+          ],
+          "exported": true,
+          "lineCount": 65
+        },
+        {
+          "name": "CodingKeys",
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "make",
+            "model",
+            "fuelType",
+            "odometerUnit",
+            "currencyCode",
+            "notes",
+            "createdAt",
+            "registrationPlate",
+            "colour",
+            "yearOfManufacture",
+            "engineCapacityCC",
+            "co2Emissions",
+            "motStatus",
+            "motExpiry",
+            "taxStatus",
+            "taxDueDate",
+            "insuranceProvider",
+            "insuranceExpiry",
+            "lastComplianceRefresh",
+            "fillUps",
+            "costs",
+            "reminders",
+            "savedStations",
+            "trips"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "Loose",
+          "methods": [],
+          "properties": [
+            "format",
+            "version"
+          ],
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "format",
+        "version",
+        "exportedAt",
+        "vehicles",
+        "personalExpenses",
+        "personalBudgets",
+        "customCategories",
+        "Snapshot",
+        "id",
+        "name",
+        "make",
+        "model",
+        "fuelType",
+        "odometerUnit",
+        "currencyCode",
+        "notes",
+        "createdAt",
+        "registrationPlate",
+        "colour",
+        "yearOfManufacture",
+        "engineCapacityCC",
+        "co2Emissions",
+        "motStatus",
+        "motExpiry",
+        "taxStatus",
+        "taxDueDate",
+        "insuranceProvider",
+        "insuranceExpiry",
+        "lastComplianceRefresh",
+        "fillUps",
+        "costs",
+        "reminders",
+        "savedStations",
+        "trips",
+        "VehicleBackup",
+        "id",
+        "startedAt",
+        "endedAt",
+        "status",
+        "distance",
+        "durationSeconds",
+        "averageSpeed",
+        "maxSpeed",
+        "estimatedMPG",
+        "estimatedLitersPer100km",
+        "startLatitude",
+        "startLongitude",
+        "endLatitude",
+        "endLongitude",
+        "note",
+        "createdAt",
+        "points",
+        "TripBackup",
+        "id",
+        "recordedAt",
+        "latitude",
+        "longitude",
+        "speedMps",
+        "horizontalAccuracy",
+        "sequence",
+        "TripPointBackup",
+        "id",
+        "date",
+        "odometer",
+        "liters",
+        "totalCost",
+        "currencyCode",
+        "isFullTank",
+        "skipped",
+        "station",
+        "stationExternalId",
+        "latitude",
+        "longitude",
+        "note",
+        "fuelType",
+        "createdAt",
+        "FillUpBackup",
+        "id",
+        "title",
+        "date",
+        "odometer",
+        "amount",
+        "currencyCode",
+        "category",
+        "note",
+        "createdAt",
+        "CarCostBackup",
+        "id",
+        "title",
+        "dueDate",
+        "dueOdometer",
+        "note",
+        "isCompleted",
+        "createdAt",
+        "ReminderBackup",
+        "id",
+        "name",
+        "latitude",
+        "longitude",
+        "externalId",
+        "note",
+        "createdAt",
+        "SavedStationBackup",
+        "id",
+        "title",
+        "date",
+        "amount",
+        "currencyCode",
+        "category",
+        "note",
+        "paymentMethod",
+        "createdAt",
+        "PersonalExpenseBackup",
+        "id",
+        "category",
+        "monthlyLimit",
+        "currencyCode",
+        "createdAt",
+        "PersonalBudgetBackup",
+        "id",
+        "name",
+        "systemImage",
+        "scope",
+        "createdAt",
+        "CustomCategoryBackup",
+        "id",
+        "name",
+        "make",
+        "model",
+        "fuelType",
+        "odometerUnit",
+        "currencyCode",
+        "notes",
+        "createdAt",
+        "registrationPlate",
+        "colour",
+        "yearOfManufacture",
+        "engineCapacityCC",
+        "co2Emissions",
+        "motStatus",
+        "motExpiry",
+        "taxStatus",
+        "taxDueDate",
+        "insuranceProvider",
+        "insuranceExpiry",
+        "lastComplianceRefresh",
+        "fillUps",
+        "costs",
+        "reminders",
+        "savedStations",
+        "VehicleBackupV1",
+        "id",
+        "name",
+        "make",
+        "model",
+        "fuelType",
+        "odometerUnit",
+        "currencyCode",
+        "notes",
+        "createdAt",
+        "registrationPlate",
+        "colour",
+        "yearOfManufacture",
+        "engineCapacityCC",
+        "co2Emissions",
+        "motStatus",
+        "motExpiry",
+        "taxStatus",
+        "taxDueDate",
+        "insuranceProvider",
+        "insuranceExpiry",
+        "lastComplianceRefresh",
+        "fillUps",
+        "costs",
+        "reminders",
+        "savedStations",
+        "trips",
+        "VehicleBackupV2Compat.init",
+        "VehicleBackupV2Compat",
+        "CodingKeys",
+        "fail",
+        "format",
+        "version",
+        "Loose"
+      ],
+      "totalLines": 492,
+      "hasStructuralAnalysis": true
+    },
+    "Scripts/fuelio-import-smoke.swift": {
+      "filePath": "Scripts/fuelio-import-smoke.swift",
+      "contentHash": "1c9eddc96f5234347fc1cac1427398d0b1760bde4901a6a00b25de4536e99c2d",
+      "functions": [
+        {
+          "name": "parseCSVRow",
+          "params": [
+            "line"
+          ],
+          "returnType": "[String]",
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "section",
+          "params": [
+            "text",
+            "name"
+          ],
+          "returnType": "[String]",
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "parseCSVRow",
+        "section"
+      ],
+      "totalLines": 52,
+      "hasStructuralAnalysis": true
+    },
+    "Scripts/fuelio-sample.csv": {
+      "filePath": "Scripts/fuelio-sample.csv",
+      "contentHash": "13250174950613e7ce7b2136799030743794c13079587d618dc8f74830552c8c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": false
+    },
+    "Scripts/fuelstats-smoke.swift": {
+      "filePath": "Scripts/fuelstats-smoke.swift",
+      "contentHash": "85cf8ee134ab7c233fb024af6ba81ecddf7b36d33f90a637dd77e09f24e9d029",
+      "functions": [
+        {
+          "name": "toKilometers",
+          "params": [
+            "value"
+          ],
+          "returnType": "Double",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "litersPer100km",
+          "params": [
+            "unit"
+          ],
+          "returnType": "Double?",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "segments",
+          "params": [
+            "fillUps"
+          ],
+          "returnType": "[ConsumptionSegment]",
+          "exported": true,
+          "lineCount": 24
+        }
+      ],
+      "classes": [
+        {
+          "name": "OdometerUnit",
+          "methods": [
+            "toKilometers"
+          ],
+          "properties": [
+            "miles",
+            "kilometers"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "FillUpSnapshot",
+          "methods": [],
+          "properties": [
+            "date",
+            "odometer",
+            "liters",
+            "totalCost",
+            "isFullTank",
+            "skipped"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "ConsumptionSegment",
+          "methods": [
+            "litersPer100km"
+          ],
+          "properties": [
+            "startOdometer",
+            "endOdometer",
+            "liters",
+            "cost",
+            "distance"
+          ],
+          "exported": true,
+          "lineCount": 12
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "toKilometers",
+        "OdometerUnit",
+        "date",
+        "odometer",
+        "liters",
+        "totalCost",
+        "isFullTank",
+        "skipped",
+        "FillUpSnapshot",
+        "startOdometer",
+        "endOdometer",
+        "liters",
+        "cost",
+        "distance",
+        "litersPer100km",
+        "ConsumptionSegment",
+        "segments"
+      ],
+      "totalLines": 79,
+      "hasStructuralAnalysis": true
+    },
+    "Scripts/tripstats-smoke.swift": {
+      "filePath": "Scripts/tripstats-smoke.swift",
+      "contentHash": "77347bbc36e49b807463d1fa8d03eeda6c5f096451b7d83c968b898f911e7c9a",
+      "functions": [
+        {
+          "name": "fromKilometers",
+          "params": [
+            "kilometers"
+          ],
+          "returnType": "Double",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "haversineMeters",
+          "params": [
+            "lat1",
+            "lon1",
+            "lat2",
+            "lon2"
+          ],
+          "returnType": "Double",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "distanceMeters",
+          "params": [
+            "samples"
+          ],
+          "returnType": "Double",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "durationSeconds",
+          "params": [
+            "samples",
+            "endedAt"
+          ],
+          "returnType": "Double",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "averageSpeed",
+          "params": [
+            "distance",
+            "durationSeconds"
+          ],
+          "returnType": "Double",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "speedInUnit",
+          "params": [
+            "mps",
+            "unit"
+          ],
+          "returnType": "Double",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "estimatedEconomy",
+          "params": [
+            "averageMPG",
+            "averageL100"
+          ],
+          "returnType": "(mpg: Double?, l100: Double?)",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "shouldReAnchorWithoutDistance",
+          "params": [
+            "jumpMeters",
+            "horizontalAccuracy"
+          ],
+          "returnType": "Bool",
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [
+        {
+          "name": "OdometerUnit",
+          "methods": [
+            "fromKilometers"
+          ],
+          "properties": [
+            "miles",
+            "kilometers"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "Sample",
+          "methods": [],
+          "properties": [
+            "latitude",
+            "longitude",
+            "recordedAt",
+            "speedMps"
+          ],
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "fromKilometers",
+        "OdometerUnit",
+        "latitude",
+        "longitude",
+        "recordedAt",
+        "speedMps",
+        "Sample",
+        "haversineMeters",
+        "distanceMeters",
+        "durationSeconds",
+        "averageSpeed",
+        "speedInUnit",
+        "estimatedEconomy",
+        "shouldReAnchorWithoutDistance"
+      ],
+      "totalLines": 93,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/FuelTrackApp.swift": {
+      "filePath": "Sources/FuelTrack/FuelTrackApp.swift",
+      "contentHash": "f1659e26989c95d3cbf70257194f13e43363938b447bdaccc61fd8461ad665e6",
+      "functions": [],
+      "classes": [
+        {
+          "name": "FuelTrackApp",
+          "methods": [],
+          "properties": [
+            "activeVehicleStore",
+            "locationProvider",
+            "tripRecorder",
+            "sharedModelContainer",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 43
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "sharedModelContainer",
+        "body",
+        "FuelTrackApp"
+      ],
+      "totalLines": 47,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Models/CarCost.swift": {
+      "filePath": "Sources/FuelTrack/Models/CarCost.swift",
+      "contentHash": "4609cb29fa457adb0367bba35b49d59374786c805faa5147a387b706a7c6a8a7",
+      "functions": [
+        {
+          "name": "CarCost.init",
+          "params": [
+            "id",
+            "title",
+            "date",
+            "odometer",
+            "amount",
+            "currencyCode",
+            "category",
+            "categoryKey",
+            "note",
+            "createdAt",
+            "vehicle"
+          ],
+          "exported": true,
+          "lineCount": 24
+        }
+      ],
+      "classes": [
+        {
+          "name": "CarCost",
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "title",
+            "date",
+            "odometer",
+            "amount",
+            "currencyCodeRaw",
+            "categoryRaw",
+            "note",
+            "createdAt",
+            "vehicle",
+            "currencyCode",
+            "categoryKey",
+            "category"
+          ],
+          "exported": true,
+          "lineCount": 54
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        },
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        }
+      ],
+      "exports": [
+        "id",
+        "title",
+        "date",
+        "odometer",
+        "amount",
+        "currencyCodeRaw",
+        "categoryRaw",
+        "note",
+        "createdAt",
+        "vehicle",
+        "CarCost.init",
+        "currencyCode",
+        "categoryKey",
+        "category",
+        "CarCost"
+      ],
+      "totalLines": 58,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Models/CostCategory.swift": {
+      "filePath": "Sources/FuelTrack/Models/CostCategory.swift",
+      "contentHash": "c862dccac6dc11d2212ba4f368e25a98e6d1787c3ef328c7e5d8f0b263d616f2",
+      "functions": [
+        {
+          "name": "fromFuelioName",
+          "params": [
+            "name"
+          ],
+          "returnType": "CostCategory",
+          "exported": true,
+          "lineCount": 22
+        }
+      ],
+      "classes": [
+        {
+          "name": "CostCategory",
+          "methods": [
+            "fromFuelioName"
+          ],
+          "properties": [
+            "service",
+            "maintenance",
+            "insurance",
+            "mot",
+            "roadTax",
+            "registration",
+            "parking",
+            "wash",
+            "tolls",
+            "fines",
+            "tuning",
+            "other",
+            "id",
+            "displayName",
+            "systemImage"
+          ],
+          "exported": true,
+          "lineCount": 74
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "id",
+        "fromFuelioName",
+        "displayName",
+        "systemImage",
+        "CostCategory"
+      ],
+      "totalLines": 77,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Models/CurrencyCode.swift": {
+      "filePath": "Sources/FuelTrack/Models/CurrencyCode.swift",
+      "contentHash": "b3067d11ac8a853221c901bc1d196f2239ce3449b7a7d32f1c173f92257d978f",
+      "functions": [],
+      "classes": [
+        {
+          "name": "CurrencyCode",
+          "methods": [],
+          "properties": [
+            "gbp",
+            "inr",
+            "id",
+            "displayName",
+            "symbol",
+            "localeIdentifier"
+          ],
+          "exported": true,
+          "lineCount": 27
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "id",
+        "displayName",
+        "symbol",
+        "localeIdentifier",
+        "CurrencyCode"
+      ],
+      "totalLines": 30,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Models/CustomExpenseCategory.swift": {
+      "filePath": "Sources/FuelTrack/Models/CustomExpenseCategory.swift",
+      "contentHash": "b7068529babd9c3f89cd56f32ff21f33fd8c405a98194ae6af192dc1bd90dbaa",
+      "functions": [
+        {
+          "name": "CustomExpenseCategory.init",
+          "params": [
+            "id",
+            "name",
+            "systemImage",
+            "scope",
+            "createdAt"
+          ],
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [
+        {
+          "name": "CustomCategoryScope",
+          "methods": [],
+          "properties": [
+            "car",
+            "personal"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "CustomExpenseCategory",
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "name",
+            "systemImage",
+            "scopeRaw",
+            "createdAt",
+            "scope",
+            "storageKey"
+          ],
+          "exported": true,
+          "lineCount": 31
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        },
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        }
+      ],
+      "exports": [
+        "CustomCategoryScope",
+        "id",
+        "name",
+        "systemImage",
+        "scopeRaw",
+        "createdAt",
+        "CustomExpenseCategory.init",
+        "scope",
+        "storageKey",
+        "CustomExpenseCategory"
+      ],
+      "totalLines": 40,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Models/FillUp.swift": {
+      "filePath": "Sources/FuelTrack/Models/FillUp.swift",
+      "contentHash": "712f659b2713bda9bb0bc78ad788ff78ccdf94c37e01bebdc85981f5ec01bdac",
+      "functions": [
+        {
+          "name": "FillUp.init",
+          "params": [
+            "id",
+            "date",
+            "odometer",
+            "liters",
+            "totalCost",
+            "currencyCode",
+            "isFullTank",
+            "skipped",
+            "station",
+            "note",
+            "fuelType",
+            "latitude",
+            "longitude",
+            "stationExternalId",
+            "createdAt",
+            "vehicle"
+          ],
+          "exported": true,
+          "lineCount": 35
+        }
+      ],
+      "classes": [
+        {
+          "name": "FillUp",
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "date",
+            "odometer",
+            "liters",
+            "totalCost",
+            "currencyCodeRaw",
+            "isFullTank",
+            "skipped",
+            "station",
+            "note",
+            "fuelTypeRaw",
+            "latitude",
+            "longitude",
+            "stationExternalId",
+            "createdAt",
+            "vehicle",
+            "currencyCode",
+            "fuelType",
+            "pricePerLiter"
+          ],
+          "exported": true,
+          "lineCount": 78
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        },
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        }
+      ],
+      "exports": [
+        "id",
+        "date",
+        "odometer",
+        "liters",
+        "totalCost",
+        "currencyCodeRaw",
+        "isFullTank",
+        "skipped",
+        "station",
+        "note",
+        "fuelTypeRaw",
+        "latitude",
+        "longitude",
+        "stationExternalId",
+        "createdAt",
+        "vehicle",
+        "FillUp.init",
+        "currencyCode",
+        "fuelType",
+        "pricePerLiter",
+        "FillUp"
+      ],
+      "totalLines": 82,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Models/FuelType.swift": {
+      "filePath": "Sources/FuelTrack/Models/FuelType.swift",
+      "contentHash": "e84224548d93bf6295cec160cb07d60fa6d900c1553f292e81963090cdbb4b19",
+      "functions": [
+        {
+          "name": "fromStored",
+          "params": [
+            "raw"
+          ],
+          "returnType": "FuelType",
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [
+        {
+          "name": "FuelType",
+          "methods": [
+            "fromStored"
+          ],
+          "properties": [
+            "petrolE10",
+            "petrolE5",
+            "diesel",
+            "dieselPremium",
+            "lpg",
+            "electric",
+            "hybrid",
+            "other",
+            "petrol",
+            "id",
+            "selectableCases",
+            "displayName",
+            "shortName",
+            "nearbyAPIFuelCode",
+            "supportsNearbyPrices",
+            "fuelioTankCode"
+          ],
+          "exported": true,
+          "lineCount": 77
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "id",
+        "selectableCases",
+        "fromStored",
+        "displayName",
+        "shortName",
+        "nearbyAPIFuelCode",
+        "supportsNearbyPrices",
+        "fuelioTankCode",
+        "FuelType"
+      ],
+      "totalLines": 80,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Models/OdometerUnit.swift": {
+      "filePath": "Sources/FuelTrack/Models/OdometerUnit.swift",
+      "contentHash": "b192a2fdeeed5093c4cd57ac7b0624d66bf87ff15b94e203fa43db7a1a640f64",
+      "functions": [
+        {
+          "name": "toKilometers",
+          "params": [
+            "value"
+          ],
+          "returnType": "Double",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "fromKilometers",
+          "params": [
+            "kilometers"
+          ],
+          "returnType": "Double",
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [
+        {
+          "name": "OdometerUnit",
+          "methods": [
+            "toKilometers",
+            "fromKilometers"
+          ],
+          "properties": [
+            "miles",
+            "kilometers",
+            "id",
+            "shortLabel",
+            "displayName"
+          ],
+          "exported": true,
+          "lineCount": 36
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "id",
+        "shortLabel",
+        "displayName",
+        "toKilometers",
+        "fromKilometers",
+        "OdometerUnit"
+      ],
+      "totalLines": 39,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Models/PersonalExpense.swift": {
+      "filePath": "Sources/FuelTrack/Models/PersonalExpense.swift",
+      "contentHash": "8c47835c345e88c6cf2e3c13446b386bbcf73403c570f3174c08d4468ac2f32d",
+      "functions": [
+        {
+          "name": "PersonalExpense.init",
+          "params": [
+            "id",
+            "title",
+            "date",
+            "amount",
+            "currencyCode",
+            "category",
+            "note",
+            "paymentMethod",
+            "createdAt"
+          ],
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "PersonalBudget.init",
+          "params": [
+            "id",
+            "category",
+            "monthlyLimit",
+            "currencyCode",
+            "createdAt"
+          ],
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [
+        {
+          "name": "PersonalExpense",
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "title",
+            "date",
+            "amount",
+            "currencyCodeRaw",
+            "categoryRaw",
+            "note",
+            "paymentMethod",
+            "createdAt",
+            "currencyCode",
+            "categoryKey",
+            "category"
+          ],
+          "exported": true,
+          "lineCount": 49
+        },
+        {
+          "name": "PersonalBudget",
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "categoryRaw",
+            "monthlyLimit",
+            "currencyCodeRaw",
+            "createdAt",
+            "currencyCode",
+            "category",
+            "isOverall"
+          ],
+          "exported": true,
+          "lineCount": 39
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        },
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        }
+      ],
+      "exports": [
+        "id",
+        "title",
+        "date",
+        "amount",
+        "currencyCodeRaw",
+        "categoryRaw",
+        "note",
+        "paymentMethod",
+        "createdAt",
+        "PersonalExpense.init",
+        "currencyCode",
+        "categoryKey",
+        "category",
+        "PersonalExpense",
+        "id",
+        "categoryRaw",
+        "monthlyLimit",
+        "currencyCodeRaw",
+        "createdAt",
+        "PersonalBudget.init",
+        "currencyCode",
+        "category",
+        "isOverall",
+        "PersonalBudget"
+      ],
+      "totalLines": 93,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Models/PersonalExpenseCategory.swift": {
+      "filePath": "Sources/FuelTrack/Models/PersonalExpenseCategory.swift",
+      "contentHash": "9d66e5607b1f6ac45e2bb384b68eb4008491946240164c4df0bfcc3442cb34e0",
+      "functions": [],
+      "classes": [
+        {
+          "name": "PersonalExpenseCategory",
+          "methods": [],
+          "properties": [
+            "food",
+            "groceries",
+            "shopping",
+            "bills",
+            "rent",
+            "transport",
+            "health",
+            "entertainment",
+            "travel",
+            "education",
+            "gifts",
+            "subscriptions",
+            "other",
+            "id",
+            "displayName",
+            "systemImage"
+          ],
+          "exported": true,
+          "lineCount": 53
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "id",
+        "displayName",
+        "systemImage",
+        "PersonalExpenseCategory"
+      ],
+      "totalLines": 56,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Models/ReminderItem.swift": {
+      "filePath": "Sources/FuelTrack/Models/ReminderItem.swift",
+      "contentHash": "6a45d47f725035c6b11d76b5e4bfbfa9f2a3bc901df85a687d69979ffaa303ce",
+      "functions": [
+        {
+          "name": "ReminderItem.init",
+          "params": [
+            "id",
+            "title",
+            "dueDate",
+            "dueOdometer",
+            "note",
+            "isCompleted",
+            "createdAt",
+            "vehicle"
+          ],
+          "exported": true,
+          "lineCount": 19
+        }
+      ],
+      "classes": [
+        {
+          "name": "ReminderItem",
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "title",
+            "dueDate",
+            "dueOdometer",
+            "note",
+            "isCompleted",
+            "createdAt",
+            "vehicle"
+          ],
+          "exported": true,
+          "lineCount": 32
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        },
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        }
+      ],
+      "exports": [
+        "id",
+        "title",
+        "dueDate",
+        "dueOdometer",
+        "note",
+        "isCompleted",
+        "createdAt",
+        "vehicle",
+        "ReminderItem.init",
+        "ReminderItem"
+      ],
+      "totalLines": 36,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Models/SavedStation.swift": {
+      "filePath": "Sources/FuelTrack/Models/SavedStation.swift",
+      "contentHash": "9525ac1d56fdaa0c0a8e44035c3d76ebc76c4a42f60861c9b1a30db664bb41ef",
+      "functions": [
+        {
+          "name": "SavedStation.init",
+          "params": [
+            "id",
+            "name",
+            "externalId",
+            "latitude",
+            "longitude",
+            "note",
+            "createdAt",
+            "vehicle"
+          ],
+          "exported": true,
+          "lineCount": 19
+        }
+      ],
+      "classes": [
+        {
+          "name": "SavedStation",
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "name",
+            "externalId",
+            "latitude",
+            "longitude",
+            "note",
+            "createdAt",
+            "vehicle"
+          ],
+          "exported": true,
+          "lineCount": 32
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        },
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        }
+      ],
+      "exports": [
+        "id",
+        "name",
+        "externalId",
+        "latitude",
+        "longitude",
+        "note",
+        "createdAt",
+        "vehicle",
+        "SavedStation.init",
+        "SavedStation"
+      ],
+      "totalLines": 36,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Models/Trip.swift": {
+      "filePath": "Sources/FuelTrack/Models/Trip.swift",
+      "contentHash": "524d83a59eb685f7bea34ca911c2b50b06a09529cf43cdd640fbfcb3f98e10cc",
+      "functions": [
+        {
+          "name": "Trip.init",
+          "params": [
+            "id",
+            "startedAt",
+            "endedAt",
+            "status",
+            "distance",
+            "durationSeconds",
+            "averageSpeed",
+            "maxSpeed",
+            "estimatedMPG",
+            "estimatedLitersPer100km",
+            "startLatitude",
+            "startLongitude",
+            "endLatitude",
+            "endLongitude",
+            "note",
+            "createdAt",
+            "vehicle",
+            "points"
+          ],
+          "exported": true,
+          "lineCount": 39
+        }
+      ],
+      "classes": [
+        {
+          "name": "Trip",
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "startedAt",
+            "endedAt",
+            "statusRaw",
+            "distance",
+            "durationSeconds",
+            "averageSpeed",
+            "maxSpeed",
+            "estimatedMPG",
+            "estimatedLitersPer100km",
+            "startLatitude",
+            "startLongitude",
+            "endLatitude",
+            "endLongitude",
+            "note",
+            "createdAt",
+            "vehicle",
+            "points",
+            "status",
+            "sortedPoints"
+          ],
+          "exported": true,
+          "lineCount": 73
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        },
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        }
+      ],
+      "exports": [
+        "id",
+        "startedAt",
+        "endedAt",
+        "statusRaw",
+        "distance",
+        "durationSeconds",
+        "averageSpeed",
+        "maxSpeed",
+        "estimatedMPG",
+        "estimatedLitersPer100km",
+        "startLatitude",
+        "startLongitude",
+        "endLatitude",
+        "endLongitude",
+        "note",
+        "createdAt",
+        "vehicle",
+        "points",
+        "Trip.init",
+        "status",
+        "sortedPoints",
+        "Trip"
+      ],
+      "totalLines": 76,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Models/TripPoint.swift": {
+      "filePath": "Sources/FuelTrack/Models/TripPoint.swift",
+      "contentHash": "4867ba30c4d3cf83a8c66318dcbbe28855c92a2a32e9bf214c840edab2d3db9b",
+      "functions": [
+        {
+          "name": "TripPoint.init",
+          "params": [
+            "id",
+            "recordedAt",
+            "latitude",
+            "longitude",
+            "speedMps",
+            "horizontalAccuracy",
+            "sequence",
+            "trip"
+          ],
+          "exported": true,
+          "lineCount": 19
+        }
+      ],
+      "classes": [
+        {
+          "name": "TripPoint",
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "recordedAt",
+            "latitude",
+            "longitude",
+            "speedMps",
+            "horizontalAccuracy",
+            "sequence",
+            "trip"
+          ],
+          "exported": true,
+          "lineCount": 31
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        },
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        }
+      ],
+      "exports": [
+        "id",
+        "recordedAt",
+        "latitude",
+        "longitude",
+        "speedMps",
+        "horizontalAccuracy",
+        "sequence",
+        "trip",
+        "TripPoint.init",
+        "TripPoint"
+      ],
+      "totalLines": 34,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Models/TripStatus.swift": {
+      "filePath": "Sources/FuelTrack/Models/TripStatus.swift",
+      "contentHash": "7cac046a849559098211b074e40979e2a1841c62ca41544e2ef0efcc7c45615a",
+      "functions": [],
+      "classes": [
+        {
+          "name": "TripStatus",
+          "methods": [],
+          "properties": [
+            "active",
+            "completed",
+            "cancelled"
+          ],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "TripStatus"
+      ],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Models/Vehicle.swift": {
+      "filePath": "Sources/FuelTrack/Models/Vehicle.swift",
+      "contentHash": "6ca75681e8a993ea3b36056206e62b9b14e2bae1b90566e2d762b4ac73d97ca5",
+      "functions": [
+        {
+          "name": "Vehicle.init",
+          "params": [
+            "id",
+            "name",
+            "make",
+            "model",
+            "fuelType",
+            "odometerUnit",
+            "currencyCode",
+            "notes",
+            "registrationPlate",
+            "createdAt",
+            "fillUps",
+            "costs",
+            "reminders",
+            "savedStations",
+            "trips"
+          ],
+          "exported": true,
+          "lineCount": 33
+        },
+        {
+          "name": "applyDVLA",
+          "params": [
+            "details"
+          ],
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "daysUntil",
+          "params": [
+            "date"
+          ],
+          "returnType": "Int?",
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [
+        {
+          "name": "Vehicle",
+          "methods": [
+            "init",
+            "applyDVLA",
+            "daysUntil"
+          ],
+          "properties": [
+            "id",
+            "name",
+            "make",
+            "model",
+            "fuelTypeRaw",
+            "odometerUnitRaw",
+            "currencyCodeRaw",
+            "notes",
+            "createdAt",
+            "registrationPlate",
+            "colour",
+            "yearOfManufacture",
+            "engineCapacityCC",
+            "co2Emissions",
+            "motStatus",
+            "motExpiry",
+            "taxStatus",
+            "taxDueDate",
+            "insuranceProvider",
+            "insuranceExpiry",
+            "lastComplianceRefresh",
+            "fillUps",
+            "costs",
+            "reminders",
+            "savedStations",
+            "trips",
+            "sortedTrips",
+            "activeTrip",
+            "fuelType",
+            "odometerUnit",
+            "currencyCode",
+            "displayPlate",
+            "displaySubtitle",
+            "sortedFillUps",
+            "sortedCosts",
+            "openReminders",
+            "latestOdometer",
+            "costsThisMonth",
+            "costsThisYear",
+            "costsAllTime",
+            "totalCarSpendThisYear",
+            "totalCarSpendAllTime",
+            "motIsValid",
+            "taxIsValid"
+          ],
+          "exported": true,
+          "lineCount": 214
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        },
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        }
+      ],
+      "exports": [
+        "id",
+        "name",
+        "make",
+        "model",
+        "fuelTypeRaw",
+        "odometerUnitRaw",
+        "currencyCodeRaw",
+        "notes",
+        "createdAt",
+        "registrationPlate",
+        "colour",
+        "yearOfManufacture",
+        "engineCapacityCC",
+        "co2Emissions",
+        "motStatus",
+        "motExpiry",
+        "taxStatus",
+        "taxDueDate",
+        "insuranceProvider",
+        "insuranceExpiry",
+        "lastComplianceRefresh",
+        "fillUps",
+        "costs",
+        "reminders",
+        "savedStations",
+        "trips",
+        "Vehicle.init",
+        "sortedTrips",
+        "activeTrip",
+        "fuelType",
+        "odometerUnit",
+        "currencyCode",
+        "displayPlate",
+        "displaySubtitle",
+        "sortedFillUps",
+        "sortedCosts",
+        "openReminders",
+        "latestOdometer",
+        "costsThisMonth",
+        "costsThisYear",
+        "costsAllTime",
+        "totalCarSpendThisYear",
+        "totalCarSpendAllTime",
+        "motIsValid",
+        "taxIsValid",
+        "applyDVLA",
+        "daysUntil",
+        "Vehicle"
+      ],
+      "totalLines": 218,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Services/ComplianceNotificationScheduler.swift": {
+      "filePath": "Sources/FuelTrack/Services/ComplianceNotificationScheduler.swift",
+      "contentHash": "88dbc6f05796787320bc22f464de9dede9eb9ad8f2d275193eb4958c80eb80cc",
+      "functions": [
+        {
+          "name": "requestAuthorizationIfNeeded",
+          "params": [],
+          "returnType": "Bool",
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "reschedule",
+          "params": [
+            "vehicles"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "reschedule",
+          "params": [
+            "vehicle"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "schedule",
+          "params": [
+            "vehicle",
+            "center"
+          ],
+          "exported": false,
+          "lineCount": 42
+        },
+        {
+          "name": "scheduleReminders",
+          "params": [
+            "vehicle",
+            "center"
+          ],
+          "exported": false,
+          "lineCount": 50
+        },
+        {
+          "name": "body",
+          "params": [
+            "plate",
+            "title",
+            "daysBefore",
+            "due"
+          ],
+          "returnType": "String",
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "add",
+          "params": [
+            "center",
+            "id",
+            "title",
+            "body",
+            "fire",
+            "userInfo"
+          ],
+          "exported": false,
+          "lineCount": 19
+        },
+        {
+          "name": "notificationID",
+          "params": [
+            "vehicleID",
+            "kind",
+            "daysBefore"
+          ],
+          "returnType": "String",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "reminderID",
+          "params": [
+            "vehicleID",
+            "reminderID",
+            "suffix"
+          ],
+          "returnType": "String",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "cancel",
+          "params": [
+            "vehicle"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "cancelAllComplianceNotifications",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [
+        {
+          "name": "ComplianceNotificationScheduler",
+          "methods": [
+            "requestAuthorizationIfNeeded",
+            "reschedule",
+            "reschedule",
+            "schedule",
+            "scheduleReminders",
+            "body",
+            "add",
+            "notificationID",
+            "reminderID",
+            "cancel",
+            "cancelAllComplianceNotifications"
+          ],
+          "properties": [
+            "enabledKey",
+            "leadDays",
+            "isEnabled"
+          ],
+          "exported": true,
+          "lineCount": 206
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        },
+        {
+          "source": "UserNotifications",
+          "specifiers": [
+            "UserNotifications"
+          ]
+        }
+      ],
+      "exports": [
+        "leadDays",
+        "isEnabled",
+        "requestAuthorizationIfNeeded",
+        "reschedule",
+        "reschedule",
+        "cancel",
+        "cancelAllComplianceNotifications",
+        "ComplianceNotificationScheduler"
+      ],
+      "totalLines": 210,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Services/DVLAVehicleService.swift": {
+      "filePath": "Sources/FuelTrack/Services/DVLAVehicleService.swift",
+      "contentHash": "f410cd924dffcac3c737ba4bdd3144438119c91a1cd1b546a759a1ff452b7ac0",
+      "functions": [
+        {
+          "name": "cleanedRegistration",
+          "params": [
+            "raw"
+          ],
+          "returnType": "String",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "fetch",
+          "params": [
+            "registration",
+            "apiKey",
+            "environment"
+          ],
+          "returnType": "DVLAVehicleDetails",
+          "exported": true,
+          "lineCount": 50
+        },
+        {
+          "name": "parseDate",
+          "params": [
+            "raw"
+          ],
+          "returnType": "Date?",
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "syncReminders",
+          "params": [
+            "vehicle",
+            "context"
+          ],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "upsert",
+          "params": [
+            "vehicle",
+            "title",
+            "dueDate",
+            "note",
+            "context"
+          ],
+          "exported": false,
+          "lineCount": 23
+        }
+      ],
+      "classes": [
+        {
+          "name": "DVLAVehicleDetails",
+          "methods": [],
+          "properties": [
+            "registrationNumber",
+            "make",
+            "colour",
+            "fuelType",
+            "engineCapacity",
+            "yearOfManufacture",
+            "co2Emissions",
+            "motStatus",
+            "motExpiry",
+            "taxStatus",
+            "taxDueDate",
+            "markedForExport",
+            "markedAsScrapped"
+          ],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "DVLAVehicleError",
+          "methods": [],
+          "properties": [
+            "missingAPIKey",
+            "invalidRegistration",
+            "http",
+            "decoding",
+            "emptyResponse",
+            "errorDescription"
+          ],
+          "exported": true,
+          "lineCount": 25
+        },
+        {
+          "name": "DVLAEnvironment",
+          "methods": [],
+          "properties": [
+            "test",
+            "production",
+            "id",
+            "displayName",
+            "endpoint",
+            "testSuccessRegistration"
+          ],
+          "exported": true,
+          "lineCount": 25
+        },
+        {
+          "name": "DVLAVehicleService",
+          "methods": [
+            "cleanedRegistration",
+            "fetch",
+            "parseDate"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 65
+        },
+        {
+          "name": "VehicleComplianceSync",
+          "methods": [
+            "syncReminders",
+            "upsert"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 37
+        },
+        {
+          "name": "APIResponse",
+          "methods": [],
+          "properties": [
+            "registrationNumber",
+            "make",
+            "colour",
+            "fuelType",
+            "engineCapacity",
+            "yearOfManufacture",
+            "co2Emissions",
+            "motStatus",
+            "motExpiry",
+            "motExpiryDate",
+            "taxStatus",
+            "taxDueDate",
+            "markedForExport",
+            "markedAsScrapped"
+          ],
+          "exported": false,
+          "lineCount": 16
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        },
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        }
+      ],
+      "exports": [
+        "registrationNumber",
+        "make",
+        "colour",
+        "fuelType",
+        "engineCapacity",
+        "yearOfManufacture",
+        "co2Emissions",
+        "motStatus",
+        "motExpiry",
+        "taxStatus",
+        "taxDueDate",
+        "markedForExport",
+        "markedAsScrapped",
+        "DVLAVehicleDetails",
+        "errorDescription",
+        "DVLAVehicleError",
+        "id",
+        "displayName",
+        "endpoint",
+        "testSuccessRegistration",
+        "DVLAEnvironment",
+        "cleanedRegistration",
+        "fetch",
+        "DVLAVehicleService",
+        "syncReminders",
+        "VehicleComplianceSync"
+      ],
+      "totalLines": 192,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Services/Formatters.swift": {
+      "filePath": "Sources/FuelTrack/Services/Formatters.swift",
+      "contentHash": "cc94e628085a0be6f9f182a2fdd9e2dea856b9f66b784482b4d07b134c6b49b8",
+      "functions": [
+        {
+          "name": "currency",
+          "params": [
+            "value",
+            "code"
+          ],
+          "returnType": "String",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "liters",
+          "params": [
+            "value"
+          ],
+          "returnType": "String",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "odometer",
+          "params": [
+            "value",
+            "unit"
+          ],
+          "returnType": "String",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "consumptionL100",
+          "params": [
+            "value"
+          ],
+          "returnType": "String",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "consumptionMPG",
+          "params": [
+            "value"
+          ],
+          "returnType": "String",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "costPerDistance",
+          "params": [
+            "value",
+            "unit",
+            "code"
+          ],
+          "returnType": "String",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "pricePerLiter",
+          "params": [
+            "value",
+            "code"
+          ],
+          "returnType": "String",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "shortDate",
+          "params": [
+            "date"
+          ],
+          "returnType": "String",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "tripSpeed",
+          "params": [
+            "value",
+            "unit"
+          ],
+          "returnType": "String",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "tripDistance",
+          "params": [
+            "value",
+            "unit"
+          ],
+          "returnType": "String",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "tripDuration",
+          "params": [
+            "seconds"
+          ],
+          "returnType": "String",
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [
+        {
+          "name": "Formatters",
+          "methods": [
+            "currency",
+            "liters",
+            "odometer",
+            "consumptionL100",
+            "consumptionMPG",
+            "costPerDistance",
+            "pricePerLiter",
+            "shortDate",
+            "tripSpeed",
+            "tripDistance",
+            "tripDuration"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 58
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "currency",
+        "liters",
+        "odometer",
+        "consumptionL100",
+        "consumptionMPG",
+        "costPerDistance",
+        "pricePerLiter",
+        "shortDate",
+        "tripSpeed",
+        "tripDistance",
+        "tripDuration",
+        "Formatters"
+      ],
+      "totalLines": 61,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Services/FuelStats.swift": {
+      "filePath": "Sources/FuelTrack/Services/FuelStats.swift",
+      "contentHash": "0f82732c5ce2558c8ac89d1b7d4b12e747b0179a1298e5a11bd1a80e28b8727d",
+      "functions": [
+        {
+          "name": "litersPer100km",
+          "params": [
+            "unit"
+          ],
+          "returnType": "Double?",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "mpg",
+          "params": [
+            "unit"
+          ],
+          "returnType": "Double?",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "costPerDistance",
+          "params": [
+            "unit"
+          ],
+          "returnType": "Double?",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "segments",
+          "params": [
+            "fillUps"
+          ],
+          "returnType": "[ConsumptionSegment]",
+          "exported": true,
+          "lineCount": 42
+        },
+        {
+          "name": "compute",
+          "params": [
+            "fillUps",
+            "unit",
+            "calendar",
+            "now"
+          ],
+          "returnType": "VehicleFuelStats",
+          "exported": true,
+          "lineCount": 65
+        },
+        {
+          "name": "compute",
+          "params": [
+            "vehicle",
+            "calendar",
+            "now"
+          ],
+          "returnType": "VehicleFuelStats",
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [
+        {
+          "name": "FillUpSnapshot",
+          "methods": [],
+          "properties": [
+            "date",
+            "odometer",
+            "liters",
+            "totalCost",
+            "isFullTank",
+            "skipped"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "ConsumptionSegment",
+          "methods": [
+            "litersPer100km",
+            "mpg",
+            "costPerDistance"
+          ],
+          "properties": [
+            "startOdometer",
+            "endOdometer",
+            "liters",
+            "cost",
+            "distance"
+          ],
+          "exported": true,
+          "lineCount": 26
+        },
+        {
+          "name": "VehicleFuelStats",
+          "methods": [],
+          "properties": [
+            "fillUpCount",
+            "totalLiters",
+            "totalSpend",
+            "totalDistance",
+            "averagePricePerLiter",
+            "lastSegment",
+            "averageLitersPer100km",
+            "averageMPG",
+            "averageCostPerDistance",
+            "spendThisMonth",
+            "spendThisYear",
+            "segments"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "FuelStats",
+          "methods": [
+            "segments",
+            "compute",
+            "compute"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 127
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "date",
+        "odometer",
+        "liters",
+        "totalCost",
+        "isFullTank",
+        "skipped",
+        "FillUpSnapshot",
+        "startOdometer",
+        "endOdometer",
+        "liters",
+        "cost",
+        "distance",
+        "litersPer100km",
+        "mpg",
+        "costPerDistance",
+        "ConsumptionSegment",
+        "fillUpCount",
+        "totalLiters",
+        "totalSpend",
+        "totalDistance",
+        "averagePricePerLiter",
+        "lastSegment",
+        "averageLitersPer100km",
+        "averageMPG",
+        "averageCostPerDistance",
+        "spendThisMonth",
+        "spendThisYear",
+        "segments",
+        "VehicleFuelStats",
+        "segments",
+        "compute",
+        "compute",
+        "FuelStats"
+      ],
+      "totalLines": 181,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Services/FuelTrackBackupExporter.swift": {
+      "filePath": "Sources/FuelTrack/Services/FuelTrackBackupExporter.swift",
+      "contentHash": "40728d4dfdc5106d94ca7783d222f7c6ece6abd02ef343aa5d9debef05e31458",
+      "functions": [
+        {
+          "name": "makeSnapshot",
+          "params": [
+            "vehicles",
+            "personalExpenses",
+            "personalBudgets",
+            "customCategories"
+          ],
+          "returnType": "Snapshot",
+          "exported": true,
+          "lineCount": 24
+        },
+        {
+          "name": "exportJSON",
+          "params": [
+            "vehicles",
+            "personalExpenses",
+            "personalBudgets",
+            "customCategories"
+          ],
+          "returnType": "Data",
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "writeBackupFile",
+          "params": [
+            "vehicles",
+            "personalExpenses",
+            "personalBudgets",
+            "customCategories"
+          ],
+          "returnType": "URL",
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "isoFileStamp",
+          "params": [
+            "date"
+          ],
+          "returnType": "String",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "vehicleBackup",
+          "params": [
+            "vehicle"
+          ],
+          "returnType": "VehicleBackup",
+          "exported": false,
+          "lineCount": 36
+        },
+        {
+          "name": "tripBackup",
+          "params": [
+            "trip"
+          ],
+          "returnType": "TripBackup",
+          "exported": false,
+          "lineCount": 21
+        },
+        {
+          "name": "tripPointBackup",
+          "params": [
+            "point"
+          ],
+          "returnType": "TripPointBackup",
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "fillUpBackup",
+          "params": [
+            "fill"
+          ],
+          "returnType": "FillUpBackup",
+          "exported": false,
+          "lineCount": 19
+        },
+        {
+          "name": "carCostBackup",
+          "params": [
+            "cost"
+          ],
+          "returnType": "CarCostBackup",
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "reminderBackup",
+          "params": [
+            "item"
+          ],
+          "returnType": "ReminderBackup",
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "savedStationBackup",
+          "params": [
+            "place"
+          ],
+          "returnType": "SavedStationBackup",
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "personalExpenseBackup",
+          "params": [
+            "expense"
+          ],
+          "returnType": "PersonalExpenseBackup",
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "personalBudgetBackup",
+          "params": [
+            "budget"
+          ],
+          "returnType": "PersonalBudgetBackup",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "customCategoryBackup",
+          "params": [
+            "category"
+          ],
+          "returnType": "CustomCategoryBackup",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "VehicleBackup.init",
+          "params": [
+            "id",
+            "name",
+            "make",
+            "model",
+            "fuelType",
+            "odometerUnit",
+            "currencyCode",
+            "notes",
+            "createdAt",
+            "registrationPlate",
+            "colour",
+            "yearOfManufacture",
+            "engineCapacityCC",
+            "co2Emissions",
+            "motStatus",
+            "motExpiry",
+            "taxStatus",
+            "taxDueDate",
+            "insuranceProvider",
+            "insuranceExpiry",
+            "lastComplianceRefresh",
+            "fillUps",
+            "costs",
+            "reminders",
+            "savedStations",
+            "trips"
+          ],
+          "exported": true,
+          "lineCount": 55
+        },
+        {
+          "name": "VehicleBackup.init",
+          "params": [
+            "decoder"
+          ],
+          "exported": true,
+          "lineCount": 29
+        }
+      ],
+      "classes": [
+        {
+          "name": "FuelTrackBackupExporter",
+          "methods": [
+            "makeSnapshot",
+            "exportJSON",
+            "writeBackupFile",
+            "isoFileStamp",
+            "vehicleBackup",
+            "tripBackup",
+            "tripPointBackup",
+            "fillUpBackup",
+            "carCostBackup",
+            "reminderBackup",
+            "savedStationBackup",
+            "personalExpenseBackup",
+            "personalBudgetBackup",
+            "customCategoryBackup"
+          ],
+          "properties": [
+            "formatName",
+            "formatVersion"
+          ],
+          "exported": true,
+          "lineCount": 477
+        },
+        {
+          "name": "Snapshot",
+          "methods": [],
+          "properties": [
+            "format",
+            "version",
+            "exportedAt",
+            "vehicles",
+            "personalExpenses",
+            "personalBudgets",
+            "customCategories"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "VehicleBackup",
+          "methods": [
+            "init",
+            "init"
+          ],
+          "properties": [
+            "id",
+            "name",
+            "make",
+            "model",
+            "fuelType",
+            "odometerUnit",
+            "currencyCode",
+            "notes",
+            "createdAt",
+            "registrationPlate",
+            "colour",
+            "yearOfManufacture",
+            "engineCapacityCC",
+            "co2Emissions",
+            "motStatus",
+            "motExpiry",
+            "taxStatus",
+            "taxDueDate",
+            "insuranceProvider",
+            "insuranceExpiry",
+            "lastComplianceRefresh",
+            "fillUps",
+            "costs",
+            "reminders",
+            "savedStations",
+            "trips"
+          ],
+          "exported": true,
+          "lineCount": 121
+        },
+        {
+          "name": "CodingKeys",
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "make",
+            "model",
+            "fuelType",
+            "odometerUnit",
+            "currencyCode",
+            "notes",
+            "createdAt",
+            "registrationPlate",
+            "colour",
+            "yearOfManufacture",
+            "engineCapacityCC",
+            "co2Emissions",
+            "motStatus",
+            "motExpiry",
+            "taxStatus",
+            "taxDueDate",
+            "insuranceProvider",
+            "insuranceExpiry",
+            "lastComplianceRefresh",
+            "fillUps",
+            "costs",
+            "reminders",
+            "savedStations",
+            "trips"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "TripBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "startedAt",
+            "endedAt",
+            "status",
+            "distance",
+            "durationSeconds",
+            "averageSpeed",
+            "maxSpeed",
+            "estimatedMPG",
+            "estimatedLitersPer100km",
+            "startLatitude",
+            "startLongitude",
+            "endLatitude",
+            "endLongitude",
+            "note",
+            "createdAt",
+            "points"
+          ],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "TripPointBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "recordedAt",
+            "latitude",
+            "longitude",
+            "speedMps",
+            "horizontalAccuracy",
+            "sequence"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "FillUpBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "date",
+            "odometer",
+            "liters",
+            "totalCost",
+            "currencyCode",
+            "isFullTank",
+            "skipped",
+            "station",
+            "stationExternalId",
+            "latitude",
+            "longitude",
+            "note",
+            "fuelType",
+            "createdAt"
+          ],
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "CarCostBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "title",
+            "date",
+            "odometer",
+            "amount",
+            "currencyCode",
+            "category",
+            "note",
+            "createdAt"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "ReminderBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "title",
+            "dueDate",
+            "dueOdometer",
+            "note",
+            "isCompleted",
+            "createdAt"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "SavedStationBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "latitude",
+            "longitude",
+            "externalId",
+            "note",
+            "createdAt"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "PersonalExpenseBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "title",
+            "date",
+            "amount",
+            "currencyCode",
+            "category",
+            "note",
+            "paymentMethod",
+            "createdAt"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "PersonalBudgetBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "category",
+            "monthlyLimit",
+            "currencyCode",
+            "createdAt"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "CustomCategoryBackup",
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "systemImage",
+            "scope",
+            "createdAt"
+          ],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "formatName",
+        "formatVersion",
+        "makeSnapshot",
+        "exportJSON",
+        "writeBackupFile",
+        "FuelTrackBackupExporter",
+        "format",
+        "version",
+        "exportedAt",
+        "vehicles",
+        "personalExpenses",
+        "personalBudgets",
+        "customCategories",
+        "Snapshot",
+        "id",
+        "name",
+        "make",
+        "model",
+        "fuelType",
+        "odometerUnit",
+        "currencyCode",
+        "notes",
+        "createdAt",
+        "registrationPlate",
+        "colour",
+        "yearOfManufacture",
+        "engineCapacityCC",
+        "co2Emissions",
+        "motStatus",
+        "motExpiry",
+        "taxStatus",
+        "taxDueDate",
+        "insuranceProvider",
+        "insuranceExpiry",
+        "lastComplianceRefresh",
+        "fillUps",
+        "costs",
+        "reminders",
+        "savedStations",
+        "trips",
+        "VehicleBackup.init",
+        "VehicleBackup.init",
+        "VehicleBackup",
+        "CodingKeys",
+        "id",
+        "startedAt",
+        "endedAt",
+        "status",
+        "distance",
+        "durationSeconds",
+        "averageSpeed",
+        "maxSpeed",
+        "estimatedMPG",
+        "estimatedLitersPer100km",
+        "startLatitude",
+        "startLongitude",
+        "endLatitude",
+        "endLongitude",
+        "note",
+        "createdAt",
+        "points",
+        "TripBackup",
+        "id",
+        "recordedAt",
+        "latitude",
+        "longitude",
+        "speedMps",
+        "horizontalAccuracy",
+        "sequence",
+        "TripPointBackup",
+        "id",
+        "date",
+        "odometer",
+        "liters",
+        "totalCost",
+        "currencyCode",
+        "isFullTank",
+        "skipped",
+        "station",
+        "stationExternalId",
+        "latitude",
+        "longitude",
+        "note",
+        "fuelType",
+        "createdAt",
+        "FillUpBackup",
+        "id",
+        "title",
+        "date",
+        "odometer",
+        "amount",
+        "currencyCode",
+        "category",
+        "note",
+        "createdAt",
+        "CarCostBackup",
+        "id",
+        "title",
+        "dueDate",
+        "dueOdometer",
+        "note",
+        "isCompleted",
+        "createdAt",
+        "ReminderBackup",
+        "id",
+        "name",
+        "latitude",
+        "longitude",
+        "externalId",
+        "note",
+        "createdAt",
+        "SavedStationBackup",
+        "id",
+        "title",
+        "date",
+        "amount",
+        "currencyCode",
+        "category",
+        "note",
+        "paymentMethod",
+        "createdAt",
+        "PersonalExpenseBackup",
+        "id",
+        "category",
+        "monthlyLimit",
+        "currencyCode",
+        "createdAt",
+        "PersonalBudgetBackup",
+        "id",
+        "name",
+        "systemImage",
+        "scope",
+        "createdAt",
+        "CustomCategoryBackup"
+      ],
+      "totalLines": 481,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Services/FuelTrackBackupImporter.swift": {
+      "filePath": "Sources/FuelTrack/Services/FuelTrackBackupImporter.swift",
+      "contentHash": "44e8f122ac405cfd10fae44ce573b0b367b686cbc925fd5c0966c74e41fe15a9",
+      "functions": [
+        {
+          "name": "parse",
+          "params": [
+            "data"
+          ],
+          "returnType": "FuelTrackBackupExporter.Snapshot",
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "importSnapshot",
+          "params": [
+            "snapshot",
+            "modelContext"
+          ],
+          "returnType": "FuelTrackBackupImportResult",
+          "exported": true,
+          "lineCount": 52
+        },
+        {
+          "name": "importData",
+          "params": [
+            "data",
+            "modelContext"
+          ],
+          "returnType": "FuelTrackBackupImportResult",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "upsertVehicle",
+          "params": [
+            "backup",
+            "modelContext",
+            "result"
+          ],
+          "returnType": "Vehicle",
+          "exported": false,
+          "lineCount": 53
+        },
+        {
+          "name": "upsertFillUp",
+          "params": [
+            "backup",
+            "vehicle",
+            "modelContext",
+            "result"
+          ],
+          "exported": false,
+          "lineCount": 53
+        },
+        {
+          "name": "upsertCarCost",
+          "params": [
+            "backup",
+            "vehicle",
+            "modelContext",
+            "result"
+          ],
+          "exported": false,
+          "lineCount": 41
+        },
+        {
+          "name": "upsertReminder",
+          "params": [
+            "backup",
+            "vehicle",
+            "modelContext",
+            "result"
+          ],
+          "exported": false,
+          "lineCount": 37
+        },
+        {
+          "name": "upsertSavedStation",
+          "params": [
+            "backup",
+            "vehicle",
+            "modelContext",
+            "result"
+          ],
+          "exported": false,
+          "lineCount": 37
+        },
+        {
+          "name": "upsertPersonalExpense",
+          "params": [
+            "backup",
+            "modelContext",
+            "result"
+          ],
+          "exported": false,
+          "lineCount": 38
+        },
+        {
+          "name": "upsertPersonalBudget",
+          "params": [
+            "backup",
+            "modelContext",
+            "result"
+          ],
+          "exported": false,
+          "lineCount": 33
+        },
+        {
+          "name": "upsertTrip",
+          "params": [
+            "backup",
+            "vehicle",
+            "modelContext",
+            "result"
+          ],
+          "exported": false,
+          "lineCount": 78
+        },
+        {
+          "name": "upsertCustomCategory",
+          "params": [
+            "backup",
+            "modelContext",
+            "result"
+          ],
+          "exported": false,
+          "lineCount": 30
+        }
+      ],
+      "classes": [
+        {
+          "name": "FuelTrackBackupImportError",
+          "methods": [],
+          "properties": [
+            "invalidJSON",
+            "wrongFormat",
+            "unsupportedVersion",
+            "errorDescription"
+          ],
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "FuelTrackBackupImportResult",
+          "methods": [],
+          "properties": [
+            "vehiclesInserted",
+            "vehiclesUpdated",
+            "fillUps",
+            "carCosts",
+            "reminders",
+            "savedStations",
+            "personalExpenses",
+            "personalBudgets",
+            "customCategories",
+            "trips",
+            "tripPoints",
+            "summary"
+          ],
+          "exported": true,
+          "lineCount": 55
+        },
+        {
+          "name": "FuelTrackBackupImporter",
+          "methods": [
+            "parse",
+            "importSnapshot",
+            "importData",
+            "upsertVehicle",
+            "upsertFillUp",
+            "upsertCarCost",
+            "upsertReminder",
+            "upsertSavedStation",
+            "upsertPersonalExpense",
+            "upsertPersonalBudget",
+            "upsertTrip",
+            "upsertCustomCategory"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 489
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        },
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        }
+      ],
+      "exports": [
+        "errorDescription",
+        "FuelTrackBackupImportError",
+        "vehiclesInserted",
+        "vehiclesUpdated",
+        "fillUps",
+        "carCosts",
+        "reminders",
+        "savedStations",
+        "personalExpenses",
+        "personalBudgets",
+        "customCategories",
+        "trips",
+        "tripPoints",
+        "summary",
+        "FuelTrackBackupImportResult",
+        "parse",
+        "importSnapshot",
+        "importData",
+        "FuelTrackBackupImporter"
+      ],
+      "totalLines": 566,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Services/FuelioCSVExporter.swift": {
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVExporter.swift",
+      "contentHash": "03a11134e4c6b6e9fb230b22afe45c4041a2368bf423b58fd2549dd60ee9e4a7",
+      "functions": [
+        {
+          "name": "export",
+          "params": [
+            "vehicle"
+          ],
+          "returnType": "String",
+          "exported": true,
+          "lineCount": 107
+        },
+        {
+          "name": "csv",
+          "params": [
+            "value"
+          ],
+          "returnType": "String",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "dateString",
+          "params": [
+            "date"
+          ],
+          "returnType": "String",
+          "exported": false,
+          "lineCount": 7
+        }
+      ],
+      "classes": [
+        {
+          "name": "FuelioCSVExporter",
+          "methods": [
+            "export",
+            "csv",
+            "dateString"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 121
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "export",
+        "FuelioCSVExporter"
+      ],
+      "totalLines": 124,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Services/FuelioCSVImporter.swift": {
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "contentHash": "65f779fd204a21468e26781f428037c05ea3ef90de3b450c9a5552a008e78d8a",
+      "functions": [
+        {
+          "name": "parse",
+          "params": [
+            "data"
+          ],
+          "returnType": "FuelioImportResult",
+          "exported": true,
+          "lineCount": 93
+        },
+        {
+          "name": "sectionLines",
+          "params": [
+            "name",
+            "text"
+          ],
+          "returnType": "[String]",
+          "exported": false,
+          "lineCount": 15
+        },
+        {
+          "name": "isSectionMarker",
+          "params": [
+            "line",
+            "name"
+          ],
+          "returnType": "Bool",
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "isAnySectionMarker",
+          "params": [
+            "line"
+          ],
+          "returnType": "Bool",
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "dictionary",
+          "params": [
+            "header",
+            "row"
+          ],
+          "returnType": "[String: String]",
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "parseCSVRow",
+          "params": [
+            "line"
+          ],
+          "returnType": "[String]",
+          "exported": true,
+          "lineCount": 33
+        },
+        {
+          "name": "value",
+          "params": [
+            "row",
+            "prefixes",
+            "allowEmpty"
+          ],
+          "returnType": "String?",
+          "exported": false,
+          "lineCount": 26
+        },
+        {
+          "name": "fuelAmountValue",
+          "params": [
+            "row"
+          ],
+          "returnType": "String?",
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "inferFuelUnit",
+          "params": [
+            "header",
+            "fallback"
+          ],
+          "returnType": "Int",
+          "exported": false,
+          "lineCount": 16
+        },
+        {
+          "name": "parseFillUp",
+          "params": [
+            "row",
+            "dateFormat",
+            "fuelUnit"
+          ],
+          "returnType": "ImportedFillUp?",
+          "exported": false,
+          "lineCount": 42
+        },
+        {
+          "name": "doubleValue",
+          "params": [
+            "row",
+            "prefixes"
+          ],
+          "returnType": "Double?",
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "toLiters",
+          "params": [
+            "amount",
+            "fuelUnit"
+          ],
+          "returnType": "Double",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "parseDate",
+          "params": [
+            "raw",
+            "format"
+          ],
+          "returnType": "Date?",
+          "exported": false,
+          "lineCount": 22
+        },
+        {
+          "name": "mapFuelType",
+          "params": [
+            "tankType"
+          ],
+          "returnType": "FuelType",
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "optionalSectionLines",
+          "params": [
+            "name",
+            "text"
+          ],
+          "returnType": "[String]",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "parseCosts",
+          "params": [
+            "text",
+            "dateFormat"
+          ],
+          "returnType": "[ImportedCost]",
+          "exported": false,
+          "lineCount": 32
+        },
+        {
+          "name": "categoryNames",
+          "params": [
+            "text"
+          ],
+          "returnType": "[String: String]",
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "parseSavedStations",
+          "params": [
+            "text"
+          ],
+          "returnType": "[ImportedStation]",
+          "exported": false,
+          "lineCount": 25
+        }
+      ],
+      "classes": [
+        {
+          "name": "FuelioImportResult",
+          "methods": [],
+          "properties": [
+            "vehicleName",
+            "make",
+            "model",
+            "registrationPlate",
+            "year",
+            "notes",
+            "odometerUnit",
+            "fuelType",
+            "fillUps",
+            "costs",
+            "savedStations",
+            "skippedRows"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "ImportedFillUp",
+          "methods": [],
+          "properties": [
+            "date",
+            "odometer",
+            "liters",
+            "totalCost",
+            "isFullTank",
+            "skipped",
+            "station",
+            "note",
+            "fuelType",
+            "latitude",
+            "longitude",
+            "stationExternalId"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "ImportedCost",
+          "methods": [],
+          "properties": [
+            "title",
+            "date",
+            "odometer",
+            "amount",
+            "category",
+            "note"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "ImportedStation",
+          "methods": [],
+          "properties": [
+            "name",
+            "externalId",
+            "latitude",
+            "longitude",
+            "note"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "FuelioImportError",
+          "methods": [],
+          "properties": [
+            "emptyFile",
+            "missingVehicleSection",
+            "missingLogSection",
+            "missingVehicleRow",
+            "invalidEncoding",
+            "errorDescription"
+          ],
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "FuelioCSVImporter",
+          "methods": [
+            "parse",
+            "sectionLines",
+            "isSectionMarker",
+            "isAnySectionMarker",
+            "dictionary",
+            "parseCSVRow",
+            "value",
+            "fuelAmountValue",
+            "inferFuelUnit",
+            "parseFillUp",
+            "doubleValue",
+            "toLiters",
+            "parseDate",
+            "mapFuelType",
+            "optionalSectionLines",
+            "parseCosts",
+            "categoryNames",
+            "parseSavedStations"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 399
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "vehicleName",
+        "make",
+        "model",
+        "registrationPlate",
+        "year",
+        "notes",
+        "odometerUnit",
+        "fuelType",
+        "fillUps",
+        "costs",
+        "savedStations",
+        "skippedRows",
+        "FuelioImportResult",
+        "date",
+        "odometer",
+        "liters",
+        "totalCost",
+        "isFullTank",
+        "skipped",
+        "station",
+        "note",
+        "fuelType",
+        "latitude",
+        "longitude",
+        "stationExternalId",
+        "ImportedFillUp",
+        "title",
+        "date",
+        "odometer",
+        "amount",
+        "category",
+        "note",
+        "ImportedCost",
+        "name",
+        "externalId",
+        "latitude",
+        "longitude",
+        "note",
+        "ImportedStation",
+        "errorDescription",
+        "FuelioImportError",
+        "parse",
+        "parseCSVRow",
+        "mapFuelType",
+        "FuelioCSVImporter"
+      ],
+      "totalLines": 467,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Services/LocationProvider.swift": {
+      "filePath": "Sources/FuelTrack/Services/LocationProvider.swift",
+      "contentHash": "ecd7ea8f385d20cc78313ec7f93a7bdb2f4f069af8c545acf4cea8437a4066d3",
+      "functions": [
+        {
+          "name": "LocationProvider.init",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "requestAccessIfNeeded",
+          "params": [],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "refresh",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "locationManagerDidChangeAuthorization",
+          "params": [
+            "manager"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "locationManager",
+          "params": [
+            "manager",
+            "locations"
+          ],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "locationManager",
+          "params": [
+            "manager",
+            "error"
+          ],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [
+        {
+          "name": "LocationProvider",
+          "methods": [
+            "init",
+            "requestAccessIfNeeded",
+            "refresh",
+            "locationManagerDidChangeAuthorization",
+            "locationManager",
+            "locationManager"
+          ],
+          "properties": [
+            "manager",
+            "authorizationStatus",
+            "coordinate",
+            "lastError",
+            "isUpdating",
+            "isAuthorized"
+          ],
+          "exported": true,
+          "lineCount": 70
+        }
+      ],
+      "imports": [
+        {
+          "source": "CoreLocation",
+          "specifiers": [
+            "CoreLocation"
+          ]
+        },
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        },
+        {
+          "source": "Observation",
+          "specifiers": [
+            "Observation"
+          ]
+        }
+      ],
+      "exports": [
+        "authorizationStatus",
+        "coordinate",
+        "lastError",
+        "isUpdating",
+        "LocationProvider.init",
+        "isAuthorized",
+        "requestAccessIfNeeded",
+        "refresh",
+        "locationManagerDidChangeAuthorization",
+        "locationManager",
+        "locationManager",
+        "LocationProvider"
+      ],
+      "totalLines": 75,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Services/NearbyStationsService.swift": {
+      "filePath": "Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "contentHash": "35c527d2a1e91a9647d6a6d52ca3ed9a8007de2415fe4e01f81fe056fd33c77f",
+      "functions": [
+        {
+          "name": "fetch",
+          "params": [
+            "latitude",
+            "longitude",
+            "fuelCode",
+            "radiusMiles",
+            "limit"
+          ],
+          "returnType": "NearbyStationsResponse",
+          "exported": true,
+          "lineCount": 58
+        },
+        {
+          "name": "parseISO",
+          "params": [
+            "raw"
+          ],
+          "returnType": "Date?",
+          "exported": false,
+          "lineCount": 9
+        }
+      ],
+      "classes": [
+        {
+          "name": "NearbyStation",
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "brand",
+            "address",
+            "city",
+            "postcode",
+            "coordinate",
+            "pricePence",
+            "allPrices",
+            "distanceMiles",
+            "updatedAt",
+            "isSupermarket",
+            "is24h",
+            "mapsURL"
+          ],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "NearbyStationsResponse",
+          "methods": [],
+          "properties": [
+            "stations",
+            "lastUpdated",
+            "fuelCode"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "NearbyStationsError",
+          "methods": [],
+          "properties": [
+            "invalidURL",
+            "badResponse",
+            "decoding",
+            "http",
+            "message",
+            "errorDescription"
+          ],
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "NearbyStationsService",
+          "methods": [
+            "fetch",
+            "parseISO"
+          ],
+          "properties": [
+            "baseURL"
+          ],
+          "exported": true,
+          "lineCount": 72
+        },
+        {
+          "name": "APIRoot",
+          "methods": [],
+          "properties": [
+            "lastUpdated",
+            "stations"
+          ],
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "APIStation",
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "displayName",
+            "brand",
+            "address",
+            "city",
+            "postcode",
+            "lat",
+            "lon",
+            "is24h",
+            "supermarket",
+            "prices",
+            "updated",
+            "price",
+            "distance"
+          ],
+          "exported": false,
+          "lineCount": 17
+        }
+      ],
+      "imports": [
+        {
+          "source": "CoreLocation",
+          "specifiers": [
+            "CoreLocation"
+          ]
+        },
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "id",
+        "name",
+        "brand",
+        "address",
+        "city",
+        "postcode",
+        "coordinate",
+        "pricePence",
+        "allPrices",
+        "distanceMiles",
+        "updatedAt",
+        "isSupermarket",
+        "is24h",
+        "mapsURL",
+        "NearbyStation",
+        "stations",
+        "lastUpdated",
+        "fuelCode",
+        "NearbyStationsResponse",
+        "errorDescription",
+        "NearbyStationsError",
+        "fetch",
+        "NearbyStationsService"
+      ],
+      "totalLines": 143,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Services/ReminderSchedule.swift": {
+      "filePath": "Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "contentHash": "7c549579d57a3500e23d8b1499902cc31c40c91bdc0e3cdbc17c7300553912f4",
+      "functions": [
+        {
+          "name": "leadLabel",
+          "params": [
+            "daysBefore"
+          ],
+          "returnType": "String",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "notificationDate",
+          "params": [
+            "daysBefore",
+            "dueDate",
+            "now",
+            "calendar"
+          ],
+          "returnType": "Date?",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "upcomingNotifications",
+          "params": [
+            "dueDate",
+            "now",
+            "calendar"
+          ],
+          "returnType": "[Date]",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "catchUpDate",
+          "params": [
+            "dueDate",
+            "now",
+            "calendar"
+          ],
+          "returnType": "Date?",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "odometerFireDate",
+          "params": [
+            "dueOdometer",
+            "latestOdometer",
+            "latestDate",
+            "earlierOdometer",
+            "earlierDate",
+            "now",
+            "calendar"
+          ],
+          "returnType": "Date?",
+          "exported": true,
+          "lineCount": 23
+        }
+      ],
+      "classes": [
+        {
+          "name": "ReminderSchedule",
+          "methods": [
+            "leadLabel",
+            "notificationDate",
+            "upcomingNotifications",
+            "catchUpDate",
+            "odometerFireDate"
+          ],
+          "properties": [
+            "leadDays"
+          ],
+          "exported": true,
+          "lineCount": 67
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "leadDays",
+        "leadLabel",
+        "notificationDate",
+        "upcomingNotifications",
+        "catchUpDate",
+        "odometerFireDate",
+        "ReminderSchedule"
+      ],
+      "totalLines": 72,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Services/SpendCategoryCatalog.swift": {
+      "filePath": "Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "contentHash": "4d3377bc32a5e3be919c1d5e61f27b4ef77ca3e348551e2f54117e8fa6a861ff",
+      "functions": [
+        {
+          "name": "customKey",
+          "params": [
+            "id"
+          ],
+          "returnType": "String",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "isCustomKey",
+          "params": [
+            "key"
+          ],
+          "returnType": "Bool",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "builtins",
+          "params": [
+            "scope"
+          ],
+          "returnType": "[ResolvedSpendCategory]",
+          "exported": true,
+          "lineCount": 22
+        },
+        {
+          "name": "all",
+          "params": [
+            "scope",
+            "customs"
+          ],
+          "returnType": "[ResolvedSpendCategory]",
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "resolve",
+          "params": [
+            "key",
+            "scope",
+            "customs"
+          ],
+          "returnType": "ResolvedSpendCategory",
+          "exported": true,
+          "lineCount": 18
+        }
+      ],
+      "classes": [
+        {
+          "name": "ResolvedSpendCategory",
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "systemImage",
+            "isCustom"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "SpendCategoryCatalog",
+          "methods": [
+            "customKey",
+            "isCustomKey",
+            "builtins",
+            "all",
+            "resolve"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 69
+        },
+        {
+          "name": "CategorySpendRow",
+          "methods": [],
+          "properties": [
+            "id",
+            "category",
+            "periodTotal",
+            "allTimeTotal",
+            "entryCount"
+          ],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "id",
+        "name",
+        "systemImage",
+        "isCustom",
+        "ResolvedSpendCategory",
+        "customKey",
+        "isCustomKey",
+        "builtins",
+        "all",
+        "resolve",
+        "SpendCategoryCatalog",
+        "id",
+        "category",
+        "periodTotal",
+        "allTimeTotal",
+        "entryCount",
+        "CategorySpendRow"
+      ],
+      "totalLines": 87,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Services/StationSearch.swift": {
+      "filePath": "Sources/FuelTrack/Services/StationSearch.swift",
+      "contentHash": "4994919d30f71267f7c18b767f35d54fcafc12aadb32901d2fc2a82c00deea9c",
+      "functions": [
+        {
+          "name": "matches",
+          "params": [
+            "query",
+            "fields"
+          ],
+          "returnType": "Bool",
+          "exported": true,
+          "lineCount": 21
+        },
+        {
+          "name": "matches",
+          "params": [
+            "station",
+            "query"
+          ],
+          "returnType": "Bool",
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "matchesUsed",
+          "params": [
+            "summary",
+            "query"
+          ],
+          "returnType": "Bool",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [
+        {
+          "name": "StationSearch",
+          "methods": [
+            "matches",
+            "matches",
+            "matchesUsed"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 36
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "matches",
+        "matches",
+        "matchesUsed",
+        "StationSearch"
+      ],
+      "totalLines": 39,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Services/TripRecorder.swift": {
+      "filePath": "Sources/FuelTrack/Services/TripRecorder.swift",
+      "contentHash": "c7fa4c4629eaffc225f16827978f14ba0c065d7fa426fb079e931c51157ccf60",
+      "functions": [
+        {
+          "name": "TripRecorder.init",
+          "params": [],
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "attach",
+          "params": [
+            "modelContext"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "requestWhenInUse",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "requestAlwaysIfNeeded",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "restoreActiveTripIfNeeded",
+          "params": [
+            "vehicle"
+          ],
+          "exported": true,
+          "lineCount": 39
+        },
+        {
+          "name": "start",
+          "params": [
+            "vehicle",
+            "averageMPG",
+            "averageLitersPer100km"
+          ],
+          "returnType": "Bool",
+          "exported": true,
+          "lineCount": 68
+        },
+        {
+          "name": "end",
+          "params": [
+            "keepEmptyTrip"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "discard",
+          "params": [],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "findPersistedActiveTrip",
+          "params": [],
+          "returnType": "Trip?",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "refreshLiveSessionFromTrip",
+          "params": [
+            "trip",
+            "vehicle"
+          ],
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "beginUpdates",
+          "params": [],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "stopUpdates",
+          "params": [],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "clearSession",
+          "params": [],
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "refreshLiveDuration",
+          "params": [],
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "finalizeLiveFields",
+          "params": [
+            "trip"
+          ],
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "accept",
+          "params": [
+            "location"
+          ],
+          "exported": false,
+          "lineCount": 44
+        },
+        {
+          "name": "locationManagerDidChangeAuthorization",
+          "params": [
+            "manager"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "locationManager",
+          "params": [
+            "manager",
+            "locations"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "locationManager",
+          "params": [
+            "manager",
+            "error"
+          ],
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [
+        {
+          "name": "TripRecorder",
+          "methods": [
+            "init",
+            "attach",
+            "requestWhenInUse",
+            "requestAlwaysIfNeeded",
+            "restoreActiveTripIfNeeded",
+            "start",
+            "end",
+            "discard",
+            "findPersistedActiveTrip",
+            "refreshLiveSessionFromTrip",
+            "beginUpdates",
+            "stopUpdates",
+            "clearSession",
+            "refreshLiveDuration",
+            "finalizeLiveFields",
+            "accept",
+            "locationManagerDidChangeAuthorization",
+            "locationManager",
+            "locationManager"
+          ],
+          "properties": [
+            "manager",
+            "modelContext",
+            "lastAcceptedLocation",
+            "nextSequence",
+            "economyMPG",
+            "economyL100",
+            "unit",
+            "activeTrip",
+            "authorizationStatus",
+            "lastError",
+            "isRecording",
+            "backgroundLimited",
+            "currentSpeed",
+            "liveDistance",
+            "liveDurationSeconds",
+            "liveAverageSpeed",
+            "liveMaxSpeed",
+            "liveEstimatedMPG",
+            "liveEstimatedL100",
+            "isAuthorizedWhenInUseOrBetter",
+            "hasAlwaysAuthorization"
+          ],
+          "exported": true,
+          "lineCount": 343
+        }
+      ],
+      "imports": [
+        {
+          "source": "CoreLocation",
+          "specifiers": [
+            "CoreLocation"
+          ]
+        },
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        },
+        {
+          "source": "Observation",
+          "specifiers": [
+            "Observation"
+          ]
+        },
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        }
+      ],
+      "exports": [
+        "activeTrip",
+        "authorizationStatus",
+        "lastError",
+        "isRecording",
+        "backgroundLimited",
+        "currentSpeed",
+        "liveDistance",
+        "liveDurationSeconds",
+        "liveAverageSpeed",
+        "liveMaxSpeed",
+        "liveEstimatedMPG",
+        "liveEstimatedL100",
+        "TripRecorder.init",
+        "attach",
+        "isAuthorizedWhenInUseOrBetter",
+        "hasAlwaysAuthorization",
+        "requestWhenInUse",
+        "requestAlwaysIfNeeded",
+        "restoreActiveTripIfNeeded",
+        "start",
+        "end",
+        "discard",
+        "locationManagerDidChangeAuthorization",
+        "locationManager",
+        "locationManager",
+        "TripRecorder"
+      ],
+      "totalLines": 348,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Services/TripStats.swift": {
+      "filePath": "Sources/FuelTrack/Services/TripStats.swift",
+      "contentHash": "f00ecc114eea1fa1c9f7ffc74f97dcf5f8952a17c9ad48e677a8647b0d209e19",
+      "functions": [
+        {
+          "name": "haversineMeters",
+          "params": [
+            "a",
+            "b"
+          ],
+          "returnType": "Double",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "hasAcceptableAccuracy",
+          "params": [
+            "location"
+          ],
+          "returnType": "Bool",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "shouldAccept",
+          "params": [
+            "location",
+            "previous"
+          ],
+          "returnType": "Bool",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "distanceInUnit",
+          "params": [
+            "metres",
+            "unit"
+          ],
+          "returnType": "Double",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "speedInUnit",
+          "params": [
+            "metersPerSecond",
+            "unit"
+          ],
+          "returnType": "Double",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "averageSpeed",
+          "params": [
+            "distance",
+            "durationSeconds"
+          ],
+          "returnType": "Double",
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "durationSeconds",
+          "params": [
+            "startedAt",
+            "endedAt"
+          ],
+          "returnType": "Double",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "estimatedEconomy",
+          "params": [
+            "averageMPG",
+            "averageLitersPer100km"
+          ],
+          "returnType": "(mpg: Double?, litersPer100km: Double?)",
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [
+        {
+          "name": "TripStats",
+          "methods": [
+            "haversineMeters",
+            "hasAcceptableAccuracy",
+            "shouldAccept",
+            "distanceInUnit",
+            "speedInUnit",
+            "averageSpeed",
+            "durationSeconds",
+            "estimatedEconomy"
+          ],
+          "properties": [
+            "minimumHorizontalAccuracyMeters",
+            "maximumJumpMeters"
+          ],
+          "exported": true,
+          "lineCount": 61
+        }
+      ],
+      "imports": [
+        {
+          "source": "CoreLocation",
+          "specifiers": [
+            "CoreLocation"
+          ]
+        },
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "minimumHorizontalAccuracyMeters",
+        "maximumJumpMeters",
+        "haversineMeters",
+        "hasAcceptableAccuracy",
+        "shouldAccept",
+        "distanceInUnit",
+        "speedInUnit",
+        "averageSpeed",
+        "durationSeconds",
+        "estimatedEconomy",
+        "TripStats"
+      ],
+      "totalLines": 64,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Services/UsedStations.swift": {
+      "filePath": "Sources/FuelTrack/Services/UsedStations.swift",
+      "contentHash": "dec8fd9acfc07995cf46b502b2886d4f308db6b29a76e0478c7b606abc803c36",
+      "functions": [
+        {
+          "name": "summarize",
+          "params": [
+            "fillUps"
+          ],
+          "returnType": "[UsedStationSummary]",
+          "exported": true,
+          "lineCount": 38
+        },
+        {
+          "name": "favourites",
+          "params": [
+            "fillUps"
+          ],
+          "returnType": "[UsedStationSummary]",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "normalize",
+          "params": [
+            "text"
+          ],
+          "returnType": "String",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "compactPostcode",
+          "params": [
+            "text"
+          ],
+          "returnType": "String",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "matches",
+          "params": [
+            "used",
+            "nearby"
+          ],
+          "returnType": "Bool",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "bestMatch",
+          "params": [
+            "used",
+            "stations"
+          ],
+          "returnType": "NearbyStation?",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "matchScore",
+          "params": [
+            "used",
+            "nearby"
+          ],
+          "returnType": "Int",
+          "exported": true,
+          "lineCount": 52
+        },
+        {
+          "name": "tokens",
+          "params": [
+            "text"
+          ],
+          "returnType": "Set<String>",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "ukPostcode",
+          "params": [
+            "text"
+          ],
+          "returnType": "String?",
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "richerName",
+          "params": [
+            "current",
+            "candidate"
+          ],
+          "returnType": "String",
+          "exported": false,
+          "lineCount": 6
+        }
+      ],
+      "classes": [
+        {
+          "name": "UsedStationSummary",
+          "methods": [],
+          "properties": [
+            "id",
+            "displayName",
+            "visitCount",
+            "lastVisit",
+            "lastLiters",
+            "lastCost",
+            "lastCurrency",
+            "totalSpend",
+            "lastPricePerLiter"
+          ],
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "UsedStations",
+          "methods": [
+            "summarize",
+            "favourites",
+            "normalize",
+            "compactPostcode",
+            "matches",
+            "bestMatch",
+            "matchScore",
+            "tokens",
+            "ukPostcode",
+            "richerName"
+          ],
+          "properties": [
+            "minimumFavouriteVisits",
+            "postcodePattern",
+            "genericTokens",
+            "knownBrandTokens"
+          ],
+          "exported": true,
+          "lineCount": 172
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [
+        "id",
+        "displayName",
+        "visitCount",
+        "lastVisit",
+        "lastLiters",
+        "lastCost",
+        "lastCurrency",
+        "totalSpend",
+        "lastPricePerLiter",
+        "UsedStationSummary",
+        "minimumFavouriteVisits",
+        "summarize",
+        "favourites",
+        "normalize",
+        "compactPostcode",
+        "matches",
+        "bestMatch",
+        "matchScore",
+        "tokens",
+        "ukPostcode",
+        "UsedStations"
+      ],
+      "totalLines": 191,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Support/ActiveVehicleStore.swift": {
+      "filePath": "Sources/FuelTrack/Support/ActiveVehicleStore.swift",
+      "contentHash": "710fc7103332d82cdcd09bb21465e177a92d221d23d3d1d8475c5d160b0f9534",
+      "functions": [
+        {
+          "name": "ActiveVehicleStore.init",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "resolve",
+          "params": [
+            "vehicles"
+          ],
+          "returnType": "Vehicle?",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "select",
+          "params": [
+            "vehicle"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [
+        {
+          "name": "ActiveVehicleStore",
+          "methods": [
+            "init",
+            "resolve",
+            "select"
+          ],
+          "properties": [
+            "storageKey",
+            "activeVehicleID"
+          ],
+          "exported": true,
+          "lineCount": 37
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "activeVehicleID",
+        "ActiveVehicleStore.init",
+        "resolve",
+        "select",
+        "ActiveVehicleStore"
+      ],
+      "totalLines": 41,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Support/IdentifiableModels.swift": {
+      "filePath": "Sources/FuelTrack/Support/IdentifiableModels.swift",
+      "contentHash": "4b9895ef827fcf79e037c4df72d23fdb107f5a55f55adc43cc14e020e8373ade",
+      "functions": [],
+      "classes": [
+        {
+          "name": "extension Vehicle",
+          "methods": [],
+          "properties": [],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "extension FillUp",
+          "methods": [],
+          "properties": [],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "extension CarCost",
+          "methods": [],
+          "properties": [],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "extension ReminderItem",
+          "methods": [],
+          "properties": [],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "extension Trip",
+          "methods": [],
+          "properties": [],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "extension TripPoint",
+          "methods": [],
+          "properties": [],
+          "exported": false,
+          "lineCount": 1
+        }
+      ],
+      "imports": [
+        {
+          "source": "Foundation",
+          "specifiers": [
+            "Foundation"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Theme/GlassTheme.swift": {
+      "filePath": "Sources/FuelTrack/Theme/GlassTheme.swift",
+      "contentHash": "ecf9bfab8c810e98e708dc60cd36b10526f622329fc4e16a741ad6123314d7df",
+      "functions": [
+        {
+          "name": "body",
+          "params": [
+            "content"
+          ],
+          "returnType": "some View",
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "fuelTrackScreen",
+          "params": [],
+          "returnType": "some View",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "smoothContentTransition",
+          "params": [],
+          "returnType": "some View",
+          "exported": true,
+          "lineCount": 8
+        }
+      ],
+      "classes": [
+        {
+          "name": "GlassTheme",
+          "methods": [],
+          "properties": [
+            "accent",
+            "accentWarm",
+            "deep",
+            "ink"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "AppearancePreference",
+          "methods": [],
+          "properties": [
+            "system",
+            "light",
+            "dark",
+            "id",
+            "displayName",
+            "colorScheme"
+          ],
+          "exported": true,
+          "lineCount": 23
+        },
+        {
+          "name": "AppBackdrop",
+          "methods": [],
+          "properties": [
+            "colorScheme",
+            "body",
+            "gradientColors"
+          ],
+          "exported": true,
+          "lineCount": 42
+        },
+        {
+          "name": "GlassCard",
+          "methods": [],
+          "properties": [
+            "padding",
+            "content",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "GlassStatChip",
+          "methods": [],
+          "properties": [
+            "title",
+            "value",
+            "tint",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 24
+        },
+        {
+          "name": "SmoothPageAppear",
+          "methods": [
+            "body"
+          ],
+          "properties": [
+            "appeared"
+          ],
+          "exported": true,
+          "lineCount": 17
+        },
+        {
+          "name": "extension View",
+          "methods": [
+            "fuelTrackScreen",
+            "smoothContentTransition"
+          ],
+          "properties": [],
+          "exported": false,
+          "lineCount": 18
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "accent",
+        "accentWarm",
+        "deep",
+        "ink",
+        "GlassTheme",
+        "id",
+        "displayName",
+        "colorScheme",
+        "AppearancePreference",
+        "body",
+        "AppBackdrop",
+        "padding",
+        "content",
+        "body",
+        "GlassCard",
+        "title",
+        "value",
+        "tint",
+        "body",
+        "GlassStatChip",
+        "body",
+        "SmoothPageAppear",
+        "fuelTrackScreen",
+        "smoothContentTransition"
+      ],
+      "totalLines": 150,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/ContentView.swift": {
+      "filePath": "Sources/FuelTrack/Views/ContentView.swift",
+      "contentHash": "9d519085c00a5d019bb20eacb0182b2e16a089a248348eff76bd18b11fd1a8c5",
+      "functions": [],
+      "classes": [
+        {
+          "name": "AppTab",
+          "methods": [],
+          "properties": [
+            "home",
+            "fuel",
+            "spend",
+            "stations",
+            "more"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "ContentView",
+          "methods": [],
+          "properties": [
+            "vehicles",
+            "activeVehicleStore",
+            "appearancePreference",
+            "selectedTab",
+            "preferredScheme",
+            "body",
+            "complianceSignature"
+          ],
+          "exported": true,
+          "lineCount": 73
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "AppTab",
+        "body",
+        "ContentView"
+      ],
+      "totalLines": 81,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Costs/CostListView.swift": {
+      "filePath": "Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "contentHash": "c6a94d55148f450660af8c8ecb15734c967e10219a7f1952ada8c44b2e80800a",
+      "functions": [
+        {
+          "name": "costRow",
+          "params": [
+            "cost",
+            "currency"
+          ],
+          "returnType": "some View",
+          "exported": false,
+          "lineCount": 30
+        },
+        {
+          "name": "load",
+          "params": [],
+          "exported": false,
+          "lineCount": 16
+        },
+        {
+          "name": "save",
+          "params": [],
+          "exported": false,
+          "lineCount": 35
+        }
+      ],
+      "classes": [
+        {
+          "name": "CarCostListContent",
+          "methods": [
+            "costRow"
+          ],
+          "properties": [
+            "vehicles",
+            "customs",
+            "modelContext",
+            "activeVehicleStore",
+            "spendPeriodRaw",
+            "filterKey",
+            "period",
+            "selectedPeriod",
+            "activeVehicle",
+            "costs",
+            "periodStart",
+            "periodCosts",
+            "filteredCosts",
+            "periodTotal",
+            "categoryRows",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 150
+        },
+        {
+          "name": "CostFormView",
+          "methods": [
+            "load",
+            "save"
+          ],
+          "properties": [
+            "modelContext",
+            "dismiss",
+            "customs",
+            "vehicle",
+            "cost",
+            "title",
+            "date",
+            "amountText",
+            "odometerText",
+            "categoryKey",
+            "currencyCode",
+            "note",
+            "showingSavedAlert",
+            "showingCategories",
+            "saveError",
+            "isEditing",
+            "parsedAmount",
+            "canSave",
+            "categoryOptions",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 150
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "body",
+        "CarCostListContent",
+        "vehicle",
+        "cost",
+        "body",
+        "CostFormView"
+      ],
+      "totalLines": 305,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Costs/CustomCategoriesView.swift": {
+      "filePath": "Sources/FuelTrack/Views/Costs/CustomCategoriesView.swift",
+      "contentHash": "226e87cbde1d0c6963c98cee173b631f428c524a65c817d14f51622bc7e0c210",
+      "functions": [
+        {
+          "name": "add",
+          "params": [],
+          "exported": false,
+          "lineCount": 15
+        }
+      ],
+      "classes": [
+        {
+          "name": "CustomCategoriesView",
+          "methods": [
+            "add"
+          ],
+          "properties": [
+            "scope",
+            "allCustoms",
+            "modelContext",
+            "dismiss",
+            "newName",
+            "newIcon",
+            "message",
+            "iconChoices",
+            "customs",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 110
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "scope",
+        "body",
+        "CustomCategoriesView"
+      ],
+      "totalLines": 114,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Costs/SpendRootView.swift": {
+      "filePath": "Sources/FuelTrack/Views/Costs/SpendRootView.swift",
+      "contentHash": "3f2b872cf935a4d55558a4ae69b0b1673bf2e630bf31c84f53f4f809c36c4aa2",
+      "functions": [],
+      "classes": [
+        {
+          "name": "SpendScope",
+          "methods": [],
+          "properties": [
+            "car",
+            "personal",
+            "id",
+            "title"
+          ],
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "SpendRootView",
+          "methods": [],
+          "properties": [
+            "scope",
+            "showingAddCarCost",
+            "showingAddPersonal",
+            "showingBudgets",
+            "showingCategories",
+            "vehicles",
+            "activeVehicleStore",
+            "activeVehicle",
+            "body",
+            "vehicleMenu"
+          ],
+          "exported": true,
+          "lineCount": 123
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "id",
+        "title",
+        "SpendScope",
+        "body",
+        "SpendRootView"
+      ],
+      "totalLines": 141,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift": {
+      "filePath": "Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "contentHash": "b428e24dbfa5c17de25ba9918f275ae7aac06323bed29a0b49151ff09e1c7e8c",
+      "functions": [
+        {
+          "name": "startDate",
+          "params": [
+            "calendar",
+            "now"
+          ],
+          "returnType": "Date",
+          "exported": true,
+          "lineCount": 10
+        }
+      ],
+      "classes": [
+        {
+          "name": "SpendPeriod",
+          "methods": [
+            "startDate"
+          ],
+          "properties": [
+            "monthly",
+            "yearly",
+            "allTime",
+            "id",
+            "title",
+            "periodLabel",
+            "shortLabel",
+            "entryScopePhrase",
+            "emptyPeriodPhrase"
+          ],
+          "exported": true,
+          "lineCount": 58
+        },
+        {
+          "name": "SpendTotalsCard",
+          "methods": [],
+          "properties": [
+            "periodTotal",
+            "allTimeTotal",
+            "yearTotal",
+            "currency",
+            "periodEntryCount",
+            "subtitle",
+            "period",
+            "secondaryLabel",
+            "secondaryValue",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 68
+        },
+        {
+          "name": "CategorySpendBreakdownCard",
+          "methods": [],
+          "properties": [
+            "rows",
+            "currency",
+            "period",
+            "selectedKey",
+            "onSelect",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 74
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "id",
+        "title",
+        "periodLabel",
+        "shortLabel",
+        "entryScopePhrase",
+        "emptyPeriodPhrase",
+        "startDate",
+        "SpendPeriod",
+        "periodTotal",
+        "allTimeTotal",
+        "yearTotal",
+        "currency",
+        "periodEntryCount",
+        "subtitle",
+        "period",
+        "body",
+        "SpendTotalsCard",
+        "rows",
+        "currency",
+        "period",
+        "selectedKey",
+        "onSelect",
+        "body",
+        "CategorySpendBreakdownCard"
+      ],
+      "totalLines": 205,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Dashboard/DashboardView.swift": {
+      "filePath": "Sources/FuelTrack/Views/Dashboard/DashboardView.swift",
+      "contentHash": "645df96d0518971d592750344d3d00ba1367189ab7246083b04995ddc7805a20",
+      "functions": [
+        {
+          "name": "vehicleDashboard",
+          "params": [
+            "vehicle"
+          ],
+          "returnType": "some View",
+          "exported": false,
+          "lineCount": 94
+        },
+        {
+          "name": "row",
+          "params": [
+            "title",
+            "value"
+          ],
+          "returnType": "some View",
+          "exported": false,
+          "lineCount": 10
+        }
+      ],
+      "classes": [
+        {
+          "name": "DashboardView",
+          "methods": [
+            "vehicleDashboard",
+            "row"
+          ],
+          "properties": [
+            "vehicles",
+            "activeVehicleStore",
+            "activeVehicle",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 159
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "body",
+        "DashboardView"
+      ],
+      "totalLines": 163,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Dashboard/HomeCarSpendCard.swift": {
+      "filePath": "Sources/FuelTrack/Views/Dashboard/HomeCarSpendCard.swift",
+      "contentHash": "b4395278bcacb99d7715df490d9b86469f4dddc731a35bcf98ef1fff316c7d90",
+      "functions": [
+        {
+          "name": "metric",
+          "params": [
+            "title",
+            "value"
+          ],
+          "returnType": "some View",
+          "exported": false,
+          "lineCount": 14
+        }
+      ],
+      "classes": [
+        {
+          "name": "HomeCarSpendCard",
+          "methods": [
+            "metric"
+          ],
+          "properties": [
+            "vehicle",
+            "stats",
+            "allTimeFuel",
+            "allTimeCosts",
+            "allTimeTotal",
+            "yearTotal",
+            "monthTotal",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 62
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "vehicle",
+        "body",
+        "HomeCarSpendCard"
+      ],
+      "totalLines": 65,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Dashboard/HomeFuelQuickAccess.swift": {
+      "filePath": "Sources/FuelTrack/Views/Dashboard/HomeFuelQuickAccess.swift",
+      "contentHash": "d17941c8084ead1c62ad61e5693f289ad751bab1871df2bf7a309863a0d1b32b",
+      "functions": [
+        {
+          "name": "compactStationChip",
+          "params": [
+            "rank",
+            "station",
+            "isBest"
+          ],
+          "returnType": "some View",
+          "exported": false,
+          "lineCount": 59
+        },
+        {
+          "name": "reload",
+          "params": [
+            "forceLocation"
+          ],
+          "exported": false,
+          "lineCount": 49
+        }
+      ],
+      "classes": [
+        {
+          "name": "HomeFuelQuickAccess",
+          "methods": [
+            "compactStationChip",
+            "reload"
+          ],
+          "properties": [
+            "vehicle",
+            "locationProvider",
+            "topStations",
+            "nearest",
+            "isLoading",
+            "errorMessage",
+            "didLoad",
+            "showsLivePrices",
+            "cheapestID",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 217
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "vehicle",
+        "body",
+        "HomeFuelQuickAccess"
+      ],
+      "totalLines": 220,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Dashboard/HomePersonalSpendCard.swift": {
+      "filePath": "Sources/FuelTrack/Views/Dashboard/HomePersonalSpendCard.swift",
+      "contentHash": "102f7863d0ccb2d136fb698b08374462c3dd7579e9090fb1673e707b0f9e8e2c",
+      "functions": [],
+      "classes": [
+        {
+          "name": "HomePersonalSpendCard",
+          "methods": [],
+          "properties": [
+            "expenses",
+            "budgets",
+            "defaultCurrencyCode",
+            "currency",
+            "monthStart",
+            "monthTotal",
+            "overallBudget",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 52
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "body",
+        "HomePersonalSpendCard"
+      ],
+      "totalLines": 56,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/FillUps/FillUpFormView.swift": {
+      "filePath": "Sources/FuelTrack/Views/FillUps/FillUpFormView.swift",
+      "contentHash": "06b2ed91130f5ce88ccdbf28cb9d11a3c294c53a321435de724b382854c36aa5",
+      "functions": [
+        {
+          "name": "applyStation",
+          "params": [
+            "picked"
+          ],
+          "exported": false,
+          "lineCount": 35
+        },
+        {
+          "name": "load",
+          "params": [],
+          "exported": false,
+          "lineCount": 23
+        },
+        {
+          "name": "formatNumber",
+          "params": [
+            "value"
+          ],
+          "returnType": "String",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "save",
+          "params": [],
+          "exported": false,
+          "lineCount": 49
+        }
+      ],
+      "classes": [
+        {
+          "name": "FillUpFormView",
+          "methods": [
+            "applyStation",
+            "load",
+            "formatNumber",
+            "save"
+          ],
+          "properties": [
+            "modelContext",
+            "dismiss",
+            "vehicle",
+            "fillUp",
+            "date",
+            "odometerText",
+            "litersText",
+            "totalCostText",
+            "currencyCode",
+            "isFullTank",
+            "skipped",
+            "station",
+            "stationExternalId",
+            "latitude",
+            "longitude",
+            "note",
+            "fuelType",
+            "showingStationPicker",
+            "selectedPricePence",
+            "saveError",
+            "isEditing",
+            "parsedOdometer",
+            "parsedLiters",
+            "parsedCost",
+            "canSave",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 269
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "vehicle",
+        "fillUp",
+        "body",
+        "FillUpFormView"
+      ],
+      "totalLines": 273,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/FillUps/FillUpListView.swift": {
+      "filePath": "Sources/FuelTrack/Views/FillUps/FillUpListView.swift",
+      "contentHash": "0234d410d0dc98e35f4cbe44bc5d3b183b33b033ee045a71004d1d3ac4ecef36",
+      "functions": [
+        {
+          "name": "summary",
+          "params": [
+            "vehicle"
+          ],
+          "returnType": "some View",
+          "exported": false,
+          "lineCount": 44
+        },
+        {
+          "name": "metric",
+          "params": [
+            "value",
+            "label"
+          ],
+          "returnType": "some View",
+          "exported": false,
+          "lineCount": 13
+        }
+      ],
+      "classes": [
+        {
+          "name": "FillUpListView",
+          "methods": [
+            "summary"
+          ],
+          "properties": [
+            "vehicles",
+            "modelContext",
+            "activeVehicleStore",
+            "showingAdd",
+            "activeVehicle",
+            "fillUps",
+            "monthStart",
+            "monthSpend",
+            "monthLiters",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 164
+        },
+        {
+          "name": "FillUpCard",
+          "methods": [
+            "metric"
+          ],
+          "properties": [
+            "fillUp",
+            "unit",
+            "body"
+          ],
+          "exported": false,
+          "lineCount": 71
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "body",
+        "FillUpListView"
+      ],
+      "totalLines": 240,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/FillUps/FillUpMapView.swift": {
+      "filePath": "Sources/FuelTrack/Views/FillUps/FillUpMapView.swift",
+      "contentHash": "3fce643c254f13ad287c7f5c68bd8dfe7b13b2ffee6cf6c25f1b9588d017522c",
+      "functions": [],
+      "classes": [
+        {
+          "name": "FillUpMapView",
+          "methods": [],
+          "properties": [
+            "vehicle",
+            "position",
+            "selectedPin",
+            "pins",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 76
+        },
+        {
+          "name": "LogPin",
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "coordinate",
+            "subtitle"
+          ],
+          "exported": false,
+          "lineCount": 6
+        }
+      ],
+      "imports": [
+        {
+          "source": "MapKit",
+          "specifiers": [
+            "MapKit"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "vehicle",
+        "body",
+        "FillUpMapView"
+      ],
+      "totalLines": 87,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/FillUps/StationPickerView.swift": {
+      "filePath": "Sources/FuelTrack/Views/FillUps/StationPickerView.swift",
+      "contentHash": "dacdaebbf5246a75bb0b4cc1f068f7d71686656191c75f851fcc803b130b7f1d",
+      "functions": [
+        {
+          "name": "StationPickerView.init",
+          "params": [
+            "fuelType",
+            "onSelect",
+            "onSelectName"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "usedRow",
+          "params": [
+            "used"
+          ],
+          "returnType": "some View",
+          "exported": false,
+          "lineCount": 26
+        },
+        {
+          "name": "nearbyRow",
+          "params": [
+            "station"
+          ],
+          "returnType": "some View",
+          "exported": false,
+          "lineCount": 26
+        },
+        {
+          "name": "selectUsed",
+          "params": [
+            "used"
+          ],
+          "exported": false,
+          "lineCount": 26
+        },
+        {
+          "name": "load",
+          "params": [
+            "force"
+          ],
+          "exported": false,
+          "lineCount": 40
+        }
+      ],
+      "classes": [
+        {
+          "name": "StationPickerView",
+          "methods": [
+            "init",
+            "usedRow",
+            "nearbyRow",
+            "selectUsed",
+            "load"
+          ],
+          "properties": [
+            "fuelType",
+            "onSelectNearby",
+            "onSelectName",
+            "dismiss",
+            "locationProvider",
+            "fillUps",
+            "stations",
+            "isLoading",
+            "errorMessage",
+            "search",
+            "sortCheapest",
+            "radiusMiles",
+            "usedStations",
+            "filteredUsed",
+            "filteredNearby",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 262
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "fuelType",
+        "onSelectNearby",
+        "onSelectName",
+        "StationPickerView.init",
+        "body",
+        "StationPickerView"
+      ],
+      "totalLines": 266,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/More/MoreView.swift": {
+      "filePath": "Sources/FuelTrack/Views/More/MoreView.swift",
+      "contentHash": "c2dd20fdbb36ecd60e2fabd089b39d417ab54441d1857d14c6bbba96f57e8292",
+      "functions": [
+        {
+          "name": "moreRow",
+          "params": [
+            "title",
+            "subtitle",
+            "icon"
+          ],
+          "returnType": "some View",
+          "exported": false,
+          "lineCount": 23
+        },
+        {
+          "name": "exportFullBackup",
+          "params": [],
+          "exported": false,
+          "lineCount": 14
+        },
+        {
+          "name": "exportFuelioCSV",
+          "params": [],
+          "exported": false,
+          "lineCount": 16
+        },
+        {
+          "name": "makeUIViewController",
+          "params": [
+            "context"
+          ],
+          "returnType": "UIActivityViewController",
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "updateUIViewController",
+          "params": [
+            "uiViewController",
+            "context"
+          ],
+          "exported": false,
+          "lineCount": 1
+        }
+      ],
+      "classes": [
+        {
+          "name": "MoreView",
+          "methods": [
+            "moreRow",
+            "exportFullBackup",
+            "exportFuelioCSV"
+          ],
+          "properties": [
+            "vehicles",
+            "personalExpenses",
+            "personalBudgets",
+            "customCategories",
+            "activeVehicleStore",
+            "shareItem",
+            "exportError",
+            "activeVehicle",
+            "backupSubtitle",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 160
+        },
+        {
+          "name": "ShareableFile",
+          "methods": [],
+          "properties": [
+            "id",
+            "url"
+          ],
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "ShareSheet",
+          "methods": [
+            "makeUIViewController",
+            "updateUIViewController"
+          ],
+          "properties": [
+            "url"
+          ],
+          "exported": false,
+          "lineCount": 14
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "body",
+        "MoreView"
+      ],
+      "totalLines": 184,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Personal/PersonalBudgetView.swift": {
+      "filePath": "Sources/FuelTrack/Views/Personal/PersonalBudgetView.swift",
+      "contentHash": "4c4e92264ddd8bcf7f6ae45c35abb926bf600b0e18fe1d4d3d2f49538db53093",
+      "functions": [
+        {
+          "name": "binding",
+          "params": [
+            "key"
+          ],
+          "returnType": "Binding<String>",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "load",
+          "params": [],
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "save",
+          "params": [],
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "upsertOverall",
+          "params": [],
+          "exported": false,
+          "lineCount": 15
+        },
+        {
+          "name": "upsertCategory",
+          "params": [
+            "key"
+          ],
+          "exported": false,
+          "lineCount": 19
+        }
+      ],
+      "classes": [
+        {
+          "name": "PersonalBudgetView",
+          "methods": [
+            "binding",
+            "load",
+            "save",
+            "upsertOverall",
+            "upsertCategory"
+          ],
+          "properties": [
+            "budgets",
+            "expenses",
+            "customs",
+            "modelContext",
+            "dismiss",
+            "defaultCurrencyCode",
+            "overallText",
+            "categoryLimits",
+            "message",
+            "currency",
+            "monthStart",
+            "monthExpenses",
+            "categoryOptions",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 149
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "body",
+        "PersonalBudgetView"
+      ],
+      "totalLines": 153,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Personal/PersonalExpenseFormView.swift": {
+      "filePath": "Sources/FuelTrack/Views/Personal/PersonalExpenseFormView.swift",
+      "contentHash": "40fbea380f9d69bf11d4b8dc6b603be9fc3c5102d0a666f4570408f2ff116be7",
+      "functions": [
+        {
+          "name": "load",
+          "params": [],
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "save",
+          "params": [],
+          "exported": false,
+          "lineCount": 43
+        },
+        {
+          "name": "deleteExpense",
+          "params": [],
+          "exported": false,
+          "lineCount": 6
+        }
+      ],
+      "classes": [
+        {
+          "name": "PersonalExpenseFormView",
+          "methods": [
+            "load",
+            "save",
+            "deleteExpense"
+          ],
+          "properties": [
+            "modelContext",
+            "dismiss",
+            "customs",
+            "defaultCurrencyCode",
+            "expense",
+            "title",
+            "date",
+            "amountText",
+            "currency",
+            "categoryKey",
+            "note",
+            "paymentMethod",
+            "errorMessage",
+            "confirmingDelete",
+            "showingSavedAlert",
+            "showingCategories",
+            "isEditing",
+            "categoryOptions",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 164
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "expense",
+        "body",
+        "PersonalExpenseFormView"
+      ],
+      "totalLines": 168,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Personal/PersonalExpenseListView.swift": {
+      "filePath": "Sources/FuelTrack/Views/Personal/PersonalExpenseListView.swift",
+      "contentHash": "1702dd17e08a64862754f38ff0c5232b38eaa9f13e09ad01047d0fe6d1fc6c5c",
+      "functions": [
+        {
+          "name": "expenseRow",
+          "params": [
+            "expense"
+          ],
+          "returnType": "some View",
+          "exported": false,
+          "lineCount": 29
+        },
+        {
+          "name": "body",
+          "params": [
+            "content"
+          ],
+          "returnType": "some View",
+          "exported": true,
+          "lineCount": 21
+        }
+      ],
+      "classes": [
+        {
+          "name": "PersonalExpenseListView",
+          "methods": [
+            "expenseRow"
+          ],
+          "properties": [
+            "expenses",
+            "budgets",
+            "customs",
+            "modelContext",
+            "defaultCurrencyCode",
+            "spendPeriodRaw",
+            "showingAdd",
+            "showingBudgets",
+            "filterKey",
+            "showsOwnToolbar",
+            "currency",
+            "period",
+            "selectedPeriod",
+            "periodStart",
+            "monthStart",
+            "periodExpenses",
+            "monthExpenses",
+            "filteredExpenses",
+            "yearStart",
+            "periodTotal",
+            "monthTotal",
+            "yearTotal",
+            "allTimeTotal",
+            "overallBudget",
+            "categoryRows",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 214
+        },
+        {
+          "name": "PersonalToolbarModifier",
+          "methods": [
+            "body"
+          ],
+          "properties": [
+            "enabled",
+            "showingAdd",
+            "showingBudgets"
+          ],
+          "exported": false,
+          "lineCount": 27
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "showsOwnToolbar",
+        "body",
+        "PersonalExpenseListView"
+      ],
+      "totalLines": 246,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Reminders/ReminderListView.swift": {
+      "filePath": "Sources/FuelTrack/Views/Reminders/ReminderListView.swift",
+      "contentHash": "91ac181853a0c38603a5b5e162116cbac2fc939b6af190183b2202708fe85e51",
+      "functions": [
+        {
+          "name": "saveReminder",
+          "params": [],
+          "exported": false,
+          "lineCount": 19
+        }
+      ],
+      "classes": [
+        {
+          "name": "ReminderListView",
+          "methods": [
+            "saveReminder"
+          ],
+          "properties": [
+            "vehicles",
+            "modelContext",
+            "activeVehicleStore",
+            "showingAdd",
+            "title",
+            "dueDate",
+            "useDate",
+            "dueOdoText",
+            "note",
+            "activeVehicle",
+            "reminders",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 134
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "body",
+        "ReminderListView"
+      ],
+      "totalLines": 138,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Settings/BackupImportView.swift": {
+      "filePath": "Sources/FuelTrack/Views/Settings/BackupImportView.swift",
+      "contentHash": "446c572bfa881f4c79b36f053d73c260d2f3580896687dd758f73e32cf737211",
+      "functions": [
+        {
+          "name": "importFile",
+          "params": [
+            "url"
+          ],
+          "exported": false,
+          "lineCount": 30
+        }
+      ],
+      "classes": [
+        {
+          "name": "BackupImportView",
+          "methods": [
+            "importFile"
+          ],
+          "properties": [
+            "modelContext",
+            "activeVehicleStore",
+            "showingPicker",
+            "setFirstVehicleActive",
+            "isImporting",
+            "statusMessage",
+            "errorMessage",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 98
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        },
+        {
+          "source": "UniformTypeIdentifiers",
+          "specifiers": [
+            "UniformTypeIdentifiers"
+          ]
+        }
+      ],
+      "exports": [
+        "body",
+        "BackupImportView"
+      ],
+      "totalLines": 103,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Settings/FuelioImportView.swift": {
+      "filePath": "Sources/FuelTrack/Views/Settings/FuelioImportView.swift",
+      "contentHash": "00c7fe8705ccb8202be6e11a535329affc8f96562f482927267c64e3fcab1f85",
+      "functions": [
+        {
+          "name": "importFile",
+          "params": [
+            "url"
+          ],
+          "exported": false,
+          "lineCount": 107
+        }
+      ],
+      "classes": [
+        {
+          "name": "FuelioImportView",
+          "methods": [
+            "importFile"
+          ],
+          "properties": [
+            "modelContext",
+            "dismiss",
+            "activeVehicleStore",
+            "defaultCurrencyCode",
+            "showingPicker",
+            "currencyCode",
+            "setActive",
+            "isImporting",
+            "statusMessage",
+            "errorMessage",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 186
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        },
+        {
+          "source": "UniformTypeIdentifiers",
+          "specifiers": [
+            "UniformTypeIdentifiers"
+          ]
+        }
+      ],
+      "exports": [
+        "body",
+        "FuelioImportView"
+      ],
+      "totalLines": 191,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Settings/SettingsView.swift": {
+      "filePath": "Sources/FuelTrack/Views/Settings/SettingsView.swift",
+      "contentHash": "dd01878bbf5cf5208183ce7254adcb9a1f53968bb9dbb96fa3546e3c64d9c7cc",
+      "functions": [
+        {
+          "name": "preferProductionDVLA",
+          "params": [],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "testDVLAConnection",
+          "params": [],
+          "exported": false,
+          "lineCount": 21
+        }
+      ],
+      "classes": [
+        {
+          "name": "SettingsView",
+          "methods": [
+            "preferProductionDVLA",
+            "testDVLAConnection"
+          ],
+          "properties": [
+            "defaultCurrencyCode",
+            "defaultOdometerUnit",
+            "appearancePreference",
+            "dvlaAPIKey",
+            "dvlaEnvironmentRaw",
+            "complianceNotificationsEnabled",
+            "isTestingDVLA",
+            "dvlaTestMessage",
+            "notificationStatusMessage",
+            "currencyBinding",
+            "unitBinding",
+            "appearanceBinding",
+            "dvlaEnvironmentBinding",
+            "dvlaEnvironment",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 194
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "body",
+        "SettingsView"
+      ],
+      "totalLines": 197,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Stations/NearbyStationsView.swift": {
+      "filePath": "Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "contentHash": "2145f8e48805fc6202aa0a51bba14284b3f2f67cb47149f3b49d0b72ce9fa9e0",
+      "functions": [
+        {
+          "name": "markerTint",
+          "params": [
+            "station"
+          ],
+          "returnType": "Color",
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "isUsed",
+          "params": [
+            "station"
+          ],
+          "returnType": "Bool",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "bestUsed",
+          "params": [
+            "station"
+          ],
+          "returnType": "UsedStationSummary?",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "filterNearby",
+          "params": [
+            "input"
+          ],
+          "returnType": "[NearbyStation]",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "filterUsed",
+          "params": [
+            "input"
+          ],
+          "returnType": "[UsedStationSummary]",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "updateMapCamera",
+          "params": [],
+          "exported": false,
+          "lineCount": 16
+        },
+        {
+          "name": "region",
+          "params": [
+            "coordinates"
+          ],
+          "returnType": "MKCoordinateRegion?",
+          "exported": false,
+          "lineCount": 22
+        },
+        {
+          "name": "reload",
+          "params": [
+            "forceLocation"
+          ],
+          "exported": false,
+          "lineCount": 45
+        },
+        {
+          "name": "formatPence",
+          "params": [
+            "pence"
+          ],
+          "returnType": "String",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "==",
+          "params": [
+            "lhs",
+            "rhs"
+          ],
+          "returnType": "Bool",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "hash",
+          "params": [
+            "hasher"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [
+        {
+          "name": "StationsDisplayMode",
+          "methods": [],
+          "properties": [
+            "list",
+            "map",
+            "id",
+            "title",
+            "systemImage"
+          ],
+          "exported": false,
+          "lineCount": 20
+        },
+        {
+          "name": "NearbyStationsView",
+          "methods": [
+            "markerTint",
+            "isUsed",
+            "bestUsed",
+            "filterNearby",
+            "filterUsed",
+            "updateMapCamera",
+            "region",
+            "reload",
+            "formatPence"
+          ],
+          "properties": [
+            "vehicles",
+            "fillUps",
+            "activeVehicleStore",
+            "locationProvider",
+            "fuelType",
+            "radiusMiles",
+            "stations",
+            "lastUpdated",
+            "isLoading",
+            "errorMessage",
+            "didLoadOnce",
+            "searchText",
+            "displayMode",
+            "selectedStation",
+            "selectedUsed",
+            "mapPosition",
+            "activeVehicle",
+            "usedStations",
+            "filteredUsedStations",
+            "filteredNearby",
+            "cheapest",
+            "mapStations",
+            "body",
+            "controls",
+            "stationsList",
+            "stationsMap"
+          ],
+          "exported": true,
+          "lineCount": 433
+        },
+        {
+          "name": "StationDetailSheet",
+          "methods": [],
+          "properties": [
+            "station",
+            "usedSummary",
+            "dismiss",
+            "body"
+          ],
+          "exported": false,
+          "lineCount": 66
+        },
+        {
+          "name": "UsedStationRow",
+          "methods": [],
+          "properties": [
+            "summary",
+            "nearby",
+            "onOpen",
+            "body"
+          ],
+          "exported": false,
+          "lineCount": 52
+        },
+        {
+          "name": "UsedStationDetailSheet",
+          "methods": [],
+          "properties": [
+            "summary",
+            "nearby",
+            "dismiss",
+            "body"
+          ],
+          "exported": false,
+          "lineCount": 57
+        },
+        {
+          "name": "StationRow",
+          "methods": [],
+          "properties": [
+            "station",
+            "rank",
+            "isBest",
+            "isUsed",
+            "body"
+          ],
+          "exported": false,
+          "lineCount": 75
+        },
+        {
+          "name": "extension NearbyStation",
+          "methods": [
+            "==",
+            "hash"
+          ],
+          "properties": [],
+          "exported": false,
+          "lineCount": 9
+        }
+      ],
+      "imports": [
+        {
+          "source": "MapKit",
+          "specifiers": [
+            "MapKit"
+          ]
+        },
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "body",
+        "NearbyStationsView",
+        "==",
+        "hash"
+      ],
+      "totalLines": 723,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Trips/ActiveTripView.swift": {
+      "filePath": "Sources/FuelTrack/Views/Trips/ActiveTripView.swift",
+      "contentHash": "ebcd371a340a31998c6d061e80cc42da5335957b84457bf90ff8a3d911ea7846",
+      "functions": [],
+      "classes": [
+        {
+          "name": "ActiveTripView",
+          "methods": [],
+          "properties": [
+            "vehicle",
+            "tripRecorder",
+            "dismiss",
+            "confirmEnd",
+            "body",
+            "liveDuration"
+          ],
+          "exported": true,
+          "lineCount": 58
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "vehicle",
+        "body",
+        "ActiveTripView"
+      ],
+      "totalLines": 60,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Trips/HomeTripCard.swift": {
+      "filePath": "Sources/FuelTrack/Views/Trips/HomeTripCard.swift",
+      "contentHash": "3d83adfaf7998e20d32bd3afd29478c4a57dc4a9783a92929cbd28e52334c673",
+      "functions": [
+        {
+          "name": "start",
+          "params": [],
+          "exported": false,
+          "lineCount": 10
+        }
+      ],
+      "classes": [
+        {
+          "name": "HomeTripCard",
+          "methods": [
+            "start"
+          ],
+          "properties": [
+            "vehicle",
+            "tripRecorder",
+            "modelContext",
+            "openURL",
+            "showActive",
+            "confirmEnd",
+            "isThisVehicleActive",
+            "body",
+            "liveBlock"
+          ],
+          "exported": true,
+          "lineCount": 124
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        },
+        {
+          "source": "UIKit",
+          "specifiers": [
+            "UIKit"
+          ]
+        }
+      ],
+      "exports": [
+        "vehicle",
+        "body",
+        "HomeTripCard"
+      ],
+      "totalLines": 128,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Trips/TripDetailView.swift": {
+      "filePath": "Sources/FuelTrack/Views/Trips/TripDetailView.swift",
+      "contentHash": "86bc88bd56d3b2fb1a75917400d7c2edcb5457fcba440ced89e7ea022f6198ab",
+      "functions": [
+        {
+          "name": "region",
+          "params": [
+            "coordinates"
+          ],
+          "returnType": "MKCoordinateRegion?",
+          "exported": false,
+          "lineCount": 22
+        }
+      ],
+      "classes": [
+        {
+          "name": "TripDetailView",
+          "methods": [
+            "region"
+          ],
+          "properties": [
+            "trip",
+            "unit",
+            "position",
+            "coordinates",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 79
+        }
+      ],
+      "imports": [
+        {
+          "source": "MapKit",
+          "specifiers": [
+            "MapKit"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "trip",
+        "unit",
+        "body",
+        "TripDetailView"
+      ],
+      "totalLines": 82,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Trips/TripListView.swift": {
+      "filePath": "Sources/FuelTrack/Views/Trips/TripListView.swift",
+      "contentHash": "4449daff7747469e82505d628cc7496b7d07e850919f7e76a9bc5a159d9af871",
+      "functions": [],
+      "classes": [
+        {
+          "name": "TripListView",
+          "methods": [],
+          "properties": [
+            "vehicle",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 33
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "vehicle",
+        "body",
+        "TripListView"
+      ],
+      "totalLines": 36,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift": {
+      "filePath": "Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift",
+      "contentHash": "31a4ee3e5848eeec798ee148607a0d928b3141ef88991226ec6dd65f6e1754af",
+      "functions": [
+        {
+          "name": "statusPill",
+          "params": [
+            "title",
+            "status",
+            "date",
+            "ok"
+          ],
+          "returnType": "some View",
+          "exported": false,
+          "lineCount": 29
+        },
+        {
+          "name": "refreshDVLA",
+          "params": [],
+          "exported": false,
+          "lineCount": 22
+        }
+      ],
+      "classes": [
+        {
+          "name": "VehicleComplianceCard",
+          "methods": [
+            "statusPill"
+          ],
+          "properties": [
+            "vehicle",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 87
+        },
+        {
+          "name": "VehicleComplianceEditor",
+          "methods": [
+            "refreshDVLA"
+          ],
+          "properties": [
+            "vehicle",
+            "modelContext",
+            "dvlaAPIKey",
+            "dvlaEnvironmentRaw",
+            "isRefreshing",
+            "message",
+            "useMOTDate",
+            "useTaxDate",
+            "useInsuranceDate",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 127
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "vehicle",
+        "body",
+        "VehicleComplianceCard",
+        "vehicle",
+        "body",
+        "VehicleComplianceEditor"
+      ],
+      "totalLines": 219,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift": {
+      "filePath": "Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift",
+      "contentHash": "d337c9bdf479e896ac01adfb4e92ba914ecbd90ebd7ea4fab0aacbb81981a62d",
+      "functions": [
+        {
+          "name": "load",
+          "params": [],
+          "exported": false,
+          "lineCount": 15
+        },
+        {
+          "name": "save",
+          "params": [],
+          "exported": false,
+          "lineCount": 38
+        },
+        {
+          "name": "deleteVehicle",
+          "params": [],
+          "exported": false,
+          "lineCount": 10
+        }
+      ],
+      "classes": [
+        {
+          "name": "VehicleFormView",
+          "methods": [
+            "load",
+            "save",
+            "deleteVehicle"
+          ],
+          "properties": [
+            "modelContext",
+            "dismiss",
+            "activeVehicleStore",
+            "defaultCurrencyCode",
+            "defaultOdometerUnit",
+            "vehicle",
+            "name",
+            "make",
+            "model",
+            "registrationPlate",
+            "fuelType",
+            "odometerUnit",
+            "currencyCode",
+            "notes",
+            "makeActive",
+            "showSavedAlert",
+            "showDeleteConfirm",
+            "isEditing",
+            "canSave",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 185
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "vehicle",
+        "body",
+        "VehicleFormView"
+      ],
+      "totalLines": 189,
+      "hasStructuralAnalysis": true
+    },
+    "Sources/FuelTrack/Views/Vehicles/VehicleListView.swift": {
+      "filePath": "Sources/FuelTrack/Views/Vehicles/VehicleListView.swift",
+      "contentHash": "e2bbc95c165d0bc2480fcf28d11c5da1c275d71ce4285151a92f26ee5aff1272",
+      "functions": [
+        {
+          "name": "delete",
+          "params": [
+            "vehicle"
+          ],
+          "exported": false,
+          "lineCount": 9
+        }
+      ],
+      "classes": [
+        {
+          "name": "VehicleListView",
+          "methods": [
+            "delete"
+          ],
+          "properties": [
+            "vehicles",
+            "modelContext",
+            "activeVehicleStore",
+            "showingAdd",
+            "vehiclePendingDelete",
+            "showDeleteConfirm",
+            "activeVehicle",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 123
+        }
+      ],
+      "imports": [
+        {
+          "source": "SwiftData",
+          "specifiers": [
+            "SwiftData"
+          ]
+        },
+        {
+          "source": "SwiftUI",
+          "specifiers": [
+            "SwiftUI"
+          ]
+        }
+      ],
+      "exports": [
+        "body",
+        "VehicleListView"
+      ],
+      "totalLines": 127,
+      "hasStructuralAnalysis": true
+    },
+    "Support/Info.plist": {
+      "filePath": "Support/Info.plist",
+      "contentHash": "ea21ea7d287014d307f2b2be6229a59d72428680417a0c80ea9199a1ed0a1012",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 18,
+      "hasStructuralAnalysis": false
+    },
+    "docs/superpowers/plans/2026-11-16-trip-logger.md": {
+      "filePath": "docs/superpowers/plans/2026-11-16-trip-logger.md",
+      "contentHash": "8b981667a2e904673f37f9c3e9e116cd6bbdd66e0639b14ebdcdde42affd365b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1333,
+      "hasStructuralAnalysis": false
+    },
+    "docs/superpowers/specs/2026-11-16-trip-logger-design.md": {
+      "filePath": "docs/superpowers/specs/2026-11-16-trip-logger-design.md",
+      "contentHash": "63fc05448bc588750a3815d683667be5d04a14ec5b2deba43bdb1eb5669bb2e5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 237,
+      "hasStructuralAnalysis": false
+    },
+    "rea-target/FUELIO_FEATURE_MAP.md": {
+      "filePath": "rea-target/FUELIO_FEATURE_MAP.md",
+      "contentHash": "a793d83ac79fdac28a529ca900745807b4a884d3427801bafed5429a8ef82889",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 25,
+      "hasStructuralAnalysis": false
+    },
+    "xtool.yml": {
+      "filePath": "xtool.yml",
+      "contentHash": "6752287f93cda7508f61b00b3605a389b0cbcd078144d84234c0255c702416bb",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": false
+    }
+  }
+}

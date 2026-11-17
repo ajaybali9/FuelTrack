@@ -61,6 +61,7 @@ struct FuelioImportView: View {
         }
         .navigationTitle("Import from Fuelio")
         .navigationBarTitleDisplayMode(.inline)
+        .fuelTrackForm()
         .onAppear {
             currencyCode = CurrencyCode(rawValue: defaultCurrencyCode) ?? .gbp
         }

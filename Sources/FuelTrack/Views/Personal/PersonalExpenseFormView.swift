@@ -73,6 +73,7 @@ struct PersonalExpenseFormView: View {
         }
         .navigationTitle(isEditing ? "Edit expense" : "Add expense")
         .navigationBarTitleDisplayMode(.inline)
+        .fuelTrackForm()
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Cancel") { dismiss() }

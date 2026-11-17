@@ -1,0 +1,306 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-17T07:42:46Z",
+  "files": {
+    "README.md": {
+      "overview": "Project entry document for FuelTrack: a Fuelio-inspired multi-vehicle fuel tracker for iPhone built with SwiftUI, SwiftData, and xtool deployment. Tour step 1 points here first so you learn the v1 feature set, Sources/FuelTrack folder map, and how to build, import Fuelio CSV, and run smoke scripts before diving into models and views.",
+      "sections": [
+        {
+          "title": "Product pitch",
+          "lineRange": [1, 3],
+          "explanation": "The title and opening sentence frame FuelTrack as a Fuelio-inspired multi-vehicle fuel tracker for iPhone. SwiftUI + SwiftData name the UI and persistence stack; xtool is the deployment path instead of a traditional Xcode `.xcodeproj`. Keep this mental model as you read Package.swift and the app entry later.",
+          "tourOrder": 1
+        },
+        {
+          "title": "v1 feature checklist",
+          "lineRange": [5, 14],
+          "explanation": "The feature list is the product contract for this tour: multiple vehicles, fill-up logging with full/partial and missed flags, GBP/INR and miles/km, full-tank dashboard stats, Fuelio CSV import, custom icon, and on-device-only storage. When you hit Vehicle, FillUp, FuelStats, and import services later, map each back to one of these bullets.",
+          "tourOrder": 1
+        },
+        {
+          "title": "Source folder map",
+          "lineRange": [16, 24],
+          "explanation": "The layout tree shows how the Swift package sources are organized: Models for entities and enums, Services for stats and formatters, Support for active-vehicle state, and Views for feature screens. Use this as a navigation cheat sheet when tour steps jump between layers.",
+          "tourOrder": 1
+        },
+        {
+          "title": "Tooling requirements",
+          "lineRange": [26, 33],
+          "explanation": "Running on a real iPhone needs full Xcode (for the iOS SDK), the xtool CLI, and Developer Mode on the device. The optional `xcodes` install path shows how to pin an Xcode version; without Xcode, `xtool dev` cannot finish even if sources and the CLI are present.",
+          "tourOrder": 1
+        },
+        {
+          "title": "First-time setup",
+          "lineRange": [35, 52],
+          "explanation": "The setup script selects the Xcode developer directory, accepts the license, verifies the iPhone SDK, runs `xtool setup`, then `xtool devices` / `xtool dev` to install on a connected phone. Bundle ID `com.ajaybali.FuelTrack` matches `xtool.yml`, which you meet in tour step 2.",
+          "tourOrder": 1
+        },
+        {
+          "title": "Import and verify",
+          "lineRange": [54, 72],
+          "explanation": "Fuelio import is a three-step migration path; currency must be chosen in FuelTrack because Fuelio CSV omits it. The smoke scripts let you validate FuelStats and CSV parsing without a device. The closing status notes document scaffold readiness and the remaining Xcode/`xtool auth` blockers on the author's machine.",
+          "tourOrder": 1
+        }
+      ]
+    },
+    "Package.swift": {
+      "overview": "Swift Package Manager manifest that names the FuelTrack library target and declares iOS 26+ and macOS 15+ platforms. Tour step 2 pairs this with xtool.yml: SPM compiles the Sources/FuelTrack code as a library, while xtool layers app packaging metadata on top so the same target becomes a deployable iPhone app without an Xcode project file.",
+      "sections": [
+        {
+          "title": "Tools version import",
+          "lineRange": [1, 3],
+          "explanation": "The `swift-tools-version: 6.2` header tells SwiftPM which manifest language and toolchain features are required. Importing `PackageDescription` gives access to the `Package` type used below.",
+          "tourOrder": 2
+        },
+        {
+          "title": "Platforms and product",
+          "lineRange": [5, 16],
+          "explanation": "The package is named FuelTrack and supports iOS 26 and macOS 15. Exposing a `.library` product named FuelTrack that depends on the FuelTrack target is the SPM pattern xtool expects: compile as a library, then wrap it as an app at deploy time.",
+          "tourOrder": 2
+        },
+        {
+          "title": "Library target",
+          "lineRange": [17, 22],
+          "explanation": "A single `.target(name: \"FuelTrack\")` with no explicit path or dependencies defaults to `Sources/FuelTrack`. There are no external packages here—the app is self-contained SwiftUI/SwiftData code under that folder.",
+          "tourOrder": 2
+        }
+      ]
+    },
+    "xtool.yml": {
+      "overview": "xtool packaging config that turns the SPM FuelTrack library into a signed iOS app. Tour step 2 covers this alongside Package.swift: bundle ID, app icon, and Info.plist paths are the app-specific metadata SPM does not provide.",
+      "sections": [
+        {
+          "title": "App packaging metadata",
+          "lineRange": [1, 4],
+          "explanation": "`version: 1` is the xtool config schema. `bundleID` must match what the README documents (`com.ajaybali.FuelTrack`). `iconPath` and `infoPath` point at the custom icon asset and Info.plist used when `xtool dev` builds, signs, and installs on a phone.",
+          "tourOrder": 2
+        }
+      ]
+    },
+    "Sources/FuelTrack/FuelTrackApp.swift": {
+      "overview": "SwiftUI `@main` app entry and runtime wiring hub for tour step 3. It registers every SwiftData `@Model` in a shared ModelContainer, then injects ActiveVehicleStore, LocationProvider, and TripRecorder into ContentView so the rest of the app shares one persistence graph and one set of live services.",
+      "sections": [
+        {
+          "title": "Shared service instances",
+          "lineRange": [1, 8],
+          "explanation": "After importing SwiftData and SwiftUI, FuelTrackApp is marked `@main` and conforms to `App`. Three long-lived objects—active vehicle store, location provider, and trip recorder—are created once on the app struct so every scene shares the same instances rather than recreating them per view.",
+          "tourOrder": 3
+        },
+        {
+          "title": "ModelContainer schema",
+          "lineRange": [10, 35],
+          "explanation": "The lazy `sharedModelContainer` builds a Schema listing every persistent type: vehicles, fill-ups, costs, reminders, personal finance, stations, and trips. Configuration uses on-disk storage (`isStoredInMemoryOnly: false`). If container creation fails, the store file is deleted and creation is retried once—useful after schema migrations break an old store—before `fatalError` as a last resort.",
+          "tourOrder": 3
+        },
+        {
+          "title": "Scene and environment",
+          "lineRange": [37, 46],
+          "explanation": "`WindowGroup` mounts ContentView and injects the three services via `.environment(...)`. `.modelContainer(sharedModelContainer)` attaches SwiftData to the scene so `@Query` and `@Environment(\\.modelContext)` work in descendant views. Everything later in the tour hangs off this bootstrap.",
+          "tourOrder": 3
+        }
+      ]
+    },
+    "Sources/FuelTrack/Models/FillUp.swift": {
+      "overview": "SwiftData `@Model` for a single fuel purchase: litres, cost, tank fullness, station geodata, and fuel type tied to a Vehicle. Tour step 4 presents FillUp with Vehicle as the core vocabulary for logging fuel and computing economy; FuelStats later segments these rows using the full-tank method.",
+      "sections": [
+        {
+          "title": "Stored fill-up fields",
+          "lineRange": [1, 22],
+          "explanation": "FillUp stores odometer, liters, totalCost, tank flags (`isFullTank`, `skipped`), station text, notes, optional coordinates, and an external station id. Currency and fuel type are persisted as raw strings (`currencyCodeRaw`, `fuelTypeRaw`) so SwiftData stores simple scalars while typed accessors wrap them. The optional `vehicle` link is the inverse of Vehicle.fillUps.",
+          "tourOrder": 4
+        },
+        {
+          "title": "Initializer defaults",
+          "lineRange": [24, 58],
+          "explanation": "The initializer accepts typed `CurrencyCode` and optional `FuelType`, then writes their `rawValue`s into storage. Defaults favor a full tank, GBP, and empty station fields so quick logging stays short while still allowing Fuelio import and map flows to fill geodata and external ids.",
+          "tourOrder": 4
+        },
+        {
+          "title": "Typed accessors and price",
+          "lineRange": [60, 81],
+          "explanation": "`currencyCode` falls back to GBP if the raw string is unknown. `fuelType` inherits the vehicle's type when the stored string is empty, maps legacy values through `FuelType.fromStored`, and coerces bare `.petrol` writes to `.petrolE10`. `pricePerLiter` is derived (cost ÷ liters) and returns nil when liters is zero so callers never divide by zero.",
+          "tourOrder": 4
+        }
+      ]
+    },
+    "Sources/FuelTrack/Models/Vehicle.swift": {
+      "overview": "Hub SwiftData entity for a car: identity, unit/currency preferences, UK DVLA compliance fields, and cascade relationships to fill-ups, costs, reminders, stations, and trips. Tour step 4 introduces Vehicle as the center of the data graph that FillUp and later spend/trip features hang from.",
+      "sections": [
+        {
+          "title": "Identity and DVLA fields",
+          "lineRange": [1, 28],
+          "explanation": "Core identity includes name, make, model, and raw-string preferences for fuel type, odometer unit, and currency. The UK compliance block stores registration, colour, engine/CO₂ data, MOT/tax status and dates, insurance, and a last-refresh timestamp—feeding dashboard compliance cards and notification scheduling.",
+          "tourOrder": 4
+        },
+        {
+          "title": "Cascade relationships",
+          "lineRange": [30, 43],
+          "explanation": "Each `@Relationship` uses `.cascade` delete and names the inverse on the child model. Deleting a vehicle therefore removes its fill-ups, costs, reminders, saved stations, and trips, keeping the SwiftData graph consistent without manual orphan cleanup.",
+          "tourOrder": 4
+        },
+        {
+          "title": "Init and typed preferences",
+          "lineRange": [45, 102],
+          "explanation": "Construction defaults to petrol E10, miles, and GBP. Registration is cleaned through `DVLAVehicleService.cleanedRegistration` before storage. Computed `fuelType`, `odometerUnit`, and `currencyCode` wrap the raw fields with safe fallbacks; writing `.petrol` is normalized to `.petrolE10` for forward compatibility.",
+          "tourOrder": 4
+        },
+        {
+          "title": "Display and sorted collections",
+          "lineRange": [104, 141],
+          "explanation": "`displayPlate` inserts a space before the last three characters of a cleaned UK plate. `displaySubtitle` builds a make/model/plate line for list and dashboard headers. Sorted helpers order trips (completed newest-first), fill-ups (odometer then date), costs (newest first), and incomplete reminders by due date—ready for UI without ad-hoc sorting in every view.",
+          "tourOrder": 4
+        },
+        {
+          "title": "Spend and compliance helpers",
+          "lineRange": [143, 217],
+          "explanation": "Month/year/all-time cost totals and `totalCarSpend*` combine car costs with FuelStats fuel spend. `motIsValid` / `taxIsValid` parse DVLA status strings. `applyDVLA` merges API details into the vehicle and maps fuel strings onto FuelType cases. `daysUntil` supports countdown UI for MOT, tax, and insurance dates.",
+          "tourOrder": 4
+        }
+      ]
+    },
+    "Sources/FuelTrack/Models/CurrencyCode.swift": {
+      "overview": "Constrained currency enum limited to GBP and INR with display names, symbols, and locale identifiers. Tour step 5 groups this with OdometerUnit and FuelType so vehicles and fill-ups share a small, explicit set of domain values used by formatting and import flows.",
+      "sections": [
+        {
+          "title": "Cases and identity",
+          "lineRange": [1, 7],
+          "explanation": "`CurrencyCode` is a String-backed enum with only GBP and INR—matching the README v1 scope. Conformance to `CaseIterable`, `Codable`, `Identifiable`, and `Sendable` makes it usable in pickers, persistence, and concurrency-safe APIs. `id` is the ISO currency code string.",
+          "tourOrder": 5
+        },
+        {
+          "title": "Display and locale",
+          "lineRange": [9, 29],
+          "explanation": "`displayName` includes the currency symbol for picker labels; `symbol` is the short glyph used in UI. `localeIdentifier` maps to `en_GB` / `en_IN` so Formatters can produce culturally correct number layouts when presenting amounts for each vehicle or fill-up.",
+          "tourOrder": 5
+        }
+      ]
+    },
+    "Sources/FuelTrack/Models/FuelType.swift": {
+      "overview": "Fuel grade enum spanning UK petrol blends, diesel, LPG, electric, hybrid, and a legacy `petrol` case. Tour step 5 highlights how these values drive display names, nearby-price API codes, and Fuelio tank codes so import, export, and station pricing stay aligned.",
+      "sections": [
+        {
+          "title": "Cases and selection",
+          "lineRange": [1, 26],
+          "explanation": "Modern grades are listed explicitly; `petrol` is retained only for older stored values. `selectableCases` hides that legacy case from pickers. `fromStored` maps raw `\"petrol\"` to `.petrolE10` and unknown strings to `.other`, so reading old data never crashes on a missing case.",
+          "tourOrder": 5
+        },
+        {
+          "title": "Display names",
+          "lineRange": [28, 52],
+          "explanation": "`displayName` and `shortName` give long labels for forms and compact chips for dense UI. Legacy `.petrol` shares E10 naming so users never see an obsolete \"Petrol\" grade after migration.",
+          "tourOrder": 5
+        },
+        {
+          "title": "API and Fuelio codes",
+          "lineRange": [54, 79],
+          "explanation": "`nearbyAPIFuelCode` maps supported liquid fuels to UK Fuel Finder codes (E10, E5, B7); other types return nil and `supportsNearbyPrices` gates the stations feature. `fuelioTankCode` chooses Fuelio tank integers so a FuelTrack export re-imports as the same grade—critical for CSV round-trips later in the tour.",
+          "tourOrder": 5
+        }
+      ]
+    },
+    "Sources/FuelTrack/Models/OdometerUnit.swift": {
+      "overview": "Miles vs kilometres enum with short labels and bidirectional conversion to kilometres. Tour step 5 places it with the other domain enums; dashboard and FuelStats use these conversions so economy math stays consistent regardless of each vehicle's preferred unit.",
+      "sections": [
+        {
+          "title": "Unit cases and labels",
+          "lineRange": [1, 21],
+          "explanation": "Two cases cover the README promise of miles or kilometres per vehicle. `shortLabel` (`mi` / `km`) suits chips and odometer rows; `displayName` suits settings pickers. Same protocol mix as CurrencyCode for pickers and Codable storage.",
+          "tourOrder": 5
+        },
+        {
+          "title": "Kilometre conversion",
+          "lineRange": [23, 38],
+          "explanation": "`toKilometers` and `fromKilometers` use the exact 1.609344 factor. Stats engines typically normalize distances to kilometres internally (for L/100km) then convert back with `fromKilometers` when presenting in the vehicle's unit—avoid mixing mi and km in a single formula.",
+          "tourOrder": 5
+        }
+      ]
+    },
+    "Sources/FuelTrack/Theme/GlassTheme.swift": {
+      "overview": "Visual system for tour step 6: accent colors, appearance preference, full-bleed backdrop, glass cards/chips, and screen transition helpers. DashboardView and ContentView rely on these tokens so Home and the tab shell share one look without per-screen styling.",
+      "sections": [
+        {
+          "title": "Color tokens",
+          "lineRange": [1, 8],
+          "explanation": "`GlassTheme` defines the cool accent, warm accent, and deep/ink backgrounds as static Colors. Reusing these constants keeps chips, tints, and trip/compliance highlights consistent across the glass UI.",
+          "tourOrder": 6
+        },
+        {
+          "title": "Appearance preference",
+          "lineRange": [10, 32],
+          "explanation": "`AppearancePreference` maps system/light/dark to an optional `ColorScheme`. ContentView stores the raw value in `@AppStorage` and applies `.preferredColorScheme`, so Settings can override appearance without hard-coding theme logic in every tab.",
+          "tourOrder": 6
+        },
+        {
+          "title": "App backdrop",
+          "lineRange": [34, 75],
+          "explanation": "`AppBackdrop` paints a scheme-aware diagonal gradient plus two blurred accent circles that ignore the safe area. Opacity and gradient stops flip for dark mode, and a smooth animation runs when `colorScheme` changes—giving screens atmosphere without per-view backgrounds.",
+          "tourOrder": 6
+        },
+        {
+          "title": "Glass card and chip",
+          "lineRange": [77, 112],
+          "explanation": "`GlassCard` wraps arbitrary content with padding and iOS glass effect in a 24pt rounded rect—the standard dashboard section container. `GlassStatChip` is a titled value cell with a tint underline, used in the Home grid for L/100km, MPG, and spend figures.",
+          "tourOrder": 6
+        },
+        {
+          "title": "Screen transitions",
+          "lineRange": [114, 149],
+          "explanation": "`SmoothPageAppear` fades/slides content in once and deliberately does not reset on disappear—because NavigationStack keeps parents alive and resetting opacity caused a black screen on back navigation. `fuelTrackScreen()` and `smoothContentTransition()` are the View helpers Dashboard and other tabs call for consistent chrome and motion.",
+          "tourOrder": 6
+        }
+      ]
+    },
+    "Sources/FuelTrack/Views/ContentView.swift": {
+      "overview": "Root tab shell for tour step 6: Home, Fuel, Spend, Stations, and More. It resolves the active vehicle, applies appearance and glass tint, and reschedules MOT/tax/insurance compliance notifications whenever vehicles or their compliance fields change.",
+      "sections": [
+        {
+          "title": "Tab enum and state",
+          "lineRange": [1, 16],
+          "explanation": "`AppTab` enumerates the five top-level destinations. ContentView queries all vehicles, reads ActiveVehicleStore from the environment (injected in FuelTrackApp), restores appearance from `@AppStorage`, and tracks `selectedTab` for the TabView selection binding.",
+          "tourOrder": 6
+        },
+        {
+          "title": "TabView shell",
+          "lineRange": [18, 44],
+          "explanation": "Each tab hosts a feature root: DashboardView (Home), FillUpListView, SpendRootView, NearbyStationsView, and MoreView. GlassTheme accent tints the selected tab; preferred color scheme and smooth animations respond to tab and appearance changes; sensory feedback fires on tab selection.",
+          "tourOrder": 6
+        },
+        {
+          "title": "Active vehicle and alerts",
+          "lineRange": [45, 80],
+          "explanation": "On appear and when the vehicle id list changes, `activeVehicleStore.resolve` picks a valid active vehicle and ComplianceNotificationScheduler rebuilds local alerts. `complianceSignature` concatenates MOT/tax/insurance dates and reminder state so date-only edits also trigger reschedule without requiring a vehicle list change.",
+          "tourOrder": 6
+        }
+      ]
+    },
+    "Sources/FuelTrack/Views/Dashboard/DashboardView.swift": {
+      "overview": "Home tab root from tour step 6. It resolves the active vehicle, offers an empty/select-vehicle empty state, and composes trip, compliance, fuel quick-access, spend, economy chips, totals, and upcoming reminders—styled with GlassTheme and driven by FuelStats.",
+      "sections": [
+        {
+          "title": "Active vehicle resolution",
+          "lineRange": [1, 10],
+          "explanation": "A `@Query` loads vehicles sorted by creation date. `activeVehicle` always goes through `ActiveVehicleStore.resolve`, so Home stays in sync with the same selection ContentView and other tabs use.",
+          "tourOrder": 6
+        },
+        {
+          "title": "Empty states and toolbar",
+          "lineRange": [12, 55],
+          "explanation": "Inside a NavigationStack, the view branches: no vehicles → prompt to add one; resolved vehicle → dashboard; otherwise → prompt to pick a vehicle in More. The trailing menu lists every vehicle and marks the active one with a checkmark via `activeVehicleStore.select`. `.fuelTrackScreen()` applies the glass backdrop and appear animation.",
+          "tourOrder": 6
+        },
+        {
+          "title": "Dashboard card stack",
+          "lineRange": [57, 150],
+          "explanation": "`vehicleDashboard` computes FuelStats once, then stacks GlassCards and feature cards: identity/odometer header, HomeTripCard, optional VehicleComplianceCard, fuel quick access, car and personal spend cards, a 2×2 GlassStatChip grid for economy and monthly spend, then detailed fuel-economy and totals cards. Open reminders show up to three upcoming items. This composition is the main consumer of the models and theme from earlier tour steps.",
+          "tourOrder": 6
+        },
+        {
+          "title": "Label-value row helper",
+          "lineRange": [152, 162],
+          "explanation": "A small private `row` helper renders secondary label + medium-weight value pairs used inside the economy and totals cards, keeping those sections visually consistent without repeating HStack boilerplate.",
+          "tourOrder": 6
+        }
+      ]
+    }
+  }
+}

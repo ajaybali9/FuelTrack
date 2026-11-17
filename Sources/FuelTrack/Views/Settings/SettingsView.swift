@@ -158,10 +158,8 @@ struct SettingsView: View {
         }
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.inline)
+        .fuelTrackForm()
         .onAppear(perform: preferProductionDVLA)
-        .scrollContentBackground(.hidden)
-        .background(AppBackdrop())
-        .toolbarBackground(.hidden, for: .navigationBar)
     }
 
     /// Yesterday's build stored Test as the default. Switch once so a real registration is not sent to UAT.

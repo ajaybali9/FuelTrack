@@ -88,6 +88,7 @@ struct CustomCategoriesView: View {
         }
         .navigationTitle(scope == .car ? "Car categories" : "Personal categories")
         .navigationBarTitleDisplayMode(.inline)
+        .fuelTrackForm()
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Done") { dismiss() }

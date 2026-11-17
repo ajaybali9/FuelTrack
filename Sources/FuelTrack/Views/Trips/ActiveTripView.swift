@@ -10,7 +10,10 @@ struct ActiveTripView: View {
         ScrollView {
             VStack(spacing: 16) {
                 Text(Formatters.tripDistance(tripRecorder.liveDistance, unit: vehicle.odometerUnit))
-                    .font(.system(size: 44, weight: .bold, design: .rounded))
+                    .font(.largeTitle.weight(.bold).monospacedDigit())
+                    .fontDesign(.rounded)
+                    .minimumScaleFactor(0.6)
+                    .lineLimit(1)
                 TimelineView(.periodic(from: .now, by: 1)) { _ in
                     Text(Formatters.tripDuration(liveDuration))
                         .font(.title2.monospacedDigit())

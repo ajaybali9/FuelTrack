@@ -1,0 +1,134 @@
+[
+  {
+    "order": 1,
+    "title": "Project Overview",
+    "description": "README.md introduces FuelTrack as a Fuelio-inspired multi-vehicle fuel tracker for iPhone, built with SwiftUI and SwiftData and deployed via xtool. It outlines v1 capabilities—fill-up logging, GBP/INR and miles/km, dashboard stats, Fuelio CSV import, and on-device persistence—plus the Sources/FuelTrack layout. Start here for the mental map of features and folders you will see in the rest of this tour.",
+    "nodeIds": [
+      "document:README.md"
+    ]
+  },
+  {
+    "order": 2,
+    "title": "Build and Deploy Config",
+    "description": "Package.swift defines the Swift Package Manager library target for iOS 26+ and macOS 15+, establishing how the app sources are compiled. xtool.yml then configures the iOS bundle ID, app icon, and Info.plist path used when packaging and deploying with xtool. Together these files explain how the SwiftUI project becomes a runnable iPhone app without a traditional Xcode project file.",
+    "nodeIds": [
+      "file:Package.swift",
+      "config:xtool.yml"
+    ],
+    "languageLesson": "Swift Package Manager manifests declare platforms, products, and targets in Package.swift. Tools like xtool layer app-specific metadata (bundle ID, Info.plist) on top of an SPM library target for device deployment."
+  },
+  {
+    "order": 3,
+    "title": "App Entry Point",
+    "description": "FuelTrackApp.swift is the SwiftUI @main entry: it builds the SwiftData ModelContainer schema for every persistent type and injects the active vehicle store, location provider, and trip recorder into ContentView. This single file is the runtime wiring hub—understanding it clarifies which models are persisted and which services are shared app-wide. Everything that follows hangs off this bootstrap.",
+    "nodeIds": [
+      "file:Sources/FuelTrack/FuelTrackApp.swift"
+    ],
+    "languageLesson": "SwiftUI apps mark a struct with @main and App conformance. SwiftData’s ModelContainer registers @Model types once at launch so views can query and mutate them through the environment."
+  },
+  {
+    "order": 4,
+    "title": "Core Data Models",
+    "description": "Building on the ModelContainer schema from Step 3, Vehicle.swift is the hub entity—identity, DVLA compliance fields, and relationships to fill-ups, costs, reminders, and stations. FillUp.swift captures litres, cost, tank fullness, station geodata, and fuel type for each vehicle. These two models are the vocabulary for logging fuel and computing economy later.",
+    "nodeIds": [
+      "file:Sources/FuelTrack/Models/Vehicle.swift",
+      "file:Sources/FuelTrack/Models/FillUp.swift"
+    ],
+    "languageLesson": "SwiftData @Model classes replace Core Data entities with Swift property wrappers. Relationships and optional links (for example, fill-ups belonging to a vehicle) keep the graph consistent without manual foreign-key bookkeeping."
+  },
+  {
+    "order": 5,
+    "title": "Domain Units and Enums",
+    "description": "CurrencyCode, OdometerUnit, and FuelType define the constrained domain values vehicles and fill-ups share. Currency is limited to GBP and INR with display symbols; odometer units convert between miles and kilometres for stats; fuel types map to display names, nearby-price API codes, and Fuelio tank codes. Learning these enums early makes import, formatting, and dashboard math readable.",
+    "nodeIds": [
+      "file:Sources/FuelTrack/Models/CurrencyCode.swift",
+      "file:Sources/FuelTrack/Models/OdometerUnit.swift",
+      "file:Sources/FuelTrack/Models/FuelType.swift"
+    ]
+  },
+  {
+    "order": 6,
+    "title": "Tab Shell and Home",
+    "description": "ContentView.swift is the root tab shell that hosts Spend, Garage, and related tabs and refreshes compliance notifications on appear. DashboardView.swift is the Home tab root: it resolves the active vehicle and composes trip, compliance, fuel, and spend cards. GlassTheme.swift supplies the glass card/chip tokens and transitions that give those screens a consistent look.",
+    "nodeIds": [
+      "file:Sources/FuelTrack/Views/ContentView.swift",
+      "file:Sources/FuelTrack/Views/Dashboard/DashboardView.swift",
+      "file:Sources/FuelTrack/Theme/GlassTheme.swift"
+    ]
+  },
+  {
+    "order": 7,
+    "title": "Fuel Statistics Engine",
+    "description": "FuelStats.swift turns the fill-up history from Step 4 into consumption segments and aggregate spend/economy figures using the full-tank method highlighted in the README. Formatters.swift then presents currency, fuel economy, odometer, and trip metrics consistently across the UI. This service layer is what powers the dashboard cards you saw in Step 6.",
+    "nodeIds": [
+      "file:Sources/FuelTrack/Services/FuelStats.swift",
+      "file:Sources/FuelTrack/Services/Formatters.swift"
+    ]
+  },
+  {
+    "order": 8,
+    "title": "Fill-Up Logging Flow",
+    "description": "FillUpListView lists fill-ups with a month summary, add/edit sheets, and a station map. FillUpFormView creates or edits a fill-up—including station selection and computed price fields—while StationPickerView merges previously used stations with live nearby prices, search, and cheapest sorting. Together they are the primary user path for recording fuel against the Vehicle and FillUp models.",
+    "nodeIds": [
+      "file:Sources/FuelTrack/Views/FillUps/FillUpListView.swift",
+      "file:Sources/FuelTrack/Views/FillUps/FillUpFormView.swift",
+      "file:Sources/FuelTrack/Views/FillUps/StationPickerView.swift"
+    ]
+  },
+  {
+    "order": 9,
+    "title": "GPS Trip Logger",
+    "description": "Trip and TripPoint models store path metrics, economy estimates, and ordered GPS samples for a journey. TripRecorder records live trips into SwiftData while updating distance, speed, and economy, with TripStats providing geometry, filtering, and jump re-anchor helpers. HomeTripCard and ActiveTripView surface start/monitor/end controls on the home screen—the feature documented in the Trip Logger design and plan.",
+    "nodeIds": [
+      "file:Sources/FuelTrack/Models/Trip.swift",
+      "file:Sources/FuelTrack/Models/TripPoint.swift",
+      "file:Sources/FuelTrack/Services/TripRecorder.swift",
+      "file:Sources/FuelTrack/Services/TripStats.swift",
+      "file:Sources/FuelTrack/Views/Trips/HomeTripCard.swift"
+    ],
+    "languageLesson": "Observable service objects (like TripRecorder) sit outside SwiftUI views and publish live state. Views observe them while Core Location callbacks append SwiftData TripPoint rows during an active session."
+  },
+  {
+    "order": 10,
+    "title": "Fuelio Import and Export",
+    "description": "FuelioCSVImporter parses Fuelio CSV exports into fill-ups, costs, and saved stations with unit and date normalization—the bridge for users migrating from Fuelio. FuelioCSVExporter writes a vehicle’s data back out as multi-section Fuelio-compatible CSV. FuelioImportView is the settings UI that runs import, maps currency, and activates vehicles after a successful load.",
+    "nodeIds": [
+      "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "file:Sources/FuelTrack/Services/FuelioCSVExporter.swift",
+      "file:Sources/FuelTrack/Views/Settings/FuelioImportView.swift"
+    ]
+  },
+  {
+    "order": 11,
+    "title": "Native Backup Round-Trip",
+    "description": "Beyond Fuelio CSV, FuelTrackBackupExporter serializes vehicles and related records into a versioned JSON backup snapshot on disk. FuelTrackBackupImporter parses those backups and upserts vehicles, trips, costs, and personal finance records into SwiftData. BackupImportView exposes the document-picker flow in Settings so users can restore a full on-device snapshot.",
+    "nodeIds": [
+      "file:Sources/FuelTrack/Services/FuelTrackBackupExporter.swift",
+      "file:Sources/FuelTrack/Services/FuelTrackBackupImporter.swift",
+      "file:Sources/FuelTrack/Views/Settings/BackupImportView.swift"
+    ]
+  },
+  {
+    "order": 12,
+    "title": "Spend and Personal Budgets",
+    "description": "SpendRootView is the Spend tab root, switching between vehicle and personal scopes with summary and list content. CarCost and PersonalExpense models store those expenses with categories and currencies; SpendCategoryCatalog resolves built-in and custom categories into display metadata. This lane extends FuelTrack from pure fuel logging into broader car and personal finance tracking.",
+    "nodeIds": [
+      "file:Sources/FuelTrack/Views/Costs/SpendRootView.swift",
+      "file:Sources/FuelTrack/Models/CarCost.swift",
+      "file:Sources/FuelTrack/Models/PersonalExpense.swift",
+      "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift"
+    ]
+  },
+  {
+    "order": 13,
+    "title": "Smoke Tests and Parity",
+    "description": "Standalone Scripts smoke tests validate Fuelio CSV parsing, FuelStats full-tank math, TripStats GPS rules, and backup JSON round-trips without needing a device—matching the verification commands in the README. FUELIO_FEATURE_MAP.md is the parity checklist against Fuelio 10.9.4, showing which mirrored capabilities (including GPS trip log) FuelTrack already covers. Use these artifacts to verify behavior and see what remains for feature parity.",
+    "nodeIds": [
+      "file:Scripts/fuelio-import-smoke.swift",
+      "file:Scripts/fuelstats-smoke.swift",
+      "file:Scripts/tripstats-smoke.swift",
+      "file:Scripts/backup-roundtrip-smoke.swift",
+      "document:rea-target/FUELIO_FEATURE_MAP.md"
+    ]
+  }
+]

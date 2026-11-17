@@ -113,6 +113,7 @@ struct StationPickerView: View {
             }
             .navigationTitle("Choose station")
             .navigationBarTitleDisplayMode(.inline)
+            .fuelTrackForm()
             .searchable(text: $search, prompt: "e.g. Tesco Basingstoke")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

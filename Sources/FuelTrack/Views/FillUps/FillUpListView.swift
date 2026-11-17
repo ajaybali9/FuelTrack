@@ -34,14 +34,24 @@ struct FillUpListView: View {
                     ContentUnavailableView(
                         "Add a vehicle first",
                         systemImage: "car.side",
-                        description: Text("Fill-ups are logged per vehicle.")
+                        description: Text("Fill-ups are logged per vehicle. Add one from More → Vehicles.")
                     )
-                } else if fillUps.isEmpty {
+                } else if activeVehicle == nil {
                     ContentUnavailableView(
-                        "No fill-ups yet",
-                        systemImage: "fuelpump",
-                        description: Text("Log your first fill-up for \(activeVehicle?.name ?? "this car").")
+                        "Select a vehicle",
+                        systemImage: "car.side",
+                        description: Text("Pick an active vehicle from the toolbar to log fill-ups.")
                     )
+                } else if fillUps.isEmpty, let vehicle = activeVehicle {
+                    ContentUnavailableView {
+                        Label("No fill-ups yet", systemImage: "fuelpump")
+                    } description: {
+                        Text("Log your first fill-up for \(vehicle.name).")
+                    } actions: {
+                        Button("Log fill-up") { showingAdd = true }
+                            .buttonStyle(.borderedProminent)
+                            .tint(GlassTheme.accent)
+                    }
                 } else if let vehicle = activeVehicle {
                     ScrollView {
                         VStack(spacing: 14) {

@@ -102,7 +102,8 @@ struct ReminderListView: View {
                         .keyboardType(.decimalPad)
                     TextField("Note", text: $note, axis: .vertical)
                 }
-                .navigationTitle("New Reminder")
+                .navigationTitle("New reminder")
+                .fuelTrackForm()
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) { Button("Cancel") { showingAdd = false } }
                     ToolbarItem(placement: .confirmationAction) {

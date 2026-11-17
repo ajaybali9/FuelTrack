@@ -72,6 +72,7 @@ struct MoreView: View {
                             icon: "externaldrive.badge.timemachine"
                         )
                     }
+                    .accessibilityHint("Creates a shareable FuelTrack JSON backup")
                     Button {
                         exportFuelioCSV()
                     } label: {
@@ -82,6 +83,11 @@ struct MoreView: View {
                         )
                     }
                     .disabled(activeVehicle == nil)
+                    .accessibilityHint(
+                        activeVehicle == nil
+                            ? "Requires an active vehicle"
+                            : "Exports fill-ups for the active vehicle as CSV"
+                    )
                     NavigationLink {
                         SettingsView()
                     } label: {

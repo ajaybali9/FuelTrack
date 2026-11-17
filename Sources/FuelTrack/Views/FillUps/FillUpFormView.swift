@@ -122,8 +122,9 @@ struct FillUpFormView: View {
                 }
             }
         }
-        .navigationTitle(isEditing ? "Edit Fill-up" : "New Fill-up")
+        .navigationTitle(isEditing ? "Edit fill-up" : "New fill-up")
         .navigationBarTitleDisplayMode(.inline)
+        .fuelTrackForm()
         .toolbar {
             if !isEditing {
                 ToolbarItem(placement: .cancellationAction) {

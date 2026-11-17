@@ -117,6 +117,7 @@ struct NearbyStationsView: View {
                     } label: {
                         Image(systemName: "arrow.clockwise")
                     }
+                    .accessibilityLabel("Refresh stations")
                     .disabled(isLoading || !fuelType.supportsNearbyPrices)
                 }
             }

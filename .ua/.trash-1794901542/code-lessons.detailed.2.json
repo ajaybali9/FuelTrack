@@ -1,0 +1,300 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-17T07:42:52Z",
+  "files": {
+    "Sources/FuelTrack/Services/Formatters.swift": {
+      "overview": "Formatters is a small static utility that turns raw fuel, money, and trip numbers into consistent UI strings. Tour step 7 pairs it with FuelStats: the stats engine computes values, and this file decides how currency, L/100km, MPG, odometer, and trip duration appear on dashboard and fill-up cards. Every display path that needs locale-aware currency or unit labels funnels through these helpers.",
+      "sections": [
+        {
+          "title": "Currency and volume",
+          "lineRange": [1, 14],
+          "explanation": "The enum groups pure formatting functions with no shared state. `currency` builds a `NumberFormatter` using the vehicle’s `CurrencyCode` so GBP and INR pick the right locale and symbol, with a simple fallback if formatting fails. `liters` always appends an `L` suffix at two decimal places so volume reads the same across the Fuel tab and stats chips.",
+          "tourOrder": 7
+        },
+        {
+          "title": "Economy and unit labels",
+          "lineRange": [16, 38],
+          "explanation": "Odometer, L/100km, MPG, cost-per-distance, and price-per-litre helpers all accept optional values and render an em dash when data is missing—important because FuelStats often returns `nil` until a full-tank segment exists. Cost and price helpers reuse `currency` so the same locale rules apply whether the UI shows spend totals or per-litre rates.",
+          "tourOrder": 7
+        },
+        {
+          "title": "Dates and trip metrics",
+          "lineRange": [40, 59],
+          "explanation": "`shortDate` uses Swift’s built-in abbreviated date style for fill-up cards and favourites. Trip helpers format speed and distance with the vehicle’s odometer unit, while `tripDuration` converts seconds into `m:ss` or `h:mm:ss` so the live trip UI stays readable without pulling in DateComponentsFormatter.",
+          "tourOrder": 7
+        }
+      ]
+    },
+    "Sources/FuelTrack/Services/FuelStats.swift": {
+      "overview": "FuelStats implements the full-tank consumption method described in the README and tour step 7. It defines lightweight snapshots and segments so math can run without SwiftData objects, then aggregates spend, economy, and period totals for the dashboard. Understanding this file explains why partial fills and “missed fill-up” flags matter for MPG.",
+      "sections": [
+        {
+          "title": "Snapshot and segment types",
+          "lineRange": [1, 37],
+          "explanation": "`FillUpSnapshot` is a Sendable value copy of the fields needed for economy math, keeping the service free of SwiftData. `ConsumptionSegment` stores the odometer span plus liters and cost between two full tanks, and derives distance, L/100km (after converting the vehicle’s unit to kilometres), UK imperial MPG via the 282.481 constant, and cost per distance.",
+          "tourOrder": 7
+        },
+        {
+          "title": "VehicleFuelStats bag",
+          "lineRange": [39, 52],
+          "explanation": "`VehicleFuelStats` is the single result type the UI consumes: counts, totals, averages, month/year spend, the last segment, and the full segment list. Keeping everything in one struct lets Dashboard and HomeTripCard call `FuelStats.compute` once and pick the fields they need.",
+          "tourOrder": 7
+        },
+        {
+          "title": "Full-tank segment builder",
+          "lineRange": [54, 99],
+          "explanation": "`segments(from:)` sorts by odometer then date, then walks fill-ups looking for full tanks. Each new full tank closes a segment from the previous full tank, summing liters and cost for every fill in between (including partials). A `skipped` row clears `startIndex`, breaking the chain so a missed fill-up does not invent false economy.",
+          "tourOrder": 7
+        },
+        {
+          "title": "Aggregate compute APIs",
+          "lineRange": [101, 179],
+          "explanation": "`compute(fillUps:unit:…)` builds segments, totals liters/spend, averages price per liter across priced fills, and weights L/100km and MPG across all segment distance. Month and year spend use the injected calendar and `now` for testability. The Vehicle overload maps SwiftData fill-ups into snapshots so views never duplicate that conversion.",
+          "tourOrder": 7
+        }
+      ]
+    },
+    "Sources/FuelTrack/Views/FillUps/FillUpFormView.swift": {
+      "overview": "FillUpFormView is the create/edit sheet for a single fill-up in tour step 8’s logging flow. It binds form fields to local state, validates numeric input, optionally pulls station and price data from StationPickerView, and inserts or updates a SwiftData `FillUp` on the active vehicle. New fills default currency, fuel type, and odometer from the vehicle.",
+      "sections": [
+        {
+          "title": "State and validation",
+          "lineRange": [1, 41],
+          "explanation": "The view takes a required `Vehicle` and an optional existing `FillUp` to distinguish add vs edit. Text fields store odometer, liters, and cost as strings so the decimal pad works with both comma and period; computed parsers and `canSave` gate the Save button until values are non-negative and liters are positive.",
+          "tourOrder": 8
+        },
+        {
+          "title": "Form sections and preview",
+          "lineRange": [43, 154],
+          "explanation": "The body is a Form with Fill-up, Tank, Details, and optional Preview sections. Tank toggles map directly to full-tank and skipped flags used by FuelStats. The station row opens StationPickerView; when a nearby price exists in GBP, the form can prefill or fill total cost from pence-per-litre. Toolbar Save/Cancel and `onAppear(load)` complete the sheet lifecycle.",
+          "tourOrder": 8
+        },
+        {
+          "title": "Station apply and load",
+          "lineRange": [156, 221],
+          "explanation": "`applyStation` treats synthetic `used-` picks as name-only (no geodata), while real nearby stations compose a brand · name · city · postcode label and store coordinates plus listed price. `load` hydrates fields when editing, or seeds currency, fuel type, and the latest odometer for new entries so logging stays fast.",
+          "tourOrder": 8
+        },
+        {
+          "title": "Persist fill-up",
+          "lineRange": [223, 271],
+          "explanation": "`save` either mutates the existing model or inserts a new `FillUp` linked to the vehicle, trimming station and note whitespace. A successful `modelContext.save` triggers haptic success and dismisses; failures surface `saveError` and an error haptic so the user can correct input without losing the sheet.",
+          "tourOrder": 8
+        }
+      ]
+    },
+    "Sources/FuelTrack/Views/FillUps/FillUpListView.swift": {
+      "overview": "FillUpListView is the Fuel tab list from tour step 8: it resolves the active vehicle, shows month spend/volume summary, and lists fill-ups as glass cards with edit navigation and delete. Empty states guide users who have no vehicle or no fills yet. The private FillUpCard presents date, station, cost, and tank badges using Formatters.",
+      "sections": [
+        {
+          "title": "Active vehicle and month totals",
+          "lineRange": [1, 28],
+          "explanation": "A `@Query` loads vehicles while `ActiveVehicleStore` picks which one’s fill-ups to show. Fill-ups come from `sortedFillUps.reversed()` for newest-first. Month spend and liters filter by calendar month start so the summary matches FuelStats’ period idea without recomputing full economy here.",
+          "tourOrder": 8
+        },
+        {
+          "title": "List, toolbar, and add sheet",
+          "lineRange": [30, 121],
+          "explanation": "The NavigationStack switches between ContentUnavailableView empty states and a ScrollView of NavigationLinks into FillUpFormView. Context menus delete fills immediately. The leading menu switches vehicles; trailing controls open the fill-up map and present the add sheet only when an active vehicle exists.",
+          "tourOrder": 8
+        },
+        {
+          "title": "Month summary card",
+          "lineRange": [123, 167],
+          "explanation": "`summary(for:)` uses GlassCard and GlassStatChip to show this month’s currency total, liters, fill count, lifetime fill count, and last-fill date. That gives the Fuel tab a dashboard-like header before the chronological list.",
+          "tourOrder": 8
+        },
+        {
+          "title": "FillUpCard presentation",
+          "lineRange": [169, 239],
+          "explanation": "FillUpCard is a private glass row: date and station (or fuel type) on the left, total cost on the right, then volume/odometer/price metrics. Capsules and colored captions communicate fuel type, full vs partial tank, and “Missed prior” when `skipped` is set—the same flags FuelStats relies on.",
+          "tourOrder": 8
+        }
+      ]
+    },
+    "Sources/FuelTrack/Views/FillUps/StationPickerView.swift": {
+      "overview": "StationPickerView, also in tour step 8, lets the user pick a station from past favourites or live nearby prices. It merges UsedStations summaries with NearbyStationsService results, supports search and cheapest/nearest sort, and waits briefly for GPS before fetching. Callbacks return either a full NearbyStation or a name-only favourite.",
+      "sections": [
+        {
+          "title": "Callbacks and filtered lists",
+          "lineRange": [1, 48],
+          "explanation": "The initializer stores `onSelectNearby` and optional `onSelectName`. Favourites come from fill-up history via `UsedStations.favourites`; nearby stations live in `@State` and are filtered by search, then sorted by price or distance depending on `sortCheapest`. Missing prices/distances sort last via `greatestFiniteMagnitude`.",
+          "tourOrder": 8
+        },
+        {
+          "title": "Picker UI and controls",
+          "lineRange": [50, 142],
+          "explanation": "Loading, error, and empty ContentUnavailableView states cover GPS and API failures. The list shows a Favourites section then Nearby rows, with searchable text and a menu for radius (10/20/30 mi), sort mode, and refresh. `.task` and radius `onChange` both call `load` so widening the search refetches automatically.",
+          "tourOrder": 8
+        },
+        {
+          "title": "Row views and selectUsed",
+          "lineRange": [144, 223],
+          "explanation": "`usedRow` and `nearbyRow` show name, visit/price/distance metadata, and a plus affordance. `selectUsed` prefers a live nearby match for current price and coordinates; otherwise it calls `onSelectName` or synthesizes a `used-` NearbyStation with a zero coordinate—the same convention FillUpFormView’s `applyStation` understands.",
+          "tourOrder": 8
+        },
+        {
+          "title": "Location-aware load",
+          "lineRange": [225, 264],
+          "explanation": "`load` maps the form’s fuel type to a nearby API code, requests location if needed, and polls up to about 2.4 seconds for a fix because the sheet often opens before GPS settles. It then fetches up to 100 stations within `radiusMiles` and surfaces empty-radius or network errors without wiping favourites.",
+          "tourOrder": 8
+        }
+      ]
+    },
+    "Sources/FuelTrack/Models/Trip.swift": {
+      "overview": "Trip is the SwiftData model for a GPS journey in tour step 9. It stores timing, distance, speed, estimated economy from fuel averages, start/end coordinates, and a cascade relationship to ordered TripPoints. Status is stored as a raw string for persistence while a computed property exposes the typed TripStatus enum.",
+      "sections": [
+        {
+          "title": "Persisted trip fields",
+          "lineRange": [1, 26],
+          "explanation": "The `@Model` declares identity, start/end times, status raw value, path metrics, optional economy estimates, endpoints, note, timestamps, an optional Vehicle link, and a cascade `points` relationship. Cascading deletes keep TripPoint rows from orphaning when a trip is discarded or emptied.",
+          "tourOrder": 9
+        },
+        {
+          "title": "Initializer and accessors",
+          "lineRange": [28, 75],
+          "explanation": "The initializer defaults to an active trip with zero metrics and empty points, converting `TripStatus` into `statusRaw`. The `status` computed property round-trips the enum (falling back to `.completed` if the raw value is unknown). `sortedPoints` orders by `sequence` so the recorder and UI can replay the path regardless of how SwiftData returns the unordered relationship.",
+          "tourOrder": 9
+        }
+      ]
+    },
+    "Sources/FuelTrack/Models/TripPoint.swift": {
+      "overview": "TripPoint is the GPS sample model for tour step 9’s trip logger. Each row records a timestamped coordinate, optional speed and horizontal accuracy, and a monotonic sequence within its parent Trip. TripRecorder inserts these as Core Location delivers updates.",
+      "sections": [
+        {
+          "title": "Point model and init",
+          "lineRange": [1, 34],
+          "explanation": "As a SwiftData `@Model`, TripPoint keeps only what the path needs: lat/lon, optional speed in m/s, accuracy, and sequence. The optional `trip` inverse completes the relationship declared on Trip. Sequence—not timestamp alone—is the authoritative path order when points are sorted for distance reconstruction and end-coordinate selection.",
+          "tourOrder": 9
+        }
+      ]
+    },
+    "Sources/FuelTrack/Services/TripRecorder.swift": {
+      "overview": "TripRecorder is the observable Core Location service at the heart of tour step 9. It starts and ends SwiftData trips, appends TripPoints, filters bad GPS jumps, and publishes live distance/speed/economy for HomeTripCard and ActiveTripView. It also restores an in-progress trip after relaunch and upgrades When-In-Use toward Always when possible.",
+      "sections": [
+        {
+          "title": "Observable session state",
+          "lineRange": [1, 41],
+          "explanation": "Marked `@MainActor` and `@Observable`, the recorder owns a CLLocationManager configured for best accuracy and a 10 m distance filter. Published fields cover the active trip, authorization, recording flags, background limitation, and live metrics the UI binds to. Background updates stay off until Always authorization is granted.",
+          "tourOrder": 9
+        },
+        {
+          "title": "Attach, auth, and restore",
+          "lineRange": [43, 110],
+          "explanation": "`attach` supplies the ModelContext used for inserts. Authorization helpers request When-In-Use or escalate to Always. `restoreActiveTripIfNeeded` rehydrates an unfinished vehicle trip into live state, rebuilds `lastAcceptedLocation` from the last point, and resumes updates—blocking if another vehicle still has an active trip.",
+          "tourOrder": 9
+        },
+        {
+          "title": "Start, end, and discard",
+          "lineRange": [112, 211],
+          "explanation": "`start` refuses conflicting active trips, seeds estimated economy from FuelStats averages via TripStats, inserts a new active Trip, resets live counters, and begins location updates. `end` finalizes metrics, deletes near-empty trips unless `keepEmptyTrip`, or marks them completed; `discard` deletes unconditionally. `findPersistedActiveTrip` uses a FetchDescriptor on `statusRaw`.",
+          "tourOrder": 9
+        },
+        {
+          "title": "Updates lifecycle helpers",
+          "lineRange": [213, 277],
+          "explanation": "`beginUpdates` / `stopUpdates` toggle Core Location and the background-limited flag. `clearSession` zeroes live UI state after end/discard. Duration and average speed come from TripStats; `finalizeLiveFields` writes those values plus end coordinates onto the Trip before persistence.",
+          "tourOrder": 9
+        },
+        {
+          "title": "Accept points and CL delegates",
+          "lineRange": [279, 347],
+          "explanation": "`accept` drops inaccurate fixes, re-anchors (without adding distance) on jumps over 200 m, otherwise accumulates distance in the vehicle’s unit and inserts a sequenced TripPoint. Speeds update live max/current. Delegate methods hop back to the main actor to refresh authorization, process batches of locations, or store errors.",
+          "tourOrder": 9
+        }
+      ]
+    },
+    "Sources/FuelTrack/Services/TripStats.swift": {
+      "overview": "TripStats holds pure geometry and filtering helpers used by TripRecorder in tour step 9. It defines accuracy and jump thresholds, haversine distance, unit conversions for speed/distance, average speed, duration, and the passthrough that snapshots fuel-economy averages onto a trip. Smoke tests exercise these rules without a device.",
+      "sections": [
+        {
+          "title": "Accuracy and distance math",
+          "lineRange": [1, 36],
+          "explanation": "Constants require horizontal accuracy between 0 and 50 m and reject jumps beyond 200 m. `haversineMeters` provides an independent great-circle distance; `hasAcceptableAccuracy` and `shouldAccept` encode the recorder’s GPS acceptance policy so tests and production share one definition of a usable fix.",
+          "tourOrder": 9
+        },
+        {
+          "title": "Unit speed and economy",
+          "lineRange": [38, 63],
+          "explanation": "`distanceInUnit` and `speedInUnit` convert SI metres / m/s into the vehicle’s miles or kilometres via `OdometerUnit`. Average speed divides distance by hours of duration. `estimatedEconomy` intentionally just forwards FuelStats averages—trip “MPG” is an estimate from the fuel log, not GPS fuel burn.",
+          "tourOrder": 9
+        }
+      ]
+    },
+    "Sources/FuelTrack/Views/Trips/HomeTripCard.swift": {
+      "overview": "HomeTripCard is the dashboard entry point for the GPS trip logger in tour step 9. It attaches TripRecorder, restores an active trip for the current vehicle, and either offers Start trip or shows live distance/speed/MPG with Open and End controls. Starting a trip seeds economy from FuelStats averages.",
+      "sections": [
+        {
+          "title": "Card shell and inactive CTA",
+          "lineRange": [1, 80],
+          "explanation": "The card observes TripRecorder and detects whether this vehicle owns the active trip. Idle state shows a short explanation and Start; active state swaps in `liveBlock`. On appear and vehicle change it attaches the ModelContext and restores any persisted active trip. Sheets and a confirmation dialog open ActiveTripView or end/discard.",
+          "tourOrder": 9
+        },
+        {
+          "title": "Live metrics and start",
+          "lineRange": [82, 127],
+          "explanation": "`liveBlock` warns when only When-In-Use is granted, shows Formatters-backed chips for distance, speed, average, and estimated MPG, and offers Open, End, and Settings deep-link when Always is missing. `start` computes FuelStats for the vehicle, passes averages into TripRecorder, and presents ActiveTripView on success.",
+          "tourOrder": 9
+        }
+      ]
+    },
+    "Sources/FuelTrack/Services/FuelioCSVExporter.swift": {
+      "overview": "FuelioCSVExporter writes a vehicle’s SwiftData graph back out as a multi-section Fuelio-compatible CSV—the export half of tour step 10. It emits Vehicle, Log, CostCategories, Costs, and FavStations sections with quoted fields so users can round-trip data toward Fuelio or another FuelTrack import.",
+      "sections": [
+        {
+          "title": "Vehicle and fill-up log",
+          "lineRange": [1, 58],
+          "explanation": "`export` builds the Vehicle section with Fuelio DistUnit/FuelUnit codes (miles vs km, litres) and tank type from `fuelType.fuelioTankCode`. The Log section walks `sortedFillUps`, writing date, odometer, liters, full/missed flags, total price, coordinates, station, notes, and StationID—mirroring the columns the importer expects.",
+          "tourOrder": 10
+        },
+        {
+          "title": "Costs and favourite stations",
+          "lineRange": [60, 110],
+          "explanation": "CostCategories enumerates the app’s `CostCategory` cases with stable IDs; Costs maps each car cost’s category key to those IDs and fills Fuelio’s wider column set with empty placeholders where FuelTrack has no equivalent. FavStations exports saved places with lat/lon and external IDs, then joins all lines with newlines.",
+          "tourOrder": 10
+        },
+        {
+          "title": "CSV escape and dates",
+          "lineRange": [112, 122],
+          "explanation": "`csv` doubles embedded quotes for RFC4180-style escaping. Dates always use `en_US_POSIX` with `yyyy-MM-dd`, matching the ImportCSVDateFormat advertised in the Vehicle section so the same file round-trips cleanly through FuelioCSVImporter.",
+          "tourOrder": 10
+        }
+      ]
+    },
+    "Sources/FuelTrack/Services/FuelioCSVImporter.swift": {
+      "overview": "FuelioCSVImporter parses Fuelio multi-section CSV exports into DTOs for vehicles, fill-ups, costs, and favourite stations—tour step 10’s migration bridge. It normalizes distance/fuel units, dates, and tank codes, counts skipped log rows, and exposes a robust quoted-CSV parser. Settings UI maps the result into SwiftData after currency selection.",
+      "sections": [
+        {
+          "title": "Import DTOs and errors",
+          "lineRange": [1, 66],
+          "explanation": "`FuelioImportResult` and the Imported* structs are Sendable plain data so parsing stays free of SwiftData. `FuelioImportError` covers empty files, missing Vehicle/Log sections, missing vehicle rows, and encoding failures with user-facing messages that point back to exporting from Fuelio.",
+          "tourOrder": 10
+        },
+        {
+          "title": "Top-level parse flow",
+          "lineRange": [68, 162],
+          "explanation": "`parse` decodes UTF-8 (falling back to Latin-1), extracts Vehicle and Log sections, maps DistUnit and Tank1Type, cleans the registration plate, and can return early with empty fill-ups if the log is header-only. Log rows become ImportedFillUps after unit inference from headers; costs and favourite stations are always parsed from optional sections.",
+          "tourOrder": 10
+        },
+        {
+          "title": "Section splitting and CSV rows",
+          "lineRange": [164, 238],
+          "explanation": "Section helpers find `## Name` markers (quoted or not) and slice until the next marker. `parseCSVRow` implements a minimal quoted-field scanner with doubled-quote escapes so station names and notes with commas survive. Header/row dictionaries make later field lookup resilient to column reordering.",
+          "tourOrder": 10
+        },
+        {
+          "title": "Field lookup and fill-up rows",
+          "lineRange": [240, 375],
+          "explanation": "`value` prefers exact then prefix key matches; `fuelAmountValue` carefully avoids FuelType/FuelUnit columns. Fill-up parsing accepts Date or legacy Data, converts gallons to litres, maps Full/Missed flags, and tries multiple date patterns. `inferFuelUnit` reads log headers so litre-labelled exports win even when FuelUnit is wrong or zero.",
+          "tourOrder": 10
+        },
+        {
+          "title": "Fuel type, costs, stations",
+          "lineRange": [377, 465],
+          "explanation": "`mapFuelType` translates Fuelio tank codes into FuelTrack’s FuelType enum (petrol blends, diesel, LPG, EV, hybrid). Optional CostCategories/Costs/FavStations sections resolve category names by ID and build ImportedCost/ImportedStation arrays, completing the importer’s coverage of the same sections the exporter writes.",
+          "tourOrder": 10
+        }
+      ]
+    }
+  }
+}

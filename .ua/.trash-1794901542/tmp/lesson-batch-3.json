@@ -1,0 +1,50 @@
+[
+  {
+    "filePath": "Sources/FuelTrack/Views/Settings/FuelioImportView.swift",
+    "tourOrder": 10
+  },
+  {
+    "filePath": "Sources/FuelTrack/Services/FuelTrackBackupExporter.swift",
+    "tourOrder": 11
+  },
+  {
+    "filePath": "Sources/FuelTrack/Services/FuelTrackBackupImporter.swift",
+    "tourOrder": 11
+  },
+  {
+    "filePath": "Sources/FuelTrack/Views/Settings/BackupImportView.swift",
+    "tourOrder": 11
+  },
+  {
+    "filePath": "Sources/FuelTrack/Models/CarCost.swift",
+    "tourOrder": 12
+  },
+  {
+    "filePath": "Sources/FuelTrack/Models/PersonalExpense.swift",
+    "tourOrder": 12
+  },
+  {
+    "filePath": "Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+    "tourOrder": 12
+  },
+  {
+    "filePath": "Sources/FuelTrack/Views/Costs/SpendRootView.swift",
+    "tourOrder": 12
+  },
+  {
+    "filePath": "rea-target/FUELIO_FEATURE_MAP.md",
+    "tourOrder": 13
+  },
+  {
+    "filePath": "Scripts/backup-roundtrip-smoke.swift",
+    "tourOrder": 13
+  },
+  {
+    "filePath": "Scripts/fuelio-import-smoke.swift",
+    "tourOrder": 13
+  },
+  {
+    "filePath": "Scripts/fuelstats-smoke.swift",
+    "tourOrder": 13
+  }
+]

@@ -1,0 +1,1560 @@
+{
+  "nodes": [
+    {
+      "id": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "type": "file",
+      "name": "FuelioCSVImporter.swift",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "summary": "Parses Fuelio CSV exports into structured fill-ups, costs, and saved stations with unit and date normalization.",
+      "tags": [
+        "service",
+        "import",
+        "csv",
+        "fuelio"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Services/FuelioCSVImporter.swift:FuelioImportResult",
+      "type": "class",
+      "name": "FuelioImportResult",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "lineRange": [
+        3,
+        16
+      ],
+      "summary": "Parsed Fuelio import payload with vehicle metadata and skipped-row counts.",
+      "tags": [
+        "data-model",
+        "import",
+        "csv"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Services/FuelioCSVImporter.swift:ImportedFillUp",
+      "type": "class",
+      "name": "ImportedFillUp",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "lineRange": [
+        18,
+        31
+      ],
+      "summary": "Intermediate fill-up row produced while parsing Fuelio CSV.",
+      "tags": [
+        "data-model",
+        "import",
+        "fuel"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Services/FuelioCSVImporter.swift:ImportedCost",
+      "type": "class",
+      "name": "ImportedCost",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "lineRange": [
+        33,
+        40
+      ],
+      "summary": "Intermediate cost row produced while parsing Fuelio CSV.",
+      "tags": [
+        "data-model",
+        "import",
+        "costs"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Services/FuelioCSVImporter.swift:ImportedStation",
+      "type": "class",
+      "name": "ImportedStation",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "lineRange": [
+        42,
+        48
+      ],
+      "summary": "Intermediate saved-station row produced while parsing Fuelio CSV.",
+      "tags": [
+        "data-model",
+        "import",
+        "stations"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Services/FuelioCSVImporter.swift:FuelioImportError",
+      "type": "class",
+      "name": "FuelioImportError",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "lineRange": [
+        50,
+        66
+      ],
+      "summary": "Errors for empty, unreadable, or malformed Fuelio CSV content.",
+      "tags": [
+        "error-handling",
+        "import",
+        "csv"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Services/FuelioCSVImporter.swift:FuelioCSVImporter",
+      "type": "class",
+      "name": "FuelioCSVImporter",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "lineRange": [
+        68,
+        466
+      ],
+      "summary": "Parses Fuelio multi-section CSV into import DTOs with unit conversion.",
+      "tags": [
+        "service",
+        "csv",
+        "import"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:parse",
+      "type": "function",
+      "name": "parse",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "lineRange": [
+        70,
+        162
+      ],
+      "summary": "Parses input bytes into structured import models.",
+      "tags": [
+        "parsing",
+        "import",
+        "swift",
+        "helper"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:sectionLines",
+      "type": "function",
+      "name": "sectionLines",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "lineRange": [
+        166,
+        180
+      ],
+      "summary": "Extracts lines belonging to a named Fuelio CSV section.",
+      "tags": [
+        "csv",
+        "parsing",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:parseCSVRow",
+      "type": "function",
+      "name": "parseCSVRow",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "lineRange": [
+        206,
+        238
+      ],
+      "summary": "Tokenizes a CSV line respecting quoted commas.",
+      "tags": [
+        "csv",
+        "parsing",
+        "swift",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:value",
+      "type": "function",
+      "name": "value",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "lineRange": [
+        240,
+        265
+      ],
+      "summary": "Reads the first matching column value from a CSV row dictionary.",
+      "tags": [
+        "csv",
+        "parsing",
+        "swift",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:fuelAmountValue",
+      "type": "function",
+      "name": "fuelAmountValue",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "lineRange": [
+        267,
+        278
+      ],
+      "summary": "Extracts fuel volume from Fuelio amount columns.",
+      "tags": [
+        "csv",
+        "fuel",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:inferFuelUnit",
+      "type": "function",
+      "name": "inferFuelUnit",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "lineRange": [
+        280,
+        295
+      ],
+      "summary": "Infers liters vs gallons from Fuelio header labels.",
+      "tags": [
+        "csv",
+        "units",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:parseFillUp",
+      "type": "function",
+      "name": "parseFillUp",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "lineRange": [
+        297,
+        338
+      ],
+      "summary": "Maps a Fuelio log row into ImportedFillUp.",
+      "tags": [
+        "csv",
+        "fuel",
+        "swift",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:parseDate",
+      "type": "function",
+      "name": "parseDate",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "lineRange": [
+        354,
+        375
+      ],
+      "summary": "Parses API date strings into Date values.",
+      "tags": [
+        "parsing",
+        "date",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:mapFuelType",
+      "type": "function",
+      "name": "mapFuelType",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "lineRange": [
+        377,
+        389
+      ],
+      "summary": "Maps Fuelio tank type codes onto FuelTrack FuelType.",
+      "tags": [
+        "mapping",
+        "fuel",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:parseCosts",
+      "type": "function",
+      "name": "parseCosts",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "lineRange": [
+        395,
+        426
+      ],
+      "summary": "Parses the Fuelio costs section into ImportedCost rows.",
+      "tags": [
+        "csv",
+        "costs",
+        "swift",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:categoryNames",
+      "type": "function",
+      "name": "categoryNames",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "lineRange": [
+        428,
+        439
+      ],
+      "summary": "Reads category name list from the Fuelio costs header area.",
+      "tags": [
+        "csv",
+        "categories",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:parseSavedStations",
+      "type": "function",
+      "name": "parseSavedStations",
+      "filePath": "Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "lineRange": [
+        441,
+        465
+      ],
+      "summary": "Parses the Fuelio stations section into ImportedStation rows.",
+      "tags": [
+        "csv",
+        "stations",
+        "swift",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:Sources/FuelTrack/Services/LocationProvider.swift",
+      "type": "file",
+      "name": "LocationProvider.swift",
+      "filePath": "Sources/FuelTrack/Services/LocationProvider.swift",
+      "summary": "Observable Core Location wrapper that requests when-in-use authorization and publishes the latest coordinate.",
+      "tags": [
+        "service",
+        "location",
+        "observable",
+        "core-location"
+      ],
+      "complexity": "simple",
+      "languageNotes": "NSObject + CLLocationManagerDelegate with @Observable state."
+    },
+    {
+      "id": "class:Sources/FuelTrack/Services/LocationProvider.swift:LocationProvider",
+      "type": "class",
+      "name": "LocationProvider",
+      "filePath": "Sources/FuelTrack/Services/LocationProvider.swift",
+      "lineRange": [
+        5,
+        74
+      ],
+      "summary": "Observable location manager facade publishing authorization and coordinates.",
+      "tags": [
+        "service",
+        "location",
+        "observable"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/LocationProvider.swift:LocationProvider.init",
+      "type": "function",
+      "name": "LocationProvider.init",
+      "filePath": "Sources/FuelTrack/Services/LocationProvider.swift",
+      "lineRange": [
+        15,
+        20
+      ],
+      "summary": "Creates the CLLocationManager and sets the delegate.",
+      "tags": [
+        "initializer",
+        "location",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/LocationProvider.swift:requestAccessIfNeeded",
+      "type": "function",
+      "name": "requestAccessIfNeeded",
+      "filePath": "Sources/FuelTrack/Services/LocationProvider.swift",
+      "lineRange": [
+        29,
+        39
+      ],
+      "summary": "Requests when-in-use location permission and refreshes if allowed.",
+      "tags": [
+        "location",
+        "permissions",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/LocationProvider.swift:refresh",
+      "type": "function",
+      "name": "refresh",
+      "filePath": "Sources/FuelTrack/Services/LocationProvider.swift",
+      "lineRange": [
+        41,
+        46
+      ],
+      "summary": "Asks Core Location for a one-shot location update.",
+      "tags": [
+        "location",
+        "core-location",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/LocationProvider.swift:locationManagerDidChangeAuthorization",
+      "type": "function",
+      "name": "locationManagerDidChangeAuthorization",
+      "filePath": "Sources/FuelTrack/Services/LocationProvider.swift",
+      "lineRange": [
+        48,
+        56
+      ],
+      "summary": "Handles Core Location authorization changes.",
+      "tags": [
+        "location",
+        "delegate",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/LocationProvider.swift:locationManager(manager)",
+      "type": "function",
+      "name": "locationManager(manager)",
+      "filePath": "Sources/FuelTrack/Services/LocationProvider.swift",
+      "lineRange": [
+        58,
+        65
+      ],
+      "summary": "Receives new GPS locations from Core Location.",
+      "tags": [
+        "location",
+        "delegate",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/LocationProvider.swift:locationManager(L67)",
+      "type": "function",
+      "name": "locationManager(L67)",
+      "filePath": "Sources/FuelTrack/Services/LocationProvider.swift",
+      "lineRange": [
+        67,
+        73
+      ],
+      "summary": "Handles Core Location errors for the manager.",
+      "tags": [
+        "location",
+        "delegate",
+        "error-handling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "type": "file",
+      "name": "NearbyStationsService.swift",
+      "filePath": "Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "summary": "Queries the nearby fuel-station API for priced stations around a coordinate and maps the JSON into NearbyStation models.",
+      "tags": [
+        "service",
+        "api-client",
+        "stations",
+        "fuel-prices"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Services/NearbyStationsService.swift:NearbyStation",
+      "type": "class",
+      "name": "NearbyStation",
+      "filePath": "Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "lineRange": [
+        4,
+        22
+      ],
+      "summary": "UI-facing nearby station model with prices, distance, and Maps URL.",
+      "tags": [
+        "data-model",
+        "stations",
+        "fuel-prices"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Services/NearbyStationsService.swift:NearbyStationsResponse",
+      "type": "class",
+      "name": "NearbyStationsResponse",
+      "filePath": "Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "lineRange": [
+        24,
+        28
+      ],
+      "summary": "Decoded API response wrapper for nearby station lists.",
+      "tags": [
+        "data-model",
+        "api",
+        "stations"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Services/NearbyStationsService.swift:NearbyStationsError",
+      "type": "class",
+      "name": "NearbyStationsError",
+      "filePath": "Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "lineRange": [
+        30,
+        46
+      ],
+      "summary": "HTTP and decoding errors from the nearby stations API.",
+      "tags": [
+        "error-handling",
+        "api",
+        "stations"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Services/NearbyStationsService.swift:NearbyStationsService",
+      "type": "class",
+      "name": "NearbyStationsService",
+      "filePath": "Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "lineRange": [
+        48,
+        119
+      ],
+      "summary": "Fetches and maps nearby station prices for a lat/long query.",
+      "tags": [
+        "service",
+        "api-client",
+        "stations"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/NearbyStationsService.swift:fetch",
+      "type": "function",
+      "name": "fetch",
+      "filePath": "Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "lineRange": [
+        51,
+        108
+      ],
+      "summary": "Performs the remote API request and returns decoded domain models.",
+      "tags": [
+        "api-client",
+        "network",
+        "swift",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "type": "file",
+      "name": "ReminderSchedule.swift",
+      "filePath": "Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "summary": "Pure helpers that compute lead-time notification fire dates, catch-up dates, and odometer-based reminder timing.",
+      "tags": [
+        "utility",
+        "reminders",
+        "scheduling",
+        "notifications"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Services/ReminderSchedule.swift:ReminderSchedule",
+      "type": "class",
+      "name": "ReminderSchedule",
+      "filePath": "Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "lineRange": [
+        5,
+        71
+      ],
+      "summary": "Static date helpers for compliance notification lead times.",
+      "tags": [
+        "utility",
+        "scheduling",
+        "reminders"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/ReminderSchedule.swift:leadLabel",
+      "type": "function",
+      "name": "leadLabel",
+      "filePath": "Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "lineRange": [
+        9,
+        15
+      ],
+      "summary": "Human-readable label for a lead-day count.",
+      "tags": [
+        "formatting",
+        "reminders",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/ReminderSchedule.swift:notificationDate",
+      "type": "function",
+      "name": "notificationDate",
+      "filePath": "Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "lineRange": [
+        19,
+        27
+      ],
+      "summary": "Computes a lead-time notification date before a due date.",
+      "tags": [
+        "scheduling",
+        "notifications",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/ReminderSchedule.swift:upcomingNotifications",
+      "type": "function",
+      "name": "upcomingNotifications",
+      "filePath": "Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "lineRange": [
+        30,
+        32
+      ],
+      "summary": "Lists upcoming lead-time notification dates for a due date.",
+      "tags": [
+        "scheduling",
+        "notifications",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/ReminderSchedule.swift:catchUpDate",
+      "type": "function",
+      "name": "catchUpDate",
+      "filePath": "Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "lineRange": [
+        36,
+        44
+      ],
+      "summary": "Returns an immediate catch-up fire date when lead times were missed.",
+      "tags": [
+        "scheduling",
+        "notifications",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/ReminderSchedule.swift:odometerFireDate",
+      "type": "function",
+      "name": "odometerFireDate",
+      "filePath": "Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "lineRange": [
+        48,
+        70
+      ],
+      "summary": "Estimates when an odometer due threshold will be reached.",
+      "tags": [
+        "scheduling",
+        "odometer",
+        "swift",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "type": "file",
+      "name": "SpendCategoryCatalog.swift",
+      "filePath": "Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "summary": "Resolves built-in and custom spend categories for vehicle and personal expense scopes into display metadata.",
+      "tags": [
+        "service",
+        "catalog",
+        "categories",
+        "spend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:ResolvedSpendCategory",
+      "type": "class",
+      "name": "ResolvedSpendCategory",
+      "filePath": "Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "lineRange": [
+        3,
+        8
+      ],
+      "summary": "Resolved category key, title, and SF Symbol for spend UI.",
+      "tags": [
+        "data-model",
+        "categories",
+        "spend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:SpendCategoryCatalog",
+      "type": "class",
+      "name": "SpendCategoryCatalog",
+      "filePath": "Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "lineRange": [
+        10,
+        78
+      ],
+      "summary": "Built-in and custom category catalog resolver for spend scopes.",
+      "tags": [
+        "service",
+        "catalog",
+        "categories"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:CategorySpendRow",
+      "type": "class",
+      "name": "CategorySpendRow",
+      "filePath": "Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "lineRange": [
+        80,
+        86
+      ],
+      "summary": "Aggregated spend amount for a category used in breakdown cards.",
+      "tags": [
+        "data-model",
+        "spend",
+        "analytics"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:customKey",
+      "type": "function",
+      "name": "customKey",
+      "filePath": "Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "lineRange": [
+        11,
+        13
+      ],
+      "summary": "Builds the storage key for a custom category id.",
+      "tags": [
+        "categories",
+        "keys",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:isCustomKey",
+      "type": "function",
+      "name": "isCustomKey",
+      "filePath": "Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "lineRange": [
+        15,
+        17
+      ],
+      "summary": "Detects whether a category key refers to a custom category.",
+      "tags": [
+        "categories",
+        "keys",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:builtins",
+      "type": "function",
+      "name": "builtins",
+      "filePath": "Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "lineRange": [
+        19,
+        40
+      ],
+      "summary": "Returns built-in spend categories for a scope.",
+      "tags": [
+        "catalog",
+        "categories",
+        "swift",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:all",
+      "type": "function",
+      "name": "all",
+      "filePath": "Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "lineRange": [
+        42,
+        58
+      ],
+      "summary": "Merges built-in and custom categories for a scope.",
+      "tags": [
+        "catalog",
+        "categories",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:resolve",
+      "type": "function",
+      "name": "resolve",
+      "filePath": "Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "lineRange": [
+        60,
+        77
+      ],
+      "summary": "Resolves a category key into display title and symbol.",
+      "tags": [
+        "catalog",
+        "categories",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Sources/FuelTrack/Services/StationSearch.swift",
+      "type": "file",
+      "name": "StationSearch.swift",
+      "filePath": "Sources/FuelTrack/Services/StationSearch.swift",
+      "summary": "Case-insensitive multi-field search matching for nearby stations and previously used station summaries.",
+      "tags": [
+        "utility",
+        "search",
+        "stations"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Services/StationSearch.swift:StationSearch",
+      "type": "class",
+      "name": "StationSearch",
+      "filePath": "Sources/FuelTrack/Services/StationSearch.swift",
+      "lineRange": [
+        3,
+        38
+      ],
+      "summary": "Static helpers matching station fields against a free-text query.",
+      "tags": [
+        "utility",
+        "search",
+        "stations"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/StationSearch.swift:matches(query)",
+      "type": "function",
+      "name": "matches(query)",
+      "filePath": "Sources/FuelTrack/Services/StationSearch.swift",
+      "lineRange": [
+        6,
+        26
+      ],
+      "summary": "Matches arbitrary station text fields against a query.",
+      "tags": [
+        "search",
+        "stations",
+        "swift",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/StationSearch.swift:matches(station)",
+      "type": "function",
+      "name": "matches(station)",
+      "filePath": "Sources/FuelTrack/Services/StationSearch.swift",
+      "lineRange": [
+        28,
+        33
+      ],
+      "summary": "Matches a NearbyStation against a search query.",
+      "tags": [
+        "search",
+        "stations",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Services/StationSearch.swift:matchesUsed",
+      "type": "function",
+      "name": "matchesUsed",
+      "filePath": "Sources/FuelTrack/Services/StationSearch.swift",
+      "lineRange": [
+        35,
+        37
+      ],
+      "summary": "Matches a UsedStationSummary against a search query.",
+      "tags": [
+        "search",
+        "stations",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "class:Sources/FuelTrack/Services/FuelioCSVImporter.swift:FuelioImportResult",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "class:Sources/FuelTrack/Services/FuelioCSVImporter.swift:FuelioImportResult",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "class:Sources/FuelTrack/Services/FuelioCSVImporter.swift:ImportedFillUp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "class:Sources/FuelTrack/Services/FuelioCSVImporter.swift:ImportedFillUp",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "class:Sources/FuelTrack/Services/FuelioCSVImporter.swift:ImportedCost",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "class:Sources/FuelTrack/Services/FuelioCSVImporter.swift:ImportedCost",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "class:Sources/FuelTrack/Services/FuelioCSVImporter.swift:ImportedStation",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "class:Sources/FuelTrack/Services/FuelioCSVImporter.swift:ImportedStation",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "class:Sources/FuelTrack/Services/FuelioCSVImporter.swift:FuelioImportError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "class:Sources/FuelTrack/Services/FuelioCSVImporter.swift:FuelioImportError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "class:Sources/FuelTrack/Services/FuelioCSVImporter.swift:FuelioCSVImporter",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "class:Sources/FuelTrack/Services/FuelioCSVImporter.swift:FuelioCSVImporter",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:parse",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:parse",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:sectionLines",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:parseCSVRow",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:parseCSVRow",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:value",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:fuelAmountValue",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:inferFuelUnit",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:parseFillUp",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:parseDate",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:mapFuelType",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:mapFuelType",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:parseCosts",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:categoryNames",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "target": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:parseSavedStations",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/LocationProvider.swift",
+      "target": "class:Sources/FuelTrack/Services/LocationProvider.swift:LocationProvider",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/LocationProvider.swift",
+      "target": "class:Sources/FuelTrack/Services/LocationProvider.swift:LocationProvider",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/LocationProvider.swift",
+      "target": "function:Sources/FuelTrack/Services/LocationProvider.swift:LocationProvider.init",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/LocationProvider.swift",
+      "target": "function:Sources/FuelTrack/Services/LocationProvider.swift:LocationProvider.init",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/LocationProvider.swift",
+      "target": "function:Sources/FuelTrack/Services/LocationProvider.swift:requestAccessIfNeeded",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/LocationProvider.swift",
+      "target": "function:Sources/FuelTrack/Services/LocationProvider.swift:requestAccessIfNeeded",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/LocationProvider.swift",
+      "target": "function:Sources/FuelTrack/Services/LocationProvider.swift:refresh",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/LocationProvider.swift",
+      "target": "function:Sources/FuelTrack/Services/LocationProvider.swift:refresh",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/LocationProvider.swift",
+      "target": "function:Sources/FuelTrack/Services/LocationProvider.swift:locationManagerDidChangeAuthorization",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/LocationProvider.swift",
+      "target": "function:Sources/FuelTrack/Services/LocationProvider.swift:locationManagerDidChangeAuthorization",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/LocationProvider.swift",
+      "target": "function:Sources/FuelTrack/Services/LocationProvider.swift:locationManager(manager)",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/LocationProvider.swift",
+      "target": "function:Sources/FuelTrack/Services/LocationProvider.swift:locationManager(manager)",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/LocationProvider.swift",
+      "target": "function:Sources/FuelTrack/Services/LocationProvider.swift:locationManager(L67)",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/LocationProvider.swift",
+      "target": "function:Sources/FuelTrack/Services/LocationProvider.swift:locationManager(L67)",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "target": "class:Sources/FuelTrack/Services/NearbyStationsService.swift:NearbyStation",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "target": "class:Sources/FuelTrack/Services/NearbyStationsService.swift:NearbyStation",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "target": "class:Sources/FuelTrack/Services/NearbyStationsService.swift:NearbyStationsResponse",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "target": "class:Sources/FuelTrack/Services/NearbyStationsService.swift:NearbyStationsResponse",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "target": "class:Sources/FuelTrack/Services/NearbyStationsService.swift:NearbyStationsError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "target": "class:Sources/FuelTrack/Services/NearbyStationsService.swift:NearbyStationsError",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "target": "class:Sources/FuelTrack/Services/NearbyStationsService.swift:NearbyStationsService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "target": "class:Sources/FuelTrack/Services/NearbyStationsService.swift:NearbyStationsService",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "target": "function:Sources/FuelTrack/Services/NearbyStationsService.swift:fetch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "target": "function:Sources/FuelTrack/Services/NearbyStationsService.swift:fetch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "target": "class:Sources/FuelTrack/Services/ReminderSchedule.swift:ReminderSchedule",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "target": "class:Sources/FuelTrack/Services/ReminderSchedule.swift:ReminderSchedule",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "target": "function:Sources/FuelTrack/Services/ReminderSchedule.swift:leadLabel",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "target": "function:Sources/FuelTrack/Services/ReminderSchedule.swift:leadLabel",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "target": "function:Sources/FuelTrack/Services/ReminderSchedule.swift:notificationDate",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "target": "function:Sources/FuelTrack/Services/ReminderSchedule.swift:notificationDate",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "target": "function:Sources/FuelTrack/Services/ReminderSchedule.swift:upcomingNotifications",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "target": "function:Sources/FuelTrack/Services/ReminderSchedule.swift:upcomingNotifications",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "target": "function:Sources/FuelTrack/Services/ReminderSchedule.swift:catchUpDate",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "target": "function:Sources/FuelTrack/Services/ReminderSchedule.swift:catchUpDate",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "target": "function:Sources/FuelTrack/Services/ReminderSchedule.swift:odometerFireDate",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "target": "function:Sources/FuelTrack/Services/ReminderSchedule.swift:odometerFireDate",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "target": "class:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:ResolvedSpendCategory",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "target": "class:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:ResolvedSpendCategory",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "target": "class:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:SpendCategoryCatalog",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "target": "class:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:SpendCategoryCatalog",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "target": "class:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:CategorySpendRow",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "target": "class:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:CategorySpendRow",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "target": "function:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:customKey",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "target": "function:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:customKey",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "target": "function:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:isCustomKey",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "target": "function:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:isCustomKey",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "target": "function:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:builtins",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "target": "function:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:builtins",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "target": "function:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:all",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "target": "function:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:all",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "target": "function:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:resolve",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "target": "function:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:resolve",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/StationSearch.swift",
+      "target": "class:Sources/FuelTrack/Services/StationSearch.swift:StationSearch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/StationSearch.swift",
+      "target": "class:Sources/FuelTrack/Services/StationSearch.swift:StationSearch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/StationSearch.swift",
+      "target": "function:Sources/FuelTrack/Services/StationSearch.swift:matches(query)",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/StationSearch.swift",
+      "target": "function:Sources/FuelTrack/Services/StationSearch.swift:matches(query)",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/StationSearch.swift",
+      "target": "function:Sources/FuelTrack/Services/StationSearch.swift:matches(station)",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/StationSearch.swift",
+      "target": "function:Sources/FuelTrack/Services/StationSearch.swift:matches(station)",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/StationSearch.swift",
+      "target": "function:Sources/FuelTrack/Services/StationSearch.swift:matchesUsed",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/StationSearch.swift",
+      "target": "function:Sources/FuelTrack/Services/StationSearch.swift:matchesUsed",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Sources/FuelTrack/Services/FuelioCSVImporter.swift:parse",
+      "target": "function:Sources/FuelTrack/Services/DVLAVehicleService.swift:cleanedRegistration",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Services/StationSearch.swift",
+      "target": "file:Sources/FuelTrack/Services/UsedStations.swift",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

@@ -1,0 +1,303 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 4,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 4
+    }
+  },
+  "results": [
+    {
+      "path": "docs/superpowers/plans/2026-11-16-trip-logger.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 1332,
+      "nonEmptyLines": 1118,
+      "sections": [
+        {
+          "heading": "Trip Logger Implementation Plan",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Global Constraints",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "File map",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "Task 1: Trip models + Vehicle relationship",
+          "level": 3,
+          "line": 51
+        },
+        {
+          "heading": "Task 2: TripStats helpers + smoke script",
+          "level": 3,
+          "line": 263
+        },
+        {
+          "heading": "Task 3: TripRecorder + Info.plist + app injection",
+          "level": 3,
+          "line": 444
+        },
+        {
+          "heading": "Task 4: Formatters + Home / Active trip UI",
+          "level": 3,
+          "line": 784
+        },
+        {
+          "heading": "Task 5: History list + detail map under More",
+          "level": 3,
+          "line": 1026
+        },
+        {
+          "heading": "Task 6: Backup v2 + Fuelio map note",
+          "level": 3,
+          "line": 1166
+        },
+        {
+          "heading": "Task 7: Device verification checklist (manual)",
+          "level": 3,
+          "line": 1296
+        },
+        {
+          "heading": "Self-review (plan vs spec)",
+          "level": 2,
+          "line": 1316
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 11
+      }
+    },
+    {
+      "path": "docs/superpowers/specs/2026-11-16-trip-logger-design.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 236,
+      "nonEmptyLines": 184,
+      "sections": [
+        {
+          "heading": "Trip Logger Design",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Goal",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "Decisions (locked)",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "Feature tree",
+          "level": 2,
+          "line": 22
+        },
+        {
+          "heading": "Architecture",
+          "level": 2,
+          "line": 62
+        },
+        {
+          "heading": "Location split",
+          "level": 3,
+          "line": 64
+        },
+        {
+          "heading": "Persistence",
+          "level": 3,
+          "line": 69
+        },
+        {
+          "heading": "UI placement",
+          "level": 3,
+          "line": 75
+        },
+        {
+          "heading": "Data model",
+          "level": 2,
+          "line": 81
+        },
+        {
+          "heading": "`Trip`",
+          "level": 3,
+          "line": 83
+        },
+        {
+          "heading": "`TripPoint`",
+          "level": 3,
+          "line": 104
+        },
+        {
+          "heading": "`Vehicle` change",
+          "level": 3,
+          "line": 117
+        },
+        {
+          "heading": "Components",
+          "level": 2,
+          "line": 121
+        },
+        {
+          "heading": "Data flow & lifecycle",
+          "level": 2,
+          "line": 134
+        },
+        {
+          "heading": "Start",
+          "level": 3,
+          "line": 136
+        },
+        {
+          "heading": "During",
+          "level": 3,
+          "line": 143
+        },
+        {
+          "heading": "End",
+          "level": 3,
+          "line": 149
+        },
+        {
+          "heading": "App kill / relaunch",
+          "level": 3,
+          "line": 155
+        },
+        {
+          "heading": "Pause",
+          "level": 3,
+          "line": 161
+        },
+        {
+          "heading": "Estimated economy",
+          "level": 2,
+          "line": 165
+        },
+        {
+          "heading": "Error handling",
+          "level": 2,
+          "line": 171
+        },
+        {
+          "heading": "Backup",
+          "level": 2,
+          "line": 182
+        },
+        {
+          "heading": "Testing",
+          "level": 2,
+          "line": 188
+        },
+        {
+          "heading": "Out of scope (v1)",
+          "level": 2,
+          "line": 195
+        },
+        {
+          "heading": "Implementation phases (tree → build order)",
+          "level": 2,
+          "line": 204
+        },
+        {
+          "heading": "Success criteria",
+          "level": 2,
+          "line": 231
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 26
+      }
+    },
+    {
+      "path": "rea-target/FUELIO_FEATURE_MAP.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 24,
+      "nonEmptyLines": 21,
+      "sections": [
+        {
+          "heading": "Fuelio 10.9.4 APK feature map → FuelTrack",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Mirrored in FuelTrack now",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Not mirrored yet",
+          "level": 2,
+          "line": 17
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "xtool.yml",
+      "language": "yaml",
+      "fileCategory": "config",
+      "totalLines": 4,
+      "nonEmptyLines": 4,
+      "sections": [
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "bundleID",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "iconPath",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "infoPath",
+          "level": 1,
+          "line": 4
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    }
+  ]
+}

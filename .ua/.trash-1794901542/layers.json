@@ -1,0 +1,130 @@
+[
+  {
+    "id": "layer:ui",
+    "name": "UI Layer",
+    "description": "SwiftUI screens, tab shell, glass theme, and FuelTrackApp entry that present fuel, spend, trips, and vehicle workflows.",
+    "nodeIds": [
+      "file:Sources/FuelTrack/FuelTrackApp.swift",
+      "file:Sources/FuelTrack/Theme/GlassTheme.swift",
+      "file:Sources/FuelTrack/Views/ContentView.swift",
+      "file:Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "file:Sources/FuelTrack/Views/Costs/CustomCategoriesView.swift",
+      "file:Sources/FuelTrack/Views/Costs/SpendRootView.swift",
+      "file:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "file:Sources/FuelTrack/Views/Dashboard/DashboardView.swift",
+      "file:Sources/FuelTrack/Views/Dashboard/HomeCarSpendCard.swift",
+      "file:Sources/FuelTrack/Views/Dashboard/HomeFuelQuickAccess.swift",
+      "file:Sources/FuelTrack/Views/Dashboard/HomePersonalSpendCard.swift",
+      "file:Sources/FuelTrack/Views/FillUps/FillUpFormView.swift",
+      "file:Sources/FuelTrack/Views/FillUps/FillUpListView.swift",
+      "file:Sources/FuelTrack/Views/FillUps/FillUpMapView.swift",
+      "file:Sources/FuelTrack/Views/FillUps/StationPickerView.swift",
+      "file:Sources/FuelTrack/Views/More/MoreView.swift",
+      "file:Sources/FuelTrack/Views/Personal/PersonalBudgetView.swift",
+      "file:Sources/FuelTrack/Views/Personal/PersonalExpenseFormView.swift",
+      "file:Sources/FuelTrack/Views/Personal/PersonalExpenseListView.swift",
+      "file:Sources/FuelTrack/Views/Reminders/ReminderListView.swift",
+      "file:Sources/FuelTrack/Views/Settings/BackupImportView.swift",
+      "file:Sources/FuelTrack/Views/Settings/FuelioImportView.swift",
+      "file:Sources/FuelTrack/Views/Settings/SettingsView.swift",
+      "file:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "file:Sources/FuelTrack/Views/Trips/ActiveTripView.swift",
+      "file:Sources/FuelTrack/Views/Trips/HomeTripCard.swift",
+      "file:Sources/FuelTrack/Views/Trips/TripDetailView.swift",
+      "file:Sources/FuelTrack/Views/Trips/TripListView.swift",
+      "file:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift",
+      "file:Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift",
+      "file:Sources/FuelTrack/Views/Vehicles/VehicleListView.swift"
+    ]
+  },
+  {
+    "id": "layer:service",
+    "name": "Service Layer",
+    "description": "Domain logic for fuel stats, trip recording, Fuelio/backup import-export, DVLA compliance, location, and nearby station lookups.",
+    "nodeIds": [
+      "file:Sources/FuelTrack/Services/ComplianceNotificationScheduler.swift",
+      "file:Sources/FuelTrack/Services/DVLAVehicleService.swift",
+      "file:Sources/FuelTrack/Services/Formatters.swift",
+      "file:Sources/FuelTrack/Services/FuelStats.swift",
+      "file:Sources/FuelTrack/Services/FuelTrackBackupExporter.swift",
+      "file:Sources/FuelTrack/Services/FuelTrackBackupImporter.swift",
+      "file:Sources/FuelTrack/Services/FuelioCSVExporter.swift",
+      "file:Sources/FuelTrack/Services/FuelioCSVImporter.swift",
+      "file:Sources/FuelTrack/Services/LocationProvider.swift",
+      "file:Sources/FuelTrack/Services/NearbyStationsService.swift",
+      "file:Sources/FuelTrack/Services/ReminderSchedule.swift",
+      "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "file:Sources/FuelTrack/Services/StationSearch.swift",
+      "file:Sources/FuelTrack/Services/TripRecorder.swift",
+      "file:Sources/FuelTrack/Services/TripStats.swift",
+      "file:Sources/FuelTrack/Services/UsedStations.swift"
+    ]
+  },
+  {
+    "id": "layer:data",
+    "name": "Data Layer",
+    "description": "SwiftData models and domain enums for vehicles, fill-ups, trips, costs, personal expenses, stations, and reminders.",
+    "nodeIds": [
+      "file:Sources/FuelTrack/Models/CarCost.swift",
+      "file:Sources/FuelTrack/Models/CostCategory.swift",
+      "file:Sources/FuelTrack/Models/CurrencyCode.swift",
+      "file:Sources/FuelTrack/Models/CustomExpenseCategory.swift",
+      "file:Sources/FuelTrack/Models/FillUp.swift",
+      "file:Sources/FuelTrack/Models/FuelType.swift",
+      "file:Sources/FuelTrack/Models/OdometerUnit.swift",
+      "file:Sources/FuelTrack/Models/PersonalExpense.swift",
+      "file:Sources/FuelTrack/Models/PersonalExpenseCategory.swift",
+      "file:Sources/FuelTrack/Models/ReminderItem.swift",
+      "file:Sources/FuelTrack/Models/SavedStation.swift",
+      "file:Sources/FuelTrack/Models/Trip.swift",
+      "file:Sources/FuelTrack/Models/TripPoint.swift",
+      "file:Sources/FuelTrack/Models/TripStatus.swift",
+      "file:Sources/FuelTrack/Models/Vehicle.swift"
+    ]
+  },
+  {
+    "id": "layer:utility",
+    "name": "App Support",
+    "description": "Cross-cutting helpers that track the active vehicle and provide Identifiable wrappers for SwiftUI lists.",
+    "nodeIds": [
+      "file:Sources/FuelTrack/Support/ActiveVehicleStore.swift",
+      "file:Sources/FuelTrack/Support/IdentifiableModels.swift"
+    ]
+  },
+  {
+    "id": "layer:test",
+    "name": "Scripts & Smoke Tests",
+    "description": "Standalone Swift smoke scripts and Fuelio CSV fixtures that validate import, backup round-trips, and stats math outside the app target.",
+    "nodeIds": [
+      "file:Scripts/Fuelio_2026-11-12.csv",
+      "file:Scripts/fuelio-sample.csv",
+      "file:Scripts/backup-roundtrip-smoke.swift",
+      "file:Scripts/fuelio-import-smoke.swift",
+      "file:Scripts/fuelstats-smoke.swift",
+      "file:Scripts/tripstats-smoke.swift"
+    ]
+  },
+  {
+    "id": "layer:documentation",
+    "name": "Documentation",
+    "description": "Project README, Trip Logger design/plan docs, and the Fuelio feature-parity checklist.",
+    "nodeIds": [
+      "document:README.md",
+      "document:docs/superpowers/plans/2026-11-16-trip-logger.md",
+      "document:docs/superpowers/specs/2026-11-16-trip-logger-design.md",
+      "document:rea-target/FUELIO_FEATURE_MAP.md"
+    ]
+  },
+  {
+    "id": "layer:config",
+    "name": "Configuration",
+    "description": "SPM manifest, xtool deploy settings, Info.plist, git attributes, and Understand-Anything analyzer config.",
+    "nodeIds": [
+      "file:.gitattributes",
+      "file:Package.swift",
+      "config:Support/Info.plist",
+      "config:xtool.yml",
+      "config:.ua/config.json"
+    ]
+  }
+]

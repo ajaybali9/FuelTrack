@@ -33,6 +33,7 @@ struct HomeFuelQuickAccess: View {
                         Image(systemName: "arrow.clockwise")
                             .font(.caption.weight(.semibold))
                     }
+                    .accessibilityLabel("Refresh nearby prices")
                     .disabled(isLoading)
                 }
 

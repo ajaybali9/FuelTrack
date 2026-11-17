@@ -1,0 +1,512 @@
+{
+  "nodes": [
+    {
+      "id": "file:Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "type": "file",
+      "name": "CostListView.swift",
+      "filePath": "Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "summary": "Lists vehicle car costs and provides a form to create or edit cost entries with category selection.",
+      "tags": [
+        "component",
+        "swiftui",
+        "costs",
+        "form"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Costs/CostListView.swift:CarCostListContent",
+      "type": "class",
+      "name": "CarCostListContent",
+      "filePath": "Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "lineRange": [
+        4,
+        153
+      ],
+      "summary": "List UI for a vehicle's car costs with navigation to edit forms.",
+      "tags": [
+        "component",
+        "costs",
+        "swiftui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Costs/CostListView.swift:CostFormView",
+      "type": "class",
+      "name": "CostFormView",
+      "filePath": "Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "lineRange": [
+        155,
+        304
+      ],
+      "summary": "Create/edit form that saves CarCost records into SwiftData.",
+      "tags": [
+        "component",
+        "form",
+        "costs"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Costs/CostListView.swift:costRow",
+      "type": "function",
+      "name": "costRow",
+      "filePath": "Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "lineRange": [
+        123,
+        152
+      ],
+      "summary": "Renders a single car-cost row with category icon and amount.",
+      "tags": [
+        "swiftui",
+        "costs",
+        "swift",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Costs/CostListView.swift:load",
+      "type": "function",
+      "name": "load",
+      "filePath": "Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "lineRange": [
+        252,
+        267
+      ],
+      "summary": "Hydrates CostFormView fields from an existing CarCost.",
+      "tags": [
+        "form",
+        "costs",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Costs/CostListView.swift:save",
+      "type": "function",
+      "name": "save",
+      "filePath": "Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "lineRange": [
+        269,
+        303
+      ],
+      "summary": "Validates and saves a CarCost insert or update.",
+      "tags": [
+        "form",
+        "swiftdata",
+        "swift",
+        "helper"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:Sources/FuelTrack/Views/Costs/CustomCategoriesView.swift",
+      "type": "file",
+      "name": "CustomCategoriesView.swift",
+      "filePath": "Sources/FuelTrack/Views/Costs/CustomCategoriesView.swift",
+      "summary": "SwiftUI screen for adding and managing user-defined personal spend categories.",
+      "tags": [
+        "component",
+        "swiftui",
+        "categories",
+        "spend"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Costs/CustomCategoriesView.swift:CustomCategoriesView",
+      "type": "class",
+      "name": "CustomCategoriesView",
+      "filePath": "Sources/FuelTrack/Views/Costs/CustomCategoriesView.swift",
+      "lineRange": [
+        4,
+        113
+      ],
+      "summary": "Manage screen for creating and deleting custom spend categories.",
+      "tags": [
+        "component",
+        "categories",
+        "swiftui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Costs/CustomCategoriesView.swift:add",
+      "type": "function",
+      "name": "add",
+      "filePath": "Sources/FuelTrack/Views/Costs/CustomCategoriesView.swift",
+      "lineRange": [
+        98,
+        112
+      ],
+      "summary": "Creates a new CustomSpendCategory from the form fields.",
+      "tags": [
+        "categories",
+        "swiftdata",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Sources/FuelTrack/Views/Costs/SpendRootView.swift",
+      "type": "file",
+      "name": "SpendRootView.swift",
+      "filePath": "Sources/FuelTrack/Views/Costs/SpendRootView.swift",
+      "summary": "Spend tab root that switches between vehicle and personal scopes and presents summary and list content.",
+      "tags": [
+        "component",
+        "swiftui",
+        "spend",
+        "navigation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Costs/SpendRootView.swift:SpendScope",
+      "type": "class",
+      "name": "SpendScope",
+      "filePath": "Sources/FuelTrack/Views/Costs/SpendRootView.swift",
+      "lineRange": [
+        4,
+        16
+      ],
+      "summary": "Enum selecting vehicle versus personal spend scope.",
+      "tags": [
+        "navigation",
+        "enum",
+        "spend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Costs/SpendRootView.swift:SpendRootView",
+      "type": "class",
+      "name": "SpendRootView",
+      "filePath": "Sources/FuelTrack/Views/Costs/SpendRootView.swift",
+      "lineRange": [
+        18,
+        140
+      ],
+      "summary": "Spend tab container wiring scope pickers to summary and list views.",
+      "tags": [
+        "component",
+        "spend",
+        "swiftui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "type": "file",
+      "name": "SpendSummaryCards.swift",
+      "filePath": "Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "summary": "Period-aware spend total and category breakdown cards used on the Spend tab summaries.",
+      "tags": [
+        "component",
+        "swiftui",
+        "spend",
+        "charts"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift:SpendPeriod",
+      "type": "class",
+      "name": "SpendPeriod",
+      "filePath": "Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "lineRange": [
+        3,
+        60
+      ],
+      "summary": "Time-period enum with start-date calculation for spend summaries.",
+      "tags": [
+        "utility",
+        "spend",
+        "period"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift:SpendTotalsCard",
+      "type": "class",
+      "name": "SpendTotalsCard",
+      "filePath": "Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "lineRange": [
+        62,
+        129
+      ],
+      "summary": "Card showing total spend for the selected period and currency.",
+      "tags": [
+        "component",
+        "spend",
+        "swiftui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift:CategorySpendBreakdownCard",
+      "type": "class",
+      "name": "CategorySpendBreakdownCard",
+      "filePath": "Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "lineRange": [
+        131,
+        204
+      ],
+      "summary": "Card listing category spend rows for the selected period.",
+      "tags": [
+        "component",
+        "spend",
+        "breakdown"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift:startDate",
+      "type": "function",
+      "name": "startDate",
+      "filePath": "Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "lineRange": [
+        50,
+        59
+      ],
+      "summary": "Computes the period start date for spend summaries.",
+      "tags": [
+        "period",
+        "date",
+        "swift",
+        "helper"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "target": "class:Sources/FuelTrack/Views/Costs/CostListView.swift:CarCostListContent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "target": "class:Sources/FuelTrack/Views/Costs/CostListView.swift:CarCostListContent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "target": "class:Sources/FuelTrack/Views/Costs/CostListView.swift:CostFormView",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "target": "class:Sources/FuelTrack/Views/Costs/CostListView.swift:CostFormView",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "target": "function:Sources/FuelTrack/Views/Costs/CostListView.swift:costRow",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "target": "function:Sources/FuelTrack/Views/Costs/CostListView.swift:load",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "target": "function:Sources/FuelTrack/Views/Costs/CostListView.swift:save",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/CustomCategoriesView.swift",
+      "target": "class:Sources/FuelTrack/Views/Costs/CustomCategoriesView.swift:CustomCategoriesView",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/CustomCategoriesView.swift",
+      "target": "class:Sources/FuelTrack/Views/Costs/CustomCategoriesView.swift:CustomCategoriesView",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/CustomCategoriesView.swift",
+      "target": "function:Sources/FuelTrack/Views/Costs/CustomCategoriesView.swift:add",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/SpendRootView.swift",
+      "target": "class:Sources/FuelTrack/Views/Costs/SpendRootView.swift:SpendScope",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/SpendRootView.swift",
+      "target": "class:Sources/FuelTrack/Views/Costs/SpendRootView.swift:SpendScope",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/SpendRootView.swift",
+      "target": "class:Sources/FuelTrack/Views/Costs/SpendRootView.swift:SpendRootView",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/SpendRootView.swift",
+      "target": "class:Sources/FuelTrack/Views/Costs/SpendRootView.swift:SpendRootView",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "target": "class:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift:SpendPeriod",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "target": "class:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift:SpendPeriod",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "target": "class:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift:SpendTotalsCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "target": "class:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift:SpendTotalsCard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "target": "class:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift:CategorySpendBreakdownCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "target": "class:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift:CategorySpendBreakdownCard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "target": "function:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift:startDate",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "target": "function:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift:startDate",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Sources/FuelTrack/Views/Costs/CostListView.swift:costRow",
+      "target": "function:Sources/FuelTrack/Services/SpendCategoryCatalog.swift:resolve",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Sources/FuelTrack/Views/Costs/CostListView.swift:costRow",
+      "target": "function:Sources/FuelTrack/Services/Formatters.swift:shortDate",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:Sources/FuelTrack/Views/Costs/CostListView.swift:costRow",
+      "target": "function:Sources/FuelTrack/Services/Formatters.swift:currency",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "target": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "target": "file:Sources/FuelTrack/Services/Formatters.swift",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "target": "file:Sources/FuelTrack/Services/Formatters.swift",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "target": "file:Sources/FuelTrack/Theme/GlassTheme.swift",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/CustomCategoriesView.swift",
+      "target": "file:Sources/FuelTrack/Services/SpendCategoryCatalog.swift",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/SpendRootView.swift",
+      "target": "file:Sources/FuelTrack/Views/Costs/SpendSummaryCards.swift",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Costs/SpendRootView.swift",
+      "target": "file:Sources/FuelTrack/Views/Costs/CostListView.swift",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

@@ -33,6 +33,7 @@ enum AppearancePreference: String, CaseIterable, Identifiable {
 
 struct AppBackdrop: View {
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         ZStack {
@@ -55,7 +56,7 @@ struct AppBackdrop: View {
                 .offset(x: 140, y: 260)
         }
         .ignoresSafeArea()
-        .animation(.smooth(duration: 0.45), value: colorScheme)
+        .animation(reduceMotion ? nil : .smooth(duration: 0.45), value: colorScheme)
     }
 
     private var gradientColors: [Color] {
@@ -112,16 +113,21 @@ struct GlassStatChip: View {
 }
 
 struct SmoothPageAppear: ViewModifier {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var appeared = false
 
     func body(content: Content) -> some View {
         content
-            .opacity(appeared ? 1 : 0.001)
-            .offset(y: appeared ? 0 : 8)
+            .opacity(appeared ? 1 : (reduceMotion ? 1 : 0.001))
+            .offset(y: appeared || reduceMotion ? 0 : 8)
             .onAppear {
                 // Do not reset on disappear — NavigationStack keeps parents around when
                 // pushing Settings/etc, and zeroing opacity caused a black screen on back.
                 guard !appeared else { return }
+                if reduceMotion {
+                    appeared = true
+                    return
+                }
                 withAnimation(.smooth(duration: 0.32)) {
                     appeared = true
                 }
@@ -130,12 +136,21 @@ struct SmoothPageAppear: ViewModifier {
 }
 
 extension View {
+    /// Scroll screens with the shared backdrop + entrance.
     func fuelTrackScreen() -> some View {
         self
             .scrollContentBackground(.hidden)
             .background(AppBackdrop())
             .toolbarBackground(.hidden, for: .navigationBar)
             .modifier(SmoothPageAppear())
+    }
+
+    /// Forms / sheets: same backdrop as screens, without entrance animation.
+    func fuelTrackForm() -> some View {
+        self
+            .scrollContentBackground(.hidden)
+            .background(AppBackdrop())
+            .toolbarBackground(.hidden, for: .navigationBar)
     }
 
     func smoothContentTransition() -> some View {

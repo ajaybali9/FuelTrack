@@ -80,7 +80,7 @@ struct VehicleFormView: View {
 
             if isEditing {
                 Section {
-                    Button("Delete Vehicle", role: .destructive) {
+                    Button("Delete vehicle", role: .destructive) {
                         showDeleteConfirm = true
                     }
                 } footer: {
@@ -88,8 +88,9 @@ struct VehicleFormView: View {
                 }
             }
         }
-        .navigationTitle(isEditing ? "Edit Vehicle" : "New Vehicle")
+        .navigationTitle(isEditing ? "Edit vehicle" : "New vehicle")
         .navigationBarTitleDisplayMode(.inline)
+        .fuelTrackForm()
         .toolbar {
             if !isEditing {
                 ToolbarItem(placement: .cancellationAction) {
@@ -112,7 +113,7 @@ struct VehicleFormView: View {
             isPresented: $showDeleteConfirm,
             titleVisibility: .visible
         ) {
-            Button("Delete Vehicle", role: .destructive) { deleteVehicle() }
+            Button("Delete vehicle", role: .destructive) { deleteVehicle() }
             Button("Cancel", role: .cancel) {}
         } message: {
             Text("This removes \(name.isEmpty ? "the vehicle" : name) and all linked fill-ups, costs, and reminders. This can’t be undone.")

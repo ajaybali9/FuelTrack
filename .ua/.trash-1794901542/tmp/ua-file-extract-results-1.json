@@ -1,0 +1,3857 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 22,
+  "filesSkipped": [
+    ".gitattributes",
+    "Scripts/Fuelio_2026-11-12.csv",
+    "Scripts/fuelio-sample.csv"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 22,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 20,
+      "failed": 0,
+      "skipped": 2
+    }
+  },
+  "results": [
+    {
+      "path": ".ua/config.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 3,
+      "nonEmptyLines": 3,
+      "sections": [
+        {
+          "heading": "outputLanguage",
+          "level": 1,
+          "line": 2
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "Package.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 72,
+      "nonEmptyLines": 54,
+      "sections": [
+        {
+          "heading": "FuelTrack",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "v1 features",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Project layout",
+          "level": 2,
+          "line": 16
+        },
+        {
+          "heading": "Requirements",
+          "level": 2,
+          "line": 26
+        },
+        {
+          "heading": "First-time setup",
+          "level": 2,
+          "line": 35
+        },
+        {
+          "heading": "Import from Fuelio",
+          "level": 2,
+          "line": 54
+        },
+        {
+          "heading": "Verify without a device",
+          "level": 2,
+          "line": 60
+        },
+        {
+          "heading": "Current machine status (as of scaffold)",
+          "level": 2,
+          "line": 67
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    },
+    {
+      "path": "Scripts/backup-roundtrip-smoke.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 492,
+      "nonEmptyLines": 467,
+      "functions": [
+        {
+          "name": "VehicleBackupV2Compat.init",
+          "startLine": 218,
+          "endLine": 246,
+          "params": [
+            "decoder"
+          ]
+        },
+        {
+          "name": "fail",
+          "startLine": 249,
+          "endLine": 252,
+          "params": [
+            "message"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "Snapshot",
+          "startLine": 7,
+          "endLine": 15,
+          "methods": [],
+          "properties": [
+            "format",
+            "version",
+            "exportedAt",
+            "vehicles",
+            "personalExpenses",
+            "personalBudgets",
+            "customCategories"
+          ]
+        },
+        {
+          "name": "VehicleBackup",
+          "startLine": 17,
+          "endLine": 44,
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "make",
+            "model",
+            "fuelType",
+            "odometerUnit",
+            "currencyCode",
+            "notes",
+            "createdAt",
+            "registrationPlate",
+            "colour",
+            "yearOfManufacture",
+            "engineCapacityCC",
+            "co2Emissions",
+            "motStatus",
+            "motExpiry",
+            "taxStatus",
+            "taxDueDate",
+            "insuranceProvider",
+            "insuranceExpiry",
+            "lastComplianceRefresh",
+            "fillUps",
+            "costs",
+            "reminders",
+            "savedStations",
+            "trips"
+          ]
+        },
+        {
+          "name": "TripBackup",
+          "startLine": 46,
+          "endLine": 64,
+          "methods": [],
+          "properties": [
+            "id",
+            "startedAt",
+            "endedAt",
+            "status",
+            "distance",
+            "durationSeconds",
+            "averageSpeed",
+            "maxSpeed",
+            "estimatedMPG",
+            "estimatedLitersPer100km",
+            "startLatitude",
+            "startLongitude",
+            "endLatitude",
+            "endLongitude",
+            "note",
+            "createdAt",
+            "points"
+          ]
+        },
+        {
+          "name": "TripPointBackup",
+          "startLine": 66,
+          "endLine": 74,
+          "methods": [],
+          "properties": [
+            "id",
+            "recordedAt",
+            "latitude",
+            "longitude",
+            "speedMps",
+            "horizontalAccuracy",
+            "sequence"
+          ]
+        },
+        {
+          "name": "FillUpBackup",
+          "startLine": 76,
+          "endLine": 92,
+          "methods": [],
+          "properties": [
+            "id",
+            "date",
+            "odometer",
+            "liters",
+            "totalCost",
+            "currencyCode",
+            "isFullTank",
+            "skipped",
+            "station",
+            "stationExternalId",
+            "latitude",
+            "longitude",
+            "note",
+            "fuelType",
+            "createdAt"
+          ]
+        },
+        {
+          "name": "CarCostBackup",
+          "startLine": 94,
+          "endLine": 104,
+          "methods": [],
+          "properties": [
+            "id",
+            "title",
+            "date",
+            "odometer",
+            "amount",
+            "currencyCode",
+            "category",
+            "note",
+            "createdAt"
+          ]
+        },
+        {
+          "name": "ReminderBackup",
+          "startLine": 106,
+          "endLine": 114,
+          "methods": [],
+          "properties": [
+            "id",
+            "title",
+            "dueDate",
+            "dueOdometer",
+            "note",
+            "isCompleted",
+            "createdAt"
+          ]
+        },
+        {
+          "name": "SavedStationBackup",
+          "startLine": 116,
+          "endLine": 124,
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "latitude",
+            "longitude",
+            "externalId",
+            "note",
+            "createdAt"
+          ]
+        },
+        {
+          "name": "PersonalExpenseBackup",
+          "startLine": 126,
+          "endLine": 136,
+          "methods": [],
+          "properties": [
+            "id",
+            "title",
+            "date",
+            "amount",
+            "currencyCode",
+            "category",
+            "note",
+            "paymentMethod",
+            "createdAt"
+          ]
+        },
+        {
+          "name": "PersonalBudgetBackup",
+          "startLine": 138,
+          "endLine": 144,
+          "methods": [],
+          "properties": [
+            "id",
+            "category",
+            "monthlyLimit",
+            "currencyCode",
+            "createdAt"
+          ]
+        },
+        {
+          "name": "CustomCategoryBackup",
+          "startLine": 146,
+          "endLine": 152,
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "systemImage",
+            "scope",
+            "createdAt"
+          ]
+        },
+        {
+          "name": "VehicleBackupV1",
+          "startLine": 155,
+          "endLine": 181,
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "make",
+            "model",
+            "fuelType",
+            "odometerUnit",
+            "currencyCode",
+            "notes",
+            "createdAt",
+            "registrationPlate",
+            "colour",
+            "yearOfManufacture",
+            "engineCapacityCC",
+            "co2Emissions",
+            "motStatus",
+            "motExpiry",
+            "taxStatus",
+            "taxDueDate",
+            "insuranceProvider",
+            "insuranceExpiry",
+            "lastComplianceRefresh",
+            "fillUps",
+            "costs",
+            "reminders",
+            "savedStations"
+          ]
+        },
+        {
+          "name": "VehicleBackupV2Compat",
+          "startLine": 183,
+          "endLine": 247,
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "name",
+            "make",
+            "model",
+            "fuelType",
+            "odometerUnit",
+            "currencyCode",
+            "notes",
+            "createdAt",
+            "registrationPlate",
+            "colour",
+            "yearOfManufacture",
+            "engineCapacityCC",
+            "co2Emissions",
+            "motStatus",
+            "motExpiry",
+            "taxStatus",
+            "taxDueDate",
+            "insuranceProvider",
+            "insuranceExpiry",
+            "lastComplianceRefresh",
+            "fillUps",
+            "costs",
+            "reminders",
+            "savedStations",
+            "trips"
+          ]
+        },
+        {
+          "name": "CodingKeys",
+          "startLine": 184,
+          "endLine": 189,
+          "methods": [],
+          "properties": [
+            "id",
+            "name",
+            "make",
+            "model",
+            "fuelType",
+            "odometerUnit",
+            "currencyCode",
+            "notes",
+            "createdAt",
+            "registrationPlate",
+            "colour",
+            "yearOfManufacture",
+            "engineCapacityCC",
+            "co2Emissions",
+            "motStatus",
+            "motExpiry",
+            "taxStatus",
+            "taxDueDate",
+            "insuranceProvider",
+            "insuranceExpiry",
+            "lastComplianceRefresh",
+            "fillUps",
+            "costs",
+            "reminders",
+            "savedStations",
+            "trips"
+          ]
+        },
+        {
+          "name": "Loose",
+          "startLine": 484,
+          "endLine": 484,
+          "methods": [],
+          "properties": [
+            "format",
+            "version"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "format",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "version",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "exportedAt",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "vehicles",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "personalExpenses",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "personalBudgets",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "customCategories",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "Snapshot",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "id",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "name",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "make",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "model",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "fuelType",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "odometerUnit",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "currencyCode",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "notes",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "registrationPlate",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "colour",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "yearOfManufacture",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "engineCapacityCC",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "co2Emissions",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "motStatus",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "motExpiry",
+          "line": 33,
+          "isDefault": false
+        },
+        {
+          "name": "taxStatus",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "taxDueDate",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "insuranceProvider",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "insuranceExpiry",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "lastComplianceRefresh",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "fillUps",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "costs",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "reminders",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "savedStations",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "trips",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "VehicleBackup",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "id",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "startedAt",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "endedAt",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "status",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "distance",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "durationSeconds",
+          "line": 52,
+          "isDefault": false
+        },
+        {
+          "name": "averageSpeed",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "maxSpeed",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "estimatedMPG",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "estimatedLitersPer100km",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "startLatitude",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "startLongitude",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "endLatitude",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "endLongitude",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "note",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 62,
+          "isDefault": false
+        },
+        {
+          "name": "points",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "TripBackup",
+          "line": 46,
+          "isDefault": false
+        },
+        {
+          "name": "id",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "recordedAt",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "latitude",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "longitude",
+          "line": 70,
+          "isDefault": false
+        },
+        {
+          "name": "speedMps",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "horizontalAccuracy",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "sequence",
+          "line": 73,
+          "isDefault": false
+        },
+        {
+          "name": "TripPointBackup",
+          "line": 66,
+          "isDefault": false
+        },
+        {
+          "name": "id",
+          "line": 77,
+          "isDefault": false
+        },
+        {
+          "name": "date",
+          "line": 78,
+          "isDefault": false
+        },
+        {
+          "name": "odometer",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "liters",
+          "line": 80,
+          "isDefault": false
+        },
+        {
+          "name": "totalCost",
+          "line": 81,
+          "isDefault": false
+        },
+        {
+          "name": "currencyCode",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "isFullTank",
+          "line": 83,
+          "isDefault": false
+        },
+        {
+          "name": "skipped",
+          "line": 84,
+          "isDefault": false
+        },
+        {
+          "name": "station",
+          "line": 85,
+          "isDefault": false
+        },
+        {
+          "name": "stationExternalId",
+          "line": 86,
+          "isDefault": false
+        },
+        {
+          "name": "latitude",
+          "line": 87,
+          "isDefault": false
+        },
+        {
+          "name": "longitude",
+          "line": 88,
+          "isDefault": false
+        },
+        {
+          "name": "note",
+          "line": 89,
+          "isDefault": false
+        },
+        {
+          "name": "fuelType",
+          "line": 90,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 91,
+          "isDefault": false
+        },
+        {
+          "name": "FillUpBackup",
+          "line": 76,
+          "isDefault": false
+        },
+        {
+          "name": "id",
+          "line": 95,
+          "isDefault": false
+        },
+        {
+          "name": "title",
+          "line": 96,
+          "isDefault": false
+        },
+        {
+          "name": "date",
+          "line": 97,
+          "isDefault": false
+        },
+        {
+          "name": "odometer",
+          "line": 98,
+          "isDefault": false
+        },
+        {
+          "name": "amount",
+          "line": 99,
+          "isDefault": false
+        },
+        {
+          "name": "currencyCode",
+          "line": 100,
+          "isDefault": false
+        },
+        {
+          "name": "category",
+          "line": 101,
+          "isDefault": false
+        },
+        {
+          "name": "note",
+          "line": 102,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 103,
+          "isDefault": false
+        },
+        {
+          "name": "CarCostBackup",
+          "line": 94,
+          "isDefault": false
+        },
+        {
+          "name": "id",
+          "line": 107,
+          "isDefault": false
+        },
+        {
+          "name": "title",
+          "line": 108,
+          "isDefault": false
+        },
+        {
+          "name": "dueDate",
+          "line": 109,
+          "isDefault": false
+        },
+        {
+          "name": "dueOdometer",
+          "line": 110,
+          "isDefault": false
+        },
+        {
+          "name": "note",
+          "line": 111,
+          "isDefault": false
+        },
+        {
+          "name": "isCompleted",
+          "line": 112,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 113,
+          "isDefault": false
+        },
+        {
+          "name": "ReminderBackup",
+          "line": 106,
+          "isDefault": false
+        },
+        {
+          "name": "id",
+          "line": 117,
+          "isDefault": false
+        },
+        {
+          "name": "name",
+          "line": 118,
+          "isDefault": false
+        },
+        {
+          "name": "latitude",
+          "line": 119,
+          "isDefault": false
+        },
+        {
+          "name": "longitude",
+          "line": 120,
+          "isDefault": false
+        },
+        {
+          "name": "externalId",
+          "line": 121,
+          "isDefault": false
+        },
+        {
+          "name": "note",
+          "line": 122,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 123,
+          "isDefault": false
+        },
+        {
+          "name": "SavedStationBackup",
+          "line": 116,
+          "isDefault": false
+        },
+        {
+          "name": "id",
+          "line": 127,
+          "isDefault": false
+        },
+        {
+          "name": "title",
+          "line": 128,
+          "isDefault": false
+        },
+        {
+          "name": "date",
+          "line": 129,
+          "isDefault": false
+        },
+        {
+          "name": "amount",
+          "line": 130,
+          "isDefault": false
+        },
+        {
+          "name": "currencyCode",
+          "line": 131,
+          "isDefault": false
+        },
+        {
+          "name": "category",
+          "line": 132,
+          "isDefault": false
+        },
+        {
+          "name": "note",
+          "line": 133,
+          "isDefault": false
+        },
+        {
+          "name": "paymentMethod",
+          "line": 134,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 135,
+          "isDefault": false
+        },
+        {
+          "name": "PersonalExpenseBackup",
+          "line": 126,
+          "isDefault": false
+        },
+        {
+          "name": "id",
+          "line": 139,
+          "isDefault": false
+        },
+        {
+          "name": "category",
+          "line": 140,
+          "isDefault": false
+        },
+        {
+          "name": "monthlyLimit",
+          "line": 141,
+          "isDefault": false
+        },
+        {
+          "name": "currencyCode",
+          "line": 142,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 143,
+          "isDefault": false
+        },
+        {
+          "name": "PersonalBudgetBackup",
+          "line": 138,
+          "isDefault": false
+        },
+        {
+          "name": "id",
+          "line": 147,
+          "isDefault": false
+        },
+        {
+          "name": "name",
+          "line": 148,
+          "isDefault": false
+        },
+        {
+          "name": "systemImage",
+          "line": 149,
+          "isDefault": false
+        },
+        {
+          "name": "scope",
+          "line": 150,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 151,
+          "isDefault": false
+        },
+        {
+          "name": "CustomCategoryBackup",
+          "line": 146,
+          "isDefault": false
+        },
+        {
+          "name": "id",
+          "line": 156,
+          "isDefault": false
+        },
+        {
+          "name": "name",
+          "line": 157,
+          "isDefault": false
+        },
+        {
+          "name": "make",
+          "line": 158,
+          "isDefault": false
+        },
+        {
+          "name": "model",
+          "line": 159,
+          "isDefault": false
+        },
+        {
+          "name": "fuelType",
+          "line": 160,
+          "isDefault": false
+        },
+        {
+          "name": "odometerUnit",
+          "line": 161,
+          "isDefault": false
+        },
+        {
+          "name": "currencyCode",
+          "line": 162,
+          "isDefault": false
+        },
+        {
+          "name": "notes",
+          "line": 163,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 164,
+          "isDefault": false
+        },
+        {
+          "name": "registrationPlate",
+          "line": 165,
+          "isDefault": false
+        },
+        {
+          "name": "colour",
+          "line": 166,
+          "isDefault": false
+        },
+        {
+          "name": "yearOfManufacture",
+          "line": 167,
+          "isDefault": false
+        },
+        {
+          "name": "engineCapacityCC",
+          "line": 168,
+          "isDefault": false
+        },
+        {
+          "name": "co2Emissions",
+          "line": 169,
+          "isDefault": false
+        },
+        {
+          "name": "motStatus",
+          "line": 170,
+          "isDefault": false
+        },
+        {
+          "name": "motExpiry",
+          "line": 171,
+          "isDefault": false
+        },
+        {
+          "name": "taxStatus",
+          "line": 172,
+          "isDefault": false
+        },
+        {
+          "name": "taxDueDate",
+          "line": 173,
+          "isDefault": false
+        },
+        {
+          "name": "insuranceProvider",
+          "line": 174,
+          "isDefault": false
+        },
+        {
+          "name": "insuranceExpiry",
+          "line": 175,
+          "isDefault": false
+        },
+        {
+          "name": "lastComplianceRefresh",
+          "line": 176,
+          "isDefault": false
+        },
+        {
+          "name": "fillUps",
+          "line": 177,
+          "isDefault": false
+        },
+        {
+          "name": "costs",
+          "line": 178,
+          "isDefault": false
+        },
+        {
+          "name": "reminders",
+          "line": 179,
+          "isDefault": false
+        },
+        {
+          "name": "savedStations",
+          "line": 180,
+          "isDefault": false
+        },
+        {
+          "name": "VehicleBackupV1",
+          "line": 155,
+          "isDefault": false
+        },
+        {
+          "name": "id",
+          "line": 191,
+          "isDefault": false
+        },
+        {
+          "name": "name",
+          "line": 192,
+          "isDefault": false
+        },
+        {
+          "name": "make",
+          "line": 193,
+          "isDefault": false
+        },
+        {
+          "name": "model",
+          "line": 194,
+          "isDefault": false
+        },
+        {
+          "name": "fuelType",
+          "line": 195,
+          "isDefault": false
+        },
+        {
+          "name": "odometerUnit",
+          "line": 196,
+          "isDefault": false
+        },
+        {
+          "name": "currencyCode",
+          "line": 197,
+          "isDefault": false
+        },
+        {
+          "name": "notes",
+          "line": 198,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 199,
+          "isDefault": false
+        },
+        {
+          "name": "registrationPlate",
+          "line": 200,
+          "isDefault": false
+        },
+        {
+          "name": "colour",
+          "line": 201,
+          "isDefault": false
+        },
+        {
+          "name": "yearOfManufacture",
+          "line": 202,
+          "isDefault": false
+        },
+        {
+          "name": "engineCapacityCC",
+          "line": 203,
+          "isDefault": false
+        },
+        {
+          "name": "co2Emissions",
+          "line": 204,
+          "isDefault": false
+        },
+        {
+          "name": "motStatus",
+          "line": 205,
+          "isDefault": false
+        },
+        {
+          "name": "motExpiry",
+          "line": 206,
+          "isDefault": false
+        },
+        {
+          "name": "taxStatus",
+          "line": 207,
+          "isDefault": false
+        },
+        {
+          "name": "taxDueDate",
+          "line": 208,
+          "isDefault": false
+        },
+        {
+          "name": "insuranceProvider",
+          "line": 209,
+          "isDefault": false
+        },
+        {
+          "name": "insuranceExpiry",
+          "line": 210,
+          "isDefault": false
+        },
+        {
+          "name": "lastComplianceRefresh",
+          "line": 211,
+          "isDefault": false
+        },
+        {
+          "name": "fillUps",
+          "line": 212,
+          "isDefault": false
+        },
+        {
+          "name": "costs",
+          "line": 213,
+          "isDefault": false
+        },
+        {
+          "name": "reminders",
+          "line": 214,
+          "isDefault": false
+        },
+        {
+          "name": "savedStations",
+          "line": 215,
+          "isDefault": false
+        },
+        {
+          "name": "trips",
+          "line": 216,
+          "isDefault": false
+        },
+        {
+          "name": "VehicleBackupV2Compat.init",
+          "line": 218,
+          "isDefault": false
+        },
+        {
+          "name": "VehicleBackupV2Compat",
+          "line": 183,
+          "isDefault": false
+        },
+        {
+          "name": "CodingKeys",
+          "line": 184,
+          "isDefault": false
+        },
+        {
+          "name": "fail",
+          "line": 249,
+          "isDefault": false
+        },
+        {
+          "name": "format",
+          "line": 484,
+          "isDefault": false
+        },
+        {
+          "name": "version",
+          "line": 484,
+          "isDefault": false
+        },
+        {
+          "name": "Loose",
+          "line": 484,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "container",
+          "lineNumber": 219
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 220
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 221
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 222
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 223
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 224
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 225
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 226
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 227
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 228
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 229
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 230
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 231
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 232
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 233
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 234
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decodeIfPresent",
+          "lineNumber": 235
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 236
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decodeIfPresent",
+          "lineNumber": 237
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 238
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decodeIfPresent",
+          "lineNumber": 239
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decodeIfPresent",
+          "lineNumber": 240
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 241
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 242
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 243
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decode",
+          "lineNumber": 244
+        },
+        {
+          "caller": "VehicleBackupV2Compat.init",
+          "callee": "decodeIfPresent",
+          "lineNumber": 245
+        },
+        {
+          "caller": "fail",
+          "callee": "fputs",
+          "lineNumber": 250
+        },
+        {
+          "caller": "fail",
+          "callee": "exit",
+          "lineNumber": 251
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 184,
+        "functionCount": 2,
+        "classCount": 15
+      }
+    },
+    {
+      "path": "Scripts/fuelio-import-smoke.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 51,
+      "nonEmptyLines": 48,
+      "functions": [
+        {
+          "name": "parseCSVRow",
+          "startLine": 4,
+          "endLine": 22,
+          "params": [
+            "line"
+          ]
+        },
+        {
+          "name": "section",
+          "startLine": 24,
+          "endLine": 32,
+          "params": [
+            "text",
+            "name"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "parseCSVRow",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "section",
+          "line": 24,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parseCSVRow",
+          "callee": "line",
+          "lineNumber": 8
+        },
+        {
+          "caller": "parseCSVRow",
+          "callee": "index",
+          "lineNumber": 11
+        },
+        {
+          "caller": "parseCSVRow",
+          "callee": "line",
+          "lineNumber": 12
+        },
+        {
+          "caller": "parseCSVRow",
+          "callee": "append",
+          "lineNumber": 12
+        },
+        {
+          "caller": "parseCSVRow",
+          "callee": "append",
+          "lineNumber": 14
+        },
+        {
+          "caller": "parseCSVRow",
+          "callee": "append",
+          "lineNumber": 16
+        },
+        {
+          "caller": "parseCSVRow",
+          "callee": "append",
+          "lineNumber": 17
+        },
+        {
+          "caller": "parseCSVRow",
+          "callee": "index",
+          "lineNumber": 18
+        },
+        {
+          "caller": "parseCSVRow",
+          "callee": "append",
+          "lineNumber": 20
+        },
+        {
+          "caller": "section",
+          "callee": "map",
+          "lineNumber": 25
+        },
+        {
+          "caller": "section",
+          "callee": "split",
+          "lineNumber": 25
+        },
+        {
+          "caller": "section",
+          "callee": "firstIndex",
+          "lineNumber": 26
+        },
+        {
+          "caller": "section",
+          "callee": "hasPrefix",
+          "lineNumber": 26
+        },
+        {
+          "caller": "section",
+          "callee": "trimmingCharacters",
+          "lineNumber": 26
+        },
+        {
+          "caller": "section",
+          "callee": "trimmingCharacters",
+          "lineNumber": 26
+        },
+        {
+          "caller": "section",
+          "callee": "CharacterSet",
+          "lineNumber": 26
+        },
+        {
+          "caller": "section",
+          "callee": "hasPrefix",
+          "lineNumber": 29
+        },
+        {
+          "caller": "section",
+          "callee": "trimmingCharacters",
+          "lineNumber": 29
+        },
+        {
+          "caller": "section",
+          "callee": "trimmingCharacters",
+          "lineNumber": 29
+        },
+        {
+          "caller": "section",
+          "callee": "lines",
+          "lineNumber": 29
+        },
+        {
+          "caller": "section",
+          "callee": "CharacterSet",
+          "lineNumber": 29
+        },
+        {
+          "caller": "section",
+          "callee": "Array(lines[(start+1).<end]).filter",
+          "lineNumber": 31
+        },
+        {
+          "caller": "section",
+          "callee": "Array",
+          "lineNumber": 31
+        },
+        {
+          "caller": "section",
+          "callee": "lines",
+          "lineNumber": 31
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Scripts/fuelstats-smoke.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 78,
+      "nonEmptyLines": 72,
+      "functions": [
+        {
+          "name": "toKilometers",
+          "startLine": 9,
+          "endLine": 14,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "litersPer100km",
+          "startLine": 32,
+          "endLine": 36,
+          "params": [
+            "unit"
+          ]
+        },
+        {
+          "name": "segments",
+          "startLine": 39,
+          "endLine": 62,
+          "params": [
+            "fillUps"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "OdometerUnit",
+          "startLine": 7,
+          "endLine": 15,
+          "methods": [
+            "toKilometers"
+          ],
+          "properties": [
+            "miles",
+            "kilometers"
+          ]
+        },
+        {
+          "name": "FillUpSnapshot",
+          "startLine": 17,
+          "endLine": 24,
+          "methods": [],
+          "properties": [
+            "date",
+            "odometer",
+            "liters",
+            "totalCost",
+            "isFullTank",
+            "skipped"
+          ]
+        },
+        {
+          "name": "ConsumptionSegment",
+          "startLine": 26,
+          "endLine": 37,
+          "methods": [
+            "litersPer100km"
+          ],
+          "properties": [
+            "startOdometer",
+            "endOdometer",
+            "liters",
+            "cost",
+            "distance"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "toKilometers",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "OdometerUnit",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "date",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "odometer",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "liters",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "totalCost",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "isFullTank",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "skipped",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "FillUpSnapshot",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "startOdometer",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "endOdometer",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "liters",
+          "line": 29,
+          "isDefault": false
+        },
+        {
+          "name": "cost",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "distance",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "litersPer100km",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "ConsumptionSegment",
+          "line": 26,
+          "isDefault": false
+        },
+        {
+          "name": "segments",
+          "line": 39,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "distance",
+          "callee": "max",
+          "lineNumber": 31
+        },
+        {
+          "caller": "litersPer100km",
+          "callee": "toKilometers",
+          "lineNumber": 33
+        },
+        {
+          "caller": "segments",
+          "callee": "sorted",
+          "lineNumber": 40
+        },
+        {
+          "caller": "segments",
+          "callee": "enumerated",
+          "lineNumber": 46
+        },
+        {
+          "caller": "segments",
+          "callee": "ordered",
+          "lineNumber": 50
+        },
+        {
+          "caller": "segments",
+          "callee": "reduce",
+          "lineNumber": 51
+        },
+        {
+          "caller": "segments",
+          "callee": "reduce",
+          "lineNumber": 52
+        },
+        {
+          "caller": "segments",
+          "callee": "ordered",
+          "lineNumber": 53
+        },
+        {
+          "caller": "segments",
+          "callee": "append",
+          "lineNumber": 56
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 17,
+        "functionCount": 3,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "Scripts/tripstats-smoke.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 93,
+      "nonEmptyLines": 82,
+      "functions": [
+        {
+          "name": "fromKilometers",
+          "startLine": 6,
+          "endLine": 11,
+          "params": [
+            "kilometers"
+          ]
+        },
+        {
+          "name": "haversineMeters",
+          "startLine": 21,
+          "endLine": 29,
+          "params": [
+            "lat1",
+            "lon1",
+            "lat2",
+            "lon2"
+          ]
+        },
+        {
+          "name": "distanceMeters",
+          "startLine": 31,
+          "endLine": 41,
+          "params": [
+            "samples"
+          ]
+        },
+        {
+          "name": "durationSeconds",
+          "startLine": 43,
+          "endLine": 47,
+          "params": [
+            "samples",
+            "endedAt"
+          ]
+        },
+        {
+          "name": "averageSpeed",
+          "startLine": 49,
+          "endLine": 52,
+          "params": [
+            "distance",
+            "durationSeconds"
+          ]
+        },
+        {
+          "name": "speedInUnit",
+          "startLine": 55,
+          "endLine": 58,
+          "params": [
+            "mps",
+            "unit"
+          ]
+        },
+        {
+          "name": "estimatedEconomy",
+          "startLine": 60,
+          "endLine": 62,
+          "params": [
+            "averageMPG",
+            "averageL100"
+          ]
+        },
+        {
+          "name": "shouldReAnchorWithoutDistance",
+          "startLine": 68,
+          "endLine": 71,
+          "params": [
+            "jumpMeters",
+            "horizontalAccuracy"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "OdometerUnit",
+          "startLine": 4,
+          "endLine": 12,
+          "methods": [
+            "fromKilometers"
+          ],
+          "properties": [
+            "miles",
+            "kilometers"
+          ]
+        },
+        {
+          "name": "Sample",
+          "startLine": 14,
+          "endLine": 19,
+          "methods": [],
+          "properties": [
+            "latitude",
+            "longitude",
+            "recordedAt",
+            "speedMps"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "fromKilometers",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "OdometerUnit",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "latitude",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "longitude",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "recordedAt",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "speedMps",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "Sample",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "haversineMeters",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "distanceMeters",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "durationSeconds",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "averageSpeed",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "speedInUnit",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "estimatedEconomy",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "shouldReAnchorWithoutDistance",
+          "line": 68,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "haversineMeters",
+          "callee": "sin",
+          "lineNumber": 27
+        },
+        {
+          "caller": "haversineMeters",
+          "callee": "sqrt",
+          "lineNumber": 28
+        },
+        {
+          "caller": "haversineMeters",
+          "callee": "sqrt",
+          "lineNumber": 28
+        },
+        {
+          "caller": "distanceMeters",
+          "callee": "haversineMeters",
+          "lineNumber": 35
+        },
+        {
+          "caller": "distanceMeters",
+          "callee": "samples",
+          "lineNumber": 36
+        },
+        {
+          "caller": "distanceMeters",
+          "callee": "samples",
+          "lineNumber": 36
+        },
+        {
+          "caller": "distanceMeters",
+          "callee": "samples",
+          "lineNumber": 37
+        },
+        {
+          "caller": "distanceMeters",
+          "callee": "samples",
+          "lineNumber": 37
+        },
+        {
+          "caller": "durationSeconds",
+          "callee": "max",
+          "lineNumber": 46
+        },
+        {
+          "caller": "durationSeconds",
+          "callee": "timeIntervalSince",
+          "lineNumber": 46
+        },
+        {
+          "caller": "speedInUnit",
+          "callee": "fromKilometers",
+          "lineNumber": 57
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 14,
+        "functionCount": 8,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "Sources/FuelTrack/FuelTrackApp.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 46,
+      "nonEmptyLines": 43,
+      "classes": [
+        {
+          "name": "FuelTrackApp",
+          "startLine": 4,
+          "endLine": 46,
+          "methods": [],
+          "properties": [
+            "activeVehicleStore",
+            "locationProvider",
+            "tripRecorder",
+            "sharedModelContainer",
+            "body"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "sharedModelContainer",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "body",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "FuelTrackApp",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "body",
+          "callee": "WindowGroup { ContentView().environment(activeVehicleStore).environment(locationProvider).environment(tripRecorder) }.modelContainer",
+          "lineNumber": 38
+        },
+        {
+          "caller": "body",
+          "callee": "WindowGroup",
+          "lineNumber": 38
+        },
+        {
+          "caller": "body",
+          "callee": "ContentView().environment(activeVehicleStore).environment(locationProvider).environment",
+          "lineNumber": 39
+        },
+        {
+          "caller": "body",
+          "callee": "ContentView().environment(activeVehicleStore).environment",
+          "lineNumber": 39
+        },
+        {
+          "caller": "body",
+          "callee": "ContentView().environment",
+          "lineNumber": 39
+        },
+        {
+          "caller": "body",
+          "callee": "ContentView",
+          "lineNumber": 39
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Sources/FuelTrack/Models/CarCost.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 57,
+      "nonEmptyLines": 51,
+      "functions": [
+        {
+          "name": "CarCost.init",
+          "startLine": 18,
+          "endLine": 41,
+          "params": [
+            "id",
+            "title",
+            "date",
+            "odometer",
+            "amount",
+            "currencyCode",
+            "category",
+            "categoryKey",
+            "note",
+            "createdAt",
+            "vehicle"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CarCost",
+          "startLine": 4,
+          "endLine": 57,
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "title",
+            "date",
+            "odometer",
+            "amount",
+            "currencyCodeRaw",
+            "categoryRaw",
+            "note",
+            "createdAt",
+            "vehicle",
+            "currencyCode",
+            "categoryKey",
+            "category"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "id",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "title",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "date",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "odometer",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "amount",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "currencyCodeRaw",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "categoryRaw",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "note",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "vehicle",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "CarCost.init",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "currencyCode",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "categoryKey",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "category",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "CarCost",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "currencyCode",
+          "callee": "CurrencyCode",
+          "lineNumber": 44
+        },
+        {
+          "caller": "category",
+          "callee": "CostCategory",
+          "lineNumber": 54
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 15,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Sources/FuelTrack/Models/CostCategory.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 76,
+      "nonEmptyLines": 71,
+      "functions": [
+        {
+          "name": "fromFuelioName",
+          "startLine": 20,
+          "endLine": 41,
+          "params": [
+            "name"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CostCategory",
+          "startLine": 3,
+          "endLine": 76,
+          "methods": [
+            "fromFuelioName"
+          ],
+          "properties": [
+            "service",
+            "maintenance",
+            "insurance",
+            "mot",
+            "roadTax",
+            "registration",
+            "parking",
+            "wash",
+            "tolls",
+            "fines",
+            "tuning",
+            "other",
+            "id",
+            "displayName",
+            "systemImage"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "id",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "fromFuelioName",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "displayName",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "systemImage",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "CostCategory",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fromFuelioName",
+          "callee": "joined",
+          "lineNumber": 21
+        },
+        {
+          "caller": "fromFuelioName",
+          "callee": "map",
+          "lineNumber": 21
+        },
+        {
+          "caller": "fromFuelioName",
+          "callee": "split",
+          "lineNumber": 21
+        },
+        {
+          "caller": "fromFuelioName",
+          "callee": "replacingOccurrences",
+          "lineNumber": 21
+        },
+        {
+          "caller": "fromFuelioName",
+          "callee": "folding",
+          "lineNumber": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Sources/FuelTrack/Models/CurrencyCode.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 24,
+      "classes": [
+        {
+          "name": "CurrencyCode",
+          "startLine": 3,
+          "endLine": 29,
+          "methods": [],
+          "properties": [
+            "gbp",
+            "inr",
+            "id",
+            "displayName",
+            "symbol",
+            "localeIdentifier"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "id",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "displayName",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "symbol",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "localeIdentifier",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "CurrencyCode",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Sources/FuelTrack/Models/CustomExpenseCategory.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 39,
+      "nonEmptyLines": 34,
+      "functions": [
+        {
+          "name": "CustomExpenseCategory.init",
+          "startLine": 17,
+          "endLine": 29,
+          "params": [
+            "id",
+            "name",
+            "systemImage",
+            "scope",
+            "createdAt"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CustomCategoryScope",
+          "startLine": 4,
+          "endLine": 7,
+          "methods": [],
+          "properties": [
+            "car",
+            "personal"
+          ]
+        },
+        {
+          "name": "CustomExpenseCategory",
+          "startLine": 9,
+          "endLine": 39,
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "name",
+            "systemImage",
+            "scopeRaw",
+            "createdAt",
+            "scope",
+            "storageKey"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "CustomCategoryScope",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "id",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "name",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "systemImage",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "scopeRaw",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "CustomExpenseCategory.init",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "scope",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "storageKey",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "CustomExpenseCategory",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "scope",
+          "callee": "CustomCategoryScope",
+          "lineNumber": 32
+        },
+        {
+          "caller": "storageKey",
+          "callee": "SpendCategoryCatalog.customKey",
+          "lineNumber": 37
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 1,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "Sources/FuelTrack/Models/FillUp.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 81,
+      "nonEmptyLines": 75,
+      "functions": [
+        {
+          "name": "FillUp.init",
+          "startLine": 24,
+          "endLine": 58,
+          "params": [
+            "id",
+            "date",
+            "odometer",
+            "liters",
+            "totalCost",
+            "currencyCode",
+            "isFullTank",
+            "skipped",
+            "station",
+            "note",
+            "fuelType",
+            "latitude",
+            "longitude",
+            "stationExternalId",
+            "createdAt",
+            "vehicle"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "FillUp",
+          "startLine": 4,
+          "endLine": 81,
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "date",
+            "odometer",
+            "liters",
+            "totalCost",
+            "currencyCodeRaw",
+            "isFullTank",
+            "skipped",
+            "station",
+            "note",
+            "fuelTypeRaw",
+            "latitude",
+            "longitude",
+            "stationExternalId",
+            "createdAt",
+            "vehicle",
+            "currencyCode",
+            "fuelType",
+            "pricePerLiter"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "id",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "date",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "odometer",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "liters",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "totalCost",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "currencyCodeRaw",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "isFullTank",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "skipped",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "station",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "note",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "fuelTypeRaw",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "latitude",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "longitude",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "stationExternalId",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "vehicle",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "FillUp.init",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "currencyCode",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "fuelType",
+          "line": 65,
+          "isDefault": false
+        },
+        {
+          "name": "pricePerLiter",
+          "line": 77,
+          "isDefault": false
+        },
+        {
+          "name": "FillUp",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "currencyCode",
+          "callee": "CurrencyCode",
+          "lineNumber": 61
+        },
+        {
+          "caller": "fuelType",
+          "callee": "FuelType.fromStored",
+          "lineNumber": 70
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 21,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Sources/FuelTrack/Models/FuelType.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 79,
+      "nonEmptyLines": 69,
+      "functions": [
+        {
+          "name": "fromStored",
+          "startLine": 23,
+          "endLine": 26,
+          "params": [
+            "raw"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "FuelType",
+          "startLine": 3,
+          "endLine": 79,
+          "methods": [
+            "fromStored"
+          ],
+          "properties": [
+            "petrolE10",
+            "petrolE5",
+            "diesel",
+            "dieselPremium",
+            "lpg",
+            "electric",
+            "hybrid",
+            "other",
+            "petrol",
+            "id",
+            "selectableCases",
+            "displayName",
+            "shortName",
+            "nearbyAPIFuelCode",
+            "supportsNearbyPrices",
+            "fuelioTankCode"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "id",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "selectableCases",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "fromStored",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "displayName",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "shortName",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "nearbyAPIFuelCode",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "supportsNearbyPrices",
+          "line": 64,
+          "isDefault": false
+        },
+        {
+          "name": "fuelioTankCode",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "FuelType",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fromStored",
+          "callee": "FuelType",
+          "lineNumber": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 9,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Sources/FuelTrack/Models/OdometerUnit.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 32,
+      "functions": [
+        {
+          "name": "toKilometers",
+          "startLine": 24,
+          "endLine": 29,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "fromKilometers",
+          "startLine": 32,
+          "endLine": 37,
+          "params": [
+            "kilometers"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "OdometerUnit",
+          "startLine": 3,
+          "endLine": 38,
+          "methods": [
+            "toKilometers",
+            "fromKilometers"
+          ],
+          "properties": [
+            "miles",
+            "kilometers",
+            "id",
+            "shortLabel",
+            "displayName"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "id",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "shortLabel",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "displayName",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "toKilometers",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "fromKilometers",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "OdometerUnit",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 6,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Sources/FuelTrack/Models/PersonalExpense.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 92,
+      "nonEmptyLines": 82,
+      "functions": [
+        {
+          "name": "PersonalExpense.init",
+          "startLine": 16,
+          "endLine": 36,
+          "params": [
+            "id",
+            "title",
+            "date",
+            "amount",
+            "currencyCode",
+            "category",
+            "note",
+            "paymentMethod",
+            "createdAt"
+          ]
+        },
+        {
+          "name": "PersonalBudget.init",
+          "startLine": 63,
+          "endLine": 75,
+          "params": [
+            "id",
+            "category",
+            "monthlyLimit",
+            "currencyCode",
+            "createdAt"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "PersonalExpense",
+          "startLine": 4,
+          "endLine": 52,
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "title",
+            "date",
+            "amount",
+            "currencyCodeRaw",
+            "categoryRaw",
+            "note",
+            "paymentMethod",
+            "createdAt",
+            "currencyCode",
+            "categoryKey",
+            "category"
+          ]
+        },
+        {
+          "name": "PersonalBudget",
+          "startLine": 54,
+          "endLine": 92,
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "categoryRaw",
+            "monthlyLimit",
+            "currencyCodeRaw",
+            "createdAt",
+            "currencyCode",
+            "category",
+            "isOverall"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "id",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "title",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "date",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "amount",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "currencyCodeRaw",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "categoryRaw",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "note",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "paymentMethod",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "PersonalExpense.init",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "currencyCode",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "categoryKey",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "category",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "PersonalExpense",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "id",
+          "line": 56,
+          "isDefault": false
+        },
+        {
+          "name": "categoryRaw",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "monthlyLimit",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "currencyCodeRaw",
+          "line": 60,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 61,
+          "isDefault": false
+        },
+        {
+          "name": "PersonalBudget.init",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "currencyCode",
+          "line": 77,
+          "isDefault": false
+        },
+        {
+          "name": "category",
+          "line": 82,
+          "isDefault": false
+        },
+        {
+          "name": "isOverall",
+          "line": 91,
+          "isDefault": false
+        },
+        {
+          "name": "PersonalBudget",
+          "line": 54,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "currencyCode",
+          "callee": "CurrencyCode",
+          "lineNumber": 39
+        },
+        {
+          "caller": "category",
+          "callee": "PersonalExpenseCategory",
+          "lineNumber": 49
+        },
+        {
+          "caller": "currencyCode",
+          "callee": "CurrencyCode",
+          "lineNumber": 78
+        },
+        {
+          "caller": "category",
+          "callee": "PersonalExpenseCategory",
+          "lineNumber": 84
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 24,
+        "functionCount": 2,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "Sources/FuelTrack/Models/PersonalExpenseCategory.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 51,
+      "classes": [
+        {
+          "name": "PersonalExpenseCategory",
+          "startLine": 3,
+          "endLine": 55,
+          "methods": [],
+          "properties": [
+            "food",
+            "groceries",
+            "shopping",
+            "bills",
+            "rent",
+            "transport",
+            "health",
+            "entertainment",
+            "travel",
+            "education",
+            "gifts",
+            "subscriptions",
+            "other",
+            "id",
+            "displayName",
+            "systemImage"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "id",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "displayName",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "systemImage",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "PersonalExpenseCategory",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Sources/FuelTrack/Models/ReminderItem.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 32,
+      "functions": [
+        {
+          "name": "ReminderItem.init",
+          "startLine": 16,
+          "endLine": 34,
+          "params": [
+            "id",
+            "title",
+            "dueDate",
+            "dueOdometer",
+            "note",
+            "isCompleted",
+            "createdAt",
+            "vehicle"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ReminderItem",
+          "startLine": 4,
+          "endLine": 35,
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "title",
+            "dueDate",
+            "dueOdometer",
+            "note",
+            "isCompleted",
+            "createdAt",
+            "vehicle"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "id",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "title",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "dueDate",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "dueOdometer",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "note",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "isCompleted",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "vehicle",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "ReminderItem.init",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "ReminderItem",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Sources/FuelTrack/Models/SavedStation.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 32,
+      "functions": [
+        {
+          "name": "SavedStation.init",
+          "startLine": 16,
+          "endLine": 34,
+          "params": [
+            "id",
+            "name",
+            "externalId",
+            "latitude",
+            "longitude",
+            "note",
+            "createdAt",
+            "vehicle"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "SavedStation",
+          "startLine": 4,
+          "endLine": 35,
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "name",
+            "externalId",
+            "latitude",
+            "longitude",
+            "note",
+            "createdAt",
+            "vehicle"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "id",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "name",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "externalId",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "latitude",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "longitude",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "note",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "vehicle",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "SavedStation.init",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "SavedStation",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Sources/FuelTrack/Models/Trip.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 76,
+      "nonEmptyLines": 70,
+      "functions": [
+        {
+          "name": "Trip.init",
+          "startLine": 28,
+          "endLine": 66,
+          "params": [
+            "id",
+            "startedAt",
+            "endedAt",
+            "status",
+            "distance",
+            "durationSeconds",
+            "averageSpeed",
+            "maxSpeed",
+            "estimatedMPG",
+            "estimatedLitersPer100km",
+            "startLatitude",
+            "startLongitude",
+            "endLatitude",
+            "endLongitude",
+            "note",
+            "createdAt",
+            "vehicle",
+            "points"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "Trip",
+          "startLine": 4,
+          "endLine": 76,
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "startedAt",
+            "endedAt",
+            "statusRaw",
+            "distance",
+            "durationSeconds",
+            "averageSpeed",
+            "maxSpeed",
+            "estimatedMPG",
+            "estimatedLitersPer100km",
+            "startLatitude",
+            "startLongitude",
+            "endLatitude",
+            "endLongitude",
+            "note",
+            "createdAt",
+            "vehicle",
+            "points",
+            "status",
+            "sortedPoints"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "id",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "startedAt",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "endedAt",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "statusRaw",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "distance",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "durationSeconds",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "averageSpeed",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "maxSpeed",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "estimatedMPG",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "estimatedLitersPer100km",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "startLatitude",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "startLongitude",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "endLatitude",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "endLongitude",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "note",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "createdAt",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "vehicle",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "points",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "Trip.init",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "status",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "sortedPoints",
+          "line": 73,
+          "isDefault": false
+        },
+        {
+          "name": "Trip",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "status",
+          "callee": "TripStatus",
+          "lineNumber": 69
+        },
+        {
+          "caller": "sortedPoints",
+          "callee": "sorted",
+          "lineNumber": 74
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 22,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Sources/FuelTrack/Models/TripPoint.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 32,
+      "functions": [
+        {
+          "name": "TripPoint.init",
+          "startLine": 15,
+          "endLine": 33,
+          "params": [
+            "id",
+            "recordedAt",
+            "latitude",
+            "longitude",
+            "speedMps",
+            "horizontalAccuracy",
+            "sequence",
+            "trip"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "TripPoint",
+          "startLine": 4,
+          "endLine": 34,
+          "methods": [
+            "init"
+          ],
+          "properties": [
+            "id",
+            "recordedAt",
+            "latitude",
+            "longitude",
+            "speedMps",
+            "horizontalAccuracy",
+            "sequence",
+            "trip"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "id",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "recordedAt",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "latitude",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "longitude",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "speedMps",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "horizontalAccuracy",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "sequence",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "trip",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "TripPoint.init",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "TripPoint",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 10,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Sources/FuelTrack/Models/TripStatus.swift",
+      "language": "swift",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 6,
+      "classes": [
+        {
+          "name": "TripStatus",
+          "startLine": 3,
+          "endLine": 7,
+          "methods": [],
+          "properties": [
+            "active",
+            "completed",
+            "cancelled"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "TripStatus",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    }
+  ]
+}

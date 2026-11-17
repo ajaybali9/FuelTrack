@@ -53,6 +53,7 @@ struct BackupImportView: View {
         }
         .navigationTitle("Import backup")
         .navigationBarTitleDisplayMode(.inline)
+        .fuelTrackForm()
         .fileImporter(
             isPresented: $showingPicker,
             allowedContentTypes: [.json, .data],

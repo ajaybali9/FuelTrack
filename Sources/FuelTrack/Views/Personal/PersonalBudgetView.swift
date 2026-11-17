@@ -73,6 +73,7 @@ struct PersonalBudgetView: View {
         }
         .navigationTitle("Budgets")
         .navigationBarTitleDisplayMode(.inline)
+        .fuelTrackForm()
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Close") { dismiss() }

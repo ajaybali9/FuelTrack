@@ -1,0 +1,1104 @@
+{
+  "nodes": [
+    {
+      "id": "file:Sources/FuelTrack/Views/Settings/BackupImportView.swift",
+      "type": "file",
+      "name": "BackupImportView.swift",
+      "filePath": "Sources/FuelTrack/Views/Settings/BackupImportView.swift",
+      "summary": "Settings screen that imports a full FuelTrack JSON backup via the system document picker.",
+      "tags": [
+        "component",
+        "import",
+        "backup",
+        "settings"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Settings/BackupImportView.swift:BackupImportView",
+      "type": "class",
+      "name": "BackupImportView",
+      "filePath": "Sources/FuelTrack/Views/Settings/BackupImportView.swift",
+      "lineRange": [
+        5,
+        102
+      ],
+      "summary": "File importer that restores a full FuelTrack JSON backup into SwiftData.",
+      "tags": [
+        "component",
+        "import",
+        "backup"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Settings/BackupImportView.swift:importFile",
+      "type": "function",
+      "name": "importFile",
+      "filePath": "Sources/FuelTrack/Views/Settings/BackupImportView.swift",
+      "lineRange": [
+        72,
+        101
+      ],
+      "summary": "Reads and imports a selected backup JSON URL into the model context.",
+      "tags": [
+        "import",
+        "backup",
+        "persistence"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:Sources/FuelTrack/Views/Settings/FuelioImportView.swift",
+      "type": "file",
+      "name": "FuelioImportView.swift",
+      "filePath": "Sources/FuelTrack/Views/Settings/FuelioImportView.swift",
+      "summary": "Settings flow for importing Fuelio CSV exports, mapping currency and activating vehicles.",
+      "tags": [
+        "component",
+        "import",
+        "csv",
+        "interop"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Settings/FuelioImportView.swift:FuelioImportView",
+      "type": "class",
+      "name": "FuelioImportView",
+      "filePath": "Sources/FuelTrack/Views/Settings/FuelioImportView.swift",
+      "lineRange": [
+        5,
+        190
+      ],
+      "summary": "Importer for Fuelio CSV exports that creates vehicles and fill-ups.",
+      "tags": [
+        "component",
+        "import",
+        "interop"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Settings/FuelioImportView.swift:importFile",
+      "type": "function",
+      "name": "importFile",
+      "filePath": "Sources/FuelTrack/Views/Settings/FuelioImportView.swift",
+      "lineRange": [
+        83,
+        189
+      ],
+      "summary": "Parses a Fuelio CSV export and merges vehicles/fill-ups into SwiftData.",
+      "tags": [
+        "import",
+        "csv",
+        "persistence"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:Sources/FuelTrack/Views/Settings/SettingsView.swift",
+      "type": "file",
+      "name": "SettingsView.swift",
+      "filePath": "Sources/FuelTrack/Views/Settings/SettingsView.swift",
+      "summary": "Settings screen for defaults, appearance, DVLA credentials/environment, and compliance notification toggles.",
+      "tags": [
+        "component",
+        "settings",
+        "configuration",
+        "dvla"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Settings/SettingsView.swift:SettingsView",
+      "type": "class",
+      "name": "SettingsView",
+      "filePath": "Sources/FuelTrack/Views/Settings/SettingsView.swift",
+      "lineRange": [
+        3,
+        196
+      ],
+      "summary": "App preferences for currency, units, appearance, DVLA API, and compliance notifications.",
+      "tags": [
+        "component",
+        "settings",
+        "configuration"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Settings/SettingsView.swift:testDVLAConnection",
+      "type": "function",
+      "name": "testDVLAConnection",
+      "filePath": "Sources/FuelTrack/Views/Settings/SettingsView.swift",
+      "lineRange": [
+        175,
+        195
+      ],
+      "summary": "Probes the configured DVLA API key and environment with a live connectivity test.",
+      "tags": [
+        "networking",
+        "dvla",
+        "validation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "type": "file",
+      "name": "NearbyStationsView.swift",
+      "filePath": "Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "summary": "Stations tab combining used and nearby priced stations in list or map mode with detail sheets.",
+      "tags": [
+        "component",
+        "stations",
+        "map",
+        "location"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Large SwiftUI view file with nested helper views and Hashable extension for map selection."
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:StationsDisplayMode",
+      "type": "class",
+      "name": "StationsDisplayMode",
+      "filePath": "Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "lineRange": [
+        5,
+        24
+      ],
+      "summary": "Enum switching nearby stations between list and map presentation modes.",
+      "tags": [
+        "type-definition",
+        "enum",
+        "ui-state"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:NearbyStationsView",
+      "type": "class",
+      "name": "NearbyStationsView",
+      "filePath": "Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "lineRange": [
+        26,
+        458
+      ],
+      "summary": "Full nearby-stations experience with list/map modes, filters, and reload.",
+      "tags": [
+        "component",
+        "stations",
+        "map"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:StationDetailSheet",
+      "type": "class",
+      "name": "StationDetailSheet",
+      "filePath": "Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "lineRange": [
+        460,
+        525
+      ],
+      "summary": "Detail sheet for a nearby station showing price and used-history context.",
+      "tags": [
+        "component",
+        "sheet",
+        "stations"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:UsedStationRow",
+      "type": "class",
+      "name": "UsedStationRow",
+      "filePath": "Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "lineRange": [
+        527,
+        578
+      ],
+      "summary": "List row for a historically used station matched against nearby results.",
+      "tags": [
+        "component",
+        "list",
+        "stations"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:UsedStationDetailSheet",
+      "type": "class",
+      "name": "UsedStationDetailSheet",
+      "filePath": "Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "lineRange": [
+        580,
+        636
+      ],
+      "summary": "Detail sheet summarizing a used station and its nearby counterpart.",
+      "tags": [
+        "component",
+        "sheet",
+        "stations"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:StationRow",
+      "type": "class",
+      "name": "StationRow",
+      "filePath": "Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "lineRange": [
+        638,
+        712
+      ],
+      "summary": "Ranked nearby station row highlighting cheapest and previously used status.",
+      "tags": [
+        "component",
+        "list",
+        "stations"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:updateMapCamera",
+      "type": "function",
+      "name": "updateMapCamera",
+      "filePath": "Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "lineRange": [
+        369,
+        384
+      ],
+      "summary": "Updates the MapKit camera to fit filtered nearby and used station coordinates.",
+      "tags": [
+        "map",
+        "layout",
+        "stations"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:region",
+      "type": "function",
+      "name": "region",
+      "filePath": "Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "lineRange": [
+        386,
+        407
+      ],
+      "summary": "Computes an MKCoordinateRegion spanning a set of station coordinates.",
+      "tags": [
+        "map",
+        "geometry",
+        "utility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:reload",
+      "type": "function",
+      "name": "reload",
+      "filePath": "Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "lineRange": [
+        409,
+        453
+      ],
+      "summary": "Refreshes device location and reloads nearby fuel prices for the selected fuel type.",
+      "tags": [
+        "async",
+        "stations",
+        "location"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:==",
+      "type": "function",
+      "name": "==",
+      "filePath": "Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "lineRange": [
+        715,
+        717
+      ],
+      "summary": "Equality for NearbyStation Hashable conformance used by map selection.",
+      "tags": [
+        "protocol",
+        "equality",
+        "stations"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:hash",
+      "type": "function",
+      "name": "hash",
+      "filePath": "Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "lineRange": [
+        719,
+        721
+      ],
+      "summary": "Hash implementation for NearbyStation Hashable conformance.",
+      "tags": [
+        "protocol",
+        "hashing",
+        "stations"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Sources/FuelTrack/Views/Trips/ActiveTripView.swift",
+      "type": "file",
+      "name": "ActiveTripView.swift",
+      "filePath": "Sources/FuelTrack/Views/Trips/ActiveTripView.swift",
+      "summary": "Full-screen live view for an in-progress GPS trip with end-trip confirmation.",
+      "tags": [
+        "component",
+        "trips",
+        "live",
+        "location"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Trips/ActiveTripView.swift:ActiveTripView",
+      "type": "class",
+      "name": "ActiveTripView",
+      "filePath": "Sources/FuelTrack/Views/Trips/ActiveTripView.swift",
+      "lineRange": [
+        3,
+        60
+      ],
+      "summary": "Live active-trip screen showing duration and controls to end the trip.",
+      "tags": [
+        "component",
+        "trips",
+        "live"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Sources/FuelTrack/Views/Trips/HomeTripCard.swift",
+      "type": "file",
+      "name": "HomeTripCard.swift",
+      "filePath": "Sources/FuelTrack/Views/Trips/HomeTripCard.swift",
+      "summary": "Home card for starting and monitoring GPS trips, presenting ActiveTripView when recording.",
+      "tags": [
+        "component",
+        "dashboard",
+        "trips",
+        "location"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Trips/HomeTripCard.swift:HomeTripCard",
+      "type": "class",
+      "name": "HomeTripCard",
+      "filePath": "Sources/FuelTrack/Views/Trips/HomeTripCard.swift",
+      "lineRange": [
+        5,
+        128
+      ],
+      "summary": "Dashboard trip card to start, monitor, or end a GPS trip for the vehicle.",
+      "tags": [
+        "component",
+        "dashboard",
+        "trips"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Trips/HomeTripCard.swift:start",
+      "type": "function",
+      "name": "start",
+      "filePath": "Sources/FuelTrack/Views/Trips/HomeTripCard.swift",
+      "lineRange": [
+        118,
+        127
+      ],
+      "summary": "Starts trip recording for the current vehicle via TripRecorder.",
+      "tags": [
+        "trips",
+        "event-handler",
+        "location"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Sources/FuelTrack/Views/Trips/TripDetailView.swift",
+      "type": "file",
+      "name": "TripDetailView.swift",
+      "filePath": "Sources/FuelTrack/Views/Trips/TripDetailView.swift",
+      "summary": "Detail screen for a completed trip with distance/duration stats and GPS path map.",
+      "tags": [
+        "component",
+        "trips",
+        "map",
+        "swiftui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Trips/TripDetailView.swift:TripDetailView",
+      "type": "class",
+      "name": "TripDetailView",
+      "filePath": "Sources/FuelTrack/Views/Trips/TripDetailView.swift",
+      "lineRange": [
+        4,
+        82
+      ],
+      "summary": "Trip detail showing stats and a map of the recorded GPS path.",
+      "tags": [
+        "component",
+        "trips",
+        "map"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Trips/TripDetailView.swift:region",
+      "type": "function",
+      "name": "region",
+      "filePath": "Sources/FuelTrack/Views/Trips/TripDetailView.swift",
+      "lineRange": [
+        60,
+        81
+      ],
+      "summary": "Builds a map region that fits the trip's recorded coordinates.",
+      "tags": [
+        "map",
+        "geometry",
+        "utility"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:Sources/FuelTrack/Views/Trips/TripListView.swift",
+      "type": "file",
+      "name": "TripListView.swift",
+      "filePath": "Sources/FuelTrack/Views/Trips/TripListView.swift",
+      "summary": "Lists a vehicle's completed trips and navigates into trip detail maps.",
+      "tags": [
+        "component",
+        "list",
+        "trips",
+        "navigation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Trips/TripListView.swift:TripListView",
+      "type": "class",
+      "name": "TripListView",
+      "filePath": "Sources/FuelTrack/Views/Trips/TripListView.swift",
+      "lineRange": [
+        4,
+        36
+      ],
+      "summary": "Simple list of past trips navigating to TripDetailView.",
+      "tags": [
+        "component",
+        "list",
+        "trips"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift",
+      "type": "file",
+      "name": "VehicleComplianceSection.swift",
+      "filePath": "Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift",
+      "summary": "Vehicle MOT/tax/insurance compliance card and editor with optional DVLA refresh.",
+      "tags": [
+        "component",
+        "compliance",
+        "dvla",
+        "vehicles"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift:VehicleComplianceCard",
+      "type": "class",
+      "name": "VehicleComplianceCard",
+      "filePath": "Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift",
+      "lineRange": [
+        4,
+        90
+      ],
+      "summary": "Read-only MOT/tax/insurance status pills for the dashboard.",
+      "tags": [
+        "component",
+        "compliance",
+        "dashboard"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift:VehicleComplianceEditor",
+      "type": "class",
+      "name": "VehicleComplianceEditor",
+      "filePath": "Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift",
+      "lineRange": [
+        92,
+        218
+      ],
+      "summary": "Editor to set compliance dates and refresh MOT/tax via DVLA.",
+      "tags": [
+        "component",
+        "compliance",
+        "form"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift:statusPill",
+      "type": "function",
+      "name": "statusPill",
+      "filePath": "Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift",
+      "lineRange": [
+        61,
+        89
+      ],
+      "summary": "Colored status pill showing a compliance item's state and date.",
+      "tags": [
+        "ui-helper",
+        "compliance",
+        "status"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift:refreshDVLA",
+      "type": "function",
+      "name": "refreshDVLA",
+      "filePath": "Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift",
+      "lineRange": [
+        196,
+        217
+      ],
+      "summary": "Fetches DVLA vehicle data and updates MOT/tax dates on the vehicle.",
+      "tags": [
+        "networking",
+        "dvla",
+        "compliance"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift",
+      "type": "file",
+      "name": "VehicleFormView.swift",
+      "filePath": "Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift",
+      "summary": "Form for creating or editing a vehicle, including compliance editing and active-vehicle selection.",
+      "tags": [
+        "component",
+        "form",
+        "vehicles",
+        "swiftui"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift:VehicleFormView",
+      "type": "class",
+      "name": "VehicleFormView",
+      "filePath": "Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift",
+      "lineRange": [
+        4,
+        188
+      ],
+      "summary": "Create/edit/delete vehicle form including compliance editor when editing.",
+      "tags": [
+        "component",
+        "form",
+        "vehicles"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift:load",
+      "type": "function",
+      "name": "load",
+      "filePath": "Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift",
+      "lineRange": [
+        123,
+        137
+      ],
+      "summary": "Loads vehicle fields into the form when editing an existing record.",
+      "tags": [
+        "form",
+        "data-binding",
+        "lifecycle"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift:save",
+      "type": "function",
+      "name": "save",
+      "filePath": "Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift",
+      "lineRange": [
+        139,
+        176
+      ],
+      "summary": "Validates and saves vehicle details, optionally making it active.",
+      "tags": [
+        "form",
+        "persistence",
+        "validation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift:deleteVehicle",
+      "type": "function",
+      "name": "deleteVehicle",
+      "filePath": "Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift",
+      "lineRange": [
+        178,
+        187
+      ],
+      "summary": "Deletes the vehicle from SwiftData after confirmation.",
+      "tags": [
+        "persistence",
+        "delete",
+        "vehicles"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Sources/FuelTrack/Views/Vehicles/VehicleListView.swift",
+      "type": "file",
+      "name": "VehicleListView.swift",
+      "filePath": "Sources/FuelTrack/Views/Vehicles/VehicleListView.swift",
+      "summary": "Vehicles screen listing all cars, selecting the active one, and navigating to the vehicle form.",
+      "tags": [
+        "component",
+        "list",
+        "vehicles",
+        "navigation"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Sources/FuelTrack/Views/Vehicles/VehicleListView.swift:VehicleListView",
+      "type": "class",
+      "name": "VehicleListView",
+      "filePath": "Sources/FuelTrack/Views/Vehicles/VehicleListView.swift",
+      "lineRange": [
+        4,
+        126
+      ],
+      "summary": "Vehicle list with active selection, edit navigation, and delete confirmation.",
+      "tags": [
+        "component",
+        "list",
+        "vehicles"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:Support/Info.plist",
+      "type": "config",
+      "name": "Info.plist",
+      "filePath": "Support/Info.plist",
+      "summary": "App Info.plist setting display name, location usage strings, and background location mode for trip logging.",
+      "tags": [
+        "configuration",
+        "permissions",
+        "location",
+        "ios"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:Sources/FuelTrack/Views/Settings/BackupImportView.swift",
+      "target": "class:Sources/FuelTrack/Views/Settings/BackupImportView.swift:BackupImportView",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Settings/BackupImportView.swift",
+      "target": "class:Sources/FuelTrack/Views/Settings/BackupImportView.swift:BackupImportView",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Settings/BackupImportView.swift",
+      "target": "function:Sources/FuelTrack/Views/Settings/BackupImportView.swift:importFile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Settings/FuelioImportView.swift",
+      "target": "class:Sources/FuelTrack/Views/Settings/FuelioImportView.swift:FuelioImportView",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Settings/FuelioImportView.swift",
+      "target": "class:Sources/FuelTrack/Views/Settings/FuelioImportView.swift:FuelioImportView",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Settings/FuelioImportView.swift",
+      "target": "function:Sources/FuelTrack/Views/Settings/FuelioImportView.swift:importFile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Settings/SettingsView.swift",
+      "target": "class:Sources/FuelTrack/Views/Settings/SettingsView.swift:SettingsView",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Settings/SettingsView.swift",
+      "target": "class:Sources/FuelTrack/Views/Settings/SettingsView.swift:SettingsView",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Settings/SettingsView.swift",
+      "target": "function:Sources/FuelTrack/Views/Settings/SettingsView.swift:testDVLAConnection",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "target": "class:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:StationsDisplayMode",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "target": "class:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:NearbyStationsView",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "target": "class:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:NearbyStationsView",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "target": "class:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:StationDetailSheet",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "target": "class:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:UsedStationRow",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "target": "class:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:UsedStationDetailSheet",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "target": "class:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:StationRow",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "target": "function:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:updateMapCamera",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "target": "function:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:region",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "target": "function:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:reload",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "target": "function:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:==",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "target": "function:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:==",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "target": "function:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:hash",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "target": "function:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift:hash",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Trips/ActiveTripView.swift",
+      "target": "class:Sources/FuelTrack/Views/Trips/ActiveTripView.swift:ActiveTripView",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Trips/ActiveTripView.swift",
+      "target": "class:Sources/FuelTrack/Views/Trips/ActiveTripView.swift:ActiveTripView",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Trips/HomeTripCard.swift",
+      "target": "class:Sources/FuelTrack/Views/Trips/HomeTripCard.swift:HomeTripCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Trips/HomeTripCard.swift",
+      "target": "class:Sources/FuelTrack/Views/Trips/HomeTripCard.swift:HomeTripCard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Trips/HomeTripCard.swift",
+      "target": "function:Sources/FuelTrack/Views/Trips/HomeTripCard.swift:start",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Trips/TripDetailView.swift",
+      "target": "class:Sources/FuelTrack/Views/Trips/TripDetailView.swift:TripDetailView",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Trips/TripDetailView.swift",
+      "target": "class:Sources/FuelTrack/Views/Trips/TripDetailView.swift:TripDetailView",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Trips/TripDetailView.swift",
+      "target": "function:Sources/FuelTrack/Views/Trips/TripDetailView.swift:region",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Trips/TripListView.swift",
+      "target": "class:Sources/FuelTrack/Views/Trips/TripListView.swift:TripListView",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Trips/TripListView.swift",
+      "target": "class:Sources/FuelTrack/Views/Trips/TripListView.swift:TripListView",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift",
+      "target": "class:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift:VehicleComplianceCard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift",
+      "target": "class:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift:VehicleComplianceCard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift",
+      "target": "class:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift:VehicleComplianceEditor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift",
+      "target": "class:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift:VehicleComplianceEditor",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift",
+      "target": "function:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift:statusPill",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift",
+      "target": "function:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift:refreshDVLA",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift",
+      "target": "class:Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift:VehicleFormView",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift",
+      "target": "class:Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift:VehicleFormView",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift",
+      "target": "function:Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift:load",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift",
+      "target": "function:Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift:save",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift",
+      "target": "function:Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift:deleteVehicle",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Vehicles/VehicleListView.swift",
+      "target": "class:Sources/FuelTrack/Views/Vehicles/VehicleListView.swift:VehicleListView",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Vehicles/VehicleListView.swift",
+      "target": "class:Sources/FuelTrack/Views/Vehicles/VehicleListView.swift:VehicleListView",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Trips/HomeTripCard.swift",
+      "target": "file:Sources/FuelTrack/Views/Trips/ActiveTripView.swift",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Trips/TripListView.swift",
+      "target": "file:Sources/FuelTrack/Views/Trips/TripDetailView.swift",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Vehicles/VehicleListView.swift",
+      "target": "file:Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:Sources/FuelTrack/Views/Vehicles/VehicleFormView.swift",
+      "target": "file:Sources/FuelTrack/Views/Vehicles/VehicleComplianceSection.swift",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:Support/Info.plist",
+      "target": "file:Sources/FuelTrack/Views/Stations/NearbyStationsView.swift",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:Support/Info.plist",
+      "target": "file:Sources/FuelTrack/Views/Dashboard/HomeFuelQuickAccess.swift",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:Support/Info.plist",
+      "target": "file:Sources/FuelTrack/Views/FillUps/StationPickerView.swift",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:Support/Info.plist",
+      "target": "file:Sources/FuelTrack/Views/Trips/ActiveTripView.swift",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:Support/Info.plist",
+      "target": "file:Sources/FuelTrack/Views/Trips/HomeTripCard.swift",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

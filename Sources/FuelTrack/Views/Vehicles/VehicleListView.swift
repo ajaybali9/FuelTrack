@@ -16,11 +16,15 @@ struct VehicleListView: View {
     var body: some View {
         Group {
             if vehicles.isEmpty {
-                ContentUnavailableView(
-                    "No vehicles yet",
-                    systemImage: "car.side",
-                    description: Text("Add a car to start tracking fuel.")
-                )
+                ContentUnavailableView {
+                    Label("No vehicles yet", systemImage: "car.side")
+                } description: {
+                    Text("Add a car to start tracking fuel, spend, and UK compliance.")
+                } actions: {
+                    Button("Add vehicle") { showingAdd = true }
+                        .buttonStyle(.borderedProminent)
+                        .tint(GlassTheme.accent)
+                }
             } else {
                 ScrollView {
                     LazyVStack(spacing: 12) {
@@ -101,7 +105,7 @@ struct VehicleListView: View {
             isPresented: $showDeleteConfirm,
             titleVisibility: .visible
         ) {
-            Button("Delete Vehicle", role: .destructive) {
+            Button("Delete vehicle", role: .destructive) {
                 if let vehiclePendingDelete {
                     delete(vehiclePendingDelete)
                 }

@@ -69,12 +69,22 @@ struct CarCostListContent: View {
     var body: some View {
         Group {
             if vehicles.isEmpty {
-                ContentUnavailableView("Add a vehicle first", systemImage: "car.side")
+                ContentUnavailableView(
+                    "Add a vehicle first",
+                    systemImage: "car.side",
+                    description: Text("Car spend is tracked per vehicle. Add one from More → Vehicles.")
+                )
+            } else if activeVehicle == nil {
+                ContentUnavailableView(
+                    "Select a vehicle",
+                    systemImage: "car.side",
+                    description: Text("Pick an active vehicle from the toolbar to track car spend.")
+                )
             } else if costs.isEmpty {
                 ContentUnavailableView(
                     "No car costs yet",
                     systemImage: "wrench.and.screwdriver",
-                    description: Text("Track service, MOT, road tax, insurance and more.")
+                    description: Text("Track service, MOT, road tax, insurance and more for \(activeVehicle?.name ?? "this car").")
                 )
             } else if let vehicle = activeVehicle {
                 ScrollView {
@@ -224,8 +234,9 @@ struct CostFormView: View {
                 }
             }
         }
-        .navigationTitle(isEditing ? "Edit Cost" : "New Cost")
+        .navigationTitle(isEditing ? "Edit cost" : "New cost")
         .navigationBarTitleDisplayMode(.inline)
+        .fuelTrackForm()
         .toolbar {
             if !isEditing {
                 ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }
