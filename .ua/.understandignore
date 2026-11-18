@@ -20,9 +20,6 @@
 # /xtool
 # .bsp/
 # .build/
-# rea-target/fuelio-extracted/
-# rea-target/fuelio-apkm/
-
 # --- Detected directories (uncomment to exclude) ---
 
 # Scripts/

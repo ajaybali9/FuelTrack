@@ -16,30 +16,6 @@ enum CostCategory: String, CaseIterable, Codable, Identifiable, Sendable {
 
     var id: String { rawValue }
 
-    /// Match a Fuelio category name, including "Tickets/Fines" and "Road tax".
-    static func fromFuelioName(_ name: String) -> CostCategory {
-        let key = name
-            .folding(options: [.diacriticInsensitive, .caseInsensitive], locale: .current)
-            .replacingOccurrences(of: "/", with: " ")
-            .split { !$0.isLetter && !$0.isNumber }
-            .map(String.init)
-            .joined(separator: " ")
-        switch key {
-        case "service": return .service
-        case "maintenance": return .maintenance
-        case "insurance": return .insurance
-        case "mot": return .mot
-        case "road tax", "tax": return .roadTax
-        case "registration": return .registration
-        case "parking": return .parking
-        case "wash": return .wash
-        case "tolls", "toll": return .tolls
-        case "tickets fines", "fines", "tickets": return .fines
-        case "tuning": return .tuning
-        default: return .other
-        }
-    }
-
     var displayName: String {
         switch self {
         case .service: "Service"

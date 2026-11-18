@@ -1,6 +1,6 @@
 # FuelTrack
 
-Fuelio-inspired multi-vehicle fuel tracker for iPhone, built with SwiftUI + SwiftData and deployed via [xtool](https://xtool.sh).
+Multi-vehicle fuel tracker for iPhone, built with SwiftUI + SwiftData and deployed via [xtool](https://xtool.sh).
 
 ## v1 features
 
@@ -9,7 +9,7 @@ Fuelio-inspired multi-vehicle fuel tracker for iPhone, built with SwiftUI + Swif
 - GBP and INR currencies (per vehicle / per fill-up)
 - Miles or kilometres per vehicle
 - Dashboard stats using the full-tank method (L/100km, UK MPG, cost/distance)
-- Import from Fuelio CSV (Settings → Import from Fuelio CSV)
+- Native FuelTrack JSON backup export / import
 - Custom app icon
 - On-device SwiftData storage (no account / no cloud in v1)
 
@@ -51,17 +51,17 @@ xtool dev
 
 Bundle ID: `com.ajaybali.FuelTrack` (see `xtool.yml`).
 
-## Import from Fuelio
+## Backup
 
-1. In Fuelio: Settings → Export CSV (one vehicle per file).
-2. In FuelTrack: Settings → Import from Fuelio CSV → choose the file.
-3. Pick GBP or INR for the imported costs (Fuelio CSV has no currency field).
+1. More → Export backup — creates a shareable FuelTrack JSON file.
+2. More → Import backup — restores vehicles, fill-ups, spend, and related data from that JSON.
 
 ## Verify without a device
 
 ```bash
 swift Scripts/fuelstats-smoke.swift
-swift Scripts/fuelio-import-smoke.swift
+swift Scripts/backup-roundtrip-smoke.swift
+swift Scripts/tripstats-smoke.swift
 ```
 
 ## Current machine status (as of scaffold)

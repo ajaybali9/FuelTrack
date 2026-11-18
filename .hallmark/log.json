@@ -1,0 +1,30 @@
+[
+ {
+  "shape": "Narrative Workflow",
+  "theme": "ink",
+  "axes": "light/grotesk-sans/chromatic-teal",
+  "hero": "Stage",
+  "nav": "masthead",
+  "footer": "mast",
+  "imagery": "product",
+  "photos": [],
+  "entry": "landing/index.html",
+  "fingerprint": "fueltrack-landing-ink",
+  "sections": [
+   "Hero catalogue",
+   "Privacy before/after",
+   "Platforms",
+   "Moments switcher",
+   "Setup close",
+   "Footer mast"
+  ],
+  "signature": "fill-up catalogue as ruled shelf",
+  "waived": [
+   "22"
+  ],
+  "prompt": "FuelTrack private iPhone fuel tracker landing",
+  "draw": "b59ebb",
+  "date": "2026-11-18",
+  "mode": "build"
+ }
+]

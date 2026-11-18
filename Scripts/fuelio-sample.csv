@@ -1,8 +1,0 @@
-"## Vehicle"
-"Name","Description","DistUnit","FuelUnit","ConsumptionUnit","ImportCSVDateFormat","VIN","Insurance","Plate","Make","Model","Year","TankCount","Tank1Type","Tank2Type"
-"Civic UK","Daily driver","1","2","2","yyyy-MM-dd","","","AB12 CDE","Honda","Civic","2019","1","110","0"
-"## Log"
-"Data","Odo (mi)","Fuel (litres)","Full","Price (optional)","mpg (optional)","latitude (optional)","longitude (optional)","City (optional)","Notes (optional)","Missed","TankNumber","FuelType","VolumePrice","StationID (optional)"
-"2024-01-10","12000","40.00","1","56.00",,,,,"Shell","","0","1","110","1.40",
-"2024-01-24","12300","20.00","0","28.00",,,,,"","Top-up","0","1","110","1.40",
-"2024-02-05","12600","25.50","1","38.25",,,,,"BP","","0","1","110","1.50",

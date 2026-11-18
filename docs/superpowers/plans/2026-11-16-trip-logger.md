@@ -44,7 +44,6 @@
 | `Sources/FuelTrack/Services/FuelTrackBackupImporter.swift` | Import trips |
 | `Scripts/tripstats-smoke.swift` | TripStats smoke |
 | `Scripts/backup-roundtrip-smoke.swift` | Include trips in v2 shape |
-| `rea-target/FUELIO_FEATURE_MAP.md` | Mark GPS Trip log mirrored |
 
 ---
 
@@ -1163,13 +1162,12 @@ git commit -m "feat: add trip history list and route detail map"
 
 ---
 
-### Task 6: Backup v2 + Fuelio map note
+### Task 6: Backup v2
 
 **Files:**
 - Modify: `Sources/FuelTrack/Services/FuelTrackBackupExporter.swift`
 - Modify: `Sources/FuelTrack/Services/FuelTrackBackupImporter.swift`
 - Modify: `Scripts/backup-roundtrip-smoke.swift`
-- Modify: `rea-target/FUELIO_FEATURE_MAP.md`
 
 **Interfaces:**
 - Consumes: `Trip`, `TripPoint`
@@ -1277,17 +1275,12 @@ swift Scripts/tripstats-smoke.swift
 
 Expected: both PASS.
 
-- [ ] **Step 4: Feature map**
-
-In `rea-target/FUELIO_FEATURE_MAP.md`, move `GPS Trip log` from “Not mirrored yet” to “Mirrored in FuelTrack now”.
-
-- [ ] **Step 5: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
 git add Sources/FuelTrack/Services/FuelTrackBackupExporter.swift \
   Sources/FuelTrack/Services/FuelTrackBackupImporter.swift \
-  Scripts/backup-roundtrip-smoke.swift \
-  rea-target/FUELIO_FEATURE_MAP.md
+  Scripts/backup-roundtrip-smoke.swift
 git commit -m "feat: include trips in FuelTrack backup format v2"
 ```
 

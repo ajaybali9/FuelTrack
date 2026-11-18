@@ -58,11 +58,6 @@ struct MoreView: View {
                     } label: {
                         moreRow("Import backup", subtitle: "Restore full FuelTrack JSON", icon: "externaldrive.badge.checkmark")
                     }
-                    NavigationLink {
-                        FuelioImportView()
-                    } label: {
-                        moreRow("Import Fuelio CSV", subtitle: "Bring your history across", icon: "square.and.arrow.down")
-                    }
                     Button {
                         exportFullBackup()
                     } label: {
@@ -73,21 +68,6 @@ struct MoreView: View {
                         )
                     }
                     .accessibilityHint("Creates a shareable FuelTrack JSON backup")
-                    Button {
-                        exportFuelioCSV()
-                    } label: {
-                        moreRow(
-                            "Export Fuelio CSV",
-                            subtitle: activeVehicle?.name ?? "Needs an active vehicle",
-                            icon: "square.and.arrow.up"
-                        )
-                    }
-                    .disabled(activeVehicle == nil)
-                    .accessibilityHint(
-                        activeVehicle == nil
-                            ? "Requires an active vehicle"
-                            : "Exports fill-ups for the active vehicle as CSV"
-                    )
                     NavigationLink {
                         SettingsView()
                     } label: {
@@ -150,22 +130,6 @@ struct MoreView: View {
         }
     }
 
-    private func exportFuelioCSV() {
-        guard let vehicle = activeVehicle else { return }
-        do {
-            let csv = FuelioCSVExporter.export(vehicle: vehicle)
-            let safeName = vehicle.name
-                .replacingOccurrences(of: "/", with: "-")
-                .replacingOccurrences(of: ":", with: "-")
-            let url = FileManager.default.temporaryDirectory
-                .appendingPathComponent("FuelTrack-\(safeName).csv")
-            try csv.write(to: url, atomically: true, encoding: .utf8)
-            shareItem = ShareableFile(url: url)
-            exportError = nil
-        } catch {
-            exportError = error.localizedDescription
-        }
-    }
 }
 
 private struct ShareableFile: Identifiable {

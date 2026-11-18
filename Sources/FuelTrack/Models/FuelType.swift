@@ -62,18 +62,4 @@ enum FuelType: String, CaseIterable, Codable, Identifiable, Sendable {
     }
 
     var supportsNearbyPrices: Bool { nearbyAPIFuelCode != nil }
-
-    /// Fuelio `Tank1Type` / log `FuelType` code. Chosen so a FuelTrack export imports back as the same grade.
-    var fuelioTankCode: Int {
-        switch self {
-        case .petrol, .petrolE10: 110
-        case .petrolE5: 112
-        case .diesel: 201
-        case .dieselPremium: 202
-        case .lpg: 401
-        case .electric: 601
-        case .hybrid: 700
-        case .other: 800
-        }
-    }
 }

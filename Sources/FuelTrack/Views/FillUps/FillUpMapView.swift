@@ -40,7 +40,7 @@ struct FillUpMapView: View {
                 ContentUnavailableView(
                     "No locations yet",
                     systemImage: "map",
-                    description: Text("Import a Fuelio CSV, or pick a nearby station when you log a fill-up, and it will show up here.")
+                    description: Text("Pick a nearby station when you log a fill-up, and it will show up here.")
                 )
             } else {
                 Map(position: $position, selection: $selectedPin) {
