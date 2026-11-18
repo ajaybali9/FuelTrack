@@ -18,7 +18,7 @@ struct ContentView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             DashboardView()
-                .tabItem { Label("Home", systemImage: "house.fill") }
+                .tabItem { Label("Home", systemImage: "gauge.with.dots.needle.67percent") }
                 .tag(AppTab.home)
 
             FillUpListView()
@@ -38,8 +38,9 @@ struct ContentView: View {
                 .tag(AppTab.more)
         }
         .tint(GlassTheme.accent)
+        .toolbarBackground(.ultraThinMaterial, for: .tabBar)
         .preferredColorScheme(preferredScheme)
-        .animation(.smooth(duration: 0.32), value: selectedTab)
+        .animation(.snappy(duration: 0.28), value: selectedTab)
         .animation(.smooth(duration: 0.4), value: appearancePreference)
         .sensoryFeedback(.selection, trigger: selectedTab)
         .onAppear {

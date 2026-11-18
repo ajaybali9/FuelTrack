@@ -2,6 +2,18 @@ import MapKit
 import SwiftData
 import SwiftUI
 
+private struct StationRadiusOption: Hashable, Identifiable, CustomStringConvertible {
+    let miles: Int
+    var id: Int { miles }
+    var description: String { "\(miles) mi" }
+
+    static let all: [StationRadiusOption] = [5, 10, 20].map { StationRadiusOption(miles: $0) }
+
+    init(miles: Int) {
+        self.miles = miles
+    }
+}
+
 private enum StationsDisplayMode: String, CaseIterable, Identifiable {
     case list
     case map
@@ -71,6 +83,13 @@ struct NearbyStationsView: View {
             }
         }
         return result
+    }
+
+    private var radiusSelection: Binding<StationRadiusOption> {
+        Binding(
+            get: { StationRadiusOption(miles: radiusMiles) },
+            set: { radiusMiles = $0.miles }
+        )
     }
 
     var body: some View {
@@ -172,32 +191,35 @@ struct NearbyStationsView: View {
     }
 
     private var controls: some View {
-        VStack(spacing: 8) {
-            Picker("Fuel", selection: $fuelType) {
-                ForEach(FuelType.selectableCases.filter(\.supportsNearbyPrices)) { type in
-                    Text(type.shortName).tag(type)
-                }
+        GlassCard(padding: 12) {
+            VStack(spacing: 12) {
+                FTChipPicker(
+                    label: "Fuel",
+                    selection: $fuelType,
+                    options: FuelType.selectableCases.filter(\.supportsNearbyPrices),
+                    shortLabel: { $0.shortName }
+                )
+                FTChipPicker(
+                    label: "Radius",
+                    selection: radiusSelection,
+                    options: StationRadiusOption.all
+                )
             }
-            .pickerStyle(.segmented)
-
-            Picker("Radius", selection: $radiusMiles) {
-                Text("5 mi").tag(5)
-                Text("10 mi").tag(10)
-                Text("20 mi").tag(20)
-            }
-            .pickerStyle(.segmented)
         }
-        .padding(.horizontal)
+        .padding(.horizontal, FuelTrackTokens.horizontalPadding)
         .padding(.vertical, 8)
-        .background(.ultraThinMaterial)
     }
 
     @ViewBuilder
     private var stationsList: some View {
-        List {
-            if !filteredUsedStations.isEmpty {
-                Section {
-                    ForEach(filteredUsedStations) { used in
+        ScrollView {
+            LazyVStack(spacing: 14) {
+                if !filteredUsedStations.isEmpty {
+                    InstrumentSectionHeader(
+                        title: "Favourites · \(filteredUsedStations.count)",
+                        tint: GlassTheme.accentWarm
+                    )
+                    ForEach(Array(filteredUsedStations.enumerated()), id: \.element.id) { index, used in
                         UsedStationRow(
                             summary: used,
                             nearby: UsedStations.bestMatch(for: used, in: stations)
@@ -208,86 +230,113 @@ struct NearbyStationsView: View {
                                 selectedUsed = used
                             }
                         }
+                        .staggeredAppear(index: index)
                     }
-                } header: {
-                    Text("Favourites · \(filteredUsedStations.count)")
-                } footer: {
-                    Text("Stations with more than \(UsedStations.minimumFavouriteVisits) fill-ups. Matched nearby pumps show today’s price when available.")
+                    Text(
+                        "Stations with more than \(UsedStations.minimumFavouriteVisits) fill-ups. Matched nearby pumps show today’s price when available."
+                    )
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 4)
                 }
-            }
 
-            if let cheapest, let price = cheapest.pricePence, searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                Section {
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text("Best price nearby")
+                if let cheapest, let price = cheapest.pricePence, searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    InstrumentSectionHeader(title: "Best price nearby", tint: GlassTheme.accentWarm)
+                    GlassCard(padding: 16) {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(formatPence(price))
+                                .font(.system(.largeTitle, design: .monospaced).weight(.bold))
+                                .foregroundStyle(GlassTheme.accentWarm)
+                            Text(cheapest.name)
+                                .font(.headline)
+                            HStack(spacing: 6) {
+                                if let miles = cheapest.distanceMiles {
+                                    Text(String(format: "%.1f mi", miles))
+                                        .font(FuelTrackTokens.numericFont(size: .subheadline))
+                                        .foregroundStyle(GlassTheme.accent)
+                                }
+                                if !cheapest.postcode.isEmpty {
+                                    Text("· \(cheapest.postcode)")
+                                }
+                            }
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
-                        Text(formatPence(price))
-                            .font(.largeTitle.weight(.bold))
-                        Text(cheapest.name)
-                            .font(.headline)
-                        HStack {
-                            if let miles = cheapest.distanceMiles {
-                                Text(String(format: "%.1f mi", miles))
-                            }
-                            if !cheapest.postcode.isEmpty {
-                                Text("· \(cheapest.postcode)")
-                            }
                         }
-                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .padding(.vertical, 4)
                     .contentShape(Rectangle())
                     .onTapGesture { selectedStation = cheapest }
+                    .staggeredAppear(index: 0)
                 }
-            }
 
-            Section {
+                InstrumentSectionHeader(
+                    title: filteredNearby.isEmpty
+                        ? "Nearby"
+                        : "Nearby · \(filteredNearby.count)",
+                    tint: GlassTheme.accent
+                )
+
                 if isLoading && stations.isEmpty {
-                    HStack {
-                        ProgressView()
-                        Text("Finding stations…")
-                            .foregroundStyle(.secondary)
+                    InstrumentListRow {
+                        HStack(spacing: 12) {
+                            ProgressView()
+                            Text("Finding stations…")
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 } else if let errorMessage {
-                    Text(errorMessage)
-                        .foregroundStyle(.red)
+                    InstrumentListRow(tint: GlassTheme.error) {
+                        Text(errorMessage)
+                            .foregroundStyle(GlassTheme.error)
+                    }
                 } else if filteredNearby.isEmpty {
-                    Text(
-                        stations.isEmpty
-                            ? "No stations found in this radius. Try a wider search or check you’re in the UK."
-                            : "No stations match “\(searchText)”."
-                    )
-                    .foregroundStyle(.secondary)
+                    InstrumentListRow {
+                        Text(
+                            stations.isEmpty
+                                ? "No stations found in this radius. Try a wider search or check you’re in the UK."
+                                : "No stations match “\(searchText)”."
+                        )
+                        .foregroundStyle(.secondary)
+                        .font(.subheadline)
+                    }
                 } else {
                     ForEach(Array(filteredNearby.enumerated()), id: \.element.id) { index, station in
                         Button {
                             selectedStation = station
                         } label: {
-                            StationRow(
-                                station: station,
-                                rank: index + 1,
-                                isBest: index == 0 && searchText.isEmpty,
-                                isUsed: isUsed(station)
-                            )
+                            InstrumentListRow(
+                                tint: index == 0 && searchText.isEmpty
+                                    ? GlassTheme.accentWarm
+                                    : GlassTheme.accent
+                            ) {
+                                StationRow(
+                                    station: station,
+                                    rank: index + 1,
+                                    isBest: index == 0 && searchText.isEmpty,
+                                    isUsed: isUsed(station)
+                                )
+                            }
                         }
                         .buttonStyle(.plain)
+                        .staggeredAppear(index: index)
                     }
                 }
-            } header: {
-                Text(
-                    filteredNearby.isEmpty
-                        ? "Nearby"
-                        : "Nearby · cheapest first · \(filteredNearby.count)"
-                )
-            } footer: {
+
                 VStack(alignment: .leading, spacing: 4) {
                     if let lastUpdated {
                         Text("Feed updated \(lastUpdated.formatted(date: .abbreviated, time: .shortened))")
                     }
                     Text("UK pump prices via Cheapest Fuel (cheapestfuelnearme.co.uk). Prices in pence/litre.")
                 }
+                .font(.caption2)
+                .foregroundStyle(.tertiary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 4)
+                .padding(.top, 4)
             }
+            .padding(FuelTrackTokens.horizontalPadding)
+            .padding(.bottom, 12)
         }
         .refreshable {
             await reload(forceLocation: true)
@@ -308,11 +357,13 @@ struct NearbyStationsView: View {
                 }
 
                 ForEach(mapStations) { station in
-                    Marker(
-                        station.name,
-                        coordinate: station.coordinate
-                    )
-                    .tint(markerTint(for: station))
+                    Annotation(station.name, coordinate: station.coordinate, anchor: .bottom) {
+                        StationPriceMapPin(
+                            priceLabel: station.pricePence.map(formatPenceShort(_:)),
+                            style: mapPinStyle(for: station),
+                            isSelected: selectedStation?.id == station.id
+                        )
+                    }
                     .tag(station)
                 }
             }
@@ -323,28 +374,64 @@ struct NearbyStationsView: View {
                 MapPitchToggle()
             }
 
-            if mapStations.isEmpty {
-                ContentUnavailableView(
-                    searchText.isEmpty ? "No stations on map" : "No matches",
-                    systemImage: "mappin.slash",
-                    description: Text(
-                        searchText.isEmpty
-                            ? "Pull to refresh or widen the radius."
-                            : "Try another name or postcode."
+            VStack(spacing: 10) {
+                if mapStations.isEmpty {
+                    ContentUnavailableView(
+                        searchText.isEmpty ? "No stations on map" : "No matches",
+                        systemImage: "mappin.slash",
+                        description: Text(
+                            searchText.isEmpty
+                                ? "Pull to refresh or widen the radius."
+                                : "Try another name or postcode."
+                        )
                     )
-                )
-                .padding()
-                .glassEffect(.regular, in: .rect(cornerRadius: 20))
-                .padding()
+                    .padding()
+                    .glassEffect(.regular, in: .rect(cornerRadius: 20))
+                    .padding()
+                } else {
+                    mapPriceLegend
+                }
             }
         }
         .ignoresSafeArea(edges: .bottom)
     }
 
-    private func markerTint(for station: NearbyStation) -> Color {
-        if isUsed(station) { return GlassTheme.accentWarm }
-        if station.id == cheapest?.id { return GlassTheme.accent }
-        return .secondary
+    private var mapPriceLegend: some View {
+        HStack(spacing: 12) {
+            legendSwatch(color: GlassTheme.accent, label: "Cheapest")
+            legendSwatch(color: GlassTheme.accentWarm, label: "Favourite")
+            legendSwatch(color: .secondary, label: "Other")
+            Spacer(minLength: 0)
+            Text("Tap pin for details")
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+        }
+        .padding(.horizontal, 14)
+        .padding(.vertical, 10)
+        .background(.ultraThinMaterial, in: Capsule())
+        .padding(.horizontal, 16)
+        .padding(.bottom, 12)
+    }
+
+    private func legendSwatch(color: Color, label: String) -> some View {
+        HStack(spacing: 5) {
+            Circle()
+                .fill(color)
+                .frame(width: 8, height: 8)
+            Text(label)
+                .font(.caption2.weight(.medium))
+                .foregroundStyle(.secondary)
+        }
+    }
+
+    private func mapPinStyle(for station: NearbyStation) -> StationPriceMapPin.Style {
+        if station.id == cheapest?.id { return .cheapest }
+        if isUsed(station) { return .favourite }
+        return .standard
+    }
+
+    private func formatPenceShort(_ pence: Double) -> String {
+        String(format: "%.0f", pence)
     }
 
     private func isUsed(_ station: NearbyStation) -> Bool {
@@ -464,59 +551,85 @@ private struct StationDetailSheet: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        List {
-            Section {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(station.name)
-                        .font(.title2.weight(.bold))
-                    if !station.brand.isEmpty {
-                        Text(station.brand)
-                            .foregroundStyle(.secondary)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                GlassCard(padding: 16) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(station.name)
+                            .font(.title2.weight(.bold))
+                        if !station.brand.isEmpty {
+                            Text(station.brand)
+                                .foregroundStyle(.secondary)
+                        }
+                        if let price = station.pricePence {
+                            Text(String(format: "%.1fp/L", price))
+                                .font(.system(.largeTitle, design: .monospaced).weight(.bold))
+                                .foregroundStyle(GlassTheme.accentWarm)
+                        }
                     }
-                    if let price = station.pricePence {
-                        Text(String(format: "%.1fp/L", price))
-                            .font(.largeTitle.weight(.bold))
-                            .foregroundStyle(GlassTheme.accent)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+
+                InstrumentSectionHeader(title: "Location", tint: GlassTheme.accent)
+                GlassCard(padding: 14) {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text([station.address, station.city, station.postcode].filter { !$0.isEmpty }.joined(separator: ", "))
+                            .font(.subheadline)
+                        if let miles = station.distanceMiles {
+                            LabeledContent("Distance") {
+                                Text(String(format: "%.1f mi", miles))
+                                    .font(FuelTrackTokens.numericFont(size: .body))
+                                    .foregroundStyle(GlassTheme.accent)
+                            }
+                        }
+                        if station.is24h {
+                            Label("Open 24 hours", systemImage: "clock")
+                        }
+                        if station.isSupermarket {
+                            Label("Supermarket", systemImage: "cart")
+                        }
                     }
                 }
-                .padding(.vertical, 4)
-            }
 
-            Section("Location") {
-                Text([station.address, station.city, station.postcode].filter { !$0.isEmpty }.joined(separator: ", "))
-                if let miles = station.distanceMiles {
-                    LabeledContent("Distance", value: String(format: "%.1f mi", miles))
-                }
-                if station.is24h {
-                    Label("Open 24 hours", systemImage: "clock")
-                }
-                if station.isSupermarket {
-                    Label("Supermarket", systemImage: "cart")
-                }
-            }
-
-            if let usedSummary {
-                Section("Your visits") {
-                    LabeledContent("Visits", value: "\(usedSummary.visitCount)")
-                    LabeledContent("Last visit", value: Formatters.shortDate(usedSummary.lastVisit))
-                    LabeledContent("Last fill", value: Formatters.currency(usedSummary.lastCost, code: usedSummary.lastCurrency))
-                    if let ppl = usedSummary.lastPricePerLiter {
-                        LabeledContent("Last paid", value: Formatters.pricePerLiter(ppl, code: usedSummary.lastCurrency))
+                if let usedSummary {
+                    InstrumentSectionHeader(title: "Your visits", tint: GlassTheme.accentWarm)
+                    GlassCard(padding: 14) {
+                        VStack(alignment: .leading, spacing: 8) {
+                            LabeledContent("Visits", value: "\(usedSummary.visitCount)")
+                            LabeledContent("Last visit", value: Formatters.shortDate(usedSummary.lastVisit))
+                            LabeledContent(
+                                "Last fill",
+                                value: Formatters.currency(usedSummary.lastCost, code: usedSummary.lastCurrency)
+                            )
+                            if let ppl = usedSummary.lastPricePerLiter {
+                                LabeledContent(
+                                    "Last paid",
+                                    value: Formatters.pricePerLiter(ppl, code: usedSummary.lastCurrency)
+                                )
+                            }
+                            LabeledContent(
+                                "Total spent",
+                                value: Formatters.currency(usedSummary.totalSpend, code: usedSummary.lastCurrency)
+                            )
+                        }
                     }
-                    LabeledContent("Total spent", value: Formatters.currency(usedSummary.totalSpend, code: usedSummary.lastCurrency))
                 }
-            }
 
-            if let url = station.mapsURL {
-                Section {
+                if let url = station.mapsURL {
                     Link(destination: url) {
-                        Label("Open in Maps", systemImage: "arrow.triangle.turn.up.right.diamond.fill")
+                        InstrumentListRow(tint: GlassTheme.accent) {
+                            Label("Open in Maps", systemImage: "arrow.triangle.turn.up.right.diamond.fill")
+                        }
                     }
+                    .buttonStyle(.plain)
                 }
             }
+            .padding(FuelTrackTokens.horizontalPadding)
+            .padding(.bottom, 12)
         }
         .navigationTitle("Station")
         .navigationBarTitleDisplayMode(.inline)
+        .fuelTrackForm()
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Close") { dismiss() }
@@ -532,47 +645,49 @@ private struct UsedStationRow: View {
 
     var body: some View {
         Button(action: onOpen) {
-            HStack(alignment: .top, spacing: 12) {
-                Image(systemName: "star.fill")
-                    .foregroundStyle(GlassTheme.accentWarm)
-                    .frame(width: 24)
+            InstrumentListRow(tint: GlassTheme.accentWarm) {
+                HStack(alignment: .top, spacing: 12) {
+                    Image(systemName: "star.fill")
+                        .foregroundStyle(GlassTheme.accentWarm)
+                        .frame(width: 24)
 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(summary.displayName)
-                        .font(.headline)
-                        .foregroundStyle(.primary)
-                    HStack(spacing: 6) {
-                        Text("\(summary.visitCount)×")
-                        Text("·")
-                        Text("Last \(Formatters.shortDate(summary.lastVisit))")
-                        if let nearby, let price = nearby.pricePence {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(summary.displayName)
+                            .font(.headline)
+                            .foregroundStyle(.primary)
+                        HStack(spacing: 6) {
+                            Text("\(summary.visitCount)×")
                             Text("·")
-                            Text(String(format: "%.1fp now", price))
-                                .foregroundStyle(GlassTheme.accent)
+                            Text("Last \(Formatters.shortDate(summary.lastVisit))")
+                            if let nearby, let price = nearby.pricePence {
+                                Text("·")
+                                Text(String(format: "%.1fp now", price))
+                                    .font(FuelTrackTokens.numericFont(size: .caption))
+                                    .foregroundStyle(GlassTheme.accentWarm)
+                            }
                         }
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+
+                        Text("Spent \(Formatters.currency(summary.totalSpend, code: summary.lastCurrency))")
+                            .font(.caption2)
+                            .foregroundStyle(.tertiary)
                     }
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
 
-                    Text("Spent \(Formatters.currency(summary.totalSpend, code: summary.lastCurrency))")
-                        .font(.caption2)
-                        .foregroundStyle(.tertiary)
-                }
+                    Spacer(minLength: 0)
 
-                Spacer(minLength: 0)
-
-                if let nearby, let url = nearby.mapsURL {
-                    Link(destination: url) {
-                        Image(systemName: "arrow.triangle.turn.up.right.diamond.fill")
-                            .imageScale(.large)
+                    if let nearby, let url = nearby.mapsURL {
+                        Link(destination: url) {
+                            Image(systemName: "arrow.triangle.turn.up.right.diamond.fill")
+                                .imageScale(.large)
+                        }
+                        .buttonStyle(.borderless)
+                    } else {
+                        Image(systemName: nearby == nil ? "fuelpump" : "chevron.right")
+                            .foregroundStyle(.tertiary)
                     }
-                    .buttonStyle(.borderless)
-                } else {
-                    Image(systemName: nearby == nil ? "fuelpump" : "chevron.right")
-                        .foregroundStyle(.tertiary)
                 }
             }
-            .padding(.vertical, 2)
         }
         .buttonStyle(.plain)
     }
@@ -584,50 +699,75 @@ private struct UsedStationDetailSheet: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        List {
-            Section {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(summary.displayName)
-                        .font(.title2.weight(.bold))
-                    Text("From your fuel logs")
-                        .foregroundStyle(.secondary)
-                }
-                .padding(.vertical, 4)
-            }
-
-            Section("Your visits") {
-                LabeledContent("Visits", value: "\(summary.visitCount)")
-                LabeledContent("Last visit", value: Formatters.shortDate(summary.lastVisit))
-                LabeledContent("Last fill", value: Formatters.currency(summary.lastCost, code: summary.lastCurrency))
-                if let ppl = summary.lastPricePerLiter {
-                    LabeledContent("Last paid", value: Formatters.pricePerLiter(ppl, code: summary.lastCurrency))
-                }
-                LabeledContent("Total spent", value: Formatters.currency(summary.totalSpend, code: summary.lastCurrency))
-            }
-
-            if let nearby {
-                Section("Nearby match") {
-                    if let price = nearby.pricePence {
-                        LabeledContent("Today", value: String(format: "%.1fp/L", price))
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                GlassCard(padding: 16) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(summary.displayName)
+                            .font(.title2.weight(.bold))
+                        Text("From your fuel logs")
+                            .foregroundStyle(.secondary)
                     }
-                    if let miles = nearby.distanceMiles {
-                        LabeledContent("Distance", value: String(format: "%.1f mi", miles))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+
+                InstrumentSectionHeader(title: "Your visits", tint: GlassTheme.accentWarm)
+                GlassCard(padding: 14) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        LabeledContent("Visits", value: "\(summary.visitCount)")
+                        LabeledContent("Last visit", value: Formatters.shortDate(summary.lastVisit))
+                        LabeledContent("Last fill", value: Formatters.currency(summary.lastCost, code: summary.lastCurrency))
+                        if let ppl = summary.lastPricePerLiter {
+                            LabeledContent("Last paid", value: Formatters.pricePerLiter(ppl, code: summary.lastCurrency))
+                        }
+                        LabeledContent(
+                            "Total spent",
+                            value: Formatters.currency(summary.totalSpend, code: summary.lastCurrency)
+                        )
                     }
-                    if let url = nearby.mapsURL {
-                        Link(destination: url) {
-                            Label("Open in Maps", systemImage: "arrow.triangle.turn.up.right.diamond.fill")
+                }
+
+                if let nearby {
+                    InstrumentSectionHeader(title: "Nearby match", tint: GlassTheme.accent)
+                    GlassCard(padding: 14) {
+                        VStack(alignment: .leading, spacing: 8) {
+                            if let price = nearby.pricePence {
+                                LabeledContent("Today") {
+                                    Text(String(format: "%.1fp/L", price))
+                                        .font(FuelTrackTokens.numericFont(size: .body))
+                                        .foregroundStyle(GlassTheme.accentWarm)
+                                }
+                            }
+                            if let miles = nearby.distanceMiles {
+                                LabeledContent("Distance") {
+                                    Text(String(format: "%.1f mi", miles))
+                                        .font(FuelTrackTokens.numericFont(size: .body))
+                                        .foregroundStyle(GlassTheme.accent)
+                                }
+                            }
+                            if let url = nearby.mapsURL {
+                                Link(destination: url) {
+                                    Label("Open in Maps", systemImage: "arrow.triangle.turn.up.right.diamond.fill")
+                                }
+                            }
                         }
                     }
-                }
-            } else {
-                Section {
-                    Text("No matching pump in the current nearby list. Widen the radius or check the station name on your fill-up.")
+                } else {
+                    InstrumentListRow {
+                        Text(
+                            "No matching pump in the current nearby list. Widen the radius or check the station name on your fill-up."
+                        )
                         .foregroundStyle(.secondary)
+                        .font(.subheadline)
+                    }
                 }
             }
+            .padding(FuelTrackTokens.horizontalPadding)
+            .padding(.bottom, 12)
         }
         .navigationTitle("Your station")
         .navigationBarTitleDisplayMode(.inline)
+        .fuelTrackForm()
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Close") { dismiss() }
@@ -646,7 +786,7 @@ private struct StationRow: View {
         HStack(alignment: .top, spacing: 12) {
             Text("\(rank)")
                 .font(.headline.monospacedDigit())
-                .foregroundStyle(isBest ? Color.accentColor : .secondary)
+                .foregroundStyle(isBest ? GlassTheme.accentWarm : .secondary)
                 .frame(width: 24, alignment: .leading)
 
             VStack(alignment: .leading, spacing: 4) {
@@ -657,9 +797,10 @@ private struct StationRow: View {
                     if isBest {
                         Text("BEST")
                             .font(.caption2.weight(.bold))
+                            .foregroundStyle(GlassTheme.accentWarm)
                             .padding(.horizontal, 6)
                             .padding(.vertical, 2)
-                            .background(Color.accentColor.opacity(0.15))
+                            .background(GlassTheme.accentWarm.opacity(0.18))
                             .clipShape(Capsule())
                     }
                     if isUsed {
@@ -673,12 +814,14 @@ private struct StationRow: View {
                 }
                 if let price = station.pricePence {
                     Text(String(format: "%.1fp/L", price))
-                        .font(.title3.weight(.semibold))
-                        .foregroundStyle(.primary)
+                        .font(FuelTrackTokens.numericFont(size: .title3))
+                        .foregroundStyle(isBest ? GlassTheme.accentWarm : .primary)
                 }
                 HStack(spacing: 6) {
                     if let miles = station.distanceMiles {
                         Text(String(format: "%.1f mi", miles))
+                            .font(FuelTrackTokens.numericFont(size: .caption))
+                            .foregroundStyle(GlassTheme.accent)
                     }
                     if !station.brand.isEmpty {
                         Text("· \(station.brand)")
@@ -708,7 +851,61 @@ private struct StationRow: View {
                 .buttonStyle(.borderless)
             }
         }
-        .padding(.vertical, 2)
+    }
+}
+
+/// Compact price chip for map annotations — shows pence-per-litre at a glance.
+private struct StationPriceMapPin: View {
+    enum Style {
+        case cheapest
+        case favourite
+        case standard
+
+        var fill: Color {
+            switch self {
+            case .cheapest: GlassTheme.accent
+            case .favourite: GlassTheme.accentWarm
+            case .standard: Color.primary.opacity(0.75)
+            }
+        }
+    }
+
+    let priceLabel: String?
+    let style: Style
+    var isSelected: Bool = false
+
+    var body: some View {
+        VStack(spacing: 2) {
+            Group {
+                if let priceLabel {
+                    HStack(alignment: .firstTextBaseline, spacing: 1) {
+                        Text(priceLabel)
+                            .font(.system(.caption, design: .monospaced).weight(.bold))
+                        Text("p")
+                            .font(.system(.caption2, design: .monospaced).weight(.semibold))
+                    }
+                } else {
+                    Text("—")
+                        .font(.caption.weight(.bold))
+                }
+            }
+            .foregroundStyle(.white)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 5)
+            .background(style.fill, in: Capsule())
+            .overlay {
+                Capsule()
+                    .strokeBorder(Color.white.opacity(isSelected ? 0.95 : 0.25), lineWidth: isSelected ? 2 : 1)
+            }
+            .shadow(color: .black.opacity(0.25), radius: isSelected ? 6 : 3, y: 2)
+            .scaleEffect(isSelected ? 1.12 : 1)
+
+            Image(systemName: "arrowtriangle.down.fill")
+                .font(.system(size: 8))
+                .foregroundStyle(style.fill)
+                .offset(y: -2)
+        }
+        .accessibilityLabel(priceLabel.map { "\($0) pence per litre" } ?? "Price unavailable")
     }
 }
 

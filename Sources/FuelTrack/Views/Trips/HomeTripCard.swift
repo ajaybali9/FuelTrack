@@ -8,9 +8,11 @@ struct HomeTripCard: View {
     @Environment(TripRecorder.self) private var tripRecorder
     @Environment(\.modelContext) private var modelContext
     @Environment(\.openURL) private var openURL
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     @State private var showActive = false
     @State private var confirmEnd = false
+    @State private var liveBadgePulse = false
 
     private var isThisVehicleActive: Bool {
         tripRecorder.activeTrip?.vehicle?.id == vehicle.id
@@ -25,9 +27,7 @@ struct HomeTripCard: View {
                         .font(.headline)
                     Spacer()
                     if tripRecorder.isRecording && isThisVehicleActive {
-                        Text("LIVE")
-                            .font(.caption.weight(.bold))
-                            .foregroundStyle(GlassTheme.accentWarm)
+                        liveBadge
                     }
                 }
 
@@ -58,10 +58,14 @@ struct HomeTripCard: View {
         .onAppear {
             tripRecorder.attach(modelContext: modelContext)
             tripRecorder.restoreActiveTripIfNeeded(for: vehicle)
+            startLiveBadgeAnimationIfNeeded()
         }
         .onChange(of: vehicle.id) { _, _ in
             tripRecorder.attach(modelContext: modelContext)
             tripRecorder.restoreActiveTripIfNeeded(for: vehicle)
+        }
+        .onChange(of: tripRecorder.isRecording) { _, _ in
+            startLiveBadgeAnimationIfNeeded()
         }
         .sheet(isPresented: $showActive) {
             NavigationStack {
@@ -79,6 +83,31 @@ struct HomeTripCard: View {
         }
     }
 
+    private var liveBadge: some View {
+        HStack(spacing: 6) {
+            Circle()
+                .fill(GlassTheme.accentWarm)
+                .frame(width: 7, height: 7)
+                .opacity(liveBadgePulse || reduceMotion ? 1 : 0.4)
+                .scaleEffect(liveBadgePulse || reduceMotion ? 1.2 : 0.8)
+            Text("LIVE")
+                .font(.caption.weight(.bold))
+                .tracking(0.08)
+                .foregroundStyle(GlassTheme.accentWarm)
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 5)
+        .background {
+            Capsule(style: .continuous)
+                .fill(GlassTheme.accentWarm.opacity(liveBadgePulse || reduceMotion ? 0.22 : 0.12))
+        }
+        .overlay {
+            Capsule(style: .continuous)
+                .strokeBorder(GlassTheme.accentWarm.opacity(0.45), lineWidth: 1)
+        }
+        .accessibilityLabel("Recording live trip")
+    }
+
     @ViewBuilder
     private var liveBlock: some View {
         if tripRecorder.backgroundLimited {
@@ -88,15 +117,32 @@ struct HomeTripCard: View {
         }
 
         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
-            GlassStatChip(title: "Distance", value: Formatters.tripDistance(tripRecorder.liveDistance, unit: vehicle.odometerUnit))
-            GlassStatChip(title: "Speed", value: Formatters.tripSpeed(tripRecorder.currentSpeed, unit: vehicle.odometerUnit))
-            GlassStatChip(title: "Avg", value: Formatters.tripSpeed(tripRecorder.liveAverageSpeed, unit: vehicle.odometerUnit))
+            GlassStatChip(
+                title: "Distance",
+                value: Formatters.tripDistance(tripRecorder.liveDistance, unit: vehicle.odometerUnit)
+            )
+            GlassStatChip(
+                title: "Speed",
+                value: Formatters.tripSpeed(tripRecorder.currentSpeed, unit: vehicle.odometerUnit)
+            )
+            GlassStatChip(
+                title: "Avg",
+                value: Formatters.tripSpeed(tripRecorder.liveAverageSpeed, unit: vehicle.odometerUnit)
+            )
             GlassStatChip(
                 title: "Est. MPG",
                 value: Formatters.consumptionMPG(tripRecorder.liveEstimatedMPG),
                 tint: GlassTheme.accentWarm
             )
         }
+
+        LinearGradient(
+            colors: [GlassTheme.accent, GlassTheme.accentWarm],
+            startPoint: .leading,
+            endPoint: .trailing
+        )
+        .frame(height: 2)
+        .clipShape(Capsule())
 
         HStack {
             Button("Open") { showActive = true }
@@ -112,6 +158,17 @@ struct HomeTripCard: View {
                 }
                 .font(.caption)
             }
+        }
+    }
+
+    private func startLiveBadgeAnimationIfNeeded() {
+        guard tripRecorder.isRecording, isThisVehicleActive, !reduceMotion else {
+            liveBadgePulse = true
+            return
+        }
+        liveBadgePulse = false
+        withAnimation(.easeInOut(duration: 0.9).repeatForever(autoreverses: true)) {
+            liveBadgePulse = true
         }
     }
 

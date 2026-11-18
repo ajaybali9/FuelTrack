@@ -1,10 +1,13 @@
 import SwiftUI
 
 enum GlassTheme {
-    static let accent = Color(red: 0.22, green: 0.62, blue: 0.72)
-    static let accentWarm = Color(red: 0.92, green: 0.52, blue: 0.22)
-    static let deep = Color(red: 0.05, green: 0.10, blue: 0.18)
-    static let ink = Color(red: 0.08, green: 0.14, blue: 0.22)
+    static let accent = FuelTrackTokens.accent
+    static let accentWarm = FuelTrackTokens.accentWarm
+    static let deep = FuelTrackTokens.deep
+    static let ink = FuelTrackTokens.ink
+    static let success = FuelTrackTokens.success
+    static let warning = FuelTrackTokens.warning
+    static let error = FuelTrackTokens.error
 }
 
 enum AppearancePreference: String, CaseIterable, Identifiable {
@@ -44,16 +47,22 @@ struct AppBackdrop: View {
             )
 
             Circle()
-                .fill(GlassTheme.accent.opacity(colorScheme == .dark ? 0.28 : 0.16))
-                .frame(width: 280, height: 280)
-                .blur(radius: 60)
-                .offset(x: -120, y: -220)
+                .fill(GlassTheme.accent.opacity(colorScheme == .dark ? 0.38 : 0.22))
+                .frame(width: 320, height: 320)
+                .blur(radius: 55)
+                .offset(x: -130, y: -240)
 
             Circle()
-                .fill(GlassTheme.accentWarm.opacity(colorScheme == .dark ? 0.22 : 0.12))
-                .frame(width: 260, height: 260)
-                .blur(radius: 70)
-                .offset(x: 140, y: 260)
+                .fill(GlassTheme.accentWarm.opacity(colorScheme == .dark ? 0.30 : 0.18))
+                .frame(width: 300, height: 300)
+                .blur(radius: 65)
+                .offset(x: 150, y: 280)
+
+            Circle()
+                .fill(GlassTheme.accent.opacity(colorScheme == .dark ? 0.12 : 0.08))
+                .frame(width: 180, height: 180)
+                .blur(radius: 40)
+                .offset(x: 80, y: -40)
         }
         .ignoresSafeArea()
         .animation(reduceMotion ? nil : .smooth(duration: 0.45), value: colorScheme)
@@ -62,15 +71,15 @@ struct AppBackdrop: View {
     private var gradientColors: [Color] {
         if colorScheme == .dark {
             return [
-                Color(red: 0.07, green: 0.16, blue: 0.28),
-                Color(red: 0.04, green: 0.08, blue: 0.14),
-                Color(red: 0.10, green: 0.18, blue: 0.24),
+                Color(red: 0.05, green: 0.12, blue: 0.22),
+                Color(red: 0.03, green: 0.06, blue: 0.11),
+                Color(red: 0.12, green: 0.14, blue: 0.18),
             ]
         }
         return [
-            Color(red: 0.93, green: 0.96, blue: 0.99),
-            Color(red: 0.88, green: 0.93, blue: 0.97),
-            Color(red: 0.95, green: 0.96, blue: 0.98),
+            Color(red: 0.90, green: 0.95, blue: 0.98),
+            Color(red: 0.94, green: 0.93, blue: 0.90),
+            Color(red: 0.88, green: 0.92, blue: 0.96),
         ]
     }
 }
@@ -98,10 +107,11 @@ struct GlassStatChip: View {
                 .font(.caption2.weight(.semibold))
                 .foregroundStyle(.secondary)
             Text(value)
-                .font(.title3.weight(.semibold))
+                .font(FuelTrackTokens.numericFont(size: .title3))
                 .foregroundStyle(.primary)
                 .minimumScaleFactor(0.7)
                 .lineLimit(1)
+                .contentTransition(.numericText())
             RoundedRectangle(cornerRadius: 2, style: .continuous)
                 .fill(tint.opacity(0.85))
                 .frame(width: 28, height: 3)

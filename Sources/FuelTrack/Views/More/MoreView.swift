@@ -25,16 +25,23 @@ struct MoreView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 14) {
+                    InstrumentSectionHeader(title: "Garage", tint: GlassTheme.accent)
+                        .staggeredAppear(index: 0)
+
                     NavigationLink {
                         VehicleListView()
                     } label: {
-                        moreRow("Vehicles", subtitle: "\(vehicles.count) cars", icon: "car.side")
+                        moreRow("Vehicles", subtitle: "\(vehicles.count) cars", icon: "car.side", tint: GlassTheme.accent)
                     }
+                    .staggeredAppear(index: 1)
+
                     NavigationLink {
                         ReminderListView()
                     } label: {
-                        moreRow("Reminders", subtitle: "MOT, service, insurance", icon: "bell")
+                        moreRow("Reminders", subtitle: "MOT, service, insurance", icon: "bell", tint: GlassTheme.accent)
                     }
+                    .staggeredAppear(index: 2)
+
                     NavigationLink {
                         if let activeVehicle {
                             TripListView(vehicle: activeVehicle)
@@ -46,18 +53,44 @@ struct MoreView: View {
                             )
                         }
                     } label: {
-                        moreRow("Trip Logger", subtitle: "GPS trips & routes", icon: "point.topleft.down.to.point.bottomright.curvepath")
+                        moreRow(
+                            "Trip Logger",
+                            subtitle: "GPS trips & routes",
+                            icon: "point.topleft.down.to.point.bottomright.curvepath",
+                            tint: GlassTheme.accent
+                        )
                     }
+                    .staggeredAppear(index: 3)
+
+                    InstrumentSectionHeader(title: "Money", tint: GlassTheme.accentWarm)
+                        .staggeredAppear(index: 4)
+
                     NavigationLink {
                         PersonalExpenseListView()
                     } label: {
-                        moreRow("Personal expenses", subtitle: "Food, bills, budgets", icon: "creditcard")
+                        moreRow(
+                            "Personal expenses",
+                            subtitle: "Food, bills, budgets",
+                            icon: "creditcard",
+                            tint: GlassTheme.accentWarm
+                        )
                     }
+                    .staggeredAppear(index: 5)
+
+                    InstrumentSectionHeader(title: "System")
+                        .staggeredAppear(index: 6)
+
                     NavigationLink {
                         BackupImportView()
                     } label: {
-                        moreRow("Import backup", subtitle: "Restore full FuelTrack JSON", icon: "externaldrive.badge.checkmark")
+                        moreRow(
+                            "Import backup",
+                            subtitle: "Restore full FuelTrack JSON",
+                            icon: "externaldrive.badge.checkmark"
+                        )
                     }
+                    .staggeredAppear(index: 7)
+
                     Button {
                         exportFullBackup()
                     } label: {
@@ -68,11 +101,14 @@ struct MoreView: View {
                         )
                     }
                     .accessibilityHint("Creates a shareable FuelTrack JSON backup")
+                    .staggeredAppear(index: 8)
+
                     NavigationLink {
                         SettingsView()
                     } label: {
                         moreRow("Settings", subtitle: "Currency, units, about", icon: "gearshape")
                     }
+                    .staggeredAppear(index: 9)
 
                     if let exportError {
                         Text(exportError)
@@ -91,14 +127,18 @@ struct MoreView: View {
         }
     }
 
-    private func moreRow(_ title: String, subtitle: String, icon: String) -> some View {
-        GlassCard {
+    private func moreRow(
+        _ title: String,
+        subtitle: String,
+        icon: String,
+        tint: Color = GlassTheme.accent
+    ) -> some View {
+        InstrumentListRow(tint: tint) {
             HStack(spacing: 14) {
                 Image(systemName: icon)
                     .font(.title3)
-                    .foregroundStyle(GlassTheme.accent)
-                    .frame(width: 40, height: 40)
-                    .glassEffect(.regular.interactive(), in: .circle)
+                    .foregroundStyle(tint)
+                    .frame(width: 32)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
                         .font(.headline)
@@ -107,7 +147,7 @@ struct MoreView: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
-                Spacer()
+                Spacer(minLength: 8)
                 Image(systemName: "chevron.right")
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.tertiary)

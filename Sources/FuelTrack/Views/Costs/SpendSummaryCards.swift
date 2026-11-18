@@ -79,11 +79,12 @@ struct SpendTotalsCard: View {
     var body: some View {
         GlassCard {
             VStack(alignment: .leading, spacing: 14) {
-                HStack {
+                HStack(alignment: .firstTextBaseline) {
                     if !subtitle.isEmpty {
-                        Text(subtitle)
-                            .font(.caption.weight(.semibold))
-                            .foregroundStyle(.secondary)
+                        Text(subtitle.uppercased())
+                            .font(FuelTrackTokens.labelFont())
+                            .tracking(0.06)
+                            .foregroundStyle(GlassTheme.accentWarm)
                     }
                     Spacer(minLength: 8)
                     Picker("Period", selection: $period) {
@@ -92,32 +93,45 @@ struct SpendTotalsCard: View {
                         }
                     }
                     .pickerStyle(.segmented)
+                    .tint(GlassTheme.accentWarm)
                     .frame(maxWidth: 220)
                 }
 
                 HStack(alignment: .top, spacing: 16) {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(period.periodLabel)
-                            .font(.caption)
+                        Text(period.periodLabel.uppercased())
+                            .font(FuelTrackTokens.labelFont())
+                            .tracking(0.06)
                             .foregroundStyle(.secondary)
                         Text(Formatters.currency(periodTotal, code: currency))
-                            .font(.title.weight(.bold))
-                            .minimumScaleFactor(0.7)
+                            .font(.system(size: 34, weight: .bold, design: .monospaced))
+                            .foregroundStyle(GlassTheme.accentWarm)
+                            .minimumScaleFactor(0.65)
                             .lineLimit(1)
                             .contentTransition(.numericText())
                     }
                     Spacer(minLength: 8)
                     VStack(alignment: .trailing, spacing: 4) {
-                        Text(secondaryLabel)
-                            .font(.caption)
+                        Text(secondaryLabel.uppercased())
+                            .font(FuelTrackTokens.labelFont())
+                            .tracking(0.06)
                             .foregroundStyle(.secondary)
                         Text(Formatters.currency(secondaryValue, code: currency))
-                            .font(.title3.weight(.semibold))
-                            .minimumScaleFactor(0.7)
+                            .font(FuelTrackTokens.numericFont(size: .title3))
+                            .foregroundStyle(.primary)
+                            .minimumScaleFactor(0.65)
                             .lineLimit(1)
                             .contentTransition(.numericText())
                     }
                 }
+
+                LinearGradient(
+                    colors: [GlassTheme.accentWarm, GlassTheme.accentWarm.opacity(0.35)],
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+                .frame(height: 3)
+                .clipShape(Capsule())
 
                 Text("\(periodEntryCount) entr\(periodEntryCount == 1 ? "y" : "ies") · \(period.entryScopePhrase)")
                     .font(.caption2)
@@ -139,12 +153,15 @@ struct CategorySpendBreakdownCard: View {
         GlassCard {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
-                    Text("By category · \(period.shortLabel.lowercased())")
-                        .font(.headline)
-                    Spacer()
+                    InstrumentSectionHeader(
+                        title: "By category · \(period.shortLabel.lowercased())",
+                        tint: GlassTheme.accentWarm
+                    )
+                    Spacer(minLength: 8)
                     if selectedKey != nil {
                         Button("Clear") { onSelect(nil) }
                             .font(.caption.weight(.semibold))
+                            .foregroundStyle(GlassTheme.accentWarm)
                     }
                 }
 
@@ -159,7 +176,7 @@ struct CategorySpendBreakdownCard: View {
                         } label: {
                             HStack(spacing: 12) {
                                 Image(systemName: row.category.systemImage)
-                                    .foregroundStyle(GlassTheme.accent)
+                                    .foregroundStyle(GlassTheme.accentWarm)
                                     .frame(width: 28)
                                 VStack(alignment: .leading, spacing: 2) {
                                     Text(row.category.name)
@@ -177,8 +194,8 @@ struct CategorySpendBreakdownCard: View {
                                 }
                                 Spacer()
                                 Text(Formatters.currency(row.periodTotal, code: currency))
-                                    .font(.subheadline.weight(.semibold))
-                                    .foregroundStyle(.primary)
+                                    .font(FuelTrackTokens.numericFont(size: .subheadline))
+                                    .foregroundStyle(GlassTheme.accentWarm)
                                     .contentTransition(.numericText())
                             }
                             .padding(.vertical, 6)

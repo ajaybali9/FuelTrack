@@ -65,7 +65,7 @@ struct VehicleComplianceCard: View {
                 .foregroundStyle(.secondary)
             Text(status)
                 .font(.caption.weight(.semibold))
-                .foregroundStyle(ok ? Color.green : Color.orange)
+                .foregroundStyle(ok ? GlassTheme.success : GlassTheme.warning)
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
             if let date {
@@ -75,7 +75,7 @@ struct VehicleComplianceCard: View {
                 if let days = Vehicle.daysUntil(date) {
                     Text(days >= 0 ? "\(days)d left" : "\(-days)d overdue")
                         .font(.caption2.weight(.medium))
-                        .foregroundStyle(days < 30 ? Color.orange : .secondary)
+                        .foregroundStyle(days < 30 ? GlassTheme.warning : .secondary)
                 }
             } else {
                 Text("—")
@@ -91,6 +91,7 @@ struct VehicleComplianceCard: View {
 
 struct VehicleComplianceEditor: View {
     @Bindable var vehicle: Vehicle
+    var sectionIndex: Int = 2
     @Environment(\.modelContext) private var modelContext
     @AppStorage("dvlaAPIKey") private var dvlaAPIKey = ""
     @AppStorage("dvlaEnvironment") private var dvlaEnvironmentRaw = DVLAEnvironment.production.rawValue
@@ -101,74 +102,85 @@ struct VehicleComplianceEditor: View {
     @State private var useTaxDate = false
     @State private var useInsuranceDate = false
 
+    private var yearBinding: Binding<String> {
+        Binding(
+            get: {
+                vehicle.yearOfManufacture > 0 ? String(vehicle.yearOfManufacture) : ""
+            },
+            set: { vehicle.yearOfManufacture = Int($0) ?? 0 }
+        )
+    }
+
     var body: some View {
-        Section("UK plate & compliance") {
-            TextField("Registration", text: $vehicle.registrationPlate)
-                .textInputAutocapitalization(.characters)
-                .autocorrectionDisabled()
-            TextField("Colour", text: $vehicle.colour)
-            HStack {
-                Text("Year")
-                Spacer()
-                TextField("YYYY", value: $vehicle.yearOfManufacture, format: .number)
-                    .keyboardType(.numberPad)
-                    .multilineTextAlignment(.trailing)
-                    .frame(maxWidth: 100)
-            }
+        GlassFormSection(title: "UK plate & compliance", index: sectionIndex) {
+            VStack(spacing: 14) {
+                FTComplianceRail(
+                    motStatus: vehicle.motStatus.isEmpty ? "Unknown" : vehicle.motStatus,
+                    motOK: vehicle.motIsValid,
+                    taxStatus: vehicle.taxStatus.isEmpty ? "Unknown" : vehicle.taxStatus,
+                    taxOK: vehicle.taxIsValid,
+                    insuranceStatus: vehicle.insuranceProvider.isEmpty ? "Manual" : vehicle.insuranceProvider,
+                    insuranceOK: (Vehicle.daysUntil(vehicle.insuranceExpiry) ?? 1) > 0,
+                    isRefreshing: isRefreshing,
+                    canRefresh: !vehicle.registrationPlate.isEmpty,
+                    message: message,
+                    onRefresh: { Task { await refreshDVLA() } }
+                )
 
-            LabeledContent("MOT status") {
-                TextField("Valid / Not valid", text: $vehicle.motStatus)
-                    .multilineTextAlignment(.trailing)
-            }
-            Toggle("MOT expiry", isOn: $useMOTDate)
-            if useMOTDate {
-                DatePicker("MOT expiry", selection: Binding(
-                    get: { vehicle.motExpiry ?? .now },
-                    set: { vehicle.motExpiry = $0 }
-                ), displayedComponents: .date)
-            }
+                FTTextField(label: "Colour", text: $vehicle.colour, prompt: "Colour")
+                FTTextField(
+                    label: "Year",
+                    text: yearBinding,
+                    prompt: "YYYY",
+                    disableAutocorrection: true,
+                    keyboard: .numberPad
+                )
 
-            LabeledContent("Tax status") {
-                TextField("Taxed / SORN", text: $vehicle.taxStatus)
-                    .multilineTextAlignment(.trailing)
-            }
-            Toggle("Tax due date", isOn: $useTaxDate)
-            if useTaxDate {
-                DatePicker("Tax due", selection: Binding(
-                    get: { vehicle.taxDueDate ?? .now },
-                    set: { vehicle.taxDueDate = $0 }
-                ), displayedComponents: .date)
-            }
+                FTTextField(
+                    label: "MOT status",
+                    text: $vehicle.motStatus,
+                    prompt: "Valid / Not valid"
+                )
+                FTOptionalDateField(
+                    label: "MOT expiry",
+                    enabled: $useMOTDate,
+                    date: Binding(
+                        get: { vehicle.motExpiry ?? .now },
+                        set: { vehicle.motExpiry = $0 }
+                    )
+                )
 
-            TextField("Insurer", text: $vehicle.insuranceProvider)
-            Toggle("Insurance expiry", isOn: $useInsuranceDate)
-            if useInsuranceDate {
-                DatePicker("Insurance expiry", selection: Binding(
-                    get: { vehicle.insuranceExpiry ?? .now },
-                    set: { vehicle.insuranceExpiry = $0 }
-                ), displayedComponents: .date)
-            }
+                FTTextField(
+                    label: "Tax status",
+                    text: $vehicle.taxStatus,
+                    prompt: "Taxed / SORN"
+                )
+                FTOptionalDateField(
+                    label: "Tax due date",
+                    enabled: $useTaxDate,
+                    date: Binding(
+                        get: { vehicle.taxDueDate ?? .now },
+                        set: { vehicle.taxDueDate = $0 }
+                    )
+                )
 
-            Button {
-                Task { await refreshDVLA() }
-            } label: {
-                if isRefreshing {
-                    ProgressView()
-                } else {
-                    Label("Refresh MOT & tax from DVLA", systemImage: "arrow.triangle.2.circlepath")
+                FTTextField(label: "Insurer", text: $vehicle.insuranceProvider, prompt: "Insurer")
+                FTOptionalDateField(
+                    label: "Insurance expiry",
+                    enabled: $useInsuranceDate,
+                    date: Binding(
+                        get: { vehicle.insuranceExpiry ?? .now },
+                        set: { vehicle.insuranceExpiry = $0 }
+                    )
+                )
+
+                VStack(alignment: .leading, spacing: 8) {
+                    Link("Check MOT history on GOV.UK", destination: URL(string: "https://www.gov.uk/check-mot-history")!)
+                    Link("Check vehicle tax on GOV.UK", destination: URL(string: "https://www.gov.uk/check-vehicle-tax")!)
+                    Link("Check insurance (askMID)", destination: URL(string: "https://ownvehicle.askmid.com/")!)
                 }
+                .font(.subheadline)
             }
-            .disabled(isRefreshing || vehicle.registrationPlate.isEmpty)
-
-            if let message {
-                Text(message)
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
-            }
-
-            Link("Check MOT history on GOV.UK", destination: URL(string: "https://www.gov.uk/check-mot-history")!)
-            Link("Check vehicle tax on GOV.UK", destination: URL(string: "https://www.gov.uk/check-vehicle-tax")!)
-            Link("Check insurance (askMID)", destination: URL(string: "https://ownvehicle.askmid.com/")!)
         }
         .onAppear {
             useMOTDate = vehicle.motExpiry != nil

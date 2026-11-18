@@ -1,10 +1,12 @@
 import Foundation
 
-struct ResolvedSpendCategory: Identifiable, Hashable, Sendable {
+struct ResolvedSpendCategory: Identifiable, Hashable, Sendable, CustomStringConvertible {
     var id: String
     var name: String
     var systemImage: String
     var isCustom: Bool
+
+    var description: String { name }
 }
 
 enum SpendCategoryCatalog {

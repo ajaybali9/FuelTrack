@@ -54,11 +54,15 @@ struct FillUpListView: View {
                     }
                 } else if let vehicle = activeVehicle {
                     ScrollView {
-                        VStack(spacing: 14) {
+                        VStack(spacing: 16) {
                             summary(for: vehicle)
+                                .staggeredAppear(index: 0)
+
+                            InstrumentSectionHeader(title: "Fill-up log", tint: GlassTheme.accent)
+                                .staggeredAppear(index: 1)
 
                             LazyVStack(spacing: 12) {
-                                ForEach(fillUps) { fillUp in
+                                ForEach(Array(fillUps.enumerated()), id: \.element.id) { index, fillUp in
                                     NavigationLink {
                                         FillUpFormView(vehicle: vehicle, fillUp: fillUp)
                                     } label: {
@@ -68,6 +72,7 @@ struct FillUpListView: View {
                                         )
                                     }
                                     .buttonStyle(.plain)
+                                    .staggeredAppear(index: min(index + 2, 12))
                                     .contextMenu {
                                         Button("Delete", role: .destructive) {
                                             modelContext.delete(fillUp)
@@ -77,11 +82,12 @@ struct FillUpListView: View {
                                 }
                             }
                         }
-                        .padding()
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 12)
                     }
                 }
             }
-            .navigationTitle("Fuel")
+            .navigationTitle("Fuel Log")
             .fuelTrackScreen()
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -132,30 +138,39 @@ struct FillUpListView: View {
 
     private func summary(for vehicle: Vehicle) -> some View {
         VStack(spacing: 12) {
-            GlassCard {
-                VStack(alignment: .leading, spacing: 10) {
-                    Text(vehicle.name)
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(.secondary)
+            GlassCard(padding: 18) {
+                VStack(alignment: .leading, spacing: 12) {
+                    InstrumentSectionHeader(title: vehicle.name, tint: GlassTheme.accentWarm)
                     HStack(alignment: .firstTextBaseline) {
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("This month")
-                                .font(.caption)
+                            Text("THIS MONTH")
+                                .font(FuelTrackTokens.labelFont())
+                                .tracking(0.06)
                                 .foregroundStyle(.secondary)
                             Text(Formatters.currency(monthSpend, code: vehicle.currencyCode))
-                                .font(.largeTitle.weight(.bold))
+                                .font(.system(size: 34, weight: .bold, design: .monospaced))
+                                .foregroundStyle(GlassTheme.accentWarm)
                                 .minimumScaleFactor(0.7)
                                 .lineLimit(1)
+                                .contentTransition(.numericText())
                         }
                         Spacer()
                         VStack(alignment: .trailing, spacing: 4) {
                             Text(Formatters.liters(monthLiters))
-                                .font(.title3.weight(.semibold))
+                                .font(FuelTrackTokens.numericFont(size: .title3))
+                                .foregroundStyle(GlassTheme.accent)
                             Text("\(fillUps.filter { $0.date >= monthStart }.count) fills")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
                     }
+                    LinearGradient(
+                        colors: [GlassTheme.accentWarm, GlassTheme.accent],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                    .frame(height: 3)
+                    .clipShape(Capsule())
                 }
             }
 
@@ -181,7 +196,7 @@ private struct FillUpCard: View {
     let unit: OdometerUnit
 
     var body: some View {
-        GlassCard {
+        InstrumentListRow(tint: GlassTheme.accentWarm) {
             VStack(alignment: .leading, spacing: 12) {
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 4) {
@@ -201,15 +216,15 @@ private struct FillUpCard: View {
                     }
                     Spacer(minLength: 8)
                     Text(Formatters.currency(fillUp.totalCost, code: fillUp.currencyCode))
-                        .font(.title3.weight(.bold))
-                        .foregroundStyle(.primary)
+                        .font(FuelTrackTokens.numericFont(size: .title3))
+                        .foregroundStyle(GlassTheme.accentWarm)
                 }
 
                 HStack(spacing: 16) {
-                    metric(Formatters.liters(fillUp.liters), label: "Volume")
-                    metric(Formatters.odometer(fillUp.odometer, unit: unit), label: "Odo")
+                    metric(Formatters.liters(fillUp.liters), label: "Volume", tint: GlassTheme.accent)
+                    metric(Formatters.odometer(fillUp.odometer, unit: unit), label: "Odo", tint: GlassTheme.accent)
                     if let ppl = fillUp.pricePerLiter {
-                        metric(Formatters.pricePerLiter(ppl, code: fillUp.currencyCode), label: "Per litre")
+                        metric(Formatters.pricePerLiter(ppl, code: fillUp.currencyCode), label: "Per litre", tint: GlassTheme.accentWarm)
                     }
                 }
 
@@ -218,14 +233,15 @@ private struct FillUpCard: View {
                         .font(.caption.weight(.semibold))
                         .padding(.horizontal, 10)
                         .padding(.vertical, 5)
-                        .glassEffect(.regular.interactive(), in: .capsule)
+                        .foregroundStyle(.white)
+                        .background(Capsule().fill(GlassTheme.accent))
                     Text(fillUp.isFullTank ? "Full tank" : "Partial")
-                        .font(.caption)
-                        .foregroundStyle(fillUp.isFullTank ? Color.green : Color.orange)
+                        .font(.caption.weight(.medium))
+                        .foregroundStyle(fillUp.isFullTank ? GlassTheme.success : GlassTheme.warning)
                     if fillUp.skipped {
                         Text("Missed prior")
-                            .font(.caption)
-                            .foregroundStyle(.red)
+                            .font(.caption.weight(.medium))
+                            .foregroundStyle(GlassTheme.error)
                     }
                     Spacer()
                 }
@@ -233,14 +249,15 @@ private struct FillUpCard: View {
         }
     }
 
-    private func metric(_ value: String, label: String) -> some View {
+    private func metric(_ value: String, label: String, tint: Color) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(label.uppercased())
-                .font(.caption2.weight(.semibold))
+                .font(FuelTrackTokens.labelFont())
+                .tracking(0.05)
                 .foregroundStyle(.tertiary)
             Text(value)
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(.primary)
+                .font(FuelTrackTokens.numericFont(size: .subheadline))
+                .foregroundStyle(tint)
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)
         }

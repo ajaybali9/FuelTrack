@@ -30,50 +30,63 @@ struct PersonalBudgetView: View {
     }
 
     var body: some View {
-        Form {
-            Section {
+        GlassFormScaffold {
+            GlassFormSection(title: nil, index: 0) {
                 Text("Budgets help you see spend vs plan for personal (non-car) money.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             }
 
-            Section("Overall monthly budget") {
-                TextField("Limit (\(currency.symbol))", text: $overallText)
-                    .keyboardType(.decimalPad)
-                let spent = monthExpenses.reduce(0) { $0 + $1.amount }
-                Text("Spent this month: \(Formatters.currency(spent, code: currency))")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+            GlassFormSection(title: "Overall monthly budget", index: 1) {
+                VStack(alignment: .leading, spacing: 10) {
+                    FTNumericField(
+                        label: "Limit",
+                        text: $overallText,
+                        unit: currency.symbol,
+                        prompt: "0.00",
+                        tint: GlassTheme.accentWarm
+                    )
+                    let spent = monthExpenses.reduce(0) { $0 + $1.amount }
+                    Text("Spent this month: \(Formatters.currency(spent, code: currency))")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             }
 
-            Section("Category budgets (optional)") {
-                ForEach(categoryOptions) { category in
-                    HStack {
-                        Label(category.name, systemImage: category.systemImage)
-                        Spacer()
-                        TextField("—", text: binding(for: category.id))
-                            .keyboardType(.decimalPad)
-                            .multilineTextAlignment(.trailing)
-                            .frame(width: 90)
-                    }
-                    let spent = monthExpenses.filter { $0.categoryKey == category.id }.reduce(0) { $0 + $1.amount }
-                    if spent > 0 {
-                        Text("Spent \(Formatters.currency(spent, code: currency))")
-                            .font(.caption2)
-                            .foregroundStyle(.tertiary)
+            GlassFormSection(title: "Category budgets (optional)", index: 2) {
+                VStack(alignment: .leading, spacing: 16) {
+                    ForEach(categoryOptions) { category in
+                        VStack(alignment: .leading, spacing: 8) {
+                            Label(category.name, systemImage: category.systemImage)
+                                .font(FuelTrackTokens.valueFont())
+                            FTNumericField(
+                                label: "Monthly limit",
+                                text: binding(for: category.id),
+                                unit: currency.symbol,
+                                prompt: "—",
+                                tint: GlassTheme.accentWarm
+                            )
+                            let spent = monthExpenses.filter { $0.categoryKey == category.id }.reduce(0) { $0 + $1.amount }
+                            if spent > 0 {
+                                Text("Spent \(Formatters.currency(spent, code: currency))")
+                                    .font(.caption2)
+                                    .foregroundStyle(.tertiary)
+                            }
+                        }
                     }
                 }
             }
 
             if let message {
-                Section {
-                    Text(message).foregroundStyle(.secondary)
+                GlassFormSection(title: nil, index: 3) {
+                    Text(message)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
                 }
             }
         }
         .navigationTitle("Budgets")
         .navigationBarTitleDisplayMode(.inline)
-        .fuelTrackForm()
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Close") { dismiss() }

@@ -28,7 +28,8 @@ struct DashboardView: View {
                     )
                 }
             }
-            .navigationTitle("Home")
+            .navigationTitle("Fuel Computer")
+            .navigationBarTitleDisplayMode(.inline)
             .fuelTrackScreen()
             .toolbar {
                 if !vehicles.isEmpty {
@@ -61,73 +62,81 @@ struct DashboardView: View {
         let currency = vehicle.currencyCode
 
         ScrollView {
-            VStack(spacing: 16) {
-                GlassCard {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text(vehicle.name)
-                            .font(.largeTitle.weight(.bold))
-                        Text(vehicle.displaySubtitle)
-                            .foregroundStyle(.secondary)
-                        if let odo = vehicle.latestOdometer {
-                            Text("Odometer \(Formatters.odometer(odo, unit: unit))")
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                }
+            VStack(spacing: 18) {
+                InstrumentHeroCluster(
+                    vehicleName: vehicle.name,
+                    subtitle: vehicle.displaySubtitle,
+                    odometerLine: vehicle.latestOdometer.map { "ODO \(Formatters.odometer($0, unit: unit))" },
+                    primaryLabel: "Avg L/100km",
+                    primaryValue: Formatters.consumptionL100(stats.averageLitersPer100km),
+                    secondaryLabel: "Month fuel",
+                    secondaryValue: Formatters.currency(stats.spendThisMonth, code: currency)
+                )
+                .staggeredAppear(index: 0)
 
                 HomeTripCard(vehicle: vehicle)
+                    .staggeredAppear(index: 1)
 
                 if !vehicle.registrationPlate.isEmpty || vehicle.motExpiry != nil || vehicle.taxDueDate != nil || vehicle.insuranceExpiry != nil {
                     VehicleComplianceCard(vehicle: vehicle)
+                        .staggeredAppear(index: 2)
                 }
 
+                InstrumentSectionHeader(title: "Nearby fuel", tint: GlassTheme.accent)
+                    .staggeredAppear(index: 3)
                 HomeFuelQuickAccess(vehicle: vehicle)
+                    .staggeredAppear(index: 3)
 
+                InstrumentSectionHeader(title: "Spend pulse", tint: GlassTheme.accentWarm)
+                    .staggeredAppear(index: 4)
                 HomeCarSpendCard(vehicle: vehicle)
-
+                    .staggeredAppear(index: 4)
                 HomePersonalSpendCard()
+                    .staggeredAppear(index: 5)
 
+                InstrumentSectionHeader(title: "Instrument readout")
+                    .staggeredAppear(index: 6)
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
                     GlassStatChip(title: "Avg L/100km", value: Formatters.consumptionL100(stats.averageLitersPer100km))
                     GlassStatChip(title: "Avg MPG", value: Formatters.consumptionMPG(stats.averageMPG), tint: GlassTheme.accentWarm)
                     GlassStatChip(title: "Fuel month", value: Formatters.currency(stats.spendThisMonth, code: currency))
                     GlassStatChip(title: "Car month", value: Formatters.currency(vehicle.costsThisMonth, code: currency), tint: GlassTheme.accentWarm)
                 }
+                .staggeredAppear(index: 6)
 
                 GlassCard {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Fuel economy")
-                            .font(.headline)
+                    VStack(alignment: .leading, spacing: 12) {
+                        InstrumentSectionHeader(title: "Fuel economy")
                         if let last = stats.lastSegment {
-                            row("Last tank", Formatters.consumptionL100(last.litersPer100km(unit: unit)))
-                            row("Last tank MPG", Formatters.consumptionMPG(last.mpg(unit: unit)))
+                            instrumentRow("Last tank", Formatters.consumptionL100(last.litersPer100km(unit: unit)), tint: GlassTheme.accent)
+                            instrumentRow("Last tank MPG", Formatters.consumptionMPG(last.mpg(unit: unit)), tint: GlassTheme.accent)
                         } else {
                             Text("Log two full tanks to see consumption.")
                                 .foregroundStyle(.secondary)
+                                .font(.subheadline)
                         }
-                        row("Avg price", Formatters.pricePerLiter(stats.averagePricePerLiter, code: currency))
-                        row("Cost / distance", Formatters.costPerDistance(stats.averageCostPerDistance, unit: unit, code: currency))
+                        instrumentRow("Avg price", Formatters.pricePerLiter(stats.averagePricePerLiter, code: currency), tint: GlassTheme.accentWarm)
+                        instrumentRow("Cost / distance", Formatters.costPerDistance(stats.averageCostPerDistance, unit: unit, code: currency), tint: GlassTheme.accentWarm)
                     }
                 }
+                .staggeredAppear(index: 7)
 
                 GlassCard {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Totals")
-                            .font(.headline)
-                        row("Fill-ups", "\(stats.fillUpCount)")
-                        row("Fuel", Formatters.liters(stats.totalLiters))
-                        row("Distance", Formatters.odometer(stats.totalDistance, unit: unit))
-                        row("Fuel spend", Formatters.currency(stats.totalSpend, code: currency))
-                        row("Open reminders", "\(vehicle.openReminders.count)")
+                    VStack(alignment: .leading, spacing: 12) {
+                        InstrumentSectionHeader(title: "Lifetime")
+                        instrumentRow("Fill-ups", "\(stats.fillUpCount)", tint: GlassTheme.accent)
+                        instrumentRow("Fuel", Formatters.liters(stats.totalLiters), tint: GlassTheme.accent)
+                        instrumentRow("Distance", Formatters.odometer(stats.totalDistance, unit: unit), tint: GlassTheme.accent)
+                        instrumentRow("Fuel spend", Formatters.currency(stats.totalSpend, code: currency), tint: GlassTheme.accentWarm)
+                        instrumentRow("Open reminders", "\(vehicle.openReminders.count)", tint: GlassTheme.accentWarm)
                     }
                 }
+                .staggeredAppear(index: 8)
 
                 if !vehicle.openReminders.isEmpty {
                     GlassCard {
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Upcoming")
-                                .font(.headline)
+                        VStack(alignment: .leading, spacing: 10) {
+                            InstrumentSectionHeader(title: "Upcoming", tint: GlassTheme.accentWarm)
                             ForEach(vehicle.openReminders.prefix(3)) { reminder in
                                 HStack {
                                     Image(systemName: "bell.fill")
@@ -136,6 +145,7 @@ struct DashboardView: View {
                                     Spacer()
                                     if let due = reminder.dueDate {
                                         Text(due.formatted(date: .abbreviated, time: .omitted))
+                                            .font(FuelTrackTokens.numericFont(size: .caption))
                                             .foregroundStyle(.secondary)
                                     }
                                 }
@@ -143,19 +153,23 @@ struct DashboardView: View {
                             }
                         }
                     }
+                    .staggeredAppear(index: 9)
                 }
             }
-            .padding()
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .padding(.bottom, 28)
         }
     }
 
-    private func row(_ title: String, _ value: String) -> some View {
+    private func instrumentRow(_ title: String, _ value: String, tint: Color) -> some View {
         HStack {
             Text(title)
                 .foregroundStyle(.secondary)
             Spacer()
             Text(value)
-                .fontWeight(.medium)
+                .font(FuelTrackTokens.numericFont(size: .body))
+                .foregroundStyle(tint)
         }
         .font(.subheadline)
     }

@@ -13,47 +13,55 @@ struct BackupImportView: View {
     @State private var errorMessage: String?
 
     var body: some View {
-        Form {
-            Section {
+        GlassFormScaffold {
+            GlassFormSection(title: nil, index: 0) {
                 Text("Choose a FuelTrack backup JSON from More → Export backup. Vehicles, fill-ups, car spend, personal spend, budgets, reminders, and favourites are restored by ID (safe to import twice).")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
             }
 
-            Section("Options") {
-                Toggle("Set first restored vehicle as active", isOn: $setFirstVehicleActive)
+            GlassFormSection(title: "Options", index: 1) {
+                FTToggleRow(
+                    label: "Set first restored vehicle as active",
+                    isOn: $setFirstVehicleActive
+                )
             }
 
-            Section {
+            GlassFormSection(title: nil, index: 2) {
                 Button {
                     showingPicker = true
                 } label: {
                     if isImporting {
                         ProgressView()
+                            .frame(maxWidth: .infinity)
                     } else {
                         Label("Choose backup JSON…", systemImage: "square.and.arrow.down")
+                            .frame(maxWidth: .infinity)
                     }
                 }
+                .buttonStyle(.borderedProminent)
+                .tint(GlassTheme.accent)
                 .disabled(isImporting)
             }
 
             if let statusMessage {
-                Section("Result") {
+                GlassFormSection(title: "Result", index: 3) {
                     Text(statusMessage)
+                        .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
             }
 
             if let errorMessage {
-                Section("Error") {
+                GlassFormSection(title: "Error", index: 4) {
                     Text(errorMessage)
-                        .foregroundStyle(.red)
+                        .font(.footnote)
+                        .foregroundStyle(GlassTheme.error)
                 }
             }
         }
         .navigationTitle("Import backup")
         .navigationBarTitleDisplayMode(.inline)
-        .fuelTrackForm()
         .fileImporter(
             isPresented: $showingPicker,
             allowedContentTypes: [.json, .data],

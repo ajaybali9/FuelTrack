@@ -117,6 +117,7 @@ struct PersonalExpenseListView: View {
                             subtitle: "Personal",
                             period: period
                         )
+                        .staggeredAppear(index: 0)
 
                         if let overallBudget, selectedPeriod == .monthly {
                             GlassCard {
@@ -137,6 +138,7 @@ struct PersonalExpenseListView: View {
                                     .foregroundStyle(remaining < 0 ? Color.orange : .secondary)
                                 }
                             }
+                            .staggeredAppear(index: 1)
                         }
 
                         CategorySpendBreakdownCard(
@@ -146,19 +148,26 @@ struct PersonalExpenseListView: View {
                             selectedKey: filterKey,
                             onSelect: { filterKey = $0 }
                         )
+                        .staggeredAppear(index: 2)
 
-                        LazyVStack(spacing: 12) {
-                            ForEach(filteredExpenses) { expense in
-                                NavigationLink {
-                                    PersonalExpenseFormView(expense: expense)
-                                } label: {
-                                    expenseRow(expense)
-                                }
-                                .buttonStyle(.plain)
-                                .contextMenu {
-                                    Button("Delete", role: .destructive) {
-                                        modelContext.delete(expense)
-                                        try? modelContext.save()
+                        if !filteredExpenses.isEmpty {
+                            InstrumentSectionHeader(title: "Entries", tint: GlassTheme.accentWarm)
+                                .staggeredAppear(index: 3)
+
+                            LazyVStack(spacing: 10) {
+                                ForEach(Array(filteredExpenses.enumerated()), id: \.element.id) { index, expense in
+                                    NavigationLink {
+                                        PersonalExpenseFormView(expense: expense)
+                                    } label: {
+                                        expenseRow(expense)
+                                    }
+                                    .buttonStyle(.plain)
+                                    .staggeredAppear(index: index + 4)
+                                    .contextMenu {
+                                        Button("Delete", role: .destructive) {
+                                            modelContext.delete(expense)
+                                            try? modelContext.save()
+                                        }
                                     }
                                 }
                             }
@@ -187,12 +196,12 @@ struct PersonalExpenseListView: View {
 
     private func expenseRow(_ expense: PersonalExpense) -> some View {
         let resolved = SpendCategoryCatalog.resolve(key: expense.categoryKey, scope: .personal, customs: customs)
-        return GlassCard {
-            HStack(spacing: 12) {
+        return InstrumentListRow(tint: GlassTheme.accentWarm) {
+            HStack(alignment: .top, spacing: 12) {
                 Image(systemName: resolved.systemImage)
-                    .foregroundStyle(GlassTheme.accent)
-                    .frame(width: 36, height: 36)
-                    .glassEffect(.regular.interactive(), in: .circle)
+                    .font(.title3)
+                    .foregroundStyle(GlassTheme.accentWarm)
+                    .frame(width: 32)
                 VStack(alignment: .leading, spacing: 4) {
                     Text(expense.title)
                         .font(.headline)
@@ -207,10 +216,10 @@ struct PersonalExpenseListView: View {
                             .lineLimit(1)
                     }
                 }
-                Spacer()
+                Spacer(minLength: 8)
                 Text(Formatters.currency(expense.amount, code: expense.currencyCode))
-                    .font(.headline)
-                    .foregroundStyle(.primary)
+                    .font(FuelTrackTokens.numericFont(size: .body))
+                    .foregroundStyle(GlassTheme.accentWarm)
             }
         }
     }

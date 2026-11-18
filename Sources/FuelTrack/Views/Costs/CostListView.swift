@@ -98,6 +98,7 @@ struct CarCostListContent: View {
                             subtitle: vehicle.name,
                             period: period
                         )
+                        .staggeredAppear(index: 0)
 
                         CategorySpendBreakdownCard(
                             rows: categoryRows,
@@ -106,19 +107,26 @@ struct CarCostListContent: View {
                             selectedKey: filterKey,
                             onSelect: { filterKey = $0 }
                         )
+                        .staggeredAppear(index: 1)
 
-                        LazyVStack(spacing: 12) {
-                            ForEach(filteredCosts) { cost in
-                                NavigationLink {
-                                    CostFormView(vehicle: vehicle, cost: cost)
-                                } label: {
-                                    costRow(cost, currency: vehicle.currencyCode)
-                                }
-                                .buttonStyle(.plain)
-                                .contextMenu {
-                                    Button("Delete", role: .destructive) {
-                                        modelContext.delete(cost)
-                                        try? modelContext.save()
+                        if !filteredCosts.isEmpty {
+                            InstrumentSectionHeader(title: "Entries", tint: GlassTheme.accentWarm)
+                                .staggeredAppear(index: 2)
+
+                            LazyVStack(spacing: 10) {
+                                ForEach(Array(filteredCosts.enumerated()), id: \.element.id) { index, cost in
+                                    NavigationLink {
+                                        CostFormView(vehicle: vehicle, cost: cost)
+                                    } label: {
+                                        costRow(cost, currency: vehicle.currencyCode)
+                                    }
+                                    .buttonStyle(.plain)
+                                    .staggeredAppear(index: index + 3)
+                                    .contextMenu {
+                                        Button("Delete", role: .destructive) {
+                                            modelContext.delete(cost)
+                                            try? modelContext.save()
+                                        }
                                     }
                                 }
                             }
@@ -132,13 +140,12 @@ struct CarCostListContent: View {
 
     private func costRow(_ cost: CarCost, currency: CurrencyCode) -> some View {
         let resolved = SpendCategoryCatalog.resolve(key: cost.categoryKey, scope: .car, customs: customs)
-        return GlassCard {
+        return InstrumentListRow(tint: GlassTheme.accentWarm) {
             HStack(alignment: .top, spacing: 12) {
                 Image(systemName: resolved.systemImage)
                     .font(.title3)
-                    .foregroundStyle(GlassTheme.accent)
-                    .frame(width: 36, height: 36)
-                    .glassEffect(.regular.interactive(), in: .circle)
+                    .foregroundStyle(GlassTheme.accentWarm)
+                    .frame(width: 32)
                 VStack(alignment: .leading, spacing: 4) {
                     Text(cost.title)
                         .font(.headline)
@@ -153,10 +160,10 @@ struct CarCostListContent: View {
                             .lineLimit(2)
                     }
                 }
-                Spacer()
+                Spacer(minLength: 8)
                 Text(Formatters.currency(cost.amount, code: cost.currencyCode))
-                    .font(.headline)
-                    .foregroundStyle(.primary)
+                    .font(FuelTrackTokens.numericFont(size: .body))
+                    .foregroundStyle(GlassTheme.accentWarm)
             }
         }
     }
@@ -191,52 +198,68 @@ struct CostFormView: View {
         SpendCategoryCatalog.all(scope: .car, customs: customs)
     }
 
+    private var categoryBinding: Binding<ResolvedSpendCategory> {
+        Binding(
+            get: {
+                categoryOptions.first(where: { $0.id == categoryKey })
+                    ?? SpendCategoryCatalog.resolve(key: categoryKey, scope: .car, customs: customs)
+            },
+            set: { categoryKey = $0.id }
+        )
+    }
+
     var body: some View {
-        Form {
-            Section("Cost") {
-                TextField("Title", text: $title)
-                DatePicker("Date", selection: $date, displayedComponents: .date)
-                Picker("Category", selection: $categoryKey) {
-                    ForEach(categoryOptions) { item in
-                        Label(item.name, systemImage: item.systemImage).tag(item.id)
-                    }
-                }
-                Button("Manage categories") { showingCategories = true }
-                HStack {
-                    Text("Amount")
-                    Spacer()
-                    TextField("0.00", text: $amountText)
-                        .keyboardType(.decimalPad)
-                        .multilineTextAlignment(.trailing)
-                        .frame(maxWidth: 140)
-                }
-                Picker("Currency", selection: $currencyCode) {
-                    ForEach(CurrencyCode.allCases) { code in
-                        Text(code.displayName).tag(code)
-                    }
-                }
-                HStack {
-                    Text("Odometer (optional)")
-                    Spacer()
-                    TextField("—", text: $odometerText)
-                        .keyboardType(.decimalPad)
-                        .multilineTextAlignment(.trailing)
-                        .frame(maxWidth: 140)
+        GlassFormScaffold {
+            GlassFormSection(title: "Cost", index: 0) {
+                VStack(spacing: 14) {
+                    FTTextField(label: "Title", text: $title, prompt: "Title")
+                    FTDateField(label: "Date", date: $date, components: .date)
+                    FTChipPicker(
+                        label: "Category",
+                        selection: categoryBinding,
+                        options: categoryOptions,
+                        shortLabel: { $0.name }
+                    )
+                    Button("Manage categories") { showingCategories = true }
+                        .font(.subheadline.weight(.medium))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    FTNumericField(
+                        label: "Amount",
+                        text: $amountText,
+                        unit: currencyCode.symbol,
+                        prompt: "0.00",
+                        tint: GlassTheme.accentWarm
+                    )
+                    FTChipPicker(
+                        label: "Currency",
+                        selection: $currencyCode,
+                        options: Array(CurrencyCode.allCases),
+                        tint: GlassTheme.accentWarm,
+                        shortLabel: { $0.symbol }
+                    )
+                    FTNumericField(
+                        label: "Odometer",
+                        text: $odometerText,
+                        unit: vehicle.odometerUnit.shortLabel,
+                        prompt: "Optional"
+                    )
                 }
             }
-            Section("Notes") {
-                TextField("Note", text: $note, axis: .vertical)
-                    .lineLimit(2...5)
+
+            GlassFormSection(title: "Notes", index: 1) {
+                FTTextArea(label: "Note", text: $note, lineLimit: 2...5)
             }
+
             if let saveError {
-                Section {
-                    Text(saveError).foregroundStyle(.red)
+                GlassFormSection(title: nil, index: 2) {
+                    Text(saveError)
+                        .font(.footnote)
+                        .foregroundStyle(GlassTheme.error)
                 }
             }
         }
         .navigationTitle(isEditing ? "Edit cost" : "New cost")
         .navigationBarTitleDisplayMode(.inline)
-        .fuelTrackForm()
         .toolbar {
             if !isEditing {
                 ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } }

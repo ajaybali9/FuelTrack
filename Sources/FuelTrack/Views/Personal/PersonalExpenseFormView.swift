@@ -27,53 +27,83 @@ struct PersonalExpenseFormView: View {
         SpendCategoryCatalog.all(scope: .personal, customs: customs)
     }
 
+    private var categoryBinding: Binding<ResolvedSpendCategory> {
+        Binding(
+            get: {
+                categoryOptions.first(where: { $0.id == categoryKey })
+                    ?? SpendCategoryCatalog.resolve(key: categoryKey, scope: .personal, customs: customs)
+            },
+            set: { categoryKey = $0.id }
+        )
+    }
+
     var body: some View {
-        Form {
-            Section("Expense") {
-                TextField("Title", text: $title)
-                DatePicker("Date", selection: $date, displayedComponents: .date)
-                Picker("Category", selection: $categoryKey) {
-                    ForEach(categoryOptions) { item in
-                        Label(item.name, systemImage: item.systemImage).tag(item.id)
-                    }
+        GlassFormScaffold {
+            GlassFormSection(title: "Expense", index: 0) {
+                VStack(spacing: 14) {
+                    FTTextField(label: "Title", text: $title, prompt: "Title")
+                    FTDateField(label: "Date", date: $date, components: .date)
+                    FTChipPicker(
+                        label: "Category",
+                        selection: categoryBinding,
+                        options: categoryOptions,
+                        shortLabel: { $0.name }
+                    )
+                    Button("Manage categories") { showingCategories = true }
+                        .font(.subheadline.weight(.medium))
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                Button("Manage categories") { showingCategories = true }
             }
 
-            Section("Amount") {
-                Picker("Currency", selection: $currency) {
-                    ForEach(CurrencyCode.allCases) { code in
-                        Text(code.displayName).tag(code)
-                    }
+            GlassFormSection(title: "Amount", index: 1) {
+                VStack(spacing: 14) {
+                    FTChipPicker(
+                        label: "Currency",
+                        selection: $currency,
+                        options: Array(CurrencyCode.allCases),
+                        tint: GlassTheme.accentWarm,
+                        shortLabel: { $0.symbol }
+                    )
+                    FTNumericField(
+                        label: "Amount",
+                        text: $amountText,
+                        unit: currency.symbol,
+                        prompt: "0.00",
+                        tint: GlassTheme.accentWarm
+                    )
                 }
-                .pickerStyle(.segmented)
-                TextField("Amount", text: $amountText)
-                    .keyboardType(.decimalPad)
             }
 
-            Section("Details") {
-                TextField("Payment method (optional)", text: $paymentMethod)
-                TextField("Note", text: $note, axis: .vertical)
-                    .lineLimit(2...4)
+            GlassFormSection(title: "Details", index: 2) {
+                VStack(spacing: 14) {
+                    FTTextField(
+                        label: "Payment method",
+                        text: $paymentMethod,
+                        prompt: "Optional"
+                    )
+                    FTTextArea(label: "Note", text: $note, lineLimit: 2...4)
+                }
             }
 
             if let errorMessage {
-                Section {
-                    Text(errorMessage).foregroundStyle(.red)
+                GlassFormSection(title: nil, index: 3) {
+                    Text(errorMessage)
+                        .font(.footnote)
+                        .foregroundStyle(GlassTheme.error)
                 }
             }
 
             if isEditing {
-                Section {
+                GlassFormSection(title: nil, index: 4) {
                     Button("Delete expense", role: .destructive) {
                         confirmingDelete = true
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
         }
         .navigationTitle(isEditing ? "Edit expense" : "Add expense")
         .navigationBarTitleDisplayMode(.inline)
-        .fuelTrackForm()
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Cancel") { dismiss() }

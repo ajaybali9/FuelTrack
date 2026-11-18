@@ -26,8 +26,8 @@ struct CustomCategoriesView: View {
     }
 
     var body: some View {
-        Form {
-            Section {
+        GlassFormScaffold {
+            GlassFormSection(title: nil, index: 0) {
                 Text(scope == .car
                      ? "Custom categories appear alongside built-in car cost types like Road tax and MOT."
                      : "Custom categories appear alongside built-in personal types like Food and Bills.")
@@ -35,60 +35,67 @@ struct CustomCategoriesView: View {
                     .foregroundStyle(.secondary)
             }
 
-            Section("Add category") {
-                TextField("Name", text: $newName)
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 10) {
-                        ForEach(iconChoices, id: \.self) { icon in
-                            Button {
-                                newIcon = icon
-                            } label: {
-                                Image(systemName: icon)
-                                    .frame(width: 36, height: 36)
-                                    .glassEffect(
-                                        newIcon == icon
-                                            ? .regular.tint(GlassTheme.accent).interactive()
-                                            : .regular.interactive(),
-                                        in: .circle
-                                    )
+            GlassFormSection(title: "Add category", index: 1) {
+                VStack(spacing: 14) {
+                    FTTextField(label: "Name", text: $newName, prompt: "Name")
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 10) {
+                            ForEach(iconChoices, id: \.self) { icon in
+                                Button {
+                                    newIcon = icon
+                                } label: {
+                                    Image(systemName: icon)
+                                        .frame(width: 36, height: 36)
+                                        .glassEffect(
+                                            newIcon == icon
+                                                ? .regular.tint(GlassTheme.accent).interactive()
+                                                : .regular.interactive(),
+                                            in: .circle
+                                        )
+                                }
+                                .buttonStyle(.plain)
                             }
-                            .buttonStyle(.plain)
                         }
+                        .padding(.vertical, 4)
                     }
-                    .padding(.vertical, 4)
+                    Button("Add category") { add() }
+                        .font(.subheadline.weight(.semibold))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .disabled(newName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 }
-                Button("Add category") { add() }
-                    .disabled(newName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             }
 
-            Section(customs.isEmpty ? "No custom categories yet" : "Your categories") {
-                ForEach(customs) { item in
-                    HStack {
-                        Image(systemName: item.systemImage)
-                            .foregroundStyle(GlassTheme.accent)
-                            .frame(width: 28)
-                        Text(item.name)
-                        Spacer()
-                        Button(role: .destructive) {
-                            modelContext.delete(item)
-                            try? modelContext.save()
-                        } label: {
-                            Image(systemName: "trash")
+            GlassFormSection(title: customs.isEmpty ? "No custom categories yet" : "Your categories", index: 2) {
+                VStack(spacing: 12) {
+                    ForEach(customs) { item in
+                        HStack {
+                            Image(systemName: item.systemImage)
+                                .foregroundStyle(GlassTheme.accent)
+                                .frame(width: 28)
+                            Text(item.name)
+                            Spacer()
+                            Button(role: .destructive) {
+                                modelContext.delete(item)
+                                try? modelContext.save()
+                            } label: {
+                                Image(systemName: "trash")
+                            }
+                            .buttonStyle(.borderless)
                         }
-                        .buttonStyle(.borderless)
                     }
                 }
             }
 
             if let message {
-                Section {
-                    Text(message).foregroundStyle(.secondary)
+                GlassFormSection(title: nil, index: 3) {
+                    Text(message)
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
                 }
             }
         }
         .navigationTitle(scope == .car ? "Car categories" : "Personal categories")
         .navigationBarTitleDisplayMode(.inline)
-        .fuelTrackForm()
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Done") { dismiss() }

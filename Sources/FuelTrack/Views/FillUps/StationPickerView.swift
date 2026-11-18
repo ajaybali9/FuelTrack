@@ -69,46 +69,58 @@ struct StationPickerView: View {
                         )
                     )
                 } else {
-                    List {
-                        if !filteredUsed.isEmpty {
-                            Section("Favourites (>\(UsedStations.minimumFavouriteVisits) fill-ups)") {
-                                ForEach(filteredUsed) { used in
-                                    Button {
-                                        selectUsed(used)
-                                    } label: {
-                                        usedRow(used)
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: FuelTrackTokens.sectionSpacing) {
+                            if !filteredUsed.isEmpty {
+                                GlassFormSection(
+                                    title: "Favourites (>\(UsedStations.minimumFavouriteVisits) fill-ups)",
+                                    index: 0
+                                ) {
+                                    VStack(spacing: 10) {
+                                        ForEach(filteredUsed) { used in
+                                            Button {
+                                                selectUsed(used)
+                                            } label: {
+                                                usedRow(used)
+                                            }
+                                            .buttonStyle(.plain)
+                                        }
                                     }
                                 }
                             }
-                        }
 
-                        Section {
-                            if isLoading {
-                                HStack {
-                                    ProgressView()
-                                    Text("Updating nearby…")
-                                        .foregroundStyle(.secondary)
-                                }
-                            }
-                            ForEach(filteredNearby) { station in
-                                Button {
-                                    onSelectNearby(station)
-                                    dismiss()
-                                } label: {
-                                    nearbyRow(station)
-                                }
-                            }
-                        } header: {
-                            Text(
-                                filteredNearby.isEmpty
+                            GlassFormSection(
+                                title: filteredNearby.isEmpty
                                     ? "Nearby"
-                                    : "Nearby · \(filteredNearby.count) · \(sortCheapest ? "cheapest" : "nearest")"
-                            )
-                        } footer: {
-                            Text("Search matches name, brand, town and postcode. Radius \(radiusMiles) mi.")
+                                    : "Nearby · \(filteredNearby.count) · \(sortCheapest ? "cheapest" : "nearest")",
+                                index: 1
+                            ) {
+                                VStack(spacing: 10) {
+                                    if isLoading {
+                                        HStack {
+                                            ProgressView()
+                                            Text("Updating nearby…")
+                                                .foregroundStyle(.secondary)
+                                        }
+                                    }
+                                    ForEach(filteredNearby) { station in
+                                        Button {
+                                            onSelectNearby(station)
+                                            dismiss()
+                                        } label: {
+                                            nearbyRow(station)
+                                        }
+                                        .buttonStyle(.plain)
+                                    }
+                                    Text("Search matches name, brand, town and postcode. Radius \(radiusMiles) mi.")
+                                        .font(.caption2)
+                                        .foregroundStyle(.tertiary)
+                                }
+                            }
                         }
+                        .padding(.horizontal, FuelTrackTokens.horizontalPadding)
+                        .padding(.vertical, 12)
                     }
-                    .listStyle(.insetGrouped)
                 }
             }
             .navigationTitle("Choose station")

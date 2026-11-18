@@ -44,47 +44,56 @@ struct SettingsView: View {
         DVLAEnvironment(rawValue: dvlaEnvironmentRaw) ?? .production
     }
 
+    private var dvlaTestOK: Bool? {
+        guard let dvlaTestMessage else { return nil }
+        return dvlaTestMessage.hasPrefix("OK")
+    }
+
     var body: some View {
-        Form {
-            Section {
-                Picker("Appearance", selection: appearanceBinding) {
-                    ForEach(AppearancePreference.allCases) { option in
-                        Text(option.displayName).tag(option)
-                    }
-                }
-                .pickerStyle(.segmented)
-                Text("System follows your iPhone Light/Dark setting.")
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
-            } header: {
-                Text("Appearance")
-            }
-
-            Section("Defaults for new vehicles") {
-                Picker("Currency", selection: currencyBinding) {
-                    ForEach(CurrencyCode.allCases) { code in
-                        Text(code.displayName).tag(code)
-                    }
-                }
-                Picker("Odometer unit", selection: unitBinding) {
-                    ForEach(OdometerUnit.allCases) { unit in
-                        Text(unit.displayName).tag(unit)
-                    }
-                }
-            }
-
-            Section {
-                Toggle("Expiry alerts", isOn: $complianceNotificationsEnabled)
-                Text("Local notifications at 9:00 am: 4 days, 3 days, and 1 day before, plus the morning MOT, road tax, or insurance is due. Opening the app later on the due day still sets a reminder for later that morning.")
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
-                if let notificationStatusMessage {
-                    Text(notificationStatusMessage)
+        GlassFormScaffold {
+            GlassFormSection(title: "Appearance", index: 0) {
+                VStack(alignment: .leading, spacing: 14) {
+                    FTChipPicker(
+                        label: "Appearance",
+                        selection: appearanceBinding,
+                        options: Array(AppearancePreference.allCases)
+                    )
+                    Text("System follows your iPhone Light/Dark setting.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
-            } header: {
-                Text("Reminders")
+            }
+
+            GlassFormSection(title: "Defaults for new vehicles", index: 1) {
+                VStack(spacing: 14) {
+                    FTChipPicker(
+                        label: "Currency",
+                        selection: currencyBinding,
+                        options: Array(CurrencyCode.allCases),
+                        tint: GlassTheme.accentWarm,
+                        shortLabel: { $0.symbol + " " + $0.rawValue }
+                    )
+                    FTChipPicker(
+                        label: "Odometer unit",
+                        selection: unitBinding,
+                        options: Array(OdometerUnit.allCases),
+                        shortLabel: { $0.shortLabel }
+                    )
+                }
+            }
+
+            GlassFormSection(title: "Reminders", index: 2) {
+                VStack(alignment: .leading, spacing: 12) {
+                    FTToggleRow(label: "Expiry alerts", isOn: $complianceNotificationsEnabled)
+                    Text("Local notifications at 9:00 am: 4 days, 3 days, and 1 day before, plus the morning MOT, road tax, or insurance is due. Opening the app later on the due day still sets a reminder for later that morning.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                    if let notificationStatusMessage {
+                        Text(notificationStatusMessage)
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                    }
+                }
             }
             .onChange(of: complianceNotificationsEnabled) { _, enabled in
                 ComplianceNotificationScheduler.isEnabled = enabled
@@ -101,64 +110,66 @@ struct SettingsView: View {
                 }
             }
 
-            Section {
-                Picker("Environment", selection: dvlaEnvironmentBinding) {
-                    ForEach(DVLAEnvironment.allCases) { env in
-                        Text(env.displayName).tag(env)
-                    }
-                }
-                .pickerStyle(.segmented)
+            GlassFormSection(title: "UK vehicle data", index: 3) {
+                VStack(alignment: .leading, spacing: 14) {
+                    FTChipPicker(
+                        label: "Environment",
+                        selection: dvlaEnvironmentBinding,
+                        options: Array(DVLAEnvironment.allCases)
+                    )
 
-                SecureField("DVLA API key", text: $dvlaAPIKey)
-                    .textInputAutocapitalization(.never)
-                    .autocorrectionDisabled()
+                    FTSecureField(
+                        label: "DVLA API key",
+                        text: $dvlaAPIKey,
+                        status: dvlaTestMessage,
+                        statusOK: dvlaTestOK
+                    )
 
-                if dvlaEnvironment == .test {
-                    Text("Test mode uses DVLA UAT with mock plates only (e.g. AA19MOT, AA19AAA). Real registrations will not work until you switch to Production with a live key.")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                } else {
-                    Text("Production looks up real UK registrations for MOT & road tax. Insurance is not published by DVLA.")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                }
-
-                Button {
-                    Task { await testDVLAConnection() }
-                } label: {
-                    if isTestingDVLA {
-                        ProgressView()
+                    if dvlaEnvironment == .test {
+                        Text("Test mode uses DVLA UAT with mock plates only (e.g. AA19MOT, AA19AAA). Real registrations will not work until you switch to Production with a live key.")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
                     } else {
-                        Text(dvlaEnvironment == .test ? "Test connection (AA19MOT)" : "Test connection")
+                        Text("Production looks up real UK registrations for MOT & road tax. Insurance is not published by DVLA.")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
                     }
-                }
-                .disabled(dvlaAPIKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isTestingDVLA)
 
-                if let dvlaTestMessage {
-                    Text(dvlaTestMessage)
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                }
+                    Button {
+                        Task { await testDVLAConnection() }
+                    } label: {
+                        if isTestingDVLA {
+                            ProgressView()
+                                .frame(maxWidth: .infinity)
+                        } else {
+                            Text(dvlaEnvironment == .test ? "Test connection (AA19MOT)" : "Test connection")
+                                .frame(maxWidth: .infinity)
+                        }
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(GlassTheme.accent)
+                    .disabled(dvlaAPIKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || isTestingDVLA)
 
-                Link(
-                    "DVLA Vehicle Enquiry API portal",
-                    destination: URL(string: "https://developer-portal.driver-vehicle-licensing.api.gov.uk/")!
-                )
-            } header: {
-                Text("UK vehicle data")
+                    Link(
+                        "DVLA Vehicle Enquiry API portal",
+                        destination: URL(string: "https://developer-portal.driver-vehicle-licensing.api.gov.uk/")!
+                    )
+                    .font(.subheadline)
+                }
             }
 
-            Section("About") {
-                LabeledContent("App", value: "FuelTrack")
-                LabeledContent("Version", value: "2.2")
-                Text("Fuel + car & personal expenses + stations + MOT/tax (DVLA) + insurance reminders. Glass UI. Data stays on device.")
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
+            GlassFormSection(title: "About", index: 4) {
+                VStack(alignment: .leading, spacing: 10) {
+                    LabeledContent("App", value: "FuelTrack")
+                    LabeledContent("Version", value: "2.2")
+                    Text("Fuel + car & personal expenses + stations + MOT/tax (DVLA) + insurance reminders. Glass UI. Data stays on device.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
             }
         }
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.inline)
-        .fuelTrackForm()
         .onAppear(perform: preferProductionDVLA)
     }
 

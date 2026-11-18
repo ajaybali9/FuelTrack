@@ -29,68 +29,86 @@ struct VehicleFormView: View {
     }
 
     var body: some View {
-        Form {
-            Section("Vehicle") {
-                TextField("Name", text: $name)
-                TextField("Registration", text: $registrationPlate)
-                    .textInputAutocapitalization(.characters)
-                    .autocorrectionDisabled()
-                TextField("Make", text: $make)
-                TextField("Model", text: $model)
-                Picker("Fuel type", selection: $fuelType) {
-                    ForEach(FuelType.selectableCases) { type in
-                        Text(type.displayName).tag(type)
-                    }
+        GlassFormScaffold {
+            GlassFormSection(title: "Vehicle", index: 0) {
+                VStack(spacing: 14) {
+                    FTTextField(label: "Name", text: $name, prompt: "Name")
+                    FTPlateField(
+                        label: "Registration",
+                        text: Binding(
+                            get: { registrationPlate },
+                            set: { newValue in
+                                registrationPlate = newValue
+                                if let vehicle {
+                                    vehicle.registrationPlate = DVLAVehicleService.cleanedRegistration(newValue)
+                                }
+                            }
+                        )
+                    )
+                    FTTextField(label: "Make", text: $make, prompt: "Make")
+                    FTTextField(label: "Model", text: $model, prompt: "Model")
+                    FTChipPicker(
+                        label: "Fuel type",
+                        selection: $fuelType,
+                        options: FuelType.selectableCases,
+                        shortLabel: { $0.shortName }
+                    )
                 }
             }
 
-            Section("Preferences") {
-                Picker("Odometer", selection: $odometerUnit) {
-                    ForEach(OdometerUnit.allCases) { unit in
-                        Text(unit.displayName).tag(unit)
-                    }
-                }
-                Picker("Currency", selection: $currencyCode) {
-                    ForEach(CurrencyCode.allCases) { code in
-                        Text(code.displayName).tag(code)
-                    }
+            GlassFormSection(title: "Preferences", index: 1) {
+                VStack(spacing: 14) {
+                    FTChipPicker(
+                        label: "Odometer",
+                        selection: $odometerUnit,
+                        options: Array(OdometerUnit.allCases),
+                        shortLabel: { $0.shortLabel }
+                    )
+                    FTChipPicker(
+                        label: "Currency",
+                        selection: $currencyCode,
+                        options: Array(CurrencyCode.allCases),
+                        tint: GlassTheme.accentWarm,
+                        shortLabel: { $0.symbol + " " + $0.rawValue }
+                    )
                 }
             }
 
             if let vehicle {
-                VehicleComplianceEditor(vehicle: vehicle)
+                VehicleComplianceEditor(vehicle: vehicle, sectionIndex: 2)
             } else {
-                Section("UK compliance") {
+                GlassFormSection(title: "UK compliance", index: 2) {
                     Text("Save the vehicle first, then open it again to refresh MOT & tax from DVLA and set insurance expiry.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
             }
 
-            Section("Notes") {
-                TextField("Notes", text: $notes, axis: .vertical)
-                    .lineLimit(3...6)
+            GlassFormSection(title: "Notes", index: 3) {
+                FTTextArea(label: "Notes", text: $notes, lineLimit: 3...6)
             }
 
             if !isEditing {
-                Section {
-                    Toggle("Set as active vehicle", isOn: $makeActive)
+                GlassFormSection(title: nil, index: 4) {
+                    FTToggleRow(label: "Set as active vehicle", isOn: $makeActive)
                 }
             }
 
             if isEditing {
-                Section {
-                    Button("Delete vehicle", role: .destructive) {
-                        showDeleteConfirm = true
+                GlassFormSection(title: nil, index: 5) {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Button("Delete vehicle", role: .destructive) {
+                            showDeleteConfirm = true
+                        }
+                        Text("Deletes this car and all of its fill-ups, costs, and reminders.")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
                     }
-                } footer: {
-                    Text("Deletes this car and all of its fill-ups, costs, and reminders.")
                 }
             }
         }
         .navigationTitle(isEditing ? "Edit vehicle" : "New vehicle")
         .navigationBarTitleDisplayMode(.inline)
-        .fuelTrackForm()
         .toolbar {
             if !isEditing {
                 ToolbarItem(placement: .cancellationAction) {

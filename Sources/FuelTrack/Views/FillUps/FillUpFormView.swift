@@ -24,6 +24,7 @@ struct FillUpFormView: View {
     @State private var showingStationPicker = false
     @State private var selectedPricePence: Double?
     @State private var saveError: String?
+    @State private var attemptedSave = false
 
     private var isEditing: Bool { fillUp != nil }
 
@@ -40,91 +41,113 @@ struct FillUpFormView: View {
         return true
     }
 
+    private var pricePerLiterLabel: String? {
+        guard let liters = parsedLiters, liters > 0, let cost = parsedCost else { return nil }
+        return Formatters.pricePerLiter(cost / liters, code: currencyCode)
+    }
+
+    private var odometerInvalid: Bool {
+        attemptedSave && (parsedOdometer == nil || (parsedOdometer ?? -1) < 0)
+    }
+
+    private var litersInvalid: Bool {
+        attemptedSave && (parsedLiters == nil || (parsedLiters ?? 0) <= 0)
+    }
+
+    private var costInvalid: Bool {
+        attemptedSave && (parsedCost == nil || (parsedCost ?? -1) < 0)
+    }
+
     var body: some View {
-        Form {
-            Section("Fill-up") {
-                DatePicker("Date", selection: $date, displayedComponents: [.date, .hourAndMinute])
-                HStack {
-                    Text("Odometer (\(vehicle.odometerUnit.shortLabel))")
-                    Spacer()
-                    TextField("0", text: $odometerText)
-                        .keyboardType(.decimalPad)
-                        .multilineTextAlignment(.trailing)
-                        .frame(maxWidth: 140)
-                }
-                HStack {
-                    Text("Volume (L)")
-                    Spacer()
-                    TextField("0.00", text: $litersText)
-                        .keyboardType(.decimalPad)
-                        .multilineTextAlignment(.trailing)
-                        .frame(maxWidth: 140)
-                }
-                HStack {
-                    Text("Total cost")
-                    Spacer()
-                    TextField("0.00", text: $totalCostText)
-                        .keyboardType(.decimalPad)
-                        .multilineTextAlignment(.trailing)
-                        .frame(maxWidth: 140)
-                }
-                Picker("Currency", selection: $currencyCode) {
-                    ForEach(CurrencyCode.allCases) { code in
-                        Text(code.displayName).tag(code)
-                    }
-                }
-                Picker("Fuel type", selection: $fuelType) {
-                    ForEach(FuelType.selectableCases) { type in
-                        Text(type.displayName).tag(type)
-                    }
+        GlassFormScaffold {
+            GlassFormSection(title: "Fill-up", index: 0) {
+                VStack(spacing: 14) {
+                    FTDateField(label: "Date", date: $date, components: [.date, .hourAndMinute])
+                    FTNumericField(
+                        label: "Odometer",
+                        text: $odometerText,
+                        unit: vehicle.odometerUnit.shortLabel,
+                        isInvalid: odometerInvalid
+                    )
+                    FTNumericField(
+                        label: "Volume",
+                        text: $litersText,
+                        unit: "L",
+                        prompt: "0.00",
+                        isInvalid: litersInvalid
+                    )
+                    FTNumericField(
+                        label: "Total cost",
+                        text: $totalCostText,
+                        unit: currencyCode.symbol,
+                        prompt: "0.00",
+                        isInvalid: costInvalid,
+                        tint: GlassTheme.accentWarm
+                    )
+                    FTChipPicker(
+                        label: "Currency",
+                        selection: $currencyCode,
+                        options: Array(CurrencyCode.allCases),
+                        tint: GlassTheme.accentWarm,
+                        shortLabel: { $0.symbol + " " + $0.rawValue }
+                    )
+                    FTChipPicker(
+                        label: "Fuel type",
+                        selection: $fuelType,
+                        options: FuelType.selectableCases,
+                        shortLabel: { $0.shortName }
+                    )
                 }
             }
 
-            Section("Tank") {
-                Toggle("Full tank", isOn: $isFullTank)
-                Toggle("Missed fill-up before this", isOn: $skipped)
+            GlassFormSection(title: "Tank", index: 1) {
+                VStack(spacing: 12) {
+                    FTToggleRow(
+                        label: "Full tank",
+                        isOn: $isFullTank,
+                        caption: "Needed for full-tank economy"
+                    )
+                    FTToggleRow(
+                        label: "Missed fill-up before this",
+                        isOn: $skipped,
+                        caption: "Breaks economy chain intentionally"
+                    )
+                }
             }
 
-            Section("Details") {
-                HStack {
-                    TextField("Station", text: $station)
-                    Button {
-                        showingStationPicker = true
-                    } label: {
-                        Image(systemName: "mappin.and.ellipse")
-                            .foregroundStyle(GlassTheme.accent)
-                    }
-                    .accessibilityLabel("Choose station from list")
-                }
-                if let selectedPricePence {
-                    Text(String(format: "Listed at %.1fp/L", selectedPricePence))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                    if let liters = parsedLiters, liters > 0, currencyCode == .gbp {
-                        Button("Fill total from station price") {
-                            totalCostText = String(format: "%.2f", (selectedPricePence / 100.0) * liters)
+            GlassFormSection(title: "Details", index: 2) {
+                VStack(spacing: 14) {
+                    FTStationField(
+                        station: $station,
+                        pricePence: selectedPricePence,
+                        currencyCode: currencyCode,
+                        litersText: litersText,
+                        onPickStation: { showingStationPicker = true },
+                        onFillFromPrice: {
+                            guard let pence = selectedPricePence,
+                                  let liters = parsedLiters,
+                                  liters > 0 else { return }
+                            totalCostText = String(format: "%.2f", (pence / 100.0) * liters)
                         }
-                    }
-                }
-                TextField("Note", text: $note, axis: .vertical)
-                    .lineLimit(2...4)
-            }
-
-            if let liters = parsedLiters, liters > 0, let cost = parsedCost {
-                Section("Preview") {
-                    LabeledContent("Price / L", value: Formatters.pricePerLiter(cost / liters, code: currencyCode))
+                    )
+                    FTTextArea(label: "Note", text: $note, lineLimit: 2...4)
                 }
             }
 
             if let saveError {
-                Section {
-                    Text(saveError).foregroundStyle(.red)
+                GlassFormSection(title: nil, index: 3) {
+                    Text(saveError)
+                        .font(.footnote)
+                        .foregroundStyle(GlassTheme.error)
                 }
             }
         }
+        .safeAreaInset(edge: .bottom) {
+            FTLiveMetricsStrip(pricePerLiter: pricePerLiterLabel)
+        }
+        .animation(.smooth(duration: 0.28), value: pricePerLiterLabel)
         .navigationTitle(isEditing ? "Edit fill-up" : "New fill-up")
         .navigationBarTitleDisplayMode(.inline)
-        .fuelTrackForm()
         .toolbar {
             if !isEditing {
                 ToolbarItem(placement: .cancellationAction) {
@@ -132,8 +155,12 @@ struct FillUpFormView: View {
                 }
             }
             ToolbarItem(placement: .confirmationAction) {
-                Button("Save") { save() }
-                    .disabled(!canSave)
+                Button("Save") {
+                    attemptedSave = true
+                    save()
+                }
+                .disabled(!canSave)
+                .fontWeight(.semibold)
             }
         }
         .sheet(isPresented: $showingStationPicker) {
@@ -155,7 +182,6 @@ struct FillUpFormView: View {
     }
 
     private func applyStation(_ picked: NearbyStation) {
-        // Synthetic used-station picks have a zero coordinate and "used-" id.
         if picked.id.hasPrefix("used-") {
             station = picked.name
             stationExternalId = ""

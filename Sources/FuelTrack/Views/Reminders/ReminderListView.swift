@@ -35,47 +35,16 @@ struct ReminderListView: View {
                 )
             } else {
                 ScrollView {
-                    LazyVStack(spacing: 12) {
-                        ForEach(reminders) { item in
-                            GlassCard {
-                                HStack(alignment: .top, spacing: 12) {
-                                    Button {
-                                        item.isCompleted.toggle()
+                    LazyVStack(spacing: 10) {
+                        ForEach(Array(reminders.enumerated()), id: \.element.id) { index, item in
+                            reminderRow(item)
+                                .staggeredAppear(index: index)
+                                .contextMenu {
+                                    Button("Delete", role: .destructive) {
+                                        modelContext.delete(item)
                                         try? modelContext.save()
-                                    } label: {
-                                        Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
-                                            .font(.title2)
-                                            .foregroundStyle(item.isCompleted ? GlassTheme.accent : .secondary)
                                     }
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        Text(item.title)
-                                            .font(.headline)
-                                            .strikethrough(item.isCompleted)
-                                        if let due = item.dueDate {
-                                            Text(due.formatted(date: .abbreviated, time: .omitted))
-                                                .font(.caption)
-                                                .foregroundStyle(.secondary)
-                                        }
-                                        if let odo = item.dueOdometer, let unit = activeVehicle?.odometerUnit {
-                                            Text("At \(Formatters.odometer(odo, unit: unit))")
-                                                .font(.caption)
-                                                .foregroundStyle(.secondary)
-                                        }
-                                        if !item.note.isEmpty {
-                                            Text(item.note)
-                                                .font(.caption)
-                                                .foregroundStyle(.tertiary)
-                                        }
-                                    }
-                                    Spacer()
                                 }
-                            }
-                            .contextMenu {
-                                Button("Delete", role: .destructive) {
-                                    modelContext.delete(item)
-                                    try? modelContext.save()
-                                }
-                            }
                         }
                     }
                     .padding()
@@ -92,18 +61,27 @@ struct ReminderListView: View {
         }
         .sheet(isPresented: $showingAdd) {
             NavigationStack {
-                Form {
-                    TextField("Title", text: $title)
-                    Toggle("Due date", isOn: $useDate)
-                    if useDate {
-                        DatePicker("Date", selection: $dueDate, displayedComponents: .date)
+                GlassFormScaffold {
+                    GlassFormSection(title: nil, index: 0) {
+                        VStack(spacing: 14) {
+                            FTTextField(label: "Title", text: $title, prompt: "Title")
+                            FTOptionalDateField(
+                                label: "Due date",
+                                enabled: $useDate,
+                                date: $dueDate
+                            )
+                            FTNumericField(
+                                label: "Due odometer",
+                                text: $dueOdoText,
+                                unit: activeVehicle?.odometerUnit.shortLabel ?? "",
+                                prompt: "Optional"
+                            )
+                            FTTextArea(label: "Note", text: $note, lineLimit: 2...4)
+                        }
                     }
-                    TextField("Due odometer (optional)", text: $dueOdoText)
-                        .keyboardType(.decimalPad)
-                    TextField("Note", text: $note, axis: .vertical)
                 }
                 .navigationTitle("New reminder")
-                .fuelTrackForm()
+                .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) { Button("Cancel") { showingAdd = false } }
                     ToolbarItem(placement: .confirmationAction) {
@@ -113,6 +91,60 @@ struct ReminderListView: View {
                 }
             }
             .presentationDetents([.medium])
+        }
+    }
+
+    private func reminderRowTint(_ item: ReminderItem) -> Color {
+        guard !item.isCompleted, isDueSoon(item) else { return GlassTheme.accent }
+        return GlassTheme.accentWarm
+    }
+
+    private func isDueSoon(_ item: ReminderItem) -> Bool {
+        guard let due = item.dueDate else { return false }
+        let calendar = Calendar.current
+        let dueDay = calendar.startOfDay(for: due)
+        let today = calendar.startOfDay(for: .now)
+        let days = calendar.dateComponents([.day], from: today, to: dueDay).day ?? 999
+        return days <= ReminderSchedule.leadDays.max() ?? 4
+    }
+
+    @ViewBuilder
+    private func reminderRow(_ item: ReminderItem) -> some View {
+        let tint = reminderRowTint(item)
+        InstrumentListRow(tint: tint) {
+            HStack(alignment: .top, spacing: 12) {
+                Button {
+                    item.isCompleted.toggle()
+                    try? modelContext.save()
+                } label: {
+                    Image(systemName: item.isCompleted ? "checkmark.circle.fill" : "circle")
+                        .font(.title2)
+                        .foregroundStyle(item.isCompleted ? GlassTheme.accent : tint)
+                }
+                .buttonStyle(.plain)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(item.title)
+                        .font(.headline)
+                        .strikethrough(item.isCompleted)
+                        .foregroundStyle(item.isCompleted ? .secondary : .primary)
+                    if let due = item.dueDate {
+                        Text(due.formatted(date: .abbreviated, time: .omitted))
+                            .font(FuelTrackTokens.numericFont(size: .caption))
+                            .foregroundStyle(isDueSoon(item) && !item.isCompleted ? tint : .secondary)
+                    }
+                    if let odo = item.dueOdometer, let unit = activeVehicle?.odometerUnit {
+                        Text("At \(Formatters.odometer(odo, unit: unit))")
+                            .font(FuelTrackTokens.numericFont(size: .caption))
+                            .foregroundStyle(.secondary)
+                    }
+                    if !item.note.isEmpty {
+                        Text(item.note)
+                            .font(.caption)
+                            .foregroundStyle(.tertiary)
+                    }
+                }
+                Spacer(minLength: 0)
+            }
         }
     }
 

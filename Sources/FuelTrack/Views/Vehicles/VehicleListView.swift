@@ -27,37 +27,16 @@ struct VehicleListView: View {
                 }
             } else {
                 ScrollView {
-                    LazyVStack(spacing: 12) {
-                        ForEach(vehicles) { vehicle in
+                    LazyVStack(spacing: 10) {
+                        ForEach(Array(vehicles.enumerated()), id: \.element.id) { index, vehicle in
                             HStack(spacing: 10) {
                                 NavigationLink {
                                     VehicleFormView(vehicle: vehicle)
                                 } label: {
-                                    GlassCard {
-                                        HStack {
-                                            VStack(alignment: .leading, spacing: 4) {
-                                                Text(vehicle.name)
-                                                    .font(.headline)
-                                                    .foregroundStyle(.primary)
-                                                Text(vehicle.displaySubtitle)
-                                                    .font(.subheadline)
-                                                    .foregroundStyle(.secondary)
-                                                Text("\(vehicle.currencyCode.rawValue) · \(vehicle.odometerUnit.displayName)")
-                                                    .font(.caption)
-                                                    .foregroundStyle(.tertiary)
-                                            }
-                                            Spacer()
-                                            if vehicle.id == activeVehicle?.id {
-                                                Image(systemName: "checkmark.circle.fill")
-                                                    .foregroundStyle(GlassTheme.accent)
-                                            }
-                                            Image(systemName: "chevron.right")
-                                                .font(.caption.weight(.semibold))
-                                                .foregroundStyle(.tertiary)
-                                        }
-                                    }
+                                    vehicleCard(vehicle)
                                 }
                                 .buttonStyle(.plain)
+                                .staggeredAppear(index: index)
 
                                 Button {
                                     vehiclePendingDelete = vehicle
@@ -115,6 +94,54 @@ struct VehicleListView: View {
             }
         } message: {
             Text("This removes the car and all linked fill-ups, costs, and reminders.")
+        }
+    }
+
+    private func vehicleCard(_ vehicle: Vehicle) -> some View {
+        let makeModel = [vehicle.make, vehicle.model].filter { !$0.isEmpty }.joined(separator: " · ")
+        return InstrumentListRow(tint: GlassTheme.accent) {
+            HStack(alignment: .center, spacing: 12) {
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack(spacing: 8) {
+                        Text(vehicle.name)
+                            .font(.headline)
+                            .foregroundStyle(.primary)
+                        if vehicle.id == activeVehicle?.id {
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.subheadline)
+                                .foregroundStyle(GlassTheme.accent)
+                        }
+                    }
+                    if !vehicle.registrationPlate.isEmpty {
+                        Text(vehicle.displayPlate)
+                            .font(FuelTrackTokens.plateFont())
+                            .tracking(1.2)
+                            .foregroundStyle(GlassTheme.ink)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background {
+                                RoundedRectangle(cornerRadius: 6, style: .continuous)
+                                    .fill(Color.yellow.opacity(0.9))
+                            }
+                    }
+                    if !makeModel.isEmpty {
+                        Text(makeModel)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    } else if vehicle.registrationPlate.isEmpty {
+                        Text(vehicle.fuelType.displayName)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
+                    Text("\(vehicle.currencyCode.rawValue) · \(vehicle.odometerUnit.displayName)")
+                        .font(FuelTrackTokens.numericFont(size: .caption))
+                        .foregroundStyle(.tertiary)
+                }
+                Spacer(minLength: 8)
+                Image(systemName: "chevron.right")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.tertiary)
+            }
         }
     }
 

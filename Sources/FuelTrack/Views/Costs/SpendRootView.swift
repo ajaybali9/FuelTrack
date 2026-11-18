@@ -54,6 +54,7 @@ struct SpendRootView: View {
                         }
                     }
                     .pickerStyle(.segmented)
+                    .tint(GlassTheme.accentWarm)
                     .frame(maxWidth: 220)
                 }
 
