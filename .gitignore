@@ -12,3 +12,4 @@ DerivedData/
 .build/
 rea-target/fuelio-extracted/
 rea-target/fuelio-apkm/
+.ua/.trash-*/
