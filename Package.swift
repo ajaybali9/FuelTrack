@@ -16,7 +16,10 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "FuelTrack"
+            name: "FuelTrack",
+            resources: [
+                .process("Resources"),
+            ]
         ),
     ]
 )

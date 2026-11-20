@@ -62,8 +62,20 @@ struct MoreView: View {
                     }
                     .staggeredAppear(index: 3)
 
+                    NavigationLink {
+                        NearbyGaragesView()
+                    } label: {
+                        moreRow(
+                            "Nearby garages",
+                            subtitle: "MOT centres & repair",
+                            icon: "wrench.and.screwdriver",
+                            tint: GlassTheme.accent
+                        )
+                    }
+                    .staggeredAppear(index: 4)
+
                     InstrumentSectionHeader(title: "Money", tint: GlassTheme.accentWarm)
-                        .staggeredAppear(index: 4)
+                        .staggeredAppear(index: 5)
 
                     NavigationLink {
                         PersonalExpenseListView()
@@ -75,10 +87,10 @@ struct MoreView: View {
                             tint: GlassTheme.accentWarm
                         )
                     }
-                    .staggeredAppear(index: 5)
+                    .staggeredAppear(index: 6)
 
                     InstrumentSectionHeader(title: "System")
-                        .staggeredAppear(index: 6)
+                        .staggeredAppear(index: 7)
 
                     NavigationLink {
                         BackupImportView()
@@ -89,7 +101,7 @@ struct MoreView: View {
                             icon: "externaldrive.badge.checkmark"
                         )
                     }
-                    .staggeredAppear(index: 7)
+                    .staggeredAppear(index: 8)
 
                     Button {
                         exportFullBackup()
@@ -101,14 +113,14 @@ struct MoreView: View {
                         )
                     }
                     .accessibilityHint("Creates a shareable FuelTrack JSON backup")
-                    .staggeredAppear(index: 8)
+                    .staggeredAppear(index: 9)
 
                     NavigationLink {
                         SettingsView()
                     } label: {
                         moreRow("Settings", subtitle: "Currency, units, about", icon: "gearshape")
                     }
-                    .staggeredAppear(index: 9)
+                    .staggeredAppear(index: 10)
 
                     if let exportError {
                         Text(exportError)

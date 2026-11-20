@@ -1,7 +1,7 @@
 # Nearby Garages Design
 
 **Date:** 2026-11-20  
-**Status:** Draft for review  
+**Status:** Approved — implementing  
 **App:** FuelTrack (SwiftUI + SwiftData, iPhone)
 
 ## Goal
