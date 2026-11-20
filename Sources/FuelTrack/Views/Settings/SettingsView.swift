@@ -162,7 +162,7 @@ struct SettingsView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     LabeledContent("App", value: "FuelTrack")
                     LabeledContent("Version", value: "2.2")
-                    Text("Fuel + car & personal expenses + stations + MOT/tax (DVLA) + insurance reminders. Glass UI. Data stays on device.")
+                    Text("Fuel + car & personal expenses + stations + nearby garages (DVSA MOT) + MOT/tax (DVLA) + insurance reminders. Glass UI. Data stays on device.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }

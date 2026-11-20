@@ -1,0 +1,12 @@
+{
+  "source": "DVSA Active MOT test stations",
+  "sourceURL": "https://www.gov.uk/government/publications/active-mot-test-stations",
+  "licence": "Open Government Licence v3.0",
+  "geocoder": "postcodes.io",
+  "filter": "Class_4 = Y",
+  "builtAt": "2026-11-20T22:49:38Z",
+  "csvPath": "/tmp/mot-build/active-mot-stations.csv",
+  "stationCount": 21638,
+  "skippedNoCoords": 480,
+  "uniquePostcodes": 19244
+}

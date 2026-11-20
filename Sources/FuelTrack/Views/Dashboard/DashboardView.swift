@@ -87,22 +87,27 @@ struct DashboardView: View {
                 HomeFuelQuickAccess(vehicle: vehicle)
                     .staggeredAppear(index: 3)
 
+                InstrumentSectionHeader(title: "Nearby garages", tint: GlassTheme.accent)
+                    .staggeredAppear(index: 4)
+                HomeGarageQuickAccess()
+                    .staggeredAppear(index: 4)
+
                 InstrumentSectionHeader(title: "Spend pulse", tint: GlassTheme.accentWarm)
-                    .staggeredAppear(index: 4)
-                HomeCarSpendCard(vehicle: vehicle)
-                    .staggeredAppear(index: 4)
-                HomePersonalSpendCard()
                     .staggeredAppear(index: 5)
+                HomeCarSpendCard(vehicle: vehicle)
+                    .staggeredAppear(index: 5)
+                HomePersonalSpendCard()
+                    .staggeredAppear(index: 6)
 
                 InstrumentSectionHeader(title: "Instrument readout")
-                    .staggeredAppear(index: 6)
+                    .staggeredAppear(index: 7)
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
                     GlassStatChip(title: "Avg L/100km", value: Formatters.consumptionL100(stats.averageLitersPer100km))
                     GlassStatChip(title: "Avg MPG", value: Formatters.consumptionMPG(stats.averageMPG), tint: GlassTheme.accentWarm)
                     GlassStatChip(title: "Fuel month", value: Formatters.currency(stats.spendThisMonth, code: currency))
                     GlassStatChip(title: "Car month", value: Formatters.currency(vehicle.costsThisMonth, code: currency), tint: GlassTheme.accentWarm)
                 }
-                .staggeredAppear(index: 6)
+                .staggeredAppear(index: 7)
 
                 GlassCard {
                     VStack(alignment: .leading, spacing: 12) {
@@ -119,7 +124,7 @@ struct DashboardView: View {
                         instrumentRow("Cost / distance", Formatters.costPerDistance(stats.averageCostPerDistance, unit: unit, code: currency), tint: GlassTheme.accentWarm)
                     }
                 }
-                .staggeredAppear(index: 7)
+                .staggeredAppear(index: 8)
 
                 GlassCard {
                     VStack(alignment: .leading, spacing: 12) {
@@ -131,7 +136,7 @@ struct DashboardView: View {
                         instrumentRow("Open reminders", "\(vehicle.openReminders.count)", tint: GlassTheme.accentWarm)
                     }
                 }
-                .staggeredAppear(index: 8)
+                .staggeredAppear(index: 9)
 
                 if !vehicle.openReminders.isEmpty {
                     GlassCard {
