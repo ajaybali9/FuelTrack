@@ -1,0 +1,664 @@
+{
+  "version": 1,
+  "historyId": "061d2f93-0436-4929-b333-4d73288d850f",
+  "currentRevision": "ed7ff171-39c3-4035-aeae-ff818aa20562",
+  "pendingChanges": false,
+  "files": {
+    "AGENTS.md": {
+      "hash": "729e31835a21c7b42ee006e2aacc63016abc05d26883f871ad3bf206943f2cfb",
+      "content": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/72/729e31835a21c7b42ee006e2aacc63016abc05d26883f871ad3bf206943f2cfb"
+    },
+    "CLAUDE.md": {
+      "hash": "729e31835a21c7b42ee006e2aacc63016abc05d26883f871ad3bf206943f2cfb",
+      "content": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/72/729e31835a21c7b42ee006e2aacc63016abc05d26883f871ad3bf206943f2cfb"
+    },
+    "assets/AppIcon.png": {
+      "hash": "7555d80b7f78449a4bcc3aecd205270b10cbe5220585e66ce75896898f13e42f",
+      "content": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/75/7555d80b7f78449a4bcc3aecd205270b10cbe5220585e66ce75896898f13e42f"
+    },
+    "assets/app-icon.png": {
+      "hash": "7555d80b7f78449a4bcc3aecd205270b10cbe5220585e66ce75896898f13e42f",
+      "content": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/75/7555d80b7f78449a4bcc3aecd205270b10cbe5220585e66ce75896898f13e42f"
+    },
+    "compositions/app-showcase.html": {
+      "hash": "226f722506968b574d84d19bee000aa0601819311971dea398db06b86a94fe8b",
+      "content": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/22/226f722506968b574d84d19bee000aa0601819311971dea398db06b86a94fe8b"
+    },
+    "compositions/intro.html": {
+      "hash": "841cf3e111d3c7d66dd08916c21ef51cce3c1dc244b276136a71f40e54efeb9a",
+      "content": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/84/841cf3e111d3c7d66dd08916c21ef51cce3c1dc244b276136a71f40e54efeb9a"
+    },
+    "compositions/metrics.html": {
+      "hash": "a6397fc937a7800390b0997fa8e6343647bc8cc430c8cbd4fb2d2264b8a50c80",
+      "content": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/a6/a6397fc937a7800390b0997fa8e6343647bc8cc430c8cbd4fb2d2264b8a50c80"
+    },
+    "compositions/outro.html": {
+      "hash": "a3d71c3e06538463dcd2e6fbafc781b334d2b0240867c0c026b2c22e326b4735",
+      "content": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/a3/a3d71c3e06538463dcd2e6fbafc781b334d2b0240867c0c026b2c22e326b4735"
+    },
+    "hyperframes.json": {
+      "hash": "0ca762cef53976c85923edea65598134b8262e7a88f1c42d7369d1890104d043",
+      "content": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/0c/0ca762cef53976c85923edea65598134b8262e7a88f1c42d7369d1890104d043"
+    },
+    "hyperframes.lock.json": {
+      "hash": "a121dae56d5517d1d87cc33b0e376f7565882535a9bfd58c8f2e8314d92138df",
+      "content": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/a1/a121dae56d5517d1d87cc33b0e376f7565882535a9bfd58c8f2e8314d92138df"
+    },
+    "index.html": {
+      "hash": "3934180e36cebc7bcef688541ca956c3a644fd7955c713b2bb6e8fe0b18ae063",
+      "content": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/39/3934180e36cebc7bcef688541ca956c3a644fd7955c713b2bb6e8fe0b18ae063"
+    },
+    "meta.json": {
+      "hash": "22f0c024680c79ea305329b0855ff9f96e488d382006d0ea7911237686f8dc27",
+      "content": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/22/22f0c024680c79ea305329b0855ff9f96e488d382006d0ea7911237686f8dc27"
+    },
+    "package-lock.json": {
+      "hash": "10983f0d4520b026185d730918d2b5417e14d6a951b6f54ce7d1321412a6e1ec",
+      "content": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/10/10983f0d4520b026185d730918d2b5417e14d6a951b6f54ce7d1321412a6e1ec"
+    },
+    "package.json": {
+      "hash": "436d6acdaa0fd58f77ca1bc14489db8f8dc299bd3c62a204e42dc5db90971753",
+      "content": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/43/436d6acdaa0fd58f77ca1bc14489db8f8dc299bd3c62a204e42dc5db90971753"
+    },
+    "compositions/phone-tour.html": {
+      "hash": "ba017009ba1343db27bdbe5465152a872130aeebb5e06c35f3b093415a16a09f",
+      "content": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/ba/ba017009ba1343db27bdbe5465152a872130aeebb5e06c35f3b093415a16a09f"
+    }
+  },
+  "revisions": {
+    "dc36fbae-2ff3-416f-9e5f-c41f2fd77004": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795207780772,
+      "endedAt": 1795207780774,
+      "files": {
+        "compositions/phone-tour.html": {
+          "before": null,
+          "after": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/45/45ee8602eca72f9c0e317c6b0c421c2a7a91fa2157a2c25f33175aab6cdc2dd0"
+        },
+        "index.html": {
+          "before": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/a8/a8ae3d640523e895e5d8d60ba4098962da87b87fc123c1765c85f169c048ad51",
+          "after": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/39/3934180e36cebc7bcef688541ca956c3a644fd7955c713b2bb6e8fe0b18ae063"
+        }
+      }
+    },
+    "cac0f5a7-3ad2-4c2c-89ac-849fa389333c": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795207826788,
+      "endedAt": 1795207826788,
+      "files": {
+        "compositions/phone-tour.html": {
+          "before": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/45/45ee8602eca72f9c0e317c6b0c421c2a7a91fa2157a2c25f33175aab6cdc2dd0",
+          "after": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/4e/4ecf6cd5f62d44d26f1c7d7434149684e5ead25497f3cd2c919265ebabae8e22"
+        }
+      }
+    },
+    "ed7ff171-39c3-4035-aeae-ff818aa20562": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1795207903174,
+      "endedAt": 1795207903174,
+      "files": {
+        "compositions/phone-tour.html": {
+          "before": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/4e/4ecf6cd5f62d44d26f1c7d7434149684e5ead25497f3cd2c919265ebabae8e22",
+          "after": "/Users/ajaybali/.cache/hyperframes/history/061d2f93-0436-4929-b333-4d73288d850f/blobs/ba/ba017009ba1343db27bdbe5465152a872130aeebb5e06c35f3b093415a16a09f"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": "ed7ff171-39c3-4035-aeae-ff818aa20562",
+      "id": "e8a6b0ed-13b8-4205-8949-afe4615af345"
+    },
+    "revisions": {
+      "dc36fbae-2ff3-416f-9e5f-c41f2fd77004": [
+        {
+          "id": "c388d7f3-e0eb-41a2-b003-0d1afc582830",
+          "scope": "project",
+          "metadata": {
+            "ok": false,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795207786771,
+          "contentHash": "b9607f028392ea66a8daac4bbd0b936a5e1e378486258d2bc4ef5926333eb037",
+          "revision": "dc36fbae-2ff3-416f-9e5f-c41f2fd77004",
+          "inputFingerprint": "6c1a8780d8ce730b96de705548ea5605737b2f5826670726f9c8ec3233d5f750",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "5d18b760-8100-44bf-a1a3-9068ca851e04"
+        }
+      ],
+      "cac0f5a7-3ad2-4c2c-89ac-849fa389333c": [
+        {
+          "id": "bc4d15b8-0c5d-44a0-b777-1af256730806",
+          "scope": "project",
+          "report": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/checks/bc4d15b8-0c5d-44a0-b777-1af256730806.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795207832573,
+          "contentHash": "bb4c719e612f3a63a255ee68c4be0feb2910c2b62603fd7eb4cd71bc0d74ee17",
+          "revision": "cac0f5a7-3ad2-4c2c-89ac-849fa389333c",
+          "inputFingerprint": "c139aa42ea11cdbc81b790a4abe273c187411527f3fc922fa88bc62a5058210c",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "ed7ff171-39c3-4035-aeae-ff818aa20562": [
+        {
+          "id": "e8a6b0ed-13b8-4205-8949-afe4615af345",
+          "scope": "project",
+          "report": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/checks/e8a6b0ed-13b8-4205-8949-afe4615af345.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 45000,
+              "cache": true,
+              "contrast": true,
+              "craft": true,
+              "strict": false,
+              "snapshots": false,
+              "safeZones": [
+                "tiktok",
+                "reels",
+                "shorts"
+              ],
+              "browserGpuMode": "auto",
+              "includeUnmounted": false
+            }
+          },
+          "createdAt": 1795207907404,
+          "contentHash": "12c5147115baf818367da02ba19f8e3404ce535af1c529a6cb89717b37422c81",
+          "revision": "ed7ff171-39c3-4035-aeae-ff818aa20562",
+          "inputFingerprint": "f58c3fc14cb1094c458ff26103dcfd02e2d859faf9b3507313cb5afc96179c30",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": [
+      {
+        "id": "0fe8af13-250f-4c5b-8b3b-57fbef882fb0",
+        "scope": "project",
+        "report": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/checks/0fe8af13-250f-4c5b-8b3b-57fbef882fb0.json",
+        "metadata": {
+          "ok": true,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 45000,
+            "cache": true,
+            "contrast": true,
+            "craft": true,
+            "strict": false,
+            "snapshots": false,
+            "safeZones": [
+              "tiktok",
+              "reels",
+              "shorts"
+            ],
+            "browserGpuMode": "auto",
+            "includeUnmounted": false
+          }
+        },
+        "createdAt": 1795207296123,
+        "contentHash": "c00d495b86832c4c69e3bb438140f6b9be6b9f598ebedfd75dfa284be1496403",
+        "revision": null,
+        "inputFingerprint": "b07aec0f6c260a4b2b47b115d36b1155c8098d97c1625d49e926f31c6b1d41a1",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": {
+      "revision": "ed7ff171-39c3-4035-aeae-ff818aa20562",
+      "id": "c5c83085-cb0e-48d9-a895-d27e8599a583-4"
+    },
+    "revisions": {
+      "cac0f5a7-3ad2-4c2c-89ac-849fa389333c": [
+        {
+          "scope": "full",
+          "id": "3c5b3abb-d884-4a14-bc5b-78bec16d7533-0",
+          "image": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/snapshots/9ed90828-eb12-4a17-bb9f-91673866d562/frame-00-at-1.5s.png",
+          "time": 1.5,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1795207845897,
+          "contentHash": "d9a702f52c4496c2fcd5811d5042203d970508b8db8117fe1bf296db92dbfda2",
+          "revision": "cac0f5a7-3ad2-4c2c-89ac-849fa389333c",
+          "inputFingerprint": "c139aa42ea11cdbc81b790a4abe273c187411527f3fc922fa88bc62a5058210c",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "3c5b3abb-d884-4a14-bc5b-78bec16d7533-1",
+          "image": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/snapshots/9ed90828-eb12-4a17-bb9f-91673866d562/frame-01-at-4.5s.png",
+          "time": 4.5,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1795207845897,
+          "contentHash": "8e38734b1fa8c4989bb4bc7a38728fa179046bc872b05578a0f392de69f37aa7",
+          "revision": "cac0f5a7-3ad2-4c2c-89ac-849fa389333c",
+          "inputFingerprint": "c139aa42ea11cdbc81b790a4abe273c187411527f3fc922fa88bc62a5058210c",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "3c5b3abb-d884-4a14-bc5b-78bec16d7533-2",
+          "image": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/snapshots/9ed90828-eb12-4a17-bb9f-91673866d562/frame-02-at-7.5s.png",
+          "time": 7.5,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1795207845897,
+          "contentHash": "3497bb056df1b1d0739f598b5ee5f3eac43a0b3a1969559a65aac09fac186e0f",
+          "revision": "cac0f5a7-3ad2-4c2c-89ac-849fa389333c",
+          "inputFingerprint": "c139aa42ea11cdbc81b790a4abe273c187411527f3fc922fa88bc62a5058210c",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "3c5b3abb-d884-4a14-bc5b-78bec16d7533-3",
+          "image": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/snapshots/9ed90828-eb12-4a17-bb9f-91673866d562/frame-03-at-10.5s.png",
+          "time": 10.5,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1795207845897,
+          "contentHash": "892d69a1db000be373497ce04aee358a533c4731fa00944c326a981c766b88fa",
+          "revision": "cac0f5a7-3ad2-4c2c-89ac-849fa389333c",
+          "inputFingerprint": "c139aa42ea11cdbc81b790a4abe273c187411527f3fc922fa88bc62a5058210c",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "3c5b3abb-d884-4a14-bc5b-78bec16d7533-4",
+          "image": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/snapshots/9ed90828-eb12-4a17-bb9f-91673866d562/frame-04-at-14s.png",
+          "time": 14,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1795207845897,
+          "contentHash": "387f59863d6cf03446899bce4f24f3fbc425661c83dbe5fecc9f4709c6bfaf85",
+          "revision": "cac0f5a7-3ad2-4c2c-89ac-849fa389333c",
+          "inputFingerprint": "c139aa42ea11cdbc81b790a4abe273c187411527f3fc922fa88bc62a5058210c",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "3c5b3abb-d884-4a14-bc5b-78bec16d7533-5",
+          "image": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/snapshots/9ed90828-eb12-4a17-bb9f-91673866d562/frame-05-at-18.5s.png",
+          "time": 18.5,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1795207845897,
+          "contentHash": "816902a459cb432edbb69e2fa60e2b5b18c8c2848518158ecf67bd5420b1d151",
+          "revision": "cac0f5a7-3ad2-4c2c-89ac-849fa389333c",
+          "inputFingerprint": "c139aa42ea11cdbc81b790a4abe273c187411527f3fc922fa88bc62a5058210c",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "3c5b3abb-d884-4a14-bc5b-78bec16d7533-6",
+          "image": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/snapshots/9ed90828-eb12-4a17-bb9f-91673866d562/frame-06-at-20.25s.png",
+          "time": 20.25,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1795207845897,
+          "contentHash": "816902a459cb432edbb69e2fa60e2b5b18c8c2848518158ecf67bd5420b1d151",
+          "revision": "cac0f5a7-3ad2-4c2c-89ac-849fa389333c",
+          "inputFingerprint": "c139aa42ea11cdbc81b790a4abe273c187411527f3fc922fa88bc62a5058210c",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "ed7ff171-39c3-4035-aeae-ff818aa20562": [
+        {
+          "scope": "full",
+          "id": "c5c83085-cb0e-48d9-a895-d27e8599a583-0",
+          "image": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/snapshots/427a3edd-7204-49f0-b2ce-24d1e37f4a54/frame-00-at-4.5s.png",
+          "time": 4.5,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1795207913749,
+          "contentHash": "524bcce7c5345b763d398e74de74979e3a875716185b24b0ce5ce5b90c354def",
+          "revision": "ed7ff171-39c3-4035-aeae-ff818aa20562",
+          "inputFingerprint": "f58c3fc14cb1094c458ff26103dcfd02e2d859faf9b3507313cb5afc96179c30",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "c5c83085-cb0e-48d9-a895-d27e8599a583-1",
+          "image": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/snapshots/427a3edd-7204-49f0-b2ce-24d1e37f4a54/frame-01-at-7.5s.png",
+          "time": 7.5,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1795207913749,
+          "contentHash": "a312abea4b3e38a466464450c3e4aeaa696c3af43add0aa8f1480503beafeeb0",
+          "revision": "ed7ff171-39c3-4035-aeae-ff818aa20562",
+          "inputFingerprint": "f58c3fc14cb1094c458ff26103dcfd02e2d859faf9b3507313cb5afc96179c30",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "c5c83085-cb0e-48d9-a895-d27e8599a583-2",
+          "image": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/snapshots/427a3edd-7204-49f0-b2ce-24d1e37f4a54/frame-02-at-10.5s.png",
+          "time": 10.5,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1795207913749,
+          "contentHash": "8c31dec00f9de195b284c600b956fe6686ecccacadd588c84ff60e2b3216d45b",
+          "revision": "ed7ff171-39c3-4035-aeae-ff818aa20562",
+          "inputFingerprint": "f58c3fc14cb1094c458ff26103dcfd02e2d859faf9b3507313cb5afc96179c30",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "c5c83085-cb0e-48d9-a895-d27e8599a583-3",
+          "image": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/snapshots/427a3edd-7204-49f0-b2ce-24d1e37f4a54/frame-03-at-13s.png",
+          "time": 13,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1795207913749,
+          "contentHash": "eb2206c4ebeaa749221fef3edc83c639afb7a2e6c543b65c996bdab91f50ba2d",
+          "revision": "ed7ff171-39c3-4035-aeae-ff818aa20562",
+          "inputFingerprint": "f58c3fc14cb1094c458ff26103dcfd02e2d859faf9b3507313cb5afc96179c30",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "c5c83085-cb0e-48d9-a895-d27e8599a583-4",
+          "image": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/snapshots/427a3edd-7204-49f0-b2ce-24d1e37f4a54/frame-04-at-20.25s.png",
+          "time": 20.25,
+          "metadata": {
+            "width": 1920,
+            "height": 1080,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1795207913749,
+          "contentHash": "816902a459cb432edbb69e2fa60e2b5b18c8c2848518158ecf67bd5420b1d151",
+          "revision": "ed7ff171-39c3-4035-aeae-ff818aa20562",
+          "inputFingerprint": "f58c3fc14cb1094c458ff26103dcfd02e2d859faf9b3507313cb5afc96179c30",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": [
+      {
+        "scope": "full",
+        "id": "7d3baeaf-7299-4244-8d6e-2b64079d207d-0",
+        "image": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/snapshots/83f4497f-d523-486f-b445-7f120117191c/frame-00-at-0.8s.png",
+        "time": 0.8,
+        "metadata": {
+          "width": 1920,
+          "height": 1080,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1795207310934,
+        "contentHash": "a1c777a46d6fcdbb7c3d102b9b9f31c80b9710df8938ecf9b974e3a9c86416ae",
+        "revision": null,
+        "inputFingerprint": "b07aec0f6c260a4b2b47b115d36b1155c8098d97c1625d49e926f31c6b1d41a1",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "7d3baeaf-7299-4244-8d6e-2b64079d207d-1",
+        "image": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/snapshots/83f4497f-d523-486f-b445-7f120117191c/frame-01-at-2.5s.png",
+        "time": 2.5,
+        "metadata": {
+          "width": 1920,
+          "height": 1080,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1795207310934,
+        "contentHash": "141660242ade8b58fc31c41c60364ed8a6f86b9dbb13adefdbd9a87bccc2d7b1",
+        "revision": null,
+        "inputFingerprint": "b07aec0f6c260a4b2b47b115d36b1155c8098d97c1625d49e926f31c6b1d41a1",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "7d3baeaf-7299-4244-8d6e-2b64079d207d-2",
+        "image": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/snapshots/83f4497f-d523-486f-b445-7f120117191c/frame-02-at-5.5s.png",
+        "time": 5.5,
+        "metadata": {
+          "width": 1920,
+          "height": 1080,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1795207310934,
+        "contentHash": "95807512fa89d33a28403d6d49a8363851a5e25b7b06b4e4b74d7b7ef363f3a1",
+        "revision": null,
+        "inputFingerprint": "b07aec0f6c260a4b2b47b115d36b1155c8098d97c1625d49e926f31c6b1d41a1",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "7d3baeaf-7299-4244-8d6e-2b64079d207d-3",
+        "image": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/snapshots/83f4497f-d523-486f-b445-7f120117191c/frame-03-at-7.5s.png",
+        "time": 7.5,
+        "metadata": {
+          "width": 1920,
+          "height": 1080,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1795207310935,
+        "contentHash": "95807512fa89d33a28403d6d49a8363851a5e25b7b06b4e4b74d7b7ef363f3a1",
+        "revision": null,
+        "inputFingerprint": "b07aec0f6c260a4b2b47b115d36b1155c8098d97c1625d49e926f31c6b1d41a1",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "7d3baeaf-7299-4244-8d6e-2b64079d207d-4",
+        "image": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/snapshots/83f4497f-d523-486f-b445-7f120117191c/frame-04-at-10s.png",
+        "time": 10,
+        "metadata": {
+          "width": 1920,
+          "height": 1080,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1795207310935,
+        "contentHash": "816902a459cb432edbb69e2fa60e2b5b18c8c2848518158ecf67bd5420b1d151",
+        "revision": null,
+        "inputFingerprint": "b07aec0f6c260a4b2b47b115d36b1155c8098d97c1625d49e926f31c6b1d41a1",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      },
+      {
+        "scope": "full",
+        "id": "7d3baeaf-7299-4244-8d6e-2b64079d207d-5",
+        "image": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/.hyperframes/artifacts/snapshots/83f4497f-d523-486f-b445-7f120117191c/frame-05-at-11.75s.png",
+        "time": 11.75,
+        "metadata": {
+          "width": 1920,
+          "height": 1080,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [],
+          "partial": false
+        },
+        "createdAt": 1795207310935,
+        "contentHash": "816902a459cb432edbb69e2fa60e2b5b18c8c2848518158ecf67bd5420b1d151",
+        "revision": null,
+        "inputFingerprint": "b07aec0f6c260a4b2b47b115d36b1155c8098d97c1625d49e926f31c6b1d41a1",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "renders": {
+    "latest": {
+      "id": "b687f03e-888d-4cd5-9386-545c4e273634",
+      "completedAt": 1795207935425,
+      "output": "/Users/ajaybali/Documents/ClaudeProjects/FuelTrack/marketing/fueltrack-explainer/out/fueltrack-explainer.mp4",
+      "status": "completed",
+      "revision": "ed7ff171-39c3-4035-aeae-ff818aa20562"
+    },
+    "retainedRevisions": [
+      "ed7ff171-39c3-4035-aeae-ff818aa20562",
+      "cac0f5a7-3ad2-4c2c-89ac-849fa389333c"
+    ]
+  },
+  "pendingArtifactCleanup": []
+}

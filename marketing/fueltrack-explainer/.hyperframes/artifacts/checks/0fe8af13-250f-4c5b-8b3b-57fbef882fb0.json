@@ -1,0 +1,433 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "filesScanned": 4
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 12,
+    "samples": [
+      0.667,
+      2,
+      3.333,
+      4.667,
+      6,
+      7.333,
+      8.667,
+      10,
+      11.333
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false,
+    "faceCheck": {
+      "ran": true,
+      "candidates": 0,
+      "faces": 0
+    }
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      0.667,
+      3.333,
+      6,
+      8.667,
+      11.333
+    ],
+    "checked": 26,
+    "passed": 26
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 6,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "first_frame_empty",
+        "severity": "warning",
+        "message": "Frame 0 shows only the background, and the first frame is the thumbnail on social players: have the title or key image already on screen at 0 s instead of entering from nothing; see references/review.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 3 text elements stay under it for 0.5 s or more, the smallest \"Economy\" at 16 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Economy",
+        "selector": "#intro-signal > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/intro.html",
+        "bbox": {
+          "x": 799.19,
+          "y": 727.06,
+          "width": 76.17,
+          "height": 20
+        },
+        "time": 0.875,
+        "times": [
+          0.875,
+          0.875,
+          0.875
+        ],
+        "fontPx": 16,
+        "floorPx": 28,
+        "seconds": 2.625,
+        "elements": [
+          {
+            "selector": "#intro-signal > span:nth-of-type(1)",
+            "text": "Economy",
+            "fontPx": 16,
+            "time": 0.875,
+            "seconds": 2.625
+          },
+          {
+            "selector": "span.intro-chip.warm",
+            "text": "Cost",
+            "fontPx": 16,
+            "time": 0.875,
+            "seconds": 2.625
+          },
+          {
+            "selector": "#intro-signal > span:nth-of-type(3)",
+            "text": "On-device",
+            "fontPx": 16,
+            "time": 0.875,
+            "seconds": 2.625
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 10 text elements stay under it for 0.5 s or more, the smallest \"Economy\" at 14 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Economy",
+        "selector": "#metric-economy > div:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/metrics.html",
+        "bbox": {
+          "x": 337.58,
+          "y": 552.22,
+          "width": 82.01,
+          "height": 17.74
+        },
+        "time": 4,
+        "times": [
+          3.75,
+          4,
+          4,
+          4.125,
+          4.25,
+          4.25,
+          4.25,
+          4.375,
+          4.375,
+          4.375
+        ],
+        "fontPx": 13.8,
+        "floorPx": 28,
+        "seconds": 4.375,
+        "elements": [
+          {
+            "selector": "#metric-economy > div:nth-of-type(1)",
+            "text": "Economy",
+            "fontPx": 13.8,
+            "time": 4,
+            "seconds": 4.375
+          },
+          {
+            "selector": "#metric-cost > div:nth-of-type(1)",
+            "text": "Cost",
+            "fontPx": 13.91,
+            "time": 4.375,
+            "seconds": 4
+          },
+          {
+            "selector": "#metric-mpg > div:nth-of-type(1)",
+            "text": "UK MPG",
+            "fontPx": 13.93,
+            "time": 4.25,
+            "seconds": 4.125
+          },
+          {
+            "selector": "#metric-economy > div:nth-of-type(3)",
+            "text": "Derived from full tanks",
+            "fontPx": 17.74,
+            "time": 4,
+            "seconds": 4.375
+          },
+          {
+            "selector": "#metric-cost > div:nth-of-type(3)",
+            "text": "GBP or INR, fill-up by fill-up",
+            "fontPx": 17.89,
+            "time": 4.375,
+            "seconds": 4
+          },
+          {
+            "selector": "#metric-mpg > div:nth-of-type(3)",
+            "text": "Miles or kilometres per vehicle",
+            "fontPx": 17.91,
+            "time": 4.25,
+            "seconds": 4.125
+          },
+          {
+            "selector": "#metrics-label",
+            "text": "Full-tank method",
+            "fontPx": 18,
+            "time": 3.75,
+            "seconds": 4.625
+          },
+          {
+            "selector": "#metric-cost > div:nth-of-type(2) > span:nth-of-type(2)",
+            "text": "p/mi",
+            "fontPx": 21.86,
+            "time": 4.375,
+            "seconds": 4
+          },
+          {
+            "selector": "#metric-mpg > div:nth-of-type(2) > span:nth-of-type(2)",
+            "text": "mpg",
+            "fontPx": 21.89,
+            "time": 4.25,
+            "seconds": 4.125
+          },
+          {
+            "selector": "#metric-economy > div:nth-of-type(2) > span:nth-of-type(2)",
+            "text": "L/100km",
+            "fontPx": 21.92,
+            "time": 4.125,
+            "seconds": 4.25
+          }
+        ]
+      },
+      {
+        "code": "dead_stretch",
+        "severity": "warning",
+        "message": "Nothing on screen changes for 3.25 s (4.75–8.00 s): start the next move within 3 s, or put data-hold on the element whose stillness is deliberate; see references/motion.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 4.75,
+        "seconds": 3.25,
+        "floorSeconds": 3,
+        "until": 8
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "The film's last line \"Multi-vehicle fill-ups, dual currency, UK-ready — all on ...\" (12 words) is on screen 3.00 s (±0.01 s), under the 3.07 s a closing line needs: hold it about 0.5 s + 0.3 s a word and at least 2 s before the film ends; see references/motion.md.",
+        "text": "Multi-vehicle fill-ups, dual currency, UK-ready — all on your iPhone.",
+        "selector": "#outro-sub",
+        "dataAttributes": {},
+        "sourceFile": "compositions/outro.html",
+        "bbox": {
+          "x": 576.03,
+          "y": 599.33,
+          "width": 767.9199999999998,
+          "height": 33
+        },
+        "time": 9,
+        "words": 12,
+        "seconds": 3.004,
+        "floorSeconds": 3.075,
+        "measured": [
+          {
+            "time": 8.625,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 8.75,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 8.875,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 9,
+            "opacity": 0.64,
+            "heightPx": 33
+          },
+          {
+            "time": 9.125,
+            "opacity": 0.92,
+            "heightPx": 33
+          },
+          {
+            "time": 9.25,
+            "opacity": 1,
+            "heightPx": 33
+          },
+          {
+            "time": 9.375,
+            "opacity": 1,
+            "heightPx": 33
+          },
+          {
+            "time": 11.5,
+            "opacity": 1,
+            "heightPx": 33
+          },
+          {
+            "time": 11.625,
+            "opacity": 1,
+            "heightPx": 33
+          },
+          {
+            "time": 11.75,
+            "opacity": 1,
+            "heightPx": 33
+          },
+          {
+            "time": 11.875,
+            "opacity": 1,
+            "heightPx": 33
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 4 text elements stay under it for 0.5 s or more, the smallest \"No account\" at 15 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "No account",
+        "selector": "#outro-points > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/outro.html",
+        "bbox": {
+          "x": 768.34,
+          "y": 675.13,
+          "width": 99,
+          "height": 19
+        },
+        "time": 9.25,
+        "times": [
+          9,
+          9.25,
+          9.25,
+          9.25
+        ],
+        "fontPx": 15,
+        "floorPx": 28,
+        "seconds": 2.75,
+        "elements": [
+          {
+            "selector": "#outro-points > span:nth-of-type(1)",
+            "text": "No account",
+            "fontPx": 15,
+            "time": 9.25,
+            "seconds": 2.75
+          },
+          {
+            "selector": "#outro-points > span:nth-of-type(2)",
+            "text": "No cloud",
+            "fontPx": 15,
+            "time": 9.25,
+            "seconds": 2.75
+          },
+          {
+            "selector": "span.outro-point.warm",
+            "text": "GBP · INR",
+            "fontPx": 15,
+            "time": 9.25,
+            "seconds": 2.75
+          },
+          {
+            "selector": "#outro-sub",
+            "text": "Multi-vehicle fill-ups, dual currency, UK-ready — all on your iPhone.",
+            "fontPx": 26,
+            "time": 9,
+            "seconds": 3
+          }
+        ]
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 96
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 1,
+    "findings": [
+      {
+        "code": "audio_none",
+        "severity": "info",
+        "message": "The film has no sound: no clip in it plays audio.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0
+      }
+    ]
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

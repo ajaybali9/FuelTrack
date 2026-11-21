@@ -1,0 +1,164 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: radial-gradient(ellipse 90% 80% at 50% 30%, #143047 0%, #0d1a2e 60%, #0a1424 100%);
+      font-family: Outfit, sans-serif;
+      color: #fcfcfb;
+    }
+    .metrics-wrap,
+    #metrics-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+      padding: 0 120px;
+    }
+    .metrics-label {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(252, 252, 251, 0.55);
+    }
+    .metrics-headline {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-top: -16px;
+    }
+    .metrics-row {
+      display: flex;
+      gap: 28px;
+      width: 100%;
+      max-width: 1480px;
+      justify-content: center;
+    }
+    .metric-card {
+      flex: 1;
+      max-width: 420px;
+      border-radius: 24px;
+      padding: 36px 32px 32px;
+      background: rgba(238, 245, 248, 0.08);
+      border: 1px solid rgba(238, 245, 248, 0.14);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(18px);
+    }
+    .metric-card .eyebrow {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .metric-card.teal .eyebrow {
+      color: #7ec8de;
+    }
+    .metric-card.warm .eyebrow {
+      color: #f0b27a;
+    }
+    .metric-card .value {
+      font-family: "IBM Plex Mono", monospace;
+      font-variant-numeric: tabular-nums;
+      font-size: 72px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .metric-card .unit {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 22px;
+      font-weight: 500;
+      margin-left: 8px;
+      opacity: 0.7;
+    }
+    .metric-card .hint {
+      margin-top: 16px;
+      font-size: 18px;
+      color: rgba(252, 252, 251, 0.58);
+    }
+  </style>
+  <div id="root" data-composition-id="metrics" data-width="1920" data-height="1080">
+    <div
+      id="metrics-wrap"
+      class="clip metrics-wrap"
+      data-start="0"
+      data-duration="5"
+      data-track-index="0"
+      data-track-kind="graphics"
+    >
+      <div id="metrics-content">
+        <div class="metrics-label" id="metrics-label">Full-tank method</div>
+        <div class="metrics-headline" id="metrics-headline" data-var-text="metrics-headline">
+          Numbers you can trust
+        </div>
+        <div class="metrics-row" id="metrics-row">
+          <div class="metric-card teal" id="metric-economy">
+            <div class="eyebrow">Economy</div>
+            <div>
+              <span class="value" data-var-text="metric-l100">6.4</span
+              ><span class="unit">L/100km</span>
+            </div>
+            <div class="hint">Derived from full tanks</div>
+          </div>
+          <div class="metric-card teal" id="metric-mpg">
+            <div class="eyebrow">UK MPG</div>
+            <div>
+              <span class="value" data-var-text="metric-mpg">44.1</span
+              ><span class="unit">mpg</span>
+            </div>
+            <div class="hint">Miles or kilometres per vehicle</div>
+          </div>
+          <div class="metric-card warm" id="metric-cost">
+            <div class="eyebrow">Cost</div>
+            <div>
+              <span class="value" data-var-text="metric-cost">14.2</span
+              ><span class="unit">p/mi</span>
+            </div>
+            <div class="hint">GBP or INR, fill-up by fill-up</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo(
+      "#metrics-label",
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" },
+      0.1,
+    );
+    tl.fromTo(
+      "#metrics-headline",
+      { opacity: 0, y: 18, filter: "blur(8px)" },
+      { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.4, ease: "power3.out" },
+      0.2,
+    );
+    tl.fromTo(
+      "#metric-economy",
+      { opacity: 0, y: 36, scale: 0.96 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" },
+      0.4,
+    );
+    tl.fromTo(
+      "#metric-mpg",
+      { opacity: 0, y: 36, scale: 0.96 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" },
+      0.55,
+    );
+    tl.fromTo(
+      "#metric-cost",
+      { opacity: 0, y: 36, scale: 0.96 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" },
+      0.7,
+    );
+    tl.to("#metrics-content", { opacity: 0, y: -14, duration: 0.35, ease: "power2.in" }, 4.55);
+    window.__timelines["metrics"] = tl;
+  </script>
+</template>

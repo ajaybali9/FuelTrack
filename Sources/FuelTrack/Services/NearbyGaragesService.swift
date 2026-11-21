@@ -190,10 +190,10 @@ enum NearbyGaragesService {
                 kinds = nameLocalizedSuggestsMOT(name) ? [.mot, .repair] : [.repair]
             }
 
-            let fullAddress = item.address?.fullAddress?
-                .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            let shortAddress = item.address?.shortAddress?
-                .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let fullAddress = (item.address?.fullAddress ?? "")
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+            let shortAddress = (item.address?.shortAddress ?? "")
+                .trimmingCharacters(in: .whitespacesAndNewlines)
             let town = item.addressRepresentations?.cityName?
                 .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
 
