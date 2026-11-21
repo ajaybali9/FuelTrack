@@ -54,6 +54,21 @@ struct FillUpListView: View {
                     }
                 } else if let vehicle = activeVehicle {
                     ScrollView {
+                        let economyByFillID: [UUID: ConsumptionSegment] = {
+                            let snapshots = fillUps.map {
+                                FillUpSnapshot(
+                                    id: $0.id,
+                                    date: $0.date,
+                                    odometer: $0.odometer,
+                                    liters: $0.liters,
+                                    totalCost: $0.totalCost,
+                                    isFullTank: $0.isFullTank,
+                                    skipped: $0.skipped
+                                )
+                            }
+                            return FuelStats.segmentsByEndingFillUpID(from: snapshots)
+                        }()
+
                         VStack(spacing: 16) {
                             summary(for: vehicle)
                                 .staggeredAppear(index: 0)
@@ -68,7 +83,8 @@ struct FillUpListView: View {
                                     } label: {
                                         FillUpCard(
                                             fillUp: fillUp,
-                                            unit: vehicle.odometerUnit
+                                            unit: vehicle.odometerUnit,
+                                            segment: economyByFillID[fillUp.id]
                                         )
                                     }
                                     .buttonStyle(.plain)
@@ -194,6 +210,7 @@ struct FillUpListView: View {
 private struct FillUpCard: View {
     let fillUp: FillUp
     let unit: OdometerUnit
+    let segment: ConsumptionSegment?
 
     var body: some View {
         InstrumentListRow(tint: GlassTheme.accentWarm) {
@@ -225,6 +242,25 @@ private struct FillUpCard: View {
                     metric(Formatters.odometer(fillUp.odometer, unit: unit), label: "Odo", tint: GlassTheme.accent)
                     if let ppl = fillUp.pricePerLiter {
                         metric(Formatters.pricePerLiter(ppl, code: fillUp.currencyCode), label: "Per litre", tint: GlassTheme.accentWarm)
+                    }
+                }
+
+                if let segment {
+                    HStack(spacing: 16) {
+                        metric(
+                            Formatters.consumptionMPG(segment.mpg(unit: unit)),
+                            label: "MPG",
+                            tint: GlassTheme.accentWarm
+                        )
+                        metric(
+                            Formatters.costPerDistance(
+                                segment.costPerDistance(unit: unit),
+                                unit: unit,
+                                code: fillUp.currencyCode
+                            ),
+                            label: unit == .miles ? "Per mi" : "Per km",
+                            tint: GlassTheme.accentWarm
+                        )
                     }
                 }
 
