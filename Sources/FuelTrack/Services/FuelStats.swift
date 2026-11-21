@@ -1,6 +1,7 @@
 import Foundation
 
 struct FillUpSnapshot: Sendable, Equatable {
+    var id: UUID
     var date: Date
     var odometer: Double
     var liters: Double
@@ -56,6 +57,15 @@ enum FuelStats {
     /// Liters and cost include every fill-up after the start full (partials + ending full).
     /// A fill-up marked `skipped` breaks the chain (missed fill-up).
     static func segments(from fillUps: [FillUpSnapshot]) -> [ConsumptionSegment] {
+        segmentEntries(from: fillUps).map(\.segment)
+    }
+
+    /// Segments keyed by the ending full-tank fill-up id.
+    static func segmentsByEndingFillUpID(from fillUps: [FillUpSnapshot]) -> [UUID: ConsumptionSegment] {
+        Dictionary(uniqueKeysWithValues: segmentEntries(from: fillUps).map { ($0.id, $0.segment) })
+    }
+
+    private static func segmentEntries(from fillUps: [FillUpSnapshot]) -> [(id: UUID, segment: ConsumptionSegment)] {
         let ordered = fillUps.sorted {
             if $0.odometer != $1.odometer {
                 return $0.odometer < $1.odometer
@@ -63,7 +73,7 @@ enum FuelStats {
             return $0.date < $1.date
         }
 
-        var result: [ConsumptionSegment] = []
+        var result: [(id: UUID, segment: ConsumptionSegment)] = []
         var startIndex: Int?
 
         for (index, fill) in ordered.enumerated() {
@@ -82,11 +92,14 @@ enum FuelStats {
                 let endOdo = fill.odometer
                 if endOdo > startOdo, liters > 0 {
                     result.append(
-                        ConsumptionSegment(
-                            startOdometer: startOdo,
-                            endOdometer: endOdo,
-                            liters: liters,
-                            cost: cost
+                        (
+                            id: fill.id,
+                            segment: ConsumptionSegment(
+                                startOdometer: startOdo,
+                                endOdometer: endOdo,
+                                liters: liters,
+                                cost: cost
+                            )
                         )
                     )
                 }
@@ -167,6 +180,7 @@ enum FuelStats {
     static func compute(vehicle: Vehicle, calendar: Calendar = .current, now: Date = .now) -> VehicleFuelStats {
         let snapshots = vehicle.fillUps.map {
             FillUpSnapshot(
+                id: $0.id,
                 date: $0.date,
                 odometer: $0.odometer,
                 liters: $0.liters,
