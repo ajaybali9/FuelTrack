@@ -8,26 +8,19 @@
       font-family: Outfit, sans-serif;
       color: #fcfcfb;
     }
-    .tour-layout {
-      position: absolute;
-      inset: 0;
-    }
     #tour-content {
       position: absolute;
       inset: 0;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 420px;
+      grid-template-columns: minmax(0, 1fr) 430px;
       align-items: center;
-      padding: 72px 110px 72px 120px;
-      gap: 48px;
+      padding: 64px 100px 64px 110px;
+      gap: 40px;
     }
     .tour-copy {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      max-width: 720px;
       position: relative;
-      min-height: 280px;
+      min-height: 300px;
+      max-width: 700px;
     }
     .tour-kicker {
       font-size: 15px;
@@ -35,37 +28,35 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: #7ec8de;
-    }
-    .tour-kicker.warm {
-      color: #f0b27a;
+      margin-bottom: 18px;
     }
     .callout {
       position: absolute;
       left: 0;
-      top: 36px;
+      top: 40px;
       width: 100%;
+      opacity: 0;
       display: flex;
       flex-direction: column;
       gap: 14px;
-      opacity: 0;
     }
     .callout h2 {
-      font-size: 52px;
+      font-size: 48px;
       font-weight: 700;
       letter-spacing: -0.03em;
       line-height: 1.08;
     }
     .callout p {
-      font-size: 24px;
+      font-size: 22px;
       line-height: 1.4;
-      color: rgba(252, 252, 251, 0.68);
-      max-width: 580px;
+      color: rgba(252, 252, 251, 0.7);
+      max-width: 560px;
     }
-    .callout .pill-row {
+    .pill-row {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 6px;
+      margin-top: 4px;
     }
     .pill {
       font-family: "IBM Plex Mono", monospace;
@@ -82,8 +73,6 @@
       border-color: rgba(235, 133, 56, 0.4);
       color: #f0b27a;
     }
-
-    /* Phone */
     .phone-stage {
       display: flex;
       justify-content: center;
@@ -93,431 +82,118 @@
       width: 360px;
       height: 760px;
       border-radius: 48px;
-      background: #0a1018;
+      background: #05080e;
       border: 3px solid #2a3545;
-      box-shadow:
-        0 40px 80px rgba(0, 0, 0, 0.55),
-        inset 0 0 0 2px #141c28;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55), inset 0 0 0 2px #141c28;
       position: relative;
       overflow: hidden;
     }
     .phone-notch {
       position: absolute;
-      top: 12px;
+      top: 11px;
       left: 50%;
       transform: translateX(-50%);
-      width: 118px;
-      height: 28px;
+      width: 110px;
+      height: 26px;
       background: #05080e;
-      border-radius: 20px;
-      z-index: 20;
-    }
-    .phone-screen {
-      position: absolute;
-      inset: 10px;
-      border-radius: 38px;
-      overflow: hidden;
-      background: linear-gradient(180deg, #101c2e 0%, #0d1624 100%);
-    }
-    .status-bar {
-      height: 44px;
-      padding: 14px 22px 0;
-      display: flex;
-      justify-content: space-between;
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 12px;
-      color: rgba(252, 252, 251, 0.85);
-      position: relative;
+      border-radius: 18px;
       z-index: 5;
+      pointer-events: none;
     }
     .screens {
       position: absolute;
-      top: 44px;
-      left: 0;
-      right: 0;
-      bottom: 62px;
+      inset: 8px;
+      border-radius: 40px;
       overflow: hidden;
+      background: #0d1624;
     }
     .screen {
       position: absolute;
       inset: 0;
-      padding: 4px 14px 12px;
       opacity: 0;
-      overflow: hidden;
     }
-    .nav-title {
-      text-align: center;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: rgba(252, 252, 251, 0.9);
-    }
-    .nav-large {
-      font-size: 26px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin: 4px 0 12px;
-      text-align: left;
-    }
-    .glass {
-      background: rgba(238, 245, 248, 0.08);
-      border: 1px solid rgba(238, 245, 248, 0.12);
-      border-radius: 16px;
-      padding: 12px 14px;
-    }
-    .hero {
-      margin-bottom: 10px;
-    }
-    .hero-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 8px;
-    }
-    .hero-name {
-      font-size: 15px;
-      font-weight: 600;
-    }
-    .hero-odo {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 11px;
-      color: #b0b8c2;
-    }
-    .hero-metrics {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-    .hero-metric .lbl {
-      font-size: 10px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #7ec8de;
-      margin-bottom: 4px;
-    }
-    .hero-metric .lbl.warm {
-      color: #f0b27a;
-    }
-    .hero-metric .val {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-    }
-    .section-lbl {
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #b0b8c2;
-      margin: 10px 0 6px;
-    }
-    .chip-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-    .chip {
-      background: rgba(238, 245, 248, 0.07);
-      border: 1px solid rgba(238, 245, 248, 0.1);
-      border-radius: 12px;
-      padding: 10px;
-    }
-    .chip .t {
-      font-size: 10px;
-      color: #b0b8c2;
-      margin-bottom: 4px;
-    }
-    .chip .v {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 15px;
-      font-weight: 600;
-    }
-    .chip.warm .v {
-      color: #f0b27a;
-    }
-    .chip.teal .v {
-      color: #7ec8de;
-    }
-    .trip-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-    }
-    .trip-row .cta {
-      background: #388eab;
-      color: #fcfcfb;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 6px 10px;
-      border-radius: 10px;
-    }
-
-    /* Fill-up form */
-    .field {
-      margin-bottom: 8px;
-    }
-    .field .fl {
-      font-size: 10px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #b0b8c2;
-      margin-bottom: 4px;
-    }
-    .field .fi {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(238, 245, 248, 0.07);
-      border: 1px solid rgba(238, 245, 248, 0.14);
-      border-radius: 12px;
-      padding: 10px 12px;
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 16px;
-      font-weight: 500;
-    }
-    .field .fi.warm {
-      border-color: rgba(235, 133, 56, 0.35);
-    }
-    .field .unit {
-      font-size: 12px;
-      color: #b0b8c2;
-    }
-    .chips {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-    .mini-chip {
-      font-size: 11px;
-      padding: 6px 10px;
-      border-radius: 10px;
-      background: rgba(238, 245, 248, 0.06);
-      border: 1px solid rgba(238, 245, 248, 0.12);
-      color: #c5ccd4;
-    }
-    .mini-chip.on {
-      background: rgba(56, 142, 171, 0.25);
-      border-color: rgba(56, 142, 171, 0.55);
-      color: #fcfcfb;
-    }
-    .mini-chip.on.warm {
-      background: rgba(235, 133, 56, 0.22);
-      border-color: rgba(235, 133, 56, 0.5);
-    }
-    .live-strip {
-      margin-top: 8px;
-      display: flex;
-      justify-content: space-between;
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 12px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: rgba(56, 142, 171, 0.15);
-      border: 1px solid rgba(56, 142, 171, 0.3);
-    }
-    .live-strip .warm {
-      color: #f0b27a;
-    }
-
-    /* Vehicles */
-    .vcard {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-      padding: 12px;
-    }
-    .vcard .vn {
-      font-size: 14px;
-      font-weight: 600;
-    }
-    .vcard .vm {
-      font-size: 11px;
-      color: #b0b8c2;
-      margin-top: 2px;
-    }
-    .badge {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 4px 8px;
-      border-radius: 8px;
-      background: rgba(56, 142, 171, 0.25);
-      color: #7ec8de;
-    }
-    .compliance {
-      display: flex;
-      gap: 6px;
-      margin-top: 8px;
-    }
-    .c-pill {
-      flex: 1;
-      text-align: center;
-      font-size: 10px;
-      padding: 8px 4px;
-      border-radius: 10px;
-      background: rgba(238, 245, 248, 0.06);
-      border: 1px solid rgba(238, 245, 248, 0.1);
-    }
-    .c-pill .d {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 12px;
-      font-weight: 600;
-      margin-top: 3px;
-    }
-    .c-pill.warn .d {
-      color: #f0b27a;
-    }
-    .c-pill.ok .d {
-      color: #6dbf8a;
-    }
-
-    /* Spend */
-    .seg {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4px;
-      background: rgba(238, 245, 248, 0.08);
-      border-radius: 10px;
-      padding: 3px;
-      margin-bottom: 12px;
-    }
-    .seg span {
-      text-align: center;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 7px;
-      border-radius: 8px;
-      color: #b0b8c2;
-    }
-    .seg span.on {
-      background: rgba(235, 133, 56, 0.3);
-      color: #fcfcfb;
-    }
-    .spend-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 12px;
-      margin-bottom: 6px;
-      border-radius: 12px;
-      background: rgba(238, 245, 248, 0.07);
-      border: 1px solid rgba(238, 245, 248, 0.1);
-    }
-    .spend-row .cat {
-      font-size: 13px;
-      font-weight: 500;
-    }
-    .spend-row .sub {
-      font-size: 10px;
-      color: #b0b8c2;
-      margin-top: 2px;
-    }
-    .spend-row .amt {
-      font-family: "IBM Plex Mono", monospace;
-      font-size: 14px;
-      font-weight: 600;
-      color: #f0b27a;
-    }
-    .summary {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    /* Tab bar */
-    .tabbar {
-      position: absolute;
-      left: 10px;
-      right: 10px;
-      bottom: 10px;
-      height: 52px;
-      border-radius: 0 0 28px 28px;
-      background: rgba(16, 24, 36, 0.92);
-      border-top: 1px solid rgba(238, 245, 248, 0.1);
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      align-items: center;
-      z-index: 10;
-    }
-    .tab {
-      text-align: center;
-      font-size: 11px;
-      font-weight: 600;
-      color: #a8b0ba;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-    }
-    .tab .dot {
-      width: 16px;
-      height: 16px;
-      border-radius: 5px;
-      background: rgba(238, 245, 248, 0.22);
-    }
-    .tab.on {
-      color: #b6e3f0;
-    }
-    .tab.on .dot {
-      background: #388eab;
-    }
-    .tab.warm.on {
-      color: #f6c59a;
-    }
-    .tab.warm.on .dot {
-      background: #eb8538;
+    .screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
     }
   </style>
 
-  <div id="root" data-composition-id="phone-tour" data-width="1920" data-height="1080" data-layout-allow-overflow>
+  <div
+    id="root"
+    data-composition-id="phone-tour"
+    data-width="1920"
+    data-height="1080"
+    data-layout-allow-overflow
+  >
     <div
       id="tour-stage"
-      class="clip tour-layout"
+      class="clip"
       data-start="0"
-      data-duration="14"
+      data-duration="16.5"
       data-track-index="0"
       data-track-kind="graphics"
+      style="position: absolute; inset: 0"
     >
       <div id="tour-content">
         <div class="tour-copy">
           <div class="tour-kicker" id="tour-kicker">App tour</div>
+
           <div class="callout" id="callout-home">
             <h2>Fuel Computer home</h2>
-            <p>Active vehicle, economy, and spend pulse — instrument readout at a glance.</p>
+            <p>Economy, month fuel, trips, and UK compliance — at a glance.</p>
             <div class="pill-row">
               <span class="pill">L/100km</span>
               <span class="pill warm">Month fuel</span>
-              <span class="pill">Trips</span>
+              <span class="pill">MOT · Tax</span>
             </div>
           </div>
+
           <div class="callout" id="callout-fillup">
             <h2>Log a fill-up</h2>
-            <p>Odometer, litres, cost — with live price/L and full or partial tank.</p>
+            <p>Litres, cost, fuel type, and full-tank flags for trusted economy.</p>
             <div class="pill-row">
               <span class="pill">Full tank</span>
               <span class="pill warm">GBP · INR</span>
-              <span class="pill">Petrol E10</span>
+              <span class="pill">E10</span>
             </div>
           </div>
-          <div class="callout" id="callout-vehicles">
-            <h2>Every vehicle you drive</h2>
-            <p>Switch active cars and keep MOT, tax, and insurance dates visible.</p>
+
+          <div class="callout" id="callout-fuel">
+            <h2>Fuel log</h2>
+            <p>Every fill with MPG, £/L, and cost per mile from the full-tank method.</p>
             <div class="pill-row">
-              <span class="pill">Multi-vehicle</span>
-              <span class="pill warm">UK compliance</span>
+              <span class="pill">History</span>
+              <span class="pill warm">£ / mi</span>
             </div>
           </div>
+
           <div class="callout" id="callout-spend">
             <h2>Car &amp; personal spend</h2>
-            <p>One place for fuel-adjacent costs and personal budgets — dual-signal warm for money.</p>
+            <p>Service, insurance, and budgets beside fuel — dual-signal for money.</p>
             <div class="pill-row">
               <span class="pill warm">Car</span>
               <span class="pill warm">Personal</span>
-              <span class="pill">On-device</span>
+            </div>
+          </div>
+
+          <div class="callout" id="callout-stations">
+            <h2>Nearby stations</h2>
+            <p>Live prices on the map, filter by fuel type and radius.</p>
+            <div class="pill-row">
+              <span class="pill">Map</span>
+              <span class="pill warm">Best price</span>
+            </div>
+          </div>
+
+          <div class="callout" id="callout-more">
+            <h2>More · private by default</h2>
+            <p>Vehicles, reminders, trips, garages, and on-device backup — no cloud.</p>
+            <div class="pill-row">
+              <span class="pill">No account</span>
+              <span class="pill">Export JSON</span>
             </div>
           </div>
         </div>
@@ -525,154 +201,24 @@
         <div class="phone-stage">
           <div class="phone" id="phone">
             <div class="phone-notch"></div>
-            <div class="phone-screen">
-              <div class="status-bar"><span>9:41</span><span>●●●</span></div>
-              <div class="screens">
-                <!-- HOME -->
-                <div class="screen" id="screen-home">
-                  <div class="nav-title">Fuel Computer</div>
-                  <div class="glass hero">
-                    <div class="hero-top">
-                      <div class="hero-name">Golf GTE</div>
-                      <div class="hero-odo">ODO 42,318 mi</div>
-                    </div>
-                    <div class="hero-metrics">
-                      <div class="hero-metric">
-                        <div class="lbl">Avg L/100km</div>
-                        <div class="val">6.4</div>
-                      </div>
-                      <div class="hero-metric">
-                        <div class="lbl warm">Month fuel</div>
-                        <div class="val">£148</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="section-lbl">Active trip</div>
-                  <div class="glass trip-row">
-                    <span>Ready to log</span>
-                    <span class="cta">Start trip</span>
-                  </div>
-                  <div class="section-lbl">Instrument readout</div>
-                  <div class="chip-grid">
-                    <div class="chip teal"><div class="t">Avg MPG</div><div class="v">44.1</div></div>
-                    <div class="chip warm"><div class="t">Cost / mi</div><div class="v">14.2p</div></div>
-                    <div class="chip teal"><div class="t">Last tank</div><div class="v">6.1</div></div>
-                    <div class="chip warm"><div class="t">Avg £/L</div><div class="v">1.42</div></div>
-                  </div>
-                </div>
-
-                <!-- FILL-UP -->
-                <div class="screen" id="screen-fillup">
-                  <div class="nav-title">New fill-up</div>
-                  <div class="glass" style="padding: 12px">
-                    <div class="field">
-                      <div class="fl">Odometer</div>
-                      <div class="fi"><span>42318</span><span class="unit">mi</span></div>
-                    </div>
-                    <div class="field">
-                      <div class="fl">Volume</div>
-                      <div class="fi"><span>38.42</span><span class="unit">L</span></div>
-                    </div>
-                    <div class="field">
-                      <div class="fl">Total cost</div>
-                      <div class="fi warm"><span>54.60</span><span class="unit">£</span></div>
-                    </div>
-                    <div class="field">
-                      <div class="fl">Currency</div>
-                      <div class="chips">
-                        <span class="mini-chip on warm">£ GBP</span>
-                        <span class="mini-chip">₹ INR</span>
-                      </div>
-                    </div>
-                    <div class="field">
-                      <div class="fl">Fuel type</div>
-                      <div class="chips">
-                        <span class="mini-chip on">E10</span>
-                        <span class="mini-chip">E5</span>
-                        <span class="mini-chip">Diesel</span>
-                      </div>
-                    </div>
-                    <div class="field">
-                      <div class="fl">Tank</div>
-                      <div class="chips">
-                        <span class="mini-chip on">Full</span>
-                        <span class="mini-chip">Partial</span>
-                      </div>
-                    </div>
-                    <div class="live-strip">
-                      <span>Price/L</span>
-                      <span class="warm">£1.421</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- VEHICLES -->
-                <div class="screen" id="screen-vehicles">
-                  <div class="nav-large">Vehicles</div>
-                  <div class="glass vcard">
-                    <div>
-                      <div class="vn">Golf GTE</div>
-                      <div class="vm">AB12 CDE · Miles · GBP</div>
-                    </div>
-                    <span class="badge">Active</span>
-                  </div>
-                  <div class="glass vcard">
-                    <div>
-                      <div class="vn">Polo</div>
-                      <div class="vm">XY98 ZAB · km · INR</div>
-                    </div>
-                  </div>
-                  <div class="section-lbl">Compliance · Golf GTE</div>
-                  <div class="glass">
-                    <div class="compliance">
-                      <div class="c-pill ok"><div>MOT</div><div class="d">142d</div></div>
-                      <div class="c-pill warn"><div>Tax</div><div class="d">18d</div></div>
-                      <div class="c-pill ok"><div>Ins.</div><div class="d">210d</div></div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- SPEND -->
-                <div class="screen" id="screen-spend">
-                  <div class="nav-large">Spend</div>
-                  <div class="seg">
-                    <span class="on">Car</span>
-                    <span>Personal</span>
-                  </div>
-                  <div class="summary">
-                    <div class="chip warm"><div class="t">This month</div><div class="v">£214</div></div>
-                    <div class="chip warm"><div class="t">Fuel share</div><div class="v">£148</div></div>
-                  </div>
-                  <div class="spend-row">
-                    <div>
-                      <div class="cat">Service</div>
-                      <div class="sub">Yesterday</div>
-                    </div>
-                    <div class="amt">£46.00</div>
-                  </div>
-                  <div class="spend-row">
-                    <div>
-                      <div class="cat">Parking</div>
-                      <div class="sub">Mon</div>
-                    </div>
-                    <div class="amt">£12.50</div>
-                  </div>
-                  <div class="spend-row">
-                    <div>
-                      <div class="cat">Wash</div>
-                      <div class="sub">Sun</div>
-                    </div>
-                    <div class="amt">£8.00</div>
-                  </div>
-                </div>
+            <div class="screens">
+              <div class="screen" id="screen-home">
+                <img src="assets/screens/01-home-top.png" alt="" />
               </div>
-
-              <div class="tabbar" id="tabbar">
-                <div class="tab on" id="tab-home"><div class="dot"></div>Home</div>
-                <div class="tab" id="tab-fuel"><div class="dot"></div>Fuel</div>
-                <div class="tab warm" id="tab-spend"><div class="dot"></div>Spend</div>
-                <div class="tab" id="tab-stations"><div class="dot"></div>Stations</div>
-                <div class="tab" id="tab-more"><div class="dot"></div>More</div>
+              <div class="screen" id="screen-fillup">
+                <img src="assets/screens/03-fillup.png" alt="" />
+              </div>
+              <div class="screen" id="screen-fuel">
+                <img src="assets/screens/04-fuel-log.png" alt="" />
+              </div>
+              <div class="screen" id="screen-spend">
+                <img src="assets/screens/06-spend.png" alt="" />
+              </div>
+              <div class="screen" id="screen-stations">
+                <img src="assets/screens/08-stations-list.png" alt="" />
+              </div>
+              <div class="screen" id="screen-more">
+                <img src="assets/screens/09-more.png" alt="" />
               </div>
             </div>
           </div>
@@ -686,83 +232,49 @@
 
     tl.fromTo(
       "#phone",
-      { opacity: 0, y: 40, scale: 0.94 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power3.out" },
-      0.1,
+      { opacity: 0, y: 36, scale: 0.94 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" },
+      0.08,
     );
     tl.fromTo(
       "#tour-kicker",
       { opacity: 0, y: 10 },
-      { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" },
-      0.2,
+      { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" },
+      0.15,
     );
 
-    // Beat times
     const beats = [
-      { callout: "#callout-home", screen: "#screen-home", tab: "#tab-home", start: 0.35, hold: 3.0 },
-      { callout: "#callout-fillup", screen: "#screen-fillup", tab: "#tab-fuel", start: 3.5, hold: 3.2 },
-      { callout: "#callout-vehicles", screen: "#screen-vehicles", tab: "#tab-more", start: 6.9, hold: 3.2 },
-      { callout: "#callout-spend", screen: "#screen-spend", tab: "#tab-spend", start: 10.3, hold: 3.4 },
+      { callout: "#callout-home", screen: "#screen-home", start: 0.3, hold: 2.7 },
+      { callout: "#callout-fillup", screen: "#screen-fillup", start: 3.1, hold: 2.6 },
+      { callout: "#callout-fuel", screen: "#screen-fuel", start: 5.85, hold: 2.6 },
+      { callout: "#callout-spend", screen: "#screen-spend", start: 8.6, hold: 2.4 },
+      { callout: "#callout-stations", screen: "#screen-stations", start: 11.15, hold: 2.5 },
+      { callout: "#callout-more", screen: "#screen-more", start: 13.8, hold: 2.4 },
     ];
 
-    const tabMeta = {
-      "#tab-home": { color: "#b6e3f0", dot: "#388eab" },
-      "#tab-fuel": { color: "#b6e3f0", dot: "#388eab" },
-      "#tab-spend": { color: "#f6c59a", dot: "#eb8538" },
-      "#tab-stations": { color: "#b6e3f0", dot: "#388eab" },
-      "#tab-more": { color: "#b6e3f0", dot: "#388eab" },
-    };
-    const allTabs = Object.keys(tabMeta);
-
-    function setActiveTab(active, at) {
-      allTabs.forEach((t) => {
-        const on = t === active;
-        const meta = tabMeta[t];
-        tl.to(
-          t,
-          {
-            color: on ? meta.color : "#a8b0ba",
-            duration: 0.2,
-            ease: "power1.out",
-          },
-          at,
-        );
-        tl.to(
-          `${t} .dot`,
-          {
-            backgroundColor: on ? meta.dot : "rgba(238,245,248,0.22)",
-            duration: 0.2,
-            ease: "power1.out",
-          },
-          at,
-        );
-      });
-    }
-
     beats.forEach((b, i) => {
-      const fade = 0.35;
+      const fade = 0.32;
       const end = b.start + b.hold;
       tl.fromTo(
         b.callout,
-        { opacity: 0, y: 18 },
+        { opacity: 0, y: 16 },
         { opacity: 1, y: 0, duration: fade, ease: "power3.out" },
         b.start,
       );
       tl.fromTo(
         b.screen,
-        { opacity: 0, x: 28 },
+        { opacity: 0, x: 24 },
         { opacity: 1, x: 0, duration: fade, ease: "power3.out" },
         b.start,
       );
-      setActiveTab(b.tab, b.start);
       if (i < beats.length - 1) {
         tl.to(b.callout, { opacity: 0, y: -12, duration: fade, ease: "power2.in" }, end - fade);
-        tl.to(b.screen, { opacity: 0, x: -20, duration: fade, ease: "power2.in" }, end - fade);
+        tl.to(b.screen, { opacity: 0, x: -18, duration: fade, ease: "power2.in" }, end - fade);
       }
     });
 
-    tl.to("#tour-kicker", { color: "#f0b27a", duration: 0.25 }, 10.3);
-    tl.to("#tour-content", { opacity: 0, y: -16, duration: 0.35, ease: "power2.in" }, 13.55);
+    tl.to("#tour-kicker", { color: "#f0b27a", duration: 0.2 }, 8.6);
+    tl.to("#tour-content", { opacity: 0, y: -14, duration: 0.32, ease: "power2.in" }, 16.05);
 
     window.__timelines["phone-tour"] = tl;
   </script>

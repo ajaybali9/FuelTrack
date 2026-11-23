@@ -11,3 +11,23 @@ DerivedData/
 .bsp/
 .build/
 .ua/.trash-*/
+.superpowers/
+
+# Local secrets / credentials (never commit)
+.env
+.env.*
+*.pem
+*.p8
+*.p12
+*.mobileprovision
+AuthKey_*.p8
+
+# Marketing build caches & private captures
+marketing/**/.venv*/
+marketing/**/.media/
+marketing/**/.hyperframes/
+marketing/**/.thumbnails/
+marketing/**/node_modules/
+marketing/**/renders/
+marketing/**/assets/screens/raw/
+marketing/fueltrack-explainer/out/
